@@ -8,12 +8,12 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent  # Build paths inside the project like this: BASE_DIR / 'subdir'.
 SECRET_KEY = 'django-insecure-z(g7^uxx3*)@ctru=wvchu5tezwzd3s@0m01rozf=-szc8%_!@'
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.0.100', '127.0.0.1']
 ROOT_URLCONF = 'app-config.urls'
 WSGI_APPLICATION = 'app-config.wsgi.application'
 STATIC_URL = '/static/'  # Static files (CSS, JavaScript, Images) https://docs.djangoproject.com/en/3.2/howto/static-files/
 LANGUAGE_CODE = 'en-us'  # Internationalization https://docs.djangoproject.com/en/3.2/topics/i18n/
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Warsaw'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
@@ -54,8 +54,12 @@ TEMPLATES = [
 
 DATABASES = {  # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'servicedeskapp_db',
+        'USER': 'servicedeskapp_user',
+        'PASSWORD': 'ljJlkgszb5TegkFrEvSQ',
+        'HOST': '192.168.0.100',
+        'PORT': '3306',
     }
 }
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
