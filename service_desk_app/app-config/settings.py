@@ -54,12 +54,12 @@ TEMPLATES = [
 
 DATABASES = {  # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'servicedeskapp_db',
-        'USER': 'servicedeskapp_user',
-        'PASSWORD': 'ljJlkgszb5TegkFrEvSQ',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'service-desk',
+        'USER': 'sd_admin',
+        'PASSWORD': 'NdhsrlBcGYY8mK2sKoy6XSLQR3hFb75giZz',
         'HOST': '192.168.0.100',
-        'PORT': '3306',
+        'PORT': '5432',
     }
 }
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
