@@ -1,4 +1,4 @@
-# app-config URL Configuration
+# config URL Configuration
 #   The `urlpatterns` list routes URLs to views. For more information please see:
 #       https://docs.djangoproject.com/en/3.2/topics/http/urls/
 #   Examples:
@@ -14,8 +14,9 @@
 
 from django.contrib import admin
 from django.urls import path, include
-from sd_app import views
+from app import views
 
-urlpatterns = [path('admin/', admin.site.urls),
-               path('', views.index, name='index'),
-               path('test/', views.test, name='test')]
+urlpatterns = [path('', views.index, name='index'),
+               path('admin/', admin.site.urls),
+               path('test/', views.test, name='test'),
+               path('login/', views.login, name='login')]
