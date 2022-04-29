@@ -1,6 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render, reverse
-from config import settings
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.template.loader import get_template
 
