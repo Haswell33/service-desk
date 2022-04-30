@@ -33,12 +33,12 @@ class Tenant(models.Model):
     id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=255)
     sla = models.ForeignKey(SLA, on_delete=models.CASCADE)
-    workflow_operator = models.ForeignKey(Workflow, on_delete=models.CASCADE, help_text='Workflow scheme for Service Desk space')
-    workflow_developer = models.ForeignKey(Workflow, on_delete=models.CASCADE, help_text='Workflow scheme for Developer space')
-    customers = models.ForeignKey(Group, on_delete=models.DO_NOTHING)
-    operators = models.ForeignKey(Group, on_delete=models.DO_NOTHING)
-    developers = models.ForeignKey(Group, on_delete=models.DO_NOTHING)
-    icon = models.ImageField(path=f'{utils.get_img_path()}/tenants')
+    workflow_operator = models.ForeignKey(Workflow, on_delete=models.CASCADE, related_name='%(class)_workflow_operator', help_text='Workflow scheme for Service Desk space')
+    workflow_developer = models.ForeignKey(Workflow, on_delete=models.CASCADE, related_name='%(class)_workflow_developer', help_text='Workflow scheme for Developer space')
+    customers = models.ForeignKey(Group, related_name='%(class)_customer', on_delete=models.DO_NOTHING)
+    operators = models.ForeignKey(Group, related_name='%(class)_operator', on_delete=models.DO_NOTHING)
+    developers = models.ForeignKey(Group, related_name='%(class)_developer', on_delete=models.DO_NOTHING)
+    icon = models.FilePathField(path=f'{utils.get_img_path()}/tenants')
 
     class Meta:
         db_table = 'tenant'
@@ -130,12 +130,12 @@ class Issue(models.Model):
     type = models.ForeignKey(Type, on_delete=models.CASCADE)
     label = models.ForeignKey(Label, on_delete=models.CASCADE, blank=True)
     reporter = models.ForeignKey(User, on_delete=models.CASCADE)
-    assignee = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
+    assignee = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, related_name='%(class)s_related')
     association = models.ManyToManyField('self', through='IssueAssociation', through_fields=('source_issue', 'dest_issue'))
     comments = models.ManyToManyField(Comment, through='CommentAssociation', through_fields=('issue', 'comment'))
     escalated = models.BooleanField(verbose_name='Escalated', default=False)
     suspended = models.BooleanField(verbose_name='Suspended', default=False)
-    attachments = models.FileField(upload_to=f'{settings.STATIC_URL}/attachments', blank=True)
+    attachments = models.FileField(upload_to=f'uploads/', blank=True)
     created = models.DateTimeField(verbose_name='Created', help_text='Date when issue has been created')
     updated = models.DateTimeField(verbose_name='Updated', blank=True, help_text='Date when issue has been recently changed')
 
@@ -158,8 +158,8 @@ class Issue(models.Model):
 
 
 class IssueAssociation(models.Model):
-    source_issue = models.ForeignKey(Issue, on_delete=models.DO_NOTHING)
-    dest_issue = models.ForeignKey(Issue, on_delete=models.DO_NOTHING)
+    source_issue = models.ForeignKey(Issue, on_delete=models.DO_NOTHING, related_name='%(class)s_related')
+    dest_issue = models.ForeignKey(Issue, on_delete=models.DO_NOTHING, related_name='%(class)s_related')
     type = models.CharField(max_length=50)
 
     class Meta:

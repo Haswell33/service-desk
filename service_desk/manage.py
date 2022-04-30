@@ -4,6 +4,7 @@ import os
 import sys
 import logging
 import config
+from django.conf import settings
 
 
 def main():  # Django command-line utility for administrative tasks
