@@ -4,6 +4,7 @@
 #   Full list of settings and their values https://docs.djangoproject.com/en/3.2/ref/settings/
 #   Quick-start development settings - unsuitable for production https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
+import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent  # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -12,6 +13,7 @@ ALLOWED_HOSTS = ['192.168.0.100', '127.0.0.1']
 ROOT_URLCONF = 'config.urls'
 WSGI_APPLICATION = 'config.wsgi.application'
 STATIC_URL = '/static/'  # Static files (CSS, JavaScript, Images) https://docs.djangoproject.com/en/3.2/howto/static-files/
+STATIC_ROOT = f'{BASE_DIR}/static/global/'
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'logged_out'
@@ -44,6 +46,9 @@ MIDDLEWARE = [
     'crum.CurrentRequestUserMiddleware'
 ]
 
+STATICFILES_DIRS = [
+    f'{BASE_DIR}/static'
+]
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

@@ -9,4 +9,4 @@ def check_if_user_logged(user, curr_page):
 
 
 def get_img_path():
-    return os.path.join(settings.STATIC_URL + 'img', 'images')
+    return os.path.join(settings.STATIC_URL + 'images', 'images')

@@ -1,8 +1,16 @@
 {% extends 'base.html' %}
-
-{% block title %}{{ django|title }} its my title{% endblock %}
-
-{% block content %}
+{% load static %}
+<html lang="en">
+<head>
+  <title>{% block title %}{{ django|title }} - Board{% endblock %}</title>
+</head>
+<body>
+  {% block content %}
   Hi {{ user.username }}!
-  <p><a href="{% url 'logout' %}">Log Out</a></p>
-{% endblock %}
+  <p>
+    <a href="{% url 'logout' %}">Log Out</a>
+  </p>
+  test word
+  {% endblock %}
+</body>
+</html>
