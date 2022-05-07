@@ -1,3 +1,14 @@
 body {
     background: #de87c5;
+    margin: 0;
+}
+
+main {
+    margin: 10px;
+}
+nav {
+    width: 100%;
+    background: #353535;
+    margin: 0;
+    padding: 10px;
 }

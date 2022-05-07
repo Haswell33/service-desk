@@ -1,13 +1,33 @@
-
+<!--#E1E1E1-->
 <!DOCTYPE html>
 <html>
 {% load static %}
 <head>
   <meta charset="utf-8">
   <title>{% block title %}base.html{% endblock %}</title>
-  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
+  <link rel="stylesheet" type="text/css" href="{% static 'styles/style.css' %}"/>
 </head>
 <body>
+  <nav>
+    <div class="navbar-left">
+      <a id="navbar-logo" href="{% url 'home' %}"><img src="{% static 'images/logo.png' %}" alt="Logo site" width="50" height="50"></a>
+      <a id="navbar-create" href="#">Create</a>
+    </div>
+    <div class="navbar-right">
+      <div id="navbar-search" href="#"><img src="{% static 'images/cog.png' %}" alt="Search" width="30" height="30"> Search</div>
+      <ul id="navbar-settings" href="#"><img src="{% static 'images/cog.png' %}" alt="Settings" width="30" height="30">Settings
+        <li><a id="navbar-settings-login" href="{% if next %}{% if user.is_authenticated %}{%{% endif %}"></a></li>
+      </ul>
+    </div>
+  </nav>
+  {% if next %}
+    {% if user.is_authenticated %}
+    <p>Your account doesn't have access to this page. To proceed,
+    please login with an account that has access.</p>
+    {% else %}
+    <p>Please login to see this page.</p>
+    {% endif %}
+{% endif %}
   <main>
     {% block content %}
     {% endblock %}
