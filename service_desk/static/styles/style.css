@@ -1,14 +1,134 @@
+/* Global settings */
+
 body {
-    background: #de87c5;
+    overflow-x: hidden;
+    background: #ffffff;
     margin: 0;
+    color: #e1e1e1;
+    font-family: Lato, sans-serif;
 }
 
 main {
+    color: #353535!important;
     margin: 10px;
 }
+
+a,
+a:visited {
+    color: #e1e1e1;
+    text-decoration: none;
+}
+
+/* Navbar */
+
 nav {
     width: 100%;
     background: #353535;
+    border-bottom: 5px solid #4267B2;
     margin: 0;
-    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+nav div {
+    margin: 0 15px 0 15px;
+}
+
+.navbar-left,
+.navbar-right {
+    display: flex;
+    align-items: center;
+}
+
+/* Navbar - Account */
+
+#navbar-account {
+    position: relative;
+}
+
+#navbar-account img {
+    padding: 5px 10px 5px 10px;
+    transition: 400ms;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#navbar-account img:hover {
+    background: #4f4f4f;
+}
+
+#navbar-account ul {
+    position: fixed;
+    background: #353535;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    margin: 0;
+    list-style: none;
+    top: 59px;
+    right: 25px;
+    padding: 0;
+    transition: 300ms;
+}
+#navbar-account ul > li {
+    border-bottom: 1px solid #5f5f5f;
+    padding: 10px 20px 10px 10px;
+    margin-left: 0;
+}
+
+#navbar-account ul > li:nth-child(2):before {
+
+    width: 17px;
+    height: 17px;
+    background-repeat: no-repeat;
+    background-image: url('../images/cog.png');
+    background-size: 17px 17px;
+    display: inline-block;
+    content:""
+}
+
+#navbar-account ul > li:nth-last-child(1) {
+    border-bottom: none;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+#navbar-account ul > li:hover {
+    background: #4f4f4f
+}
+
+#navbar-account ul > li:nth-child(1):hover {
+    background: #353535;
+}
+
+/* Navbar - Search */
+
+#navbar-search {
+    position: relative;
+}
+
+#navbar-search img {
+    position: absolute;
+    bottom: 9px;
+    left: 15px;
+}
+
+#navbar-search input {
+    width: 180px;
+    height: 23px;
+    font-size: 14px;
+    background: #414141;
+    border: 2px solid #414141;
+    color: #e1e1e1;
+    border-radius: 5px;
+    padding: 5px 5px 5px 40px;
+    box-shadow: none;
+    transition: 300ms;
+}
+
+#navbar-search input:focus {
+    border: 2px solid #6c6c6c;
+    outline-offset: 0;
+    outline: 0;
+    box-shadow: none;
 }

@@ -1,36 +1,62 @@
 <!--#E1E1E1-->
 <!DOCTYPE html>
-<html>
-{% load static %}
+<html lang="en-US">
 <head>
-  <meta charset="utf-8">
-  <title>{% block title %}base.html{% endblock %}</title>
+  {% load static %}
+  <title>{% block title %}Service Desk{% endblock %}</title>
+  <script rel="script" type="text/javascript" src="{% static 'scripts/jquery.js' %}"></script>
+  <script rel="script" type="text/javascript" src="{% static 'scripts/gui.js' %}"></script>
   <link rel="stylesheet" type="text/css" href="{% static 'styles/style.css' %}"/>
+  <!--<link rel="stylesheet" type="text/css" href="{% static 'styles/fonts/Lato' %}"/>-->
+  <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+  <link rel="canonical" href="{{ request.build_absolute_uri }}">
+  <meta charset="utf-8">
+  <meta name="author" content="Karol Siedlaczek">
+  <meta name="description" content="Service Desk App">
+  <meta name="keywords" content="service desk ticket issue project tenant">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
   <nav>
     <div class="navbar-left">
-      <a id="navbar-logo" href="{% url 'home' %}"><img src="{% static 'images/logo.png' %}" alt="Logo site" width="50" height="50"></a>
-      <a id="navbar-create" href="#">Create</a>
+      <div id="navbar-logo">
+        <a href="{% url 'home' %}"><img src="{% static 'images/logo.png' %}" alt="Logo site" width="50" height="50"></a>
+      </div>
+      {% if user.is_authenticated %}
+        <div id="navbar-create">
+          <a href="#">Create</a>
+        </div>
+      {% else %}
+        <p>Welcome!</p>
+      {% endif %}
     </div>
     <div class="navbar-right">
-      <div id="navbar-search" href="#"><img src="{% static 'images/cog.png' %}" alt="Search" width="30" height="30"> Search</div>
-      <ul id="navbar-settings" href="#"><img src="{% static 'images/cog.png' %}" alt="Settings" width="30" height="30">Settings
-        <li><a id="navbar-settings-login" href="{% if next %}{% if user.is_authenticated %}{%{% endif %}"></a></li>
-      </ul>
+      {% if user.is_authenticated %}
+        <div id="navbar-search">
+          <img src="{% static 'images/search.png' %}" alt="Search" width="17" height="17">
+          <input type="text" placeholder="Search ticket...">
+        </div>
+        <div id="navbar-account">
+          <img src="{% static 'images/user.png' %}" alt="Account" width="30" height="30">
+          <ul style="display: none">
+            <li>{{ user.username }}</li>
+            <li>Settings</a></li>
+            <li><a href="{% url 'password_change' %}">Change password</a></li>
+            <li><a href="{% url 'logout' %}">Log Out</a></li>
+          </ul>
+        </div>
+      {% else %}
+        <a id="navbar-login" href="{% url 'login' %}">Log In</a>
+      {% endif %}
     </div>
   </nav>
-  {% if next %}
-    {% if user.is_authenticated %}
-    <p>Your account doesn't have access to this page. To proceed,
-    please login with an account that has access.</p>
-    {% else %}
-    <p>Please login to see this page.</p>
-    {% endif %}
-{% endif %}
   <main>
     {% block content %}
     {% endblock %}
   </main>
+  <footer>
+
+  </footer>
 </body>
 </html>

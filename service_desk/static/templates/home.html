@@ -1,16 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
-<html lang="en">
 <head>
-  <title>{% block title %}{{ django|title }} - Board{% endblock %}</title>
+  <title>{% block title %} {{ block.super }} - Board{% endblock %}</title>
+  <meta http-equiv="refresh" content="60">
 </head>
 <body>
   {% block content %}
-  Hi {{ user.username }}!
-  <p>
-    <a href="{% url 'logout' %}">Log Out</a>
-  </p>
-  test word
+  content
   {% endblock %}
 </body>
-</html>
