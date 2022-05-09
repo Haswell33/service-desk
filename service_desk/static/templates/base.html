@@ -40,14 +40,16 @@
         <div id="navbar-account">
           <img src="{% static 'images/user.png' %}" alt="Account" width="30" height="30">
           <ul style="display: none">
-            <li>{{ user.username }}</li>
-            <li>Settings</a></li>
+            <li>Hi, {{ user.username }}</li>
+            <li>Settings</li>
             <li><a href="{% url 'password_change' %}">Change password</a></li>
             <li><a href="{% url 'logout' %}">Log Out</a></li>
           </ul>
         </div>
       {% else %}
-        <a id="navbar-login" href="{% url 'login' %}">Log In</a>
+        <div id="navbar-login">
+          <a href="{% url 'login' %}">Log In</a>
+        </div>
       {% endif %}
     </div>
   </nav>
