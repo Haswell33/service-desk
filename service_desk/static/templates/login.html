@@ -1,12 +1,22 @@
 {% extends 'base.html' %}
 
-{% block title %}{% endblock %}
+<head>
+  <title>{% block title %} {{ block.super }} | Log In{% endblock %}</title>
+</head>
 
-{% block content %}
-  <h2>Log In</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Log In</button>
-  </form>
-{% endblock %}
+<body>
+  {% block content %}
+    <div id="content-login" class="centered-dialog">
+      <div id="dialog-login">
+        <h2>Log In</h2>
+        <form method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit">Log In</button>
+        </form>
+      </div>
+    </div>
+  {% endblock %}
+</body>
+
+

@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-  <nav>
+  <nav class="main-color-border">
     <div class="navbar-left">
       <div id="navbar-logo">
         <a href="{% url 'home' %}"><img src="{% static 'images/logo.png' %}" alt="Logo site" width="50" height="50"></a>
@@ -40,10 +40,13 @@
         <div id="navbar-account">
           <img src="{% static 'images/user.png' %}" alt="Account" width="30" height="30">
           <ul style="display: none">
-            <li>Hi, {{ user.username }}</li>
-            <li>Settings</li>
-            <li><a href="{% url 'password_change' %}">Change password</a></li>
-            <li><a href="{% url 'logout' %}">Log Out</a></li>
+            <li id="account-username">Hi, {{ user.username }}</li>
+            {% if user.is_superuser %}
+              <li id="account-admin"><a href="{% url 'admin:index' %}">Admin site</a></li>
+            {% endif %}
+            <li id="account-settings"><a href="#">Settings</a></li>
+            <li id="account-password-change"><a href="{% url 'password_change' %}">Change password</a></li>
+            <li id="account-logout"><a href="{% url 'logout' %}">Log Out</a></li>
           </ul>
         </div>
       {% else %}
@@ -58,7 +61,36 @@
     {% endblock %}
   </main>
   <footer>
-
+    <div id="footer-left-content">
+      <p>Karol Siedlaczek &copy; 2022</p>
+    </div>
+    <div id="footer-middle-content">
+      <a href="https://github.com/Haswell33" target="_blank">
+        <img src="{% static '/images/github-gray.png' %}" width="23" height="23">
+      </a>
+    </div>
+    <div id="footer-right-content">
+      <p>Wojskowa Akademia Techniczna</p>
+    </div>
   </footer>
 </body>
 </html>
+
+<script>
+  $(document).ready(function () {
+    console.log('document ready')
+    let userIsAdmin = ('{{user.is_superuser}}' === 'True')
+    let userIsAuth = ('{{user.is_authenticated}}' === 'True')
+    if (userIsAuth){
+      if (userIsAdmin) {
+        colorElems('#4267B2')
+      }
+      else if (!userIsAdmin){
+        colorElems('#288000')
+      }
+    }
+    else if(!userIsAuth){
+      colorElems('#8c8c8c')
+    }
+  })
+</script>

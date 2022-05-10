@@ -2,9 +2,9 @@
 
 body {
     overflow-x: hidden;
-    background: #ffffff;
+    background: #ddd;
     margin: 0;
-    color: #e1e1e1;
+    color: #353535;
     font-family: Lato, sans-serif;
 }
 
@@ -15,9 +15,14 @@ main {
 
 a,
 a:visited {
+    color: #353535;
     vertical-align: middle;
-    color: #e1e1e1;
     text-decoration: none;
+    transition: 200ms;
+}
+
+a:hover {
+
 }
 
 /* Navbar */
@@ -25,11 +30,18 @@ a:visited {
 nav {
     width: 100%;
     background: #353535;
-    border-bottom: 5px solid #4267B2;
+    color: #e1e1e1;
+    border-bottom: 5px solid;
     margin: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+nav a,
+nav a:visited,
+footer a,
+footer a:visited {
+    color: #e1e1e1;
 }
 
 nav div {
@@ -62,23 +74,23 @@ nav div {
 #navbar-account ul {
     position: fixed;
     background: #353535;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
     margin: 0;
     list-style: none;
     top: 59px;
     right: 25px;
     padding: 0;
-    transition: 300ms;
 }
-#navbar-account ul > li {
+#navbar-account ul li {
     border-bottom: 1px solid #5f5f5f;
     padding: 10px 20px 10px 10px;
     display: flex;
+    transition: 200ms;
     margin-left: 0;
 }
 
-#navbar-account ul > li:before {
+#navbar-account li:before {
     content:'';
     width: 25px;
     height: 17px;
@@ -86,30 +98,33 @@ nav div {
     background-size: 17px 17px;
 }
 
-#navbar-account ul > li:nth-child(2):before {
+#account-admin:before{
+    background-image: url('../images/admin.png');
+}
+#account-settings:before{
     background-image: url('../images/cog.png');
 }
 
-#navbar-account ul > li:nth-child(3):before {
+#account-password-change:before {
     background-image: url('../images/lock.png');
 }
 
-#navbar-account ul > li:nth-child(4):before {
+#account-logout:before {
     background-image: url('../images/log-out.png');
 }
 
-#navbar-account ul > li:nth-last-child(1) {
+#navbar-account ul li:nth-last-child(1) {
     border-bottom: none;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
 }
 
-#navbar-account ul > li:hover {
-    background: #4f4f4f
-}
-
-#navbar-account ul > li:nth-child(1):hover {
+#navbar-account ul li:nth-child(1) {
     background: #353535;
+}
+
+#navbar-account ul li:hover {
+    background: #4f4f4f
 }
 
 /* Navbar - Search */
@@ -157,4 +172,89 @@ nav div {
     background-repeat: no-repeat;
     background-size: 17px 17px;
     background-image: url('../images/log-in.png');
+}
+
+/* Footer */
+footer {
+    background: #353535;
+    color: #e1e1e1;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+footer p {
+    margin: 0;
+    font-size: 90%;
+}
+
+#footer-left-content,
+#footer-middle-content,
+#footer-right-content {
+    text-align: center;
+    padding: 5px 30px 5px 30px;
+}
+
+/* Content - Logged out */
+
+#dialog-logged-out {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    line-height: 50px;
+    min-width: 400px;
+    width: 500px;
+}
+
+#dialog-logged-out p {
+    border-radius: 5px;
+    margin: 0;
+    line-height: 1;
+    padding: 10px 15px 10px 15px;
+    border: 1px solid;
+    transition: 400ms;
+}
+
+#dialog-logged-out p:hover a{
+    color: #e1e1e1;
+}
+
+/* Content - Logg In */
+
+#content-login {
+
+}
+
+#dialog-login {
+    border: 1px solid #353535;
+    border-radius: 6px;
+    padding: 20px;
+}
+
+#dialog-login label {
+    display: block;
+}
+
+#dialog-login input {
+    border-radius: 4px;
+    font-size: 120%;
+    padding: 5px 10px 5px 10px;
+}
+/* Classes */
+
+.centered-dialog {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    margin: 0;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }

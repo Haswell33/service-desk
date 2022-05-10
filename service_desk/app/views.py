@@ -10,7 +10,7 @@ from django.template.loader import get_template
 def home(request, template_name='home.html'):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(f'{settings.LOGIN_URL}')
-    return render(request, template_name, {}, status=200)
+    return render(request, template_name, {'test_var': 'hello'}, status=200)
 
 
 def password_change(request, template_name='password-change.html'):

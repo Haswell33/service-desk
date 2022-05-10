@@ -1,7 +1,17 @@
 {% extends 'base.html' %}
-{% block title %}Service Desk | Logged out{% endblock %}
 
-{% block content %}
-<h2>Logged out</h2>
-<p><a href="{% url 'login' %}">Log in again</a></p>
-{% endblock %}
+<head>
+  <title>{% block title %} {{ block.super }} | Logged out{% endblock %}</title>
+</head>
+<body>
+    {% block content %}
+        <div id="content-logged-out" class="centered-dialog">
+            <div id="dialog-logged-out" >
+                <h3>You have sucessfully logged out</h3>
+                <p class="main-color-border main-color-background-hover"><a href="{% url 'login' %}">Log in again</a></p>
+            </div>
+        </div>
+    {% endblock %}
+</body>
+
+
