@@ -1,21 +1,42 @@
 from django.http import HttpResponse, HttpResponseRedirect
+from django.http.cookie import SimpleCookie
 from django.shortcuts import render, reverse
 from django.conf import settings
-from django.contrib.auth.decorators import login_required
-from django.template.loader import get_template
+from app.models import Tenant
+from app.utils import get_user_type
 
-# from .utils import check_if_user_logged
+from django.template.loader import get_template
 
 
 def home(request, template_name='home.html'):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(f'{settings.LOGIN_URL}')
-    return render(request, template_name, {'test_var': 'hello'}, status=200)
+    user_type = get_user_type(request)
+    response = render(request, template_name, {'user_tenant_type': user_type}, status=200)
+    response.set_cookie(key='test', value=user_type)
+    return response
+    # return render(request, template_name, {'user_tenant_type': user_type}, status=200)
 
 
 def password_change(request, template_name='password-change.html'):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(f'{settings.LOGIN_URL}?next={request.path}')
+    '''
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('change_password')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'accounts/change_password.html', {
+        'form': form
+    })
+    '''
     return render(request, template_name, {}, status=200)
 
 
@@ -55,3 +76,8 @@ def test(request):
     #return render(request, template_name, {}, status=201)
 #    return TemplateView(template_name, redirect_authenticated_user)
 
+
+'''
+def change_password(request):
+    
+'''

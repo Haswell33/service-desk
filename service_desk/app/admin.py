@@ -1,10 +1,13 @@
 from django.contrib import admin
+from django.contrib.admin import AdminSite
+from django.contrib.auth.models import Group
 
-# Register your models here.
+#from django.contrib.sites.models import Site
+from app.models import Issue, Tenant, Comment
 
-#from service_desk.app.models import BookInstance
-
-#admin.site.register(Book)
-#admin.site.register(Author)
-#admin.site.register(Genre)
-#admin.site.register(BookInstance)
+# admin.site.unregister(Site)
+admin.site.register(Issue)
+admin.site.register(Tenant)
+admin.site.site_title = 'nowy title'
+admin.site.site_header = 'nowy header'
+# admin.site.unregister(Group)

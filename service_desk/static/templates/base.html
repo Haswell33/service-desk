@@ -79,6 +79,7 @@
 <script>
   $(document).ready(function () {
     console.log('document ready')
+    console.log('{{user_tenant_type}}')
     let userIsAdmin = ('{{user.is_superuser}}' === 'True')
     let userIsAuth = ('{{user.is_authenticated}}' === 'True')
     if (userIsAuth){

@@ -1,3 +1,4 @@
+import os
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator, FileExtensionValidator
 from django.contrib import admin
@@ -6,6 +7,14 @@ from django.conf import settings
 from crum import get_current_user
 from datetime import datetime
 from . import utils
+
+
+GROUP_TYPES = [
+    ('customer', 'Customer'),
+    ('operator', 'Operator'),
+    ('developer', 'Developer')
+]
+Group.add_to_class('type', models.CharField(max_length=25, choices=GROUP_TYPES, blank=True, db_column='type'))
 
 
 class SLA(models.Model):
@@ -40,7 +49,7 @@ class Tenant(models.Model):
     customers_group = models.ForeignKey(Group, related_name='%(class)s_customers_group', blank=True, null=True, on_delete=models.DO_NOTHING)
     operators_group = models.ForeignKey(Group, related_name='%(class)s_operators_group', blank=True, null=True, on_delete=models.DO_NOTHING)
     developers_group = models.ForeignKey(Group, related_name='%(class)s_developers_group', blank=True, null=True, on_delete=models.DO_NOTHING)
-    icon = models.FilePathField(path=f'{utils.get_img_path()}/tenants')
+    icon = models.FilePathField(path=f'{utils.get_img_path()}/tenants/')
 
     class Meta:
         db_table = 'tenant'

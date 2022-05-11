@@ -237,11 +237,11 @@ footer p {
     padding: 20px;
 }
 
-#dialog-login label {
+label {
     display: block;
 }
 
-#dialog-login input {
+input {
     border-radius: 4px;
     font-size: 120%;
     padding: 5px 10px 5px 10px;
