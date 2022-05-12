@@ -225,7 +225,7 @@ footer p {
     color: #e1e1e1;
 }
 
-/* Content - Logg In */
+/* Content - Log In */
 
 #content-login {
 
@@ -248,7 +248,7 @@ input {
 }
 /* Classes */
 
-.centered-dialog {
+.center-subdiv {
     display: flex;
     justify-content: center;
     position: absolute;
@@ -257,4 +257,22 @@ input {
     margin: 0;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+}
+
+/* Icons */
+
+#icon-user {
+    filter: invert(98%) sepia(0%) saturate(2751%) brightness(114%) contrast(76%)
+}
+
+.icon svg{
+    fill: #e1e1e1
+}
+
+.icon:hover svg{
+    fill: red
+}
+
+.testowy svg {
+    fill: mediumvioletred;
 }
