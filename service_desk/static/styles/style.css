@@ -1,28 +1,31 @@
 /* Global settings */
 
+:root {
+    --theme: #4267B2;
+    --icon: #e1e1e1;
+    --font-light: #e1e1e1;
+    --font-dark: #353535;
+    background: #dddddd
+    }
+
 body {
     overflow-x: hidden;
-    background: #ddd;
     margin: 0;
-    color: #353535;
+    color: var(--font-dark);
     font-family: Lato, sans-serif;
 }
 
 main {
-    color: #353535!important;
+    color: var(--font-dark);
     margin: 10px;
 }
 
 a,
 a:visited {
-    color: #353535;
+    color: var(--font-dark);
     vertical-align: middle;
     text-decoration: none;
     transition: 200ms;
-}
-
-a:hover {
-
 }
 
 /* Navbar */
@@ -30,8 +33,7 @@ a:hover {
 nav {
     width: 100%;
     background: #353535;
-    color: #e1e1e1;
-    border-bottom: 5px solid;
+    border-bottom: 5px solid var(--theme);
     margin: 0;
     display: flex;
     align-items: center;
@@ -60,7 +62,7 @@ nav div {
     position: relative;
 }
 
-#navbar-account img {
+#navbar-account svg {
     padding: 5px 10px 5px 10px;
     transition: 400ms;
     cursor: pointer;
@@ -175,6 +177,7 @@ nav div {
 }
 
 /* Footer */
+
 footer {
     background: #353535;
     color: #e1e1e1;
@@ -246,6 +249,7 @@ input {
     font-size: 120%;
     padding: 5px 10px 5px 10px;
 }
+
 /* Classes */
 
 .center-subdiv {
@@ -259,20 +263,11 @@ input {
     transform: translate(-50%, -50%);
 }
 
-/* Icons */
-
-#icon-user {
-    filter: invert(98%) sepia(0%) saturate(2751%) brightness(114%) contrast(76%)
+.icon{
+    fill: var(--icon);
+    transition: 150ms;
 }
 
-.icon svg{
-    fill: #e1e1e1
-}
-
-.icon:hover svg{
-    fill: red
-}
-
-.testowy svg {
-    fill: mediumvioletred;
+.icon:hover{
+    fill: var(--theme);
 }

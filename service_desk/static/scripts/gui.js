@@ -4,7 +4,7 @@ else
     console.log('jQuery loaded')
 
 $(document).on('click', function(event) {
-    if($(event.target).is('#navbar-account > img'))
+    if($(event.target).is('#navbar-account svg') || $(event.target).is('#navbar-account path'))
         $('#navbar-account > ul').toggle()
     else if(!$(event.target).is('#navbar-account > ul') && ($('#navbar-account > ul').is(':visible')))
         $('#navbar-account > ul').hide()
