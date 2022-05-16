@@ -9,7 +9,10 @@
     <div id="content-logged-out" class="center-subdiv">
       <div id="dialog-logged-out" >
         <h3>You have successfully logged out</h3>
-        <p class="main-color-border main-color-background-hover"><a href="{% url 'login' %}">Log in again</a></p>
+        <a href="{% url 'login' %}"><input type="button" value="Log in again"/></a>
+      </div>
+      <div id="footer-logged-out">
+        <p>Service Desk App</p>
       </div>
     </div>
   {% endblock %}
