@@ -102,6 +102,7 @@ input[type=search]:focus {
 /* Navbar and footer*/
 
 nav {
+    padding: 5px 3px 3px 3px;
     width: 100%;
     font-size:  15px;
     height: auto;
@@ -181,7 +182,7 @@ footer p {
     border-bottom-right-radius: 6px;
     margin: 0;
     list-style: none;
-    top: 55px;
+    top: 63px;
     right: 25px;
     padding: 0;
 }
