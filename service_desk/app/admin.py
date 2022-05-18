@@ -8,6 +8,7 @@ from app.models import Issue, Tenant, Comment
 # admin.site.unregister(Site)
 admin.site.register(Issue)
 admin.site.register(Tenant)
+admin.site.register
 admin.site.site_title = 'nowy title'
 admin.site.site_header = 'nowy header'
 # admin.site.unregister(Group)

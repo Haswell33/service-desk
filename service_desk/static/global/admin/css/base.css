@@ -59,7 +59,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --primary: #223f54;
+    --primary: #008df1;
     --primary-fg: #eee;
 
     --body-fg: #eeeeee;
@@ -893,17 +893,7 @@ table#change-history tbody th {
 
 /* HEADER */
 
-#header {
-    width: auto;
-    height: auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 40px;
-    background: var(--header-bg);
-    color: var(--header-color);
-    overflow: hidden;
-}
+
 
 #header a:link, #header a:visited {
     color: var(--header-link-color);

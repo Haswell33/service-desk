@@ -40,6 +40,10 @@ def password_change(request, template_name='password-change.html'):
     return render(request, template_name, {}, status=200)
 
 
+def password_reset(request, template_name='password-reset.html'):
+    return render(request, template_name, {}, status=200)
+
+
 def logged_out(request, template_name='logged-out.html'):
     if request.user.is_authenticated:
         return HttpResponseRedirect(reverse(home))

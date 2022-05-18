@@ -1,21 +1,15 @@
 {% extends 'admin/base.html' %}
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  {% load static %}
+  {% block extrastyle %}{{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'global/admin/css/base.css' %}" />
+  {% endblock %}
 </head>
 <body>
 
-  {% block extrastyle %}{{ block.super }}
-    <style>
-    :root {
-      --primary: invert(98%) sepia(0%) saturate(2751%) brightness(114%) contrast(76%);
-      --secondary: #785cab;
-      --link-fg: #7c449b;
-      --link-selected-fg: #8f5bb2;
-    }
-    </style>
-{% endblock %}
+
 
 </body>
 </html>

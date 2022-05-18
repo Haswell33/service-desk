@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+
 <head>
-    <meta charset="UTF-8">
-    <title>400</title>
+    <title>{% block title %} {{ block.super }} | Bad request{% endblock %}</title>
 </head>
+
 <body>
     <h1>Bad Request - 400</h1>
 </body>
-</html>
