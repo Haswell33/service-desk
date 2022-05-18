@@ -13,7 +13,7 @@ ALLOWED_HOSTS = ['192.168.0.100', '127.0.0.1']
 ROOT_URLCONF = 'config.urls'
 WSGI_APPLICATION = 'config.wsgi.application'
 STATIC_URL = '/static/'  # Static files (CSS, JavaScript, Images) https://docs.djangoproject.com/en/3.2/howto/static-files/
-STATIC_ROOT = f'{BASE_DIR}/static/global/'
+STATIC_ROOT = f'{BASE_DIR}/static/'
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'logged_out'
@@ -47,12 +47,12 @@ MIDDLEWARE = [
 ]
 
 STATICFILES_DIRS = [
-    f'{BASE_DIR}/static'
+    f'{BASE_DIR}/static/custom'
 ]
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [f'{BASE_DIR}/static/templates/'],
+        'DIRS': [f'{BASE_DIR}/static/custom/templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

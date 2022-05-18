@@ -59,7 +59,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --primary: #008df1;
+    --primary: #264b5d;
     --primary-fg: #eee;
 
     --body-fg: #eeeeee;

@@ -39,6 +39,8 @@ label {
 }
 
 input {
+    font-family: Lato, sans-serif;
+    margin: 0;
     border-radius: 5px;
     font-size: 115%;
 }
@@ -101,6 +103,7 @@ input[type=search]:focus {
 
 nav {
     width: 100%;
+    font-size:  15px;
     height: auto;
     background: var(--elem-dark);
     border-bottom: 5px solid var(--theme);
@@ -178,7 +181,7 @@ footer p {
     border-bottom-right-radius: 6px;
     margin: 0;
     list-style: none;
-    top: 59px;
+    top: 55px;
     right: 25px;
     padding: 0;
 }
@@ -319,3 +322,25 @@ footer p {
 .icon:hover{
     fill: var(--theme);
 }
+
+/* Override base.css */
+
+#content h1 {
+    flex: 0 0 100%
+}
+
+#recent-actions-module {
+    /*position: fixed;*/
+    display: inline-block;
+    background: var(--elem-light);
+    border-left: 1px solid var(--elem-dark);
+    /*top: 55px;
+    right: 0;*/
+    width: 200px;
+    height: 100%;
+}
+
+
+
+
+

@@ -1,0 +1,83 @@
+{% extends 'admin/base.html' %}
+
+<head>
+    <title>test</title>
+</head>
+
+<body>
+    {% block extrastyle %}{{ block.super }}
+        <style>
+            :root {
+                --body-bg: var(--elem-light);
+                --primary: var(--elem-dark);
+                --link-fg: var(--theme);
+            }
+            #header
+            {
+                display: block;
+                background: none;
+                padding: 0;
+            }
+            .dashboard #content {
+                width: inherit;
+            }
+            #header a:focus,
+            #header a:hover {
+                text-decoration: none;
+            }
+            #content-related .module h2,
+            #content-related .module h3{
+                color: var(--elem-dark)
+            }
+            h1,
+            #changelist .paginator {
+                color: var(--elem-dark)
+            }
+            li, dt, dd {
+                font-size: inherit;
+                line-height: inherit;
+            }
+            #content-related {
+                margin-right: 0;
+                background: var(--elem-light);
+                float: inherit;
+            }
+            #content {
+                padding: 0;
+                display: flex;
+                flex-wrap: wrap;
+            }
+            .main > .content {
+                flex: none
+            }
+            #container > .main {
+                display: inline-block;
+            }
+            .colMS{
+                margin-right: 0;
+            }
+            @media (max-width: 1024px) {
+                #header {
+                    display: block;
+                    background: none;
+                    padding: 0;
+                }
+            }
+        </style>
+    {% endblock %}
+    <div id="header">
+        {% block header %}
+        {% endblock %}
+        <div id="branding">
+            {% block branding %}{% endblock %}
+        </div>
+        <div id="user-tools">
+            {% block usertools %}{% endblock %}
+        </div>
+    {% block nav-global %}{% include 'base.html' %}{% endblock %}
+    </div>
+</body>
+
+
+
+
