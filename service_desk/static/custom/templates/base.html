@@ -94,14 +94,23 @@
     let userIsAuth = ('{{user.is_authenticated}}' === 'True')
     if (userIsAuth){
       if (userIsAdmin) {
-        $(':root').css('--theme', '#4267B2')
+        $(':root').css({
+          '--theme': '#4267B2',
+          '--theme-transparent': 'rgba(66, 103, 178, 0.6)'
+        })
       }
       else if (!userIsAdmin){
-        $(':root').css('--theme', '#288000')
+        $(':root').css({
+          '--theme': '#288000',
+          '--theme-transparent': 'rgba(40, 128, 0, 0.6)'
+        })
       }
     }
     else if(!userIsAuth){
-      $(':root').css('--theme', '#777777')
+      $(':root').css({
+        '--theme': '#777777',
+        '--theme-transparent': 'rgba(119, 119, 119, 0.6)'
+      })
     }
   })
 </script>

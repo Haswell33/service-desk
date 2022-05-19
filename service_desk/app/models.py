@@ -26,6 +26,7 @@ class SLA(models.Model):
 
     class Meta:
         db_table = 'tenant_sla'
+        verbose_name_plural = "SLA's"
         ordering = ['id']
 
 
@@ -36,6 +37,7 @@ class Workflow(models.Model):
 
     class Meta:
         db_table = 'tenant_workflow'
+        verbose_name_plural = 'Workflows'
 
 
 class Tenant(models.Model):
@@ -53,6 +55,7 @@ class Tenant(models.Model):
 
     class Meta:
         db_table = 'tenant'
+        verbose_name_plural = 'Tenants'
         ordering = ['id']
 
     def save(self, *args, **kwargs):
@@ -68,6 +71,7 @@ class Priority(models.Model):
 
     class Meta:
         db_table = 'issue_priority'
+        verbose_name_plural = 'Issue priorities'
         ordering = ['id']
 
 
@@ -80,6 +84,7 @@ class Status(models.Model):
 
     class Meta:
         db_table = 'issue_status'
+        verbose_name_plural = 'Issue statuses'
         ordering = ['id']
 
 
@@ -90,6 +95,7 @@ class Resolution(models.Model):
 
     class Meta:
         db_table = 'issue_resolution'
+        verbose_name_plural = 'Issue resolutions'
         ordering = ['id']
 
 
@@ -102,6 +108,7 @@ class Type(models.Model):
 
     class Meta:
         db_table = 'issue_type'
+        verbose_name_plural = 'Issue types'
         ordering = ['id']
 
 
@@ -112,6 +119,7 @@ class Label(models.Model):
 
     class Meta:
         db_table = 'issue_label'
+        verbose_name_plural = 'Issue labels'
         ordering = ['id']
 
 
@@ -181,8 +189,8 @@ class Issue(models.Model):
 
     class Meta:
         db_table = 'issue'
-        # verbose_name = 'issue'
-        # verbose_name_plural = 'issues'
+        verbose_name = 'Issue'
+        verbose_name_plural = 'Issues'
         ordering = ['id']
 
     def save(self, *args, **kwargs):

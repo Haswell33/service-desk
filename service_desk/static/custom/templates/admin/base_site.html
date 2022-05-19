@@ -1,6 +1,7 @@
 {% extends 'admin/base.html' %}
 
 <head>
+    { % load static % }
     <title>test</title>
 </head>
 
@@ -11,10 +12,14 @@
                 --body-bg: var(--elem-light);
                 --primary: var(--elem-dark);
                 --link-fg: var(--theme);
+                --darkened-bg: var(--elem-light);
+                --hairline-color: var(--elem-light-third);
+                --body-quiet-color: var(--elem-dark)
+                font-family: Lato, sans-serif;
             }
             #header
             {
-                display: block;
+                display: -webkit-inline-box;
                 background: none;
                 padding: 0;
             }
@@ -25,9 +30,22 @@
             #header a:hover {
                 text-decoration: none;
             }
-            #content-related .module h2,
+            #content-main {
+                width: 85%;
+            }
+            #content-related .module h2 {
+                border-bottom: 1px solid var(--elem-light-third);
+                background: var(--elem-light-secondary);
+                color: var(--elem-light)
+            }
+
             #content-related .module h3{
-                color: var(--elem-dark)
+                color: var(--elem-dark);
+            }
+
+            .module {
+                border: 1px solid var(--elem-light-third);
+                border-radius: 5px;
             }
             h1,
             #changelist .paginator {
@@ -37,15 +55,28 @@
                 font-size: inherit;
                 line-height: inherit;
             }
+
             #content-related {
+                width:calc(15% - 10px);
+                margin-left: 10px;
                 margin-right: 0;
                 background: var(--elem-light);
                 float: inherit;
             }
+
+            #content-related .actionlist {
+                margin: 0;
+            }
+
             #content {
-                padding: 0;
+                padding: 10px;
                 display: flex;
                 flex-wrap: wrap;
+            }
+            #content > h1 {
+                border-bottom: 1px solid var(--elem-light-third);
+                padding: 10px 0;
+                font-weight: 500;
             }
             .main > .content {
                 flex: none
@@ -55,6 +86,50 @@
             }
             .colMS{
                 margin-right: 0;
+            }
+
+            .module caption {
+                font-size: 13px;
+            }
+
+            .module h2, .module caption, .inline-group h2 {
+                background: var(--elem-light-secondary);
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
+                padding: 12px 8px;
+                border-bottom: 1px solid var(--elem-light-third);
+                color: var(--elem-dark)
+            }
+
+            a:link {
+                color: var(--elem-dark)
+            }
+            a.section:link,
+            a.section:visited {
+                color: var(--elem-light);
+            }
+
+            tr:nth-child(even),
+            tr:nth-child(odd) {
+                background: none;
+            }
+
+            tr:not(:last-child){
+                border-bottom: 1px solid var(--elem-light-third)
+            }
+            #content-main tr {
+                transition: 400ms;
+            }
+            #content-main tr:hover{
+                background: var(--theme-transparent);
+            }
+            td, th {
+                border-bottom: none;
+            }
+            th a:hover,
+            td a:hover,
+            li a:hover {
+                color: var(--elem-light)
             }
             @media (max-width: 1024px) {
                 #header {

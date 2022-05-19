@@ -2,6 +2,7 @@
 
 :root {
     --theme: #4267B2;
+    --theme-transparent: rgba(66, 103, 178, 0.6);
     --elem-dark: #353535;
     --elem-dark-secondary: #4f4f4f;
     --elem-dark-third: #484848;
@@ -332,13 +333,45 @@ footer p {
 
 #recent-actions-module {
     /*position: fixed;*/
-    display: inline-block;
+    display: block;
     background: var(--elem-light);
-    border-left: 1px solid var(--elem-dark);
+    border: 1px solid var(--elem-light-third);
+    border-radius: 5px;
     /*top: 55px;
     right: 0;*/
-    width: 200px;
     height: 100%;
+}
+#recent-actions-module > ul {
+    padding-left: 20px!important;
+    padding-right: 20px!important;
+}
+
+#recent-actions-module > ul > li {
+    padding: 5px;
+    border-radius: 5px;
+    transition: 400ms;
+}
+
+#recent-actions-module > ul > li:hover {
+    background: var(--theme-transparent);
+}
+
+#recent-actions-module .addlink,
+#recent-actions-module .changelink {
+    background-position: 0 5px;
+    z-index: 500;
+}
+.addlink:before {
+    content:'';
+    width: 25px;
+    height: 17px;
+    background-repeat: no-repeat;
+    background-size: 17px 17px;
+    background-image: url('../images/logo.png')
+}
+
+#recent-actions-module > h2 {
+    border-bottom: 1px solid var(--elem-light-third)
 }
 
 
