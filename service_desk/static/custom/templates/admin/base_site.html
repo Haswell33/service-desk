@@ -13,7 +13,12 @@
                 --link-fg: var(--theme);
                 --darkened-bg: var(--elem-light);
                 --hairline-color: var(--elem-light-third);
-                --body-quiet-color: var(--elem-dark)
+                --body-quiet-color: var(--elem-dark);
+                --message-error-bg: var(--msg-error);
+                --breadcrumbs-bg: var(--elem-dark-third);
+                --breadcrumbs-fg: var(--elem-light);
+                --object-tools-bg: var(--elem-light-secondary);
+                --object-tools-fg: var(--elem-light);
                 font-family: Lato, sans-serif;
             }
             #header
@@ -22,6 +27,19 @@
                 background: none;
                 padding: 0;
             }
+
+            div.breadcrumbs {
+                padding: 5px 40px;
+            }
+
+            #nav-filter {
+                border: none;
+                margin: 0;
+                color: var(--elem-dark);
+                padding: 15px 15px 10px 15px;
+                border-radius: 0
+            }
+
             .dashboard #content {
                 width: inherit;
             }
@@ -165,8 +183,6 @@
         </style>
     {% endblock %}
     <div id="header">
-        {% block header %}
-        {% endblock %}
         <div id="branding">
             {% block branding %}{% endblock %}
         </div>

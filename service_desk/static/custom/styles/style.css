@@ -3,6 +3,7 @@
 :root {
     --theme: #4267B2;
     --theme-transparent: rgba(66, 103, 178, 0.6);
+    --msg-error: #fd8c8c;
     --elem-dark: #353535;
     --elem-dark-secondary: #4f4f4f;
     --elem-dark-third: #484848;
@@ -53,7 +54,7 @@ input:not([type=button]) {
 }
 
 input[type=button],
-input[type=submit] {
+input[type=submit]{
     box-shadow: none;
     outline: none;
     line-height: 1;
@@ -122,6 +123,8 @@ nav:not(#nav-sidebar) {
 nav,
 nav > a,
 nav > a:visited,
+nav > div > div > ul  a,
+nav > div > div > ul a:visited,
 footer,
 footer a,
 footer a:visited {
@@ -417,6 +420,69 @@ footer p {
 
 #recent-actions-module > h2 {
     border-bottom: 1px solid var(--elem-light-third)
+}
+
+.object-tools {
+    margin-top: -65px;
+}
+
+.object-tools a {
+    border-radius: 5px;
+    transition: 200ms ease-in-out;
+}
+
+.object-tools a:link, .object-tools a:visited {
+    padding: 10px 10px 10px 25px;
+    font-weight: 700;
+}
+
+.object-tools a:hover {
+    background-color: var(--theme);
+}
+
+.object-tools a.addlink {
+    background-position: left 7px center;
+}
+
+label.required {
+    color: var(--elem-dark)
+}
+
+.aligned label {
+    float: none;
+}
+
+form#status_form input[type=text] {
+    width: 60%;
+    box-sizing: border-box;
+}
+
+fieldset.module {
+    margin-bottom: 0;
+    padding: 20px 0px 20px 20px;
+
+}
+
+.form-row {
+    overflow: inherit;
+}
+
+.submit-row {
+    border: none;
+    display: flex;
+    padding: 20px 0px 20px 20px;
+    flex-direction: column;
+}
+
+/*.submit-row input[type=submit]:nth-child(1)*/
+.submit-row input.default{
+    flex: 0 0 100%;
+    margin: 0;
+}
+
+.submit-row input {
+    margin: 0;
+
 }
 
 
