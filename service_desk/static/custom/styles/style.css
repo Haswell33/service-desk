@@ -102,7 +102,7 @@ input[type=search]:focus {
 
 /* Navbar and footer*/
 
-nav {
+nav:not(#nav-sidebar) {
     padding: 5px 3px 3px 3px;
     width: 100%;
     font-size:  15px;
@@ -120,8 +120,8 @@ nav {
 }
 
 nav,
-nav a,
-nav a:visited,
+nav > a,
+nav > a:visited,
 footer,
 footer a,
 footer a:visited {
@@ -325,8 +325,53 @@ footer p {
     fill: var(--theme);
 }
 
-/* Override base.css */
+/* Override base.css Admin Page*/
 
+#nav-sidebar {
+    width: 25%;
+    left: -328px!important;
+    margin-left: -328px;
+    flex: 0 0 328px;
+    border-top: none;
+    border-right: 1px solid var(--elem-light-third);
+    border-left: none;
+    transition: 300ms;
+}
+
+#nav-sidebar div {
+    margin: 0;
+}
+
+#nav-sidebar caption{
+    border-radius: 0;
+    border: none;
+}
+
+#nav-sidebar table > caption > a,
+#nav-sidebar table > caption > a:visited{
+    color: var(--elem-light)!important;
+}
+
+#nav-sidebar .module {
+    border-radius: 0;
+    border: none;
+}
+
+.toggle-nav-sidebar {
+    background: var(--elem-light-secondary);
+    border-right: none;
+    color: var(--elem-light);
+    transition: 300ms;
+}
+
+.toggle-nav-sidebar:focus,
+.toggle-nav-sidebar:active {
+   background: var(--elem-light-secondary);
+}
+
+.toggle-nav-sidebar:hover {
+    background: var(--elem-dark-secondary)
+}
 #content h1 {
     flex: 0 0 100%
 }

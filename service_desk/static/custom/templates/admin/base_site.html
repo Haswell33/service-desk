@@ -2,7 +2,6 @@
 
 <head>
     { % load static % }
-    <title>test</title>
 </head>
 
 <body>
@@ -30,7 +29,7 @@
             #header a:hover {
                 text-decoration: none;
             }
-            #content-main {
+            .dashboard #content #content-main {
                 width: 85%;
             }
             #content-related .module h2 {
@@ -43,9 +42,18 @@
                 color: var(--elem-dark);
             }
 
+            .app-app .content {
+                transition: 300ms;
+            }
+            .app-app .module {
+                border: none;
+            }
             .module {
                 border: 1px solid var(--elem-light-third);
                 border-radius: 5px;
+            }
+            .paginator{
+                width: inherit!important;
             }
             h1,
             #changelist .paginator {
@@ -78,12 +86,12 @@
                 padding: 10px 0;
                 font-weight: 500;
             }
-            .main > .content {
+            /*.main > .content {
                 flex: none
             }
             #container > .main {
                 display: inline-block;
-            }
+            }*/
             .colMS{
                 margin-right: 0;
             }
@@ -131,6 +139,22 @@
             li a:hover {
                 color: var(--elem-light)
             }
+            #nav-sidebar .current-model {
+                background: var(--theme);
+            }
+
+            #nav-sidebar table > tbody > tr.current-model a {
+                color: var(--elem-light)
+            }
+
+            #nav-sidebar table > tbody > tr:not(.current-model) {
+                transition: 300ms
+            }
+
+            #nav-sidebar table > tbody > tr:not(.current-model):hover {
+                background: var(--elem-light-third)
+            }
+
             @media (max-width: 1024px) {
                 #header {
                     display: block;
