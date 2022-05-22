@@ -36,5 +36,5 @@ urlpatterns = [
     path('logged-out/', views.logged_out, name='logged_out'),
     path('admin/', admin.site.urls),
     path('test/', views.test, name='test')] \
-              # + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+        + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
                # path('login/', views.login, name='login'),

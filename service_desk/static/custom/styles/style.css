@@ -1,9 +1,8 @@
 /* Global settings */
-
 :root {
     --theme: #4267B2;
     --theme-transparent: rgba(66, 103, 178, 0.6);
-    --msg-error: #fd8c8c;
+
     --elem-dark: #353535;
     --elem-dark-secondary: #4f4f4f;
     --elem-dark-third: #484848;
@@ -11,6 +10,17 @@
     --elem-light-secondary: #656565;
     --elem-light-third: #b9b9b9;
     --elem-light-filter: invert(100%) sepia(0%) saturate(7465%) hue-rotate(41deg) brightness(130%) contrast(76%);
+
+    --error-bg: #f2dede;
+    --error-fg: #a94442;
+    --error-border: #ebccd1;
+    /*--error-border: #ebccd1;*/
+
+    --success-bg: #dff0d8;
+    --success-fg: #3c763d;
+    --success-border: #d6e9c6;
+
+    --background: #ddd;
     background: #dddddd;
     box-sizing: border-box;
 }
@@ -54,7 +64,9 @@ input:not([type=button]) {
 }
 
 input[type=button],
-input[type=submit]{
+input[type=submit],
+button.button,
+.button {
     box-shadow: none;
     outline: none;
     line-height: 1;
@@ -69,6 +81,12 @@ input[type=submit]{
 
 input[type=submit] {
     width: 100%
+}
+
+input[type=checkbox] {
+    cursor: pointer;
+    padding: 7px 0;
+    width: 33px;
 }
 
 input[type=search] {
@@ -419,11 +437,13 @@ footer p {
 }
 
 #recent-actions-module > h2 {
-    border-bottom: 1px solid var(--elem-light-third)
+    border-bottom: 1px solid var(--elem-light-third);
+    text-transform: uppercase;
+    font-size: 12px;
 }
 
 .object-tools {
-    margin-top: -65px;
+    margin-top: -46px;
 }
 
 .object-tools a {
@@ -431,9 +451,19 @@ footer p {
     transition: 200ms ease-in-out;
 }
 
+.app-auth .object-tools {
+    margin-top: -66px;
+}
+
 .object-tools a:link, .object-tools a:visited {
     padding: 10px 10px 10px 25px;
     font-weight: 700;
+}
+
+.object-tools a:link.historylink,
+.object-tools a:visited.historylink {
+    padding: 10px 10px 10px 10px;
+    margin-top: -44px;
 }
 
 .object-tools a:hover {
@@ -459,7 +489,7 @@ form#status_form input[type=text] {
 
 fieldset.module {
     margin-bottom: 0;
-    padding: 20px 0px 20px 20px;
+    padding: 20px 0 20px 20px;
 
 }
 
@@ -470,22 +500,201 @@ fieldset.module {
 .submit-row {
     border: none;
     display: flex;
-    padding: 20px 0px 20px 20px;
-    flex-direction: column;
+    padding: 0 0 20px 20px;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
 /*.submit-row input[type=submit]:nth-child(1)*/
 .submit-row input.default{
+    /*flex: 0 0 100%;*/
+    background: var(--elem-light-secondary);
+    color: var(--elem-light)
+}
+
+.submit-row input.default:hover {
+    background: var(--theme);
+}
+
+#changelist .actions{
+    padding: 15px 10px 15px 0;
+}
+
+#changelist table input {
+    vertical-align: middle;
+}
+
+#changelist .actions .button{
+    color: var(--elem-light);
+    padding: 0 15px;
+    background: var(--object-tools-bg);
+    transition: 300ms;
+    text-transform: uppercase;
+    border: none;
+    font-weight: 700;
+}
+
+#changelist .actions .button:hover {
+    background: var(--theme);
+    border: none;
+}
+
+#changelist-filter {
+    border: 1px solid  var(--elem-light-third);
+    border-radius: 5px;
+}
+
+#changelist-filter h2 {
+    color: var(--elem-light);
+    font-weight: 700;
+}
+
+#changelist table tbody tr.selected {
+    color: var(--elem-light);
+    background-color: var(--theme)
+}
+.selected a {
+    color: var(--elem-light);
+}
+
+form .aligned div.help,
+.errorlist{
+    margin-left: 0!important;
+    padding: 5px 0 0 0 !important;
+}
+
+ul.messagelist li {
+    padding: 14px 10px 10px 65px;
+}
+
+/*.success,
+.success a,
+.success a:hover {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 21321414341213;
+    color: var(--success-fg)!important;
+    background-color: var(--success-bg)!important;
+    border-color: var(--success-fg);
+}*/
+
+.errornote,
+.errornote a,
+.errornote a:hover {
+    position: fixed;
+    right: 10px;
+    top: 155px;
+    z-index: 9999;
+    color: var(--error-fg) !important;
+    background-color: var(--error-bg) !important;
+    border-color: var(--error-fg);
+}
+
+#toolbar {
+    display: flex;
+    border-top: 0;
+    margin-bottom: 0;
+    padding: 0 0 20px 0;
+}
+
+#toolbar #searchbar {
+    padding: 5px 10px 5px 30px;
+    font-size: 15px;
+}
+
+#toolbar form input[type="submit"] {
+    box-shadow: none;
+    margin-left: 5px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--elem-light);
+    background: var(--object-tools-bg);
+    transition: 300ms;
+    border: none;
+}
+
+#toolbar form input[type="submit"]:hover {
+    background: var(--theme)
+}
+
+#toolbar > form#changelist-search > div {
+    display: flex;
+}
+
+#toolbar label > img {
     flex: 0 0 100%;
-    margin: 0;
+    position: relative;
+    left: 5px;
+    top: 4px;
+    width: 20px;
+    height: 20px;
+    z-index: 1111111111;
 }
 
-.submit-row input {
-    margin: 0;
-
+#toolbar label {
+    position: fixed;
 }
 
+div.results {
+    border-top: 1px solid var(--elem-light-third);
+}
+table#result_list {
+    border: 1px solid var(--elem-light-third);
+    border-radius: 5px;
+    margin-top: 15px;
+}
 
+#result_list > thead > tr > th,
+#result_list > thead > tr > th a{
+    background: var(--elem-light-secondary);
+    color: var(--elem-light);
+    font-weight: 600;
+    transition: 300ms;
+}
 
+#result_list > thead > tr > th:not(.sorted):hover,
+#result_list > thead > tr > th:not(.sorted) a:hover {
+    -webkit-filter: brightness(108%);
+}
 
+#result_list > thead > tr > th.sorted {
+    -webkit-filter: brightness(115%);
+}
 
+.dashboard tr:not(:last-child){
+    border-bottom: 1px solid var(--elem-light-third)
+}
+
+.app-app tr,
+.change-list tr{
+    border-bottom: 1px solid var(--elem-light-third)
+}
+
+.paginator {
+    display: none
+}
+
+fieldset.module > div {
+    display: grid;
+}
+
+#user_form > div > fieldset {
+    padding: 0!important;
+    border-bottom: none;
+}
+
+#user_form > div > fieldset > .form-row {
+    border-bottom: none;
+}
+
+fieldset h2 {
+    font-weight: 600!important;
+    text-transform: uppercase;
+    color: var(--elem-light)!important;
+    border-radius: 0!important;
+    padding: 10px 0px 6px 10px!important
+}
+
+fieldset .module {
+}

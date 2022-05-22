@@ -10,14 +10,20 @@ $(document).on('click', function(event) {
         $('#navbar-account > ul').hide()
 })
 
-function colorElems(mainColor){
+setTimeout(function(){
+   $('.errornote').fadeOut()
+//   //$('.success').fadeOut()
+}, 5000);
+
+
+/*function colorElems(mainColor){
     $('.main-color-border').css('border-color', mainColor)
     $('.main-color-background-hover').hover(function(){
         $(this).css("background-color", mainColor)
     },function() {
         $(this).css("background-color", 'inherit')
     })
-}
+}*/
 
 /*window.onload = function() {
     $(function(){

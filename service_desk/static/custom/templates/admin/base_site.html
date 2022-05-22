@@ -8,17 +8,21 @@
     {% block extrastyle %}{{ block.super }}
         <style>
             :root {
-                --body-bg: var(--elem-light);
                 --primary: var(--elem-dark);
+                --body-bg: var(--elem-light);
+                --body-fg: var(--elem-dark);
                 --link-fg: var(--theme);
                 --darkened-bg: var(--elem-light);
                 --hairline-color: var(--elem-light-third);
                 --body-quiet-color: var(--elem-dark);
-                --message-error-bg: var(--msg-error);
+                --message-error-bg: var(--error-bg);
                 --breadcrumbs-bg: var(--elem-dark-third);
                 --breadcrumbs-fg: var(--elem-light);
                 --object-tools-bg: var(--elem-light-secondary);
                 --object-tools-fg: var(--elem-light);
+                --selected-bg: var(--theme);
+                --selected-row: var(--theme);
+                --border-color: var(--elem-light-third);
                 font-family: Lato, sans-serif;
             }
             #header
@@ -52,6 +56,10 @@
             }
             #content-related .module h2 {
                 border-bottom: 1px solid var(--elem-light-third);
+                font-size: 14px;
+                padding: 12px 8px;
+                font-weight: 600;
+                letter-spacing: 0.9px;
                 background: var(--elem-light-secondary);
                 color: var(--elem-light)
             }
@@ -60,13 +68,14 @@
                 color: var(--elem-dark);
             }
 
-            .app-app .content {
+            .app-app .content,
+            .app-auth .content{
                 transition: 300ms;
             }
             .app-app .module {
                 border: none;
             }
-            .module {
+            .dashboard .module {
                 border: 1px solid var(--elem-light-third);
                 border-radius: 5px;
             }
@@ -100,9 +109,14 @@
                 flex-wrap: wrap;
             }
             #content > h1 {
-                border-bottom: 1px solid var(--elem-light-third);
+                border-bottom: 1.5px solid var(--elem-light-third);
                 padding: 10px 0;
                 font-weight: 500;
+            }
+
+            .app-app #content >h1 {
+
+                margin-bottom: 0;
             }
             /*.main > .content {
                 flex: none
@@ -140,9 +154,6 @@
                 background: none;
             }
 
-            tr:not(:last-child){
-                border-bottom: 1px solid var(--elem-light-third)
-            }
             #content-main tr {
                 transition: 400ms;
             }

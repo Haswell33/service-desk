@@ -5,6 +5,7 @@ from django.contrib import admin
 from django.contrib.auth.models import User, Group
 from django.conf import settings
 from crum import get_current_user
+from django.utils.html import format_html
 from datetime import datetime
 from . import utils
 
@@ -14,6 +15,18 @@ GROUP_TYPES = [
     ('operator', 'Operator'),
     ('developer', 'Developer')
 ]
+
+TYPES = [
+    ('SD', 'Service Desk'),
+    ('software', 'Software')
+]
+
+STATUS_COLOR_TYPES = [
+    ('SD', 'Beginning'),
+    ('Software', 'Progress'),
+    ('', 'Finalization')
+]
+
 Group.add_to_class('type', models.CharField(max_length=25, choices=GROUP_TYPES, blank=True, db_column='type'))
 
 
@@ -26,6 +39,7 @@ class SLA(models.Model):
 
     class Meta:
         db_table = 'tenant_sla'
+        verbose_name = 'SLA'
         verbose_name_plural = "SLA's"
         ordering = ['id']
 
@@ -37,7 +51,8 @@ class Workflow(models.Model):
 
     class Meta:
         db_table = 'tenant_workflow'
-        verbose_name_plural = 'Workflows'
+        verbose_name = 'workflow'
+        verbose_name_plural = 'workflows'
 
 
 class Tenant(models.Model):
@@ -55,7 +70,8 @@ class Tenant(models.Model):
 
     class Meta:
         db_table = 'tenant'
-        verbose_name_plural = 'Tenants'
+        verbose_name = 'tenant'
+        verbose_name_plural = 'tenants'
         ordering = ['id']
 
     def save(self, *args, **kwargs):
@@ -66,60 +82,64 @@ class Tenant(models.Model):
 class Priority(models.Model):
     id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=50, unique=True)
-    description = models.CharField(max_length=255, blank=True, null=True)
+    description = models.TextField(verbose_name='Description', blank=True, null=True)
     icon = models.FilePathField(path=f'{utils.get_img_path()}/priorities')
 
     class Meta:
         db_table = 'issue_priority'
-        verbose_name_plural = 'Issue priorities'
+        verbose_name = 'priority'
+        verbose_name_plural = 'priorities'
         ordering = ['id']
 
 
 class Status(models.Model):
     id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=50, unique=True)
-    type = models.TextChoices('Type', 'ServiceDesk Software')
-    description = models.CharField(max_length=255, blank=True, null=True)
+    type = models.CharField(max_length=50, choices=TYPES, name='status_type', null=True, verbose_name='Type')
+    description = models.TextField(verbose_name='Description', blank=True, null=True)
     color = models.CharField(max_length=7)
 
     class Meta:
         db_table = 'issue_status'
-        verbose_name_plural = 'Issue statuses'
-        ordering = ['id']
+        verbose_name = 'status'
+        verbose_name_plural = 'statuses'
 
 
 class Resolution(models.Model):
     id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=50, unique=True)
-    description = models.CharField(max_length=255, blank=True, null=True)
+    description = models.TextField(verbose_name='Description', blank=True, null=True)
 
     class Meta:
         db_table = 'issue_resolution'
-        verbose_name_plural = 'Issue resolutions'
+        verbose_name = 'resolution'
+        verbose_name_plural = 'resolutions'
         ordering = ['id']
 
 
 class Type(models.Model):
     id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=50, unique=True)
-    type = models.TextChoices('Type', 'ServiceDesk Software')
-    description = models.CharField(max_length=255, blank=True, null=True)
+    type = models.CharField(max_length=50, choices=TYPES, name='Type', null=True)
+    description = models.TextField(verbose_name='Description', blank=True, null=True)
     icon = models.FilePathField(path=f'{utils.get_img_path()}/issuetypes')
 
     class Meta:
         db_table = 'issue_type'
-        verbose_name_plural = 'Issue types'
+        verbose_name = 'issue type'
+        verbose_name_plural = 'issue types'
         ordering = ['id']
 
 
 class Label(models.Model):
     id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=255, unique=True)
-    description = models.CharField(max_length=255, blank=True, null=True)
+    description = models.TextField(verbose_name='Description', blank=True, null=True)
 
     class Meta:
         db_table = 'issue_label'
-        verbose_name_plural = 'Issue labels'
+        verbose_name = 'label'
+        verbose_name_plural = 'labels'
         ordering = ['id']
 
 
@@ -132,6 +152,8 @@ class Comment(models.Model):
 
     class Meta:
         db_table = 'issue_comment'
+        verbose_name = 'comment'
+        verbose_name_plural = 'comments'
         ordering = ['id']
 
     def save(self, *args, **kwargs):
@@ -150,6 +172,8 @@ class Attachment(models.Model):
 
     class Meta:
         db_table = 'issue_attachment'
+        verbose_name = 'attachment'
+        verbose_name_plural = 'attachments'
         ordering = ['id']
 
     def save(self, *args, **kwargs):
@@ -189,8 +213,8 @@ class Issue(models.Model):
 
     class Meta:
         db_table = 'issue'
-        verbose_name = 'Issue'
-        verbose_name_plural = 'Issues'
+        verbose_name = 'issue'
+        verbose_name_plural = 'issues'
         ordering = ['id']
 
     def save(self, *args, **kwargs):
@@ -237,6 +261,9 @@ class IssueAssociation(models.Model):
 
     class Meta:
         db_table = 'issue_association'
+        verbose_name = 'link'
+        verbose_name_plural = 'links'
+        ordering = ['id']
 
 
 class CommentAssociation(models.Model):

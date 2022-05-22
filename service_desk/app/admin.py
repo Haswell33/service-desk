@@ -6,10 +6,18 @@ from django.contrib.auth.models import Group
 
 from app.models import Issue, Tenant, Comment, Priority, Status, Resolution, Type, Label, SLA, Workflow
 
-class StatusAdminForm():
-    pass
 
+#class StatusAdminForm(admin.ModelAdmin):
+#    pass
+
+@admin.register(Workflow)
+class WorkflowAdminModel(admin.ModelAdmin):
+    list_display = ('name', 'pattern')
+
+
+@admin.register(Status)
 class StatusAdminModel(admin.ModelAdmin):
+    list_display = ('id', 'name', 'status_type', 'color')
     class Meta:
         #model = Status
         #fields = (('id', 'name', 'type'), 'description')
@@ -23,14 +31,13 @@ class StatusAdminModel(admin.ModelAdmin):
             }),
         )
 
+
 AdminSite.index_title = 'Administration'
 admin.site.register(Issue)
-admin.site.register(Status, StatusAdminModel)
 admin.site.register(Type)
 admin.site.register(Resolution)
 admin.site.register(Label)
 admin.site.register(SLA)
-admin.site.register(Workflow)
 admin.site.register(Priority)
 admin.site.register(Tenant)
 admin.site.site_title = 'nowy title'
