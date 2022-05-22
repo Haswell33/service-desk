@@ -97,7 +97,7 @@ class Status(models.Model):
     name = models.CharField(max_length=50, unique=True)
     type = models.CharField(max_length=50, choices=TYPES, name='status_type', null=True, verbose_name='Type')
     description = models.TextField(verbose_name='Description', blank=True, null=True)
-    color = models.CharField(max_length=7)
+    color = models.CharField(max_length=7, help_text='RGB color in HEX format')
 
     class Meta:
         db_table = 'issue_status'
