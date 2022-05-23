@@ -3,8 +3,9 @@
 <head>
   {% load static %}
   <title>{% block title %}Service Desk{% endblock %}</title>
-  <script rel="script" type="text/javascript" src="{% static 'scripts/jquery.js' %}"></script>
+  <script rel="script" type="text/javascript" src="{% static 'scripts/jquery.min.js' %}"></script>
   <script rel="script" type="text/javascript" src="{% static 'scripts/gui.js' %}"></script>
+  <script type="text/javascript" src="{% static 'scripts/bootstrap-filestyle.min.js' %}"> </script>
   <link rel="stylesheet" type="text/css" href="{% static 'styles/style.css' %}"/>
   <!--<link rel="stylesheet" type="text/css" href="{% static 'styles/fonts/Lato' %}"/>-->
   <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
@@ -89,6 +90,7 @@
 <script>
   $(document).ready(function () {
     console.log('document ready')
+    startFuns()
     console.log('{{user_tenant_type}}')
     let userIsAdmin = ('{{user.is_superuser}}' === 'True')
     let userIsAuth = ('{{user.is_authenticated}}' === 'True')

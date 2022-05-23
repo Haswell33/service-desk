@@ -3,6 +3,8 @@ if (typeof jQuery === "undefined")
 else
     console.log('jQuery loaded')
 
+
+
 $(document).on('click', function(event) {
     if($(event.target).is('#navbar-account svg') || $(event.target).is('#navbar-account path'))
         $('#navbar-account > ul').toggle()
@@ -11,11 +13,14 @@ $(document).on('click', function(event) {
 })
 
 setTimeout(function(){
-   $('.errornote').fadeOut()
-//   //$('.success').fadeOut()
+    $('.errornote').fadeOut()
+    $('.messagelist').fadeOut()
 }, 5000);
 
-
+function startFuns(){
+    $(":file").filestyle()
+    console.log('boostrap-filestyle loaded')
+}
 /*function colorElems(mainColor){
     $('.main-color-border').css('border-color', mainColor)
     $('.main-color-background-hover').hover(function(){

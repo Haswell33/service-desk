@@ -16,9 +16,9 @@
     --error-border: #ebccd1;
     /*--error-border: #ebccd1;*/
 
-    --success-bg: #dff0d8;
-    --success-fg: #3c763d;
-    --success-border: #d6e9c6;
+    --success-bg: #DFF2BF;
+    --success-fg: #270;
+    --success-border: #adcba1;
 
     --background: #ddd;
     background: #dddddd;
@@ -31,6 +31,7 @@ body {
     color: var(--elem-dark);
     font-family: Lato, sans-serif;
 }
+
 
 main {
     color: var(--elem-dark);
@@ -117,6 +118,23 @@ input[type=search]:focus {
     outline-offset: 0;
     outline: 0;
     box-shadow: none;
+}
+
+.bootstrap-filestyle > input {
+    padding-left: 100px!important;
+    width: calc(50% - 100px)!important;
+}
+
+.buttonText {
+    color: var(--elem-light);
+    position: relative;
+    background: var(--elem-light-secondary);
+    bottom: 31px;
+    padding: 8px 10px;
+    font-size: 15px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    cursor: pointer;
 }
 
 /* Navbar and footer*/
@@ -482,40 +500,6 @@ label.required {
     float: none;
 }
 
-form#status_form input[type=text] {
-    width: 60%;
-    box-sizing: border-box;
-}
-
-fieldset.module {
-    margin-bottom: 0;
-    padding: 20px 0 20px 20px;
-
-}
-
-.form-row {
-    overflow: inherit;
-}
-
-.submit-row {
-    border: none;
-    display: flex;
-    padding: 0 0 20px 20px;
-    flex-direction: row;
-    justify-content: space-around;
-}
-
-/*.submit-row input[type=submit]:nth-child(1)*/
-.submit-row input.default{
-    /*flex: 0 0 100%;*/
-    background: var(--elem-light-secondary);
-    color: var(--elem-light)
-}
-
-.submit-row input.default:hover {
-    background: var(--theme);
-}
-
 #changelist .actions{
     padding: 15px 10px 15px 0;
 }
@@ -557,27 +541,39 @@ fieldset.module {
     color: var(--elem-light);
 }
 
-form .aligned div.help,
-.errorlist{
-    margin-left: 0!important;
-    padding: 5px 0 0 0 !important;
-}
+
+
+/* Messages, Communicates, Error, Success, Warning */
 
 ul.messagelist li {
     padding: 14px 10px 10px 65px;
 }
 
-/*.success,
-.success a,
-.success a:hover {
+form .aligned div.help,
+.errorlist {
+    margin-left: 0!important;
+    padding: 5px 0 0 0 !important;
+}
+
+.success {
+    z-index: 99;
     position: absolute;
-    top: 15px;
-    left: 15px;
-    z-index: 21321414341213;
+    right: 10px;
+    top: 150px;
+    width: 300px;
+    border-radius: 5px;
     color: var(--success-fg)!important;
     background-color: var(--success-bg)!important;
-    border-color: var(--success-fg);
-}*/
+    border: 1px solid var(--success-border)!important;
+}
+
+.success a {
+    color: var(--success-fg)!important;
+    transition: 100ms;
+}
+.success a:hover {
+    color: var(--elem-dark)!important;
+}
 
 .errornote,
 .errornote a,
@@ -590,6 +586,8 @@ ul.messagelist li {
     background-color: var(--error-bg) !important;
     border-color: var(--error-fg);
 }
+
+/* Admin - Toolbar */
 
 #toolbar {
     display: flex;
@@ -636,9 +634,12 @@ ul.messagelist li {
     position: fixed;
 }
 
+/* Admin - Result list */
+
 div.results {
     border-top: 1px solid var(--elem-light-third);
 }
+
 table#result_list {
     border: 1px solid var(--elem-light-third);
     border-radius: 5px;
@@ -675,8 +676,64 @@ table#result_list {
     display: none
 }
 
+.column-id {
+    width: 10px;
+}
+
+/* Fieldset, Submit row, Child inputs */
+
+fieldset h2 {
+    font-weight: 600!important;
+    text-transform: uppercase;
+    color: var(--elem-light)!important;
+    border-radius: 0!important;
+    padding: 10px 0 6px 10px!important
+}
+
+fieldset.module {
+    margin-bottom: 0;
+    /*padding: 20px 0 20px 20px;*/
+}
+
 fieldset.module > div {
     display: grid;
+}
+
+fieldset.module > .form-row input {
+    width: 50%
+}
+
+.submit-row {
+    border: none;
+    display: flex;
+    padding: 15px 0;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+/*.submit-row input[type=submit]:nth-child(1)*/
+.submit-row input.default{
+    /*flex: 0 0 100%;*/
+    margin-left: 0;
+    background: var(--elem-light-secondary);
+    color: var(--elem-light)
+}
+
+.submit-row input.default:hover {
+    background: var(--theme);
+}
+
+.form-row {
+    overflow: inherit;
+    padding: 15px 0;
+}
+
+.vLargeTextField {
+    width: 50%!important;
+}
+
+form#status_form input[type=text] {
+    box-sizing: border-box;
 }
 
 #user_form > div > fieldset {
@@ -688,13 +745,29 @@ fieldset.module > div {
     border-bottom: none;
 }
 
-fieldset h2 {
-    font-weight: 600!important;
-    text-transform: uppercase;
-    color: var(--elem-light)!important;
-    border-radius: 0!important;
-    padding: 10px 0px 6px 10px!important
+/* Admin - delete confirmation */
+
+body.delete-confirmation #content{
+    display: block!important;
 }
 
-fieldset .module {
+body.delete-confirmation #content form div {
+    display: flex;
+}
+
+body.delete-confirmation #content h1{
+    margin-bottom: 10px
+}
+
+body.delete-confirmation #content form div input[type=submit] {
+    flex: 0;
+    border: none;
+}
+
+body.delete-confirmation #content form input {
+    transition: 300ms;
+}
+
+body.delete-confirmation #content form .cancel-link:hover{
+    background-color: var(--theme)
 }

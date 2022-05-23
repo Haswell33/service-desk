@@ -16,3 +16,7 @@ def get_user_type(request):
 
 def get_img_path():
     return f'{settings.BASE_DIR}{settings.STATIC_URL}images'
+
+
+def get_img_path_2():
+    return f'{settings.STATIC_URL}images'

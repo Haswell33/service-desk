@@ -12,7 +12,7 @@ SECRET_KEY = 'django-insecure-z(g7^uxx3*)@ctru=wvchu5tezwzd3s@0m01rozf=-szc8%_!@
 ALLOWED_HOSTS = ['192.168.0.100', '127.0.0.1']
 ROOT_URLCONF = 'config.urls'
 WSGI_APPLICATION = 'config.wsgi.application'
-STATIC_URL = '/static/'  # Static files (CSS, JavaScript, Images) https://docs.djangoproject.com/en/3.2/howto/static-files/
+STATIC_URL = '/static/custom/'  # Static files (CSS, JavaScript, Images) https://docs.djangoproject.com/en/3.2/howto/static-files/
 STATIC_ROOT = f'{BASE_DIR}/static/'
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = 'home'

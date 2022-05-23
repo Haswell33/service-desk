@@ -7,18 +7,10 @@
     <link rel="stylesheet" type="text/css" href="{% static 'styles/style.css' %}" />
   {% endblock %}
 </head>
+
 <body>
   <main>
-
     {% block content %}{{ block.super }}
-    <style>
-            body {
-                background: red!important;
-            }
-            #content #content-main {
-                width: 100%!important;
-            }
-        </style>
     {% endblock %}
   </main>
 </body>

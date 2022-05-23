@@ -2,6 +2,7 @@ import os
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator, FileExtensionValidator
 from django.contrib import admin
+from django.utils.html import mark_safe
 from django.contrib.auth.models import User, Group
 from django.conf import settings
 from crum import get_current_user
@@ -43,6 +44,9 @@ class SLA(models.Model):
         verbose_name_plural = "SLA's"
         ordering = ['id']
 
+    def __str__(self):
+        return self.name
+
 
 class Workflow(models.Model):
     id = models.BigAutoField(primary_key=True)
@@ -54,19 +58,22 @@ class Workflow(models.Model):
         verbose_name = 'workflow'
         verbose_name_plural = 'workflows'
 
+    def __str__(self):
+        return self.name
+
 
 class Tenant(models.Model):
     id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=255)
     key = models.CharField(max_length=50, unique=True, blank=True)
-    count = models.PositiveIntegerField(blank=True, default=0)
-    sla = models.ForeignKey(SLA, on_delete=models.CASCADE)
+    count = models.PositiveIntegerField(blank=True, default=0, help_text='Number of issues', editable=False)
+    sla = models.ForeignKey(SLA, on_delete=models.CASCADE, verbose_name='SLA pattern')
     workflow_operator = models.ForeignKey(Workflow, on_delete=models.CASCADE, related_name='%(class)s_workflow_operator', help_text='Workflow scheme for Service Desk space')
     workflow_developer = models.ForeignKey(Workflow, on_delete=models.CASCADE, related_name='%(class)s_workflow_developer', help_text='Workflow scheme for Developer space')
     customers_group = models.ForeignKey(Group, related_name='%(class)s_customers_group', blank=True, null=True, on_delete=models.DO_NOTHING)
     operators_group = models.ForeignKey(Group, related_name='%(class)s_operators_group', blank=True, null=True, on_delete=models.DO_NOTHING)
     developers_group = models.ForeignKey(Group, related_name='%(class)s_developers_group', blank=True, null=True, on_delete=models.DO_NOTHING)
-    icon = models.FilePathField(path=f'{utils.get_img_path()}/tenants/')
+    icon = models.ImageField(upload_to=f'{utils.get_img_path()}/tenant', validators=[FileExtensionValidator], blank=True)
 
     class Meta:
         db_table = 'tenant'
@@ -77,19 +84,30 @@ class Tenant(models.Model):
     def save(self, *args, **kwargs):
         if not self.id:
             self.count = 0
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
 
 
 class Priority(models.Model):
     id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=50, unique=True)
     description = models.TextField(verbose_name='Description', blank=True, null=True)
-    icon = models.FilePathField(path=f'{utils.get_img_path()}/priorities')
+    icon = models.ImageField(upload_to=f'{(settings.STATIC_URL).strip("/")}priority', validators=[FileExtensionValidator], blank=True, max_length=500)
 
     class Meta:
         db_table = 'issue_priority'
         verbose_name = 'priority'
         verbose_name_plural = 'priorities'
         ordering = ['id']
+
+    def __str__(self):
+        return self.name
+
+    def icon_tag(self):
+        return mark_safe(f'<img src="{self.icon}" height="20" width="20"/>')
+    icon_tag.short_description = 'Icon'
 
 
 class Status(models.Model):
@@ -104,6 +122,9 @@ class Status(models.Model):
         verbose_name = 'status'
         verbose_name_plural = 'statuses'
 
+    def __str__(self):
+        return self.name
+
 
 class Resolution(models.Model):
     id = models.BigAutoField(primary_key=True)
@@ -116,19 +137,25 @@ class Resolution(models.Model):
         verbose_name_plural = 'resolutions'
         ordering = ['id']
 
+    def __str__(self):
+        return self.name
+
 
 class Type(models.Model):
     id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=50, unique=True)
-    type = models.CharField(max_length=50, choices=TYPES, name='Type', null=True)
+    type = models.CharField(max_length=50, choices=TYPES, name='type', null=True)
     description = models.TextField(verbose_name='Description', blank=True, null=True)
-    icon = models.FilePathField(path=f'{utils.get_img_path()}/issuetypes')
+    icon = models.ImageField(upload_to=f'{utils.get_img_path()}/issue_type', validators=[FileExtensionValidator], blank=True)
 
     class Meta:
         db_table = 'issue_type'
         verbose_name = 'issue type'
         verbose_name_plural = 'issue types'
         ordering = ['id']
+
+    def __str__(self):
+        return self.name
 
 
 class Label(models.Model):
@@ -141,6 +168,9 @@ class Label(models.Model):
         verbose_name = 'label'
         verbose_name_plural = 'labels'
         ordering = ['id']
+
+    def __str__(self):
+        return self.name
 
 
 class Comment(models.Model):
@@ -162,6 +192,9 @@ class Comment(models.Model):
             self.author = get_current_user()
         self.updated = datetime.now()
         super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.id
 
 
 class Attachment(models.Model):
@@ -189,11 +222,14 @@ class Attachment(models.Model):
     def get_size(self):
         return self.file.__sizeof__()
 
+    def __str__(self):
+        return self.id
+
 
 class Issue(models.Model):
     id = models.BigAutoField(primary_key=True)
     title = models.CharField(max_length=255, help_text='Summarize the issue')
-    key = models.CharField(max_length=255, unique=True, blank=True)
+    key = models.CharField(max_length=255, unique=True, blank=True, editable=False)
     description = models.TextField(verbose_name='Description', blank=True, null=True, help_text='The content of the issue')
     tenant = models.ForeignKey(Tenant, on_delete=models.CASCADE, blank=True, related_name='%(class)s_tenant')
     priority = models.ForeignKey(Priority, on_delete=models.CASCADE, related_name='%(class)s_priority')
@@ -206,10 +242,10 @@ class Issue(models.Model):
     attachments = models.ForeignKey(Attachment, on_delete=models.CASCADE, blank=True, null=True, related_name='%(class)s_attachment')
     association = models.ManyToManyField('self', through='IssueAssociation', through_fields=('src_issue', 'dest_issue'))
     comments = models.ManyToManyField(Comment, through='CommentAssociation', through_fields=('issue', 'comment'))
-    escalated = models.BooleanField(default=False)
-    suspended = models.BooleanField(default=False)
-    created = models.DateTimeField(help_text='Date when issue has been created')
-    updated = models.DateTimeField(blank=True, null=True, help_text='Date when issue has been recently changed')
+    escalated = models.BooleanField(default=False, editable=False)
+    suspended = models.BooleanField(default=False, editable=False)
+    created = models.DateTimeField(help_text='Date when issue has been created', editable=False)
+    updated = models.DateTimeField(blank=True, null=True, help_text='Date when issue has been recently changed', editable=False)
 
     class Meta:
         db_table = 'issue'
@@ -253,6 +289,9 @@ class Issue(models.Model):
         else:
             return False
 
+    def __str__(self):
+        return self.key
+
 
 class IssueAssociation(models.Model):
     src_issue = models.ForeignKey(Issue, on_delete=models.DO_NOTHING, related_name='%(class)s_src_issue')
@@ -265,6 +304,9 @@ class IssueAssociation(models.Model):
         verbose_name_plural = 'links'
         ordering = ['id']
 
+    def __str__(self):
+        return f'{self.src_issue}-{self.dest_issue}'
+
 
 class CommentAssociation(models.Model):
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='%(class)s_comment')
@@ -272,3 +314,6 @@ class CommentAssociation(models.Model):
 
     class Meta:
         db_table = 'comment_association'
+
+    def __str__(self):
+        return f'{self.issue}-{self.comment}'
