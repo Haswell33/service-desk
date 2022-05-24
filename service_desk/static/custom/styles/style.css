@@ -20,14 +20,18 @@
     --success-fg: #270;
     --success-border: #adcba1;
 
+    --nav-height: 63px;
+    --footer-height: 45px;
     --background: #ddd;
     background: #dddddd;
     box-sizing: border-box;
 }
 
 body {
+    min-width: 1024px;
     overflow-x: hidden;
     margin: 0;
+    padding: 0;
     color: var(--elem-dark);
     font-family: Lato, sans-serif;
 }
@@ -35,7 +39,7 @@ body {
 
 main {
     color: var(--elem-dark);
-    margin: 10px;
+    margin: 10px 10px 0 0;
 }
 
 a,
@@ -62,6 +66,7 @@ input:not([type=button]) {
     padding: 5px 10px 5px 10px;
     width: calc(100% - 20px);
     border: 1px solid var(--elem-light-third);
+    background-color: var(--elem-light);
 }
 
 input[type=button],
@@ -129,12 +134,21 @@ input[type=search]:focus {
     color: var(--elem-light);
     position: relative;
     background: var(--elem-light-secondary);
-    bottom: 31px;
-    padding: 8px 10px;
-    font-size: 15px;
+    bottom: 30px;
+    padding: 7.5px 10px;
+    font-size: 115%;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
     cursor: pointer;
+    transition: 200ms;
+}
+
+.buttonText:hover {
+    background-color: var(--theme);
+}
+
+textarea {
+    padding: 5px 10px!important;
 }
 
 /* Navbar and footer*/
@@ -179,6 +193,7 @@ nav div {
 footer {
     background: var(--elem-dark);
     width: 100%;
+    height: var(--footer-height);
     position: fixed;
     bottom: 0;
     left: 0;
@@ -222,7 +237,7 @@ footer p {
     border-bottom-right-radius: 6px;
     margin: 0;
     list-style: none;
-    top: 63px;
+    top: var(--nav-height);
     right: 25px;
     padding: 0;
 }
@@ -364,7 +379,72 @@ footer p {
     fill: var(--theme);
 }
 
-/* Override base.css Admin Page*/
+/* Home - board tenant header */
+
+#home-content {
+
+}
+
+#sidebar {
+    display: flex;
+    flex-direction: row;
+    min-height: 100%;
+    position: absolute;
+    top: var(--nav-height);
+    bottom: 0;
+    margin: 0;
+}
+
+#sidebar-toggle {
+    display: flex;
+    z-index: 40;
+    cursor: pointer;
+    margin-bottom: var(--footer-height);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    background: var(--elem-light-secondary);
+    transition: 300ms;
+}
+
+#sidebar-toggle:hover {
+    background-color: var(--elem-dark-secondary)
+}
+
+#sidebar-toggle:before {
+    content: '\00AB';
+    color: var(--elem-light);
+    font-size: 28px;
+}
+
+#sidebar-content {
+    flex: 0 0 298px;
+    visibility: visible;
+    border-right: 1px solid var(--elem-light-third);
+    transition: visibility 0.3s, margin 0.3s;
+}
+
+#sidebar-tenant {
+    display: flex;
+    align-items: center;
+    padding: 15px 10px 15px 10px;
+    border-bottom: 1px solid var(--elem-light-third);
+}
+
+.hidden {
+    margin-left: calc(-298px - 30px)!important;
+}
+
+
+
+.sticky {
+    position: sticky;
+    top: 0;
+    max-height: 100vh
+}
+
+/* Admin Override base.css*/
 
 #nav-sidebar {
     width: 25%;
@@ -469,9 +549,6 @@ footer p {
     transition: 200ms ease-in-out;
 }
 
-.app-auth .object-tools {
-    margin-top: -66px;
-}
 
 .object-tools a:link, .object-tools a:visited {
     padding: 10px 10px 10px 25px;
@@ -526,6 +603,7 @@ label.required {
 #changelist-filter {
     border: 1px solid  var(--elem-light-third);
     border-radius: 5px;
+    margin: 20px 0 0 30px;
 }
 
 #changelist-filter h2 {
@@ -541,7 +619,9 @@ label.required {
     color: var(--elem-light);
 }
 
-
+#changelist-search > div > span.quiet{
+    display: none;
+}
 
 /* Messages, Communicates, Error, Success, Warning */
 
@@ -593,7 +673,7 @@ form .aligned div.help,
     display: flex;
     border-top: 0;
     margin-bottom: 0;
-    padding: 0 0 20px 0;
+    padding: 20px 0 20px 0!important;
 }
 
 #toolbar #searchbar {
@@ -680,7 +760,7 @@ table#result_list {
     width: 10px;
 }
 
-/* Fieldset, Submit row, Child inputs */
+/* Admin - Fieldset, Submit row, Child inputs */
 
 fieldset h2 {
     font-weight: 600!important;
@@ -712,6 +792,7 @@ fieldset.module > .form-row input {
 }
 
 /*.submit-row input[type=submit]:nth-child(1)*/
+
 .submit-row input.default{
     /*flex: 0 0 100%;*/
     margin-left: 0;
@@ -743,6 +824,41 @@ form#status_form input[type=text] {
 
 #user_form > div > fieldset > .form-row {
     border-bottom: none;
+}
+
+ul.selector-chooser {
+    background-color: var(--background)!important
+}
+
+ul.selector-chooser > li a {
+    cursor: pointer
+}
+
+.selector-chosen h2,
+.selector-available h2 {
+    background: var(--elem-light-secondary)!important;
+}
+
+.file-upload {
+    display: flex;
+    flex-direction: column;
+    margin-left: 0!important;
+}
+
+.file-upload input {
+    font-size: 15px!important;
+}
+
+.file-upload #icon-clear_id {
+    width: inherit;
+}
+
+.form-row.field-icon > div > p > a {
+    border: 1px solid var(--elem-light-third);
+    padding: 5px 10px;
+    width: 50%;
+    font-size: 115%;
+    border-radius: 5px;
 }
 
 /* Admin - delete confirmation */

@@ -4,7 +4,6 @@ from django.shortcuts import render, reverse
 from django.conf import settings
 from app.models import Tenant
 from app.utils import get_user_type
-
 from django.template.loader import get_template
 
 

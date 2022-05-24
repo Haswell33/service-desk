@@ -1,73 +1,93 @@
 from django.contrib import admin
 from django import forms
 from django.contrib.admin import AdminSite
-from django.contrib.auth.models import Group
-#from django.contrib.sites.models import Site
+from django.contrib.auth.models import Group, User
+from django.contrib.auth.admin import GroupAdmin, UserAdmin
+from app.models import Issue, Tenant, Comment, Priority, Status, Resolution, Type, Label, SLA, StatusAssociation, Board, BoardColumn, BoardColumnAssociation
 
-from app.models import Issue, Tenant, Comment, Priority, Status, Resolution, Type, Label, SLA, Workflow
+
+class GroupAdminModel(GroupAdmin):
+    list_display = ('name', 'type')
+    search_fields = ['name', 'type']
 
 
-#class StatusAdminForm(admin.ModelAdmin):
-#    pass
+@admin.register(Board)
+class BoardAdminModel(admin.ModelAdmin):
+    list_display = ('name', 'type')
+    search_fields = ['name', 'type']
+
+
+@admin.register(BoardColumn)
+class BoardColumnAdminModel(admin.ModelAdmin):
+    list_display = ('board', 'column_number', 'column_title')
+    search_fields = ['board', 'column_title']
+    list_filter = ('board', 'column_number')
+
+
+@admin.register(BoardColumnAssociation)
+class BoardColumnAssociationAdminModel(admin.ModelAdmin):
+    list_display = ('column', 'status', 'board')
+    search_fields = ['board', 'column', 'status']
+    list_filter = ('column', 'status')
 
 
 @admin.register(SLA)
 class SLAAdminModel(admin.ModelAdmin):
-    list_display = ('id', 'name', 'reaction_time', 'resolve_time', 'hour_range')
-
-
-@admin.register(Workflow)
-class WorkflowAdminModel(admin.ModelAdmin):
-    list_display = ('id', 'name', 'pattern')
+    list_display = ('name', 'reaction_time', 'resolve_time', 'hour_range')
+    search_fields = ['name']
 
 
 @admin.register(Tenant)
 class TenantAdminModel(admin.ModelAdmin):
-    list_display = ('id', 'name', 'key', 'count', 'sla', 'workflow_operator', 'workflow_developer', 'customers_group', 'operators_group', 'developers_group', 'icon')
+    list_display = ('name', 'key', 'count', 'sla', 'customers_group', 'operators_group', 'developers_group', 'customers_board', 'operators_board', 'developers_board', 'icon_img_admin')
+    search_fields = ['name', 'key', 'workflow_developer', 'customers_group', 'operators_group', 'developers_group']
 
 
 @admin.register(Priority)
 class PriorityAdminModel(admin.ModelAdmin):
-    list_display = ('id', 'name', 'icon_tag')
+    list_display = ('name', 'icon_img_admin')
+    search_fields = ['name']
 
 
 @admin.register(Status)
 class StatusAdminModel(admin.ModelAdmin):
-    list_display = ('id', 'name', 'status_type', 'color')
-    class Meta:
-        #model = Status
-        #fields = (('id', 'name', 'type'), 'description')
-        fieldsets = (
-            (None, {
-                'fields': ('id', 'name')
-            }),
-            ('Advanced options', {
-                'classes': ('collapse',),
-                'fields': ('description', 'type'),
-            }),
-        )
+    list_display = ('name', 'forward_transition', 'backward_transition', 'step', 'resolution', 'color_hex')
+    search_fields = ['name', 'step', 'forward_transition', 'backward_transition']
+    list_filter = ('step', 'forward_transition')
 
 
 @admin.register(Resolution)
 class ResolutionAdminModel(admin.ModelAdmin):
-    list_display = ('id', 'name')
+    display = ('name', 'description')
+    search_fields = ['name']
 
 
 @admin.register(Type)
 class TypeAdminModel(admin.ModelAdmin):
-    list_display = ('id', 'name', 'type', 'icon')
+    list_display = ('name', 'type', 'icon_img_admin')
+    search_fields = ['name', 'type']
 
 
 @admin.register(Label)
 class LabelAdminModel(admin.ModelAdmin):
-    list_display = ('id', 'name')
+    list_display = ('name', 'description')
 
 
 @admin.register(Issue)
 class IssueAdminModel(admin.ModelAdmin):
-    list_display = ('id', 'title', 'key', 'tenant', 'priority', 'status', 'resolution', 'type', 'label', 'reporter', 'assignee', 'escalated', 'suspended', 'created', 'updated')
+    list_display = ('key', 'title', 'tenant', 'priority', 'status', 'resolution', 'type', 'label', 'reporter', 'assignee', 'escalated', 'suspended', 'created', 'updated')
+    search_fields = ['key', 'title', 'tenant', 'priority', 'status', 'resolution', 'type', 'label', 'reporter', 'assignee']
 
 
+@admin.register(StatusAssociation)
+class StatusAssociationAdminModel(admin.ModelAdmin):
+    list_display = ('issue_type', 'status', 'status_step')
+    search_fields = ['status', 'issue_type']
+    list_filter = ('issue_type', 'status')
+
+
+admin.site.unregister(Group)
+admin.site.register(Group, GroupAdminModel)
 AdminSite.index_title = 'Administration'
 admin.site.site_title = 'nowy title'
 admin.site.site_header = 'nowy header'
