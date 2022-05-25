@@ -3,7 +3,7 @@ from django import forms
 from django.contrib.admin import AdminSite
 from django.contrib.auth.models import Group, User
 from django.contrib.auth.admin import GroupAdmin, UserAdmin
-from app.models import Issue, Tenant, Comment, Priority, Status, Resolution, Type, Label, SLA, StatusAssociation, Board, BoardColumn, BoardColumnAssociation
+from app.models import Issue, Tenant, Comment, Priority, Status, Resolution, Transition, TransitionAssociation, IssueType, Label, SLAScheme, Board, BoardColumn, BoardColumnAssociation
 
 
 class GroupAdminModel(GroupAdmin):
@@ -13,8 +13,8 @@ class GroupAdminModel(GroupAdmin):
 
 @admin.register(Board)
 class BoardAdminModel(admin.ModelAdmin):
-    list_display = ('name', 'type')
-    search_fields = ['name', 'type']
+    list_display = ('name', 'env_type')
+    search_fields = ['name', 'env_type']
 
 
 @admin.register(BoardColumn)
@@ -31,7 +31,7 @@ class BoardColumnAssociationAdminModel(admin.ModelAdmin):
     list_filter = ('column', 'status')
 
 
-@admin.register(SLA)
+@admin.register(SLAScheme)
 class SLAAdminModel(admin.ModelAdmin):
     list_display = ('name', 'reaction_time', 'resolve_time', 'hour_range')
     search_fields = ['name']
@@ -51,9 +51,23 @@ class PriorityAdminModel(admin.ModelAdmin):
 
 @admin.register(Status)
 class StatusAdminModel(admin.ModelAdmin):
-    list_display = ('name', 'forward_transition', 'backward_transition', 'step', 'resolution', 'color_hex')
-    search_fields = ['name', 'step', 'forward_transition', 'backward_transition']
-    list_filter = ('step', 'forward_transition')
+    list_display = ('name', 'step', 'resolution', 'color_hex')
+    search_fields = ['name', 'step']
+    # list_filter = ('step', 'forward_transition')
+
+
+@admin.register(Transition)
+class TransitionAdminModel(admin.ModelAdmin):
+    list_display = ('name', 'full_transition')
+    search_fields = ['name', 'src_status', 'dest_status']
+    list_filter = ('name', 'src_status', 'dest_status')
+
+
+@admin.register(TransitionAssociation)
+class TransitionAssociationAdminModel(admin.ModelAdmin):
+    list_display = ('issue_type', 'full_transition')
+    search_fields = ['issue_type', 'transition']
+    list_filter = ('issue_type', 'transition')
 
 
 @admin.register(Resolution)
@@ -62,10 +76,10 @@ class ResolutionAdminModel(admin.ModelAdmin):
     search_fields = ['name']
 
 
-@admin.register(Type)
+@admin.register(IssueType)
 class TypeAdminModel(admin.ModelAdmin):
-    list_display = ('name', 'type', 'icon_img_admin')
-    search_fields = ['name', 'type']
+    list_display = ('name', 'env_type', 'icon_img_admin')
+    search_fields = ['name', 'env_type']
 
 
 @admin.register(Label)
@@ -79,11 +93,11 @@ class IssueAdminModel(admin.ModelAdmin):
     search_fields = ['key', 'title', 'tenant', 'priority', 'status', 'resolution', 'type', 'label', 'reporter', 'assignee']
 
 
-@admin.register(StatusAssociation)
-class StatusAssociationAdminModel(admin.ModelAdmin):
-    list_display = ('issue_type', 'status', 'status_step')
-    search_fields = ['status', 'issue_type']
-    list_filter = ('issue_type', 'status')
+#@admin.register(TransitionAssociation)
+#class StatusAssociationAdminModel(admin.ModelAdmin):
+#    list_display = ('issue_type', 'status', 'status_step')
+#    search_fields = ['status', 'issue_type']
+#    list_filter = ('issue_type', 'status')
 
 
 admin.site.unregister(Group)

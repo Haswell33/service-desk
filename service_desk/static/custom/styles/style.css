@@ -887,3 +887,24 @@ body.delete-confirmation #content form input {
 body.delete-confirmation #content form .cancel-link:hover{
     background-color: var(--theme)
 }
+
+.field-full_transition {
+    display: inline-flex
+}
+
+.admin-transition {
+    border-radius: 5px;
+    padding: 7px 12px 5px 12px;
+    font-weight: 700;
+    color: var(--elem-light)
+}
+
+.admin-transition-arrow {
+    margin-top: 7px;
+}
+
+.admin-transition-arrow:after {
+    content: '\2192';
+    padding: 5px 8px 5px 8px;
+    font-size: 26px;
+}

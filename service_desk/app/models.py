@@ -14,7 +14,7 @@ GROUP_TYPES = [
     ('developer', 'Developer')
 ]
 
-TYPES = [
+ENV_TYPES = [
     ('service-desk', 'Service Desk'),
     ('software', 'Software')
 ]
@@ -32,10 +32,9 @@ class Board(models.Model):
     name = models.CharField(
         max_length=255,
         unique=True)
-    type = models.CharField(
+    env_type = models.CharField(
         max_length=50,
-        choices=TYPES,
-        name='type',
+        choices=ENV_TYPES,
         null=True,
         blank=True,)
 
@@ -68,7 +67,7 @@ class BoardColumn(models.Model):
         return f'{self.column_title}'
 
 
-class SLA(models.Model):
+class SLAScheme(models.Model):
     id = models.BigAutoField(
         primary_key=True)
     name = models.CharField(
@@ -84,7 +83,7 @@ class SLA(models.Model):
         max_length=5)
 
     class Meta:
-        db_table = 'SLA'
+        db_table = 'sla_scheme'
         verbose_name = 'SLA scheme'
         verbose_name_plural = "SLA schemes"
         ordering = ['id']
@@ -98,17 +97,15 @@ class Tenant(models.Model):
         primary_key=True)
     key = models.CharField(
         max_length=50,
-        unique=True,
-        blank=True)
+        unique=True)
     name = models.CharField(
         max_length=255)
     count = models.PositiveIntegerField(
-        blank=True,
         default=0,
         help_text='Number of issues',
         editable=False)
     sla = models.ForeignKey(
-        SLA,
+        SLAScheme,
         on_delete=models.CASCADE)
     customers_group = models.ForeignKey(
         Group,
@@ -193,7 +190,7 @@ class Priority(models.Model):
         max_length=500)
 
     class Meta:
-        db_table = 'issue_priority'
+        db_table = 'priority'
         verbose_name = 'priority'
         verbose_name_plural = 'priorities'
         ordering = ['id']
@@ -211,16 +208,16 @@ class Priority(models.Model):
     icon_img.short_description = 'Icon'
 
 
-class Type(models.Model):
+class IssueType(models.Model):
     id = models.BigAutoField(
         primary_key=True)
     name = models.CharField(
         max_length=50,
         unique=True)
-    type = models.CharField(
+    env_types = models.CharField(
         max_length=50,
-        choices=TYPES,
-        name='type',
+        choices=ENV_TYPES,
+        name='env_type',
         null=True)
     description = models.TextField(
         name='description',
@@ -263,7 +260,7 @@ class Resolution(models.Model):
         null=True)
 
     class Meta:
-        db_table = 'issue_resolution'
+        db_table = 'resolution'
         verbose_name = 'resolution'
         verbose_name_plural = 'resolutions'
         ordering = ['id']
@@ -278,20 +275,6 @@ class Status(models.Model):
     name = models.CharField(
         max_length=50,
         unique=True)
-    issue_type_associations = models.ManyToManyField(
-        Type,
-        through='StatusAssociation',
-        through_fields=('status', 'issue_type'))
-    forward_transition = models.CharField(
-        max_length=100,
-        blank=True,
-        null=True,
-        help_text='Name of forward transition to next status with greater step value ')
-    backward_transition = models.CharField(
-        max_length=100,
-        blank=True,
-        null=True,
-        help_text='Name of backward transition to previous step with smaller value. There is no possibility to return in workflow if this value is blank')
     step = models.IntegerField(
         validators=[MinValueValidator(0), MaxValueValidator(1000)],
         default=1,
@@ -313,12 +296,16 @@ class Status(models.Model):
     color = models.CharField(
         max_length=7,
         help_text='RGB color in HEX format')
+    transitions = models.ManyToManyField(
+        'self',
+        through='Transition',
+        through_fields=('src_status', 'dest_status'))
 
     class Meta:
-        db_table = 'issue_status'
+        db_table = 'status'
         verbose_name = 'status'
         verbose_name_plural = 'statuses'
-        ordering = ['step']
+        ordering = ['name']
 
     def color_hex(self):
         return format_html(f'<div style="background: {self.color};width: 20px; height: 20px; border-radius: 4px;"></div>')
@@ -330,6 +317,38 @@ class Status(models.Model):
         return self.name
 
     color_hex.short_description = 'Color'
+
+
+class Transition(models.Model):
+    name = models.CharField(max_length=55)
+    src_status = models.ForeignKey(
+        Status,
+        on_delete=models.CASCADE,
+        related_name='%(class)s_src_status')
+    dest_status = models.ForeignKey(
+        Status,
+        on_delete=models.CASCADE,
+        related_name='%(class)s_dest_status')
+
+    class Meta:
+        db_table = 'transition'
+        verbose_name = 'transition'
+        verbose_name_plural = 'transitions'
+        ordering = ['src_status']
+
+    def __str__(self):
+        return f'{self.src_status} -> {self.dest_status}'
+
+    def full_transition(self):
+        src_status_color = Status.objects.filter(name=self.src_status).values_list('color')[0][0]
+        dest_status_color = Status.objects.filter(name=self.dest_status).values_list('color')[0][0]
+        return format_html(
+            f'<div style="background-color: {src_status_color};" class="admin-transition">{self.src_status}</div>'
+            f'<span class="admin-transition-arrow"></span>'
+            f'<div style="background-color: {dest_status_color};" class="admin-transition">{self.dest_status}</div>')
+        # return f'{self.src_status} -> {self.dest_status}'
+
+    full_transition.short_description = 'Transition'
 
 
 class Label(models.Model):
@@ -344,7 +363,7 @@ class Label(models.Model):
         null=True)
 
     class Meta:
-        db_table = 'issue_label'
+        db_table = 'label'
         verbose_name = 'label'
         verbose_name_plural = 'labels'
         ordering = ['id']
@@ -373,7 +392,7 @@ class Comment(models.Model):
         help_text='Date when comment has been recently changed')
 
     class Meta:
-        db_table = 'issue_comment'
+        db_table = 'comment'
         verbose_name = 'comment'
         verbose_name_plural = 'comments'
         ordering = ['id']
@@ -403,7 +422,7 @@ class Attachment(models.Model):
         blank=True)
 
     class Meta:
-        db_table = 'issue_attachment'
+        db_table = 'attachment'
         verbose_name = 'attachment'
         verbose_name_plural = 'attachments'
         ordering = ['id']
@@ -428,14 +447,12 @@ class Attachment(models.Model):
 class Issue(models.Model):
     id = models.BigAutoField(
         primary_key=True)
+    key = models.CharField(
+        max_length=255,
+        editable=False)
     title = models.CharField(
         max_length=255,
         help_text='Summarize the issue')
-    key = models.CharField(
-        max_length=255,
-        unique=True,
-        blank=True,
-        editable=False)
     description = models.TextField(
         verbose_name='Description',
         blank=True,
@@ -461,7 +478,7 @@ class Issue(models.Model):
         null=True,
         related_name='%(class)s_resolution')
     type = models.ForeignKey(
-        Type,
+        IssueType,
         on_delete=models.CASCADE,
         related_name='%(class)s_type')
     label = models.ForeignKey(
@@ -481,20 +498,6 @@ class Issue(models.Model):
         blank=True,
         null=True,
         related_name='%(class)s_assignee')
-    attachments = models.ForeignKey(
-        Attachment,
-        on_delete=models.CASCADE,
-        blank=True,
-        null=True,
-        related_name='%(class)s_attachment')
-    association = models.ManyToManyField(
-        'self',
-        through='IssueAssociation',
-        through_fields=('src_issue', 'dest_issue'))
-    comments = models.ManyToManyField(
-        Comment,
-        through='CommentAssociation',
-        through_fields=('issue', 'comment'))
     escalated = models.BooleanField(
         default=False, editable=False)
     suspended = models.BooleanField(
@@ -507,6 +510,19 @@ class Issue(models.Model):
         null=True,
         editable=False,
         help_text='Date when issue has been recently changed')
+    associations = models.ManyToManyField(
+        'self',
+        through='IssueAssociation',
+        through_fields=('src_issue', 'dest_issue'))
+    comments = models.ManyToManyField(
+        Comment,
+        through='CommentAssociation',
+        through_fields=('issue', 'comment'))
+    attachments = models.ManyToManyField(
+        Attachment,
+        blank=True,
+        through='AttachmentAssociation',
+        through_fields=('issue', 'attachment'))
 
     class Meta:
         db_table = 'issue'
@@ -579,29 +595,38 @@ class BoardColumnAssociation(models.Model):
     board.short_description = 'Board'
 
 
-class StatusAssociation(models.Model):
+class TransitionAssociation(models.Model):
     issue_type = models.ForeignKey(
-        Type,
+        IssueType,
         on_delete=models.CASCADE,
         related_name='%(class)s_issue_type')
-    status = models.ForeignKey(
-        Status,
+    transition = models.ForeignKey(
+        Transition,
         on_delete=models.CASCADE,
-        related_name='%(class)s_status')
+        related_name='%(class)s_transition')
 
     class Meta:
-        db_table = 'status_association'
-        verbose_name = 'status association'
-        verbose_name_plural = 'status associations'
-        ordering = ['status']
+        db_table = 'transition_association'
+        verbose_name = 'transition association'
+        verbose_name_plural = 'transition associations'
+        ordering = ['transition']
+        unique_together = ['issue_type', 'transition']
 
     def __str__(self):
-        return f'{self.issue_type}-{self.status}'
+        return f'{self.issue_type} {self.transition}'
 
-    def status_step(self):
-        return Status.objects.filter(name=self.status).values_list('step')[0]
+    def full_transition(self):
+        src_status = str(self.transition).split(' -> ')[0]
+        dest_status = str(self.transition).split(' -> ')[1]
+        src_status_color = Status.objects.filter(name=src_status).values_list('color')[0][0]
+        dest_status_color = Status.objects.filter(name=dest_status).values_list('color')[0][0]
+        return format_html(
+            f'<div style="background-color: {src_status_color};" class="admin-transition">{src_status}</div>'
+            f'<span class="admin-transition-arrow"></span>'
+            f'<div style="background-color: {dest_status_color};" class="admin-transition">{dest_status}</div>')
+        # return f'{self.src_status} -> {self.dest_status}'
 
-    status_step.short_description = 'Step'
+    full_transition.short_description = 'Transition'
 
 
 class IssueAssociation(models.Model):
@@ -638,3 +663,20 @@ class CommentAssociation(models.Model):
 
     def __str__(self):
         return f'{self.issue}-{self.comment}'
+
+
+class AttachmentAssociation(models.Model):
+    attachment = models.ForeignKey(
+        Attachment,
+        on_delete=models.CASCADE,
+        related_name='%(class)s_attachment')
+    issue = models.ForeignKey(
+        Issue,
+        on_delete=models.CASCADE,
+        related_name='%(class)s_issue')
+
+    class Meta:
+        db_table = 'attachment_association'
+
+    def __str__(self):
+        return f'{self.issue}-{self.attachment}'
