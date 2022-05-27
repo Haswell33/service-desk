@@ -8,12 +8,6 @@ def check_if_user_logged(user, curr_page):
         return HttpResponse('not logged')
 
 
-def get_user_type(request):
-    for group in request.user.groups.all():
-        print(group.name)
-    return 'dupa'
-
-
 def get_img_path():
     return f'{settings.BASE_DIR}{settings.STATIC_URL}images'
 

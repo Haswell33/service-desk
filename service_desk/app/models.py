@@ -25,6 +25,8 @@ Group.add_to_class('type', models.CharField(
     blank=True,
     db_column='type'))
 
+User
+
 
 class Board(models.Model):
     id = models.BigAutoField(
@@ -154,6 +156,11 @@ class Tenant(models.Model):
         verbose_name = 'tenant'
         verbose_name_plural = 'tenants'
         ordering = ['id']
+        permissions = [
+            ('view_customer_space', "User can manage and view tenant's issues with customer level permission"),
+            ('view_operator_space', "User can manage and view tenant's issues with operator level permission"),
+            ('view_developer_space', "User can manage and view tenant's issues with developer level permission")
+        ]
 
     def save(self, *args, **kwargs):
         if not self.id:

@@ -12,6 +12,8 @@ $(document).on('click', function(event) {
     console.log($('#sidebar-content').not(':visible'))
     if ($(event.target).is('#sidebar-toggle') && !$('#sidebar-content').hasClass('hidden')){
         $('#sidebar-content').addClass('hidden')
+        $(event.target).removeClass('arrow-left')
+        $(event.target).addClass('arrow-right')
         /*$('#sidebar-content').css({
             'margin-left': '0px',
             'visibility': 'visible'
@@ -19,6 +21,8 @@ $(document).on('click', function(event) {
     }
     else if ($(event.target).is('#sidebar-toggle') && $('#sidebar-content').hasClass('hidden')){
         $('#sidebar-content').removeClass('hidden')
+        $(event.target).addClass('arrow-left')
+        $(event.target).removeClass('arrow-right')
         /*$('#sidebar-content').css({
             'margin-left': '-328px',
             'visibility': 'hidden'

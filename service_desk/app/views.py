@@ -2,17 +2,16 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.http.cookie import SimpleCookie
 from django.shortcuts import render, reverse
 from django.conf import settings
-from app.models import Tenant
-from app.utils import get_user_type
+from app.models import Tenant, Status
+# from app.utils import get_user_type
 from django.template.loader import get_template
 
 
 def home(request, template_name='home.html'):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(f'{settings.LOGIN_URL}')
-    user_type = get_user_type(request)
-    response = render(request, template_name, {'user_tenant_type': user_type}, status=200)
-    response.set_cookie(key='test', value=user_type)
+    response = render(request, template_name, status=200)
+    response.set_cookie(key='active_tenant_id', value=1)
     return response
     # return render(request, template_name, {'user_tenant_type': user_type}, status=200)
 

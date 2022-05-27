@@ -20,7 +20,7 @@
     --success-fg: #270;
     --success-border: #adcba1;
 
-    --nav-height: 63px;
+    --nav-height: 61px;
     --footer-height: 45px;
     --background: #ddd;
     background: #dddddd;
@@ -171,8 +171,10 @@ nav:not(#nav-sidebar) {
 }
 
 nav,
-nav > a,
-nav > a:visited,
+nav > div > a,
+nav > div > a:visited,
+nav > div > div > a,
+nav > div > div > a:visited,
 nav > div > div > ul  a,
 nav > div > div > ul a:visited,
 footer,
@@ -213,14 +215,33 @@ footer p {
     padding: 5px 30px 5px 30px;
 }
 
-/* Navbar - Account */
+/* Navbar - Account, Logo */
+
+#navbar-logo svg {
+    fill: var(--elem-light);
+    transition: 200ms;
+}
+
+#navbar-logo path {
+    fill: var(--elem-dark);
+    transition: 200ms;
+}
+
+#navbar-logo svg:hover {
+    fill: var(--theme)
+}
+
+#navbar-logo svg:hover > path {
+    fill: var(--elem-light)
+}
 
 #navbar-account {
     position: relative;
 }
 
 #navbar-account svg {
-    padding: 5px 10px 5px 10px;
+    width: 42px;
+    height: 42px;
     transition: 400ms;
     cursor: pointer;
     border-radius: 5px;
@@ -258,20 +279,18 @@ footer p {
     background-size: 17px 17px;
 }
 
-#account-admin:before{
-    background-image: url('../images/admin.png');
-}
+#account-admin:before {
+    background-image: url('../images/svg/admin.svg');}
 
 #account-settings:before{
-    background-image: url('../images/cog.png');
-}
+    background-image: url('../images/svg/cog.svg');}
 
 #account-password-change:before {
-    background-image: url('../images/lock.png');
+    background-image: url('../images/svg/lock.svg');
 }
 
 #account-logout:before {
-    background-image: url('../images/log-out.png');
+    background-image: url('../images/svg/log-out.svg');
 }
 
 #navbar-account ul li:nth-last-child(1) {
@@ -304,15 +323,16 @@ footer p {
 
 #navbar-login > a{
     display: flex;
+    align-items: center;
 }
 
 #navbar-login a:before {
+    padding-right: 5px;
     content:'';
-    width: 25px;
-    height: 17px;
+    width: 28px;
+    height: 28px;
     background-repeat: no-repeat;
-    background-size: 17px 17px;
-    background-image: url('../images/log-in.png');
+    background-image: url('../images/svg/log-in.svg');
 }
 
 /* Content - Logged out */
@@ -403,7 +423,7 @@ footer p {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 5px;
+    padding: 1px;
     background: var(--elem-light-secondary);
     transition: 300ms;
 }
@@ -413,9 +433,17 @@ footer p {
 }
 
 #sidebar-toggle:before {
-    content: '\00AB';
-    color: var(--elem-light);
-    font-size: 28px;
+    content: '';
+    width: 18px;
+    height: 18px;
+}
+
+.arrow-left:before {
+    background-image: url('../../custom/images/svg/arrow-left.svg');
+}
+
+.arrow-right:before {
+    background-image: url('../../custom/images/svg/arrow-right.svg');
 }
 
 #sidebar-content {

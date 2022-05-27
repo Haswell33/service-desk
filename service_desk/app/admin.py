@@ -77,7 +77,7 @@ class ResolutionAdminModel(admin.ModelAdmin):
 
 
 @admin.register(IssueType)
-class TypeAdminModel(admin.ModelAdmin):
+class IssueTypeAdminModel(admin.ModelAdmin):
     list_display = ('name', 'env_type', 'icon_img_admin')
     search_fields = ['name', 'env_type']
 
