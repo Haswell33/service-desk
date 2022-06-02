@@ -280,10 +280,12 @@ footer p {
 }
 
 #account-admin:before {
-    background-image: url('../images/svg/admin.svg');}
+    background-image: url('../images/svg/admin.svg');
+}
 
 #account-settings:before{
-    background-image: url('../images/svg/cog.svg');}
+    background-image: url('../images/svg/cog.svg');
+}
 
 #account-password-change:before {
     background-image: url('../images/svg/lock.svg');

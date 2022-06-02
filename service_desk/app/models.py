@@ -25,7 +25,7 @@ Group.add_to_class('type', models.CharField(
     blank=True,
     db_column='type'))
 
-User
+
 
 
 class Board(models.Model):
@@ -157,9 +157,9 @@ class Tenant(models.Model):
         verbose_name_plural = 'tenants'
         ordering = ['id']
         permissions = [
-            ('view_customer_space', "User can manage and view tenant's issues with customer level permission"),
-            ('view_operator_space', "User can manage and view tenant's issues with operator level permission"),
-            ('view_developer_space', "User can manage and view tenant's issues with developer level permission")
+            ('view_customer_space', 'Manage tenant as customer'),
+            ('view_operator_space', 'Manage tenant as operator'),
+            ('view_developer_space', 'Manage tenant as developer')
         ]
 
     def save(self, *args, **kwargs):
@@ -175,6 +175,18 @@ class Tenant(models.Model):
 
     def icon_img(self):
         return mark_safe(f'<img src="{self.icon}" height="20" width="20"/>')
+
+
+    '''
+    def customer_group_name(self):
+        return Group.objects.filter(id=self.customers_group).values_list('name')[0][0]
+
+    def operator_group_name(self):
+        return Group.objects.filter(id=self.operators_group).values_list('name')[0][0]
+
+    def developer_group_name(self):
+        return Group.objects.filter(id=self.developers_group).values_list('name')[0][0]
+    '''
 
     icon_img_admin.short_description = 'Icon'
     icon_img.short_description = 'Icon'
