@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+<head>
+  <title>{% block title %} {{ block.super }} | Board{% endblock %}</title>
+  <meta http-equiv="refresh" content="60">
+</head>
+
+{% block content %}
+  {% block sidebar %}
+  <div id="sidebar" class="sticky">
+    <div id="sidebar-toggle" class="sticky arrow-left"></div>
+    <div id="sidebar-content" class="sticky">
+      <div id="sidebar-tenant">
+        <img src="{{ request.session.tenant_icon }}" alt="tenant-icon" width="25" height="25">
+        <p>{{ request.session.tenant_name}}</p>
+      </div>
+      <div id="sidebar-create-ticket">
+        <a href="{% url 'create_ticket' %}"><input type="button" value="Create ticket"></a>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
+  <div id="content-page">
+    {% block content_page %}
+    {% endblock %}
+  </div>
+{% endblock %}
+
+

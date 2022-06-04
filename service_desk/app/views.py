@@ -16,6 +16,13 @@ def home(request, template_name='home.html'):
     # return render(request, template_name, {'user_tenant_type': user_type}, status=200)
 
 
+def create_ticket(request, template_name='create-ticket.html'):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(f'{settings.LOGIN_URL}')
+    response = render(request, template_name, status=200)
+    return response
+
+
 def password_change(request, template_name='password-change.html'):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(f'{settings.LOGIN_URL}?next={request.path}')
@@ -62,12 +69,6 @@ def page_not_found(request, exception=None, template_name='errors/404.html'):
 
 def internal_server_error(request, exception=None, template_name='error/500.html'):
     return render(request, template_name, {}, status=500)
-
-
-def test(request):
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect(f'{settings.LOGIN_URL}?next={request.path}')
-    return HttpResponse('logged - test')
 
 
 #def login(TemplateView):

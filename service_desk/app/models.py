@@ -4,6 +4,7 @@ from django.contrib.auth.models import User, Group
 from django.utils.html import mark_safe, format_html
 from django.conf import settings
 from django.db import models
+from django import forms
 from crum import get_current_user
 from datetime import datetime
 from . import utils
@@ -175,18 +176,6 @@ class Tenant(models.Model):
 
     def icon_img(self):
         return mark_safe(f'<img src="{self.icon}" height="20" width="20"/>')
-
-
-    '''
-    def customer_group_name(self):
-        return Group.objects.filter(id=self.customers_group).values_list('name')[0][0]
-
-    def operator_group_name(self):
-        return Group.objects.filter(id=self.operators_group).values_list('name')[0][0]
-
-    def developer_group_name(self):
-        return Group.objects.filter(id=self.developers_group).values_list('name')[0][0]
-    '''
 
     icon_img_admin.short_description = 'Icon'
     icon_img.short_description = 'Icon'
@@ -699,3 +688,12 @@ class AttachmentAssociation(models.Model):
 
     def __str__(self):
         return f'{self.issue}-{self.attachment}'
+
+
+# FORMS
+
+
+class IssueForm(forms.ModelForm):
+    class Meta:
+        model = Issue
+        fields = ['title', 'type', 'priority', 'assignee', 'label', 'description', 'attachments']

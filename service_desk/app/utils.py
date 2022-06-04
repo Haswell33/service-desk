@@ -3,7 +3,7 @@ from django.conf import settings
 from django.http import HttpResponse
 
 CUSTOMER_GROUP_TYPE = 'customer'
-OPERATOR_GROUP_TYPE = 'developer'
+OPERATOR_GROUP_TYPE = 'operator'
 DEVELOPER_GROUP_TYPE = 'developer'
 
 

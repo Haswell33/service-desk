@@ -6,9 +6,11 @@
     --elem-dark: #353535;
     --elem-dark-secondary: #4f4f4f;
     --elem-dark-third: #484848;
+
     --elem-light: #e1e1e1;
     --elem-light-secondary: #656565;
     --elem-light-third: #b9b9b9;
+    --elem-light-fourth: #818181;
     --elem-light-filter: invert(100%) sepia(0%) saturate(7465%) hue-rotate(41deg) brightness(130%) contrast(76%);
 
     --error-bg: #f2dede;
@@ -25,6 +27,11 @@
     --background: #ddd;
     background: #dddddd;
     box-sizing: border-box;
+}
+
+::selection {
+    background: var(--theme);
+    color: var(--elem-light);
 }
 
 body {
@@ -403,10 +410,6 @@ footer p {
 
 /* Home - board tenant header */
 
-#home-content {
-
-}
-
 #sidebar {
     display: flex;
     flex-direction: row;
@@ -417,7 +420,7 @@ footer p {
     margin: 0;
 }
 
-#sidebar-toggle {
+#sidebar > #sidebar-toggle {
     display: flex;
     z-index: 40;
     cursor: pointer;
@@ -430,48 +433,75 @@ footer p {
     transition: 300ms;
 }
 
-#sidebar-toggle:hover {
+#sidebar > #sidebar-toggle:hover {
     background-color: var(--elem-dark-secondary)
 }
 
-#sidebar-toggle:before {
+#sidebar > #sidebar-toggle:before {
     content: '';
     width: 18px;
     height: 18px;
 }
 
 .arrow-left:before {
-    background-image: url('../../custom/images/svg/arrow-left.svg');
+    background-image: url('../../site/images/svg/arrow-left.svg');
 }
 
 .arrow-right:before {
-    background-image: url('../../custom/images/svg/arrow-right.svg');
+    background-image: url('../../site/images/svg/arrow-right.svg');
 }
 
-#sidebar-content {
+#sidebar > #sidebar-content {
     flex: 0 0 298px;
     visibility: visible;
-    border-right: 1px solid var(--elem-light-third);
+    border-right: 1px solid var(--elem-light-fourth);
     transition: visibility 0.3s, margin 0.3s;
 }
 
-#sidebar-tenant {
+#sidebar > #sidebar-content > #sidebar-tenant {
+    background: var(--elem-light-secondary);
+    color: var(--elem-light);
     display: flex;
     align-items: center;
     padding: 15px 10px 15px 10px;
-    border-bottom: 1px solid var(--elem-light-third);
+    border-bottom: 1px solid var(--elem-light-fourth);
 }
 
-.hidden {
-    margin-left: calc(-298px - 30px)!important;
+#sidebar > #sidebar-content > #sidebar-tenant p {
+    margin: 0;
+    font-size: 120%;
+    padding-left: 10px;
+    line-height: 1;
+    padding-top: 6px;
+    letter-spacing: 1px;
 }
 
+#sidebar > #sidebar-content > #sidebar-create-ticket {
+    padding: 10px;
+    display: flex;
+}
 
+#sidebar > #sidebar-content > #sidebar-create-ticket a {
+    width: 100%
+}
 
-.sticky {
-    position: sticky;
-    top: 0;
-    max-height: 100vh
+#sidebar > #sidebar-content > #sidebar-create-ticket input {
+    width: 100%;
+    font-size: 95%;
+    padding: 8px 10px 8px 10px;
+}
+
+/* Content page */
+
+#content-page h1 {
+    margin: 0;
+    font-size: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--elem-light-third)
+}
+
+.content-page-block {
+    padding-top: 15px;
 }
 
 /* Admin Override base.css*/
@@ -521,6 +551,7 @@ footer p {
 .toggle-nav-sidebar:hover {
     background: var(--elem-dark-secondary)
 }
+
 #content h1 {
     flex: 0 0 100%
 }
@@ -937,4 +968,24 @@ body.delete-confirmation #content form .cancel-link:hover{
     content: '\2192';
     padding: 5px 8px 5px 8px;
     font-size: 26px;
+}
+
+.hidden {
+    margin-left: -298px!important;
+}
+
+.sticky {
+    position: sticky;
+    top: 0;
+    max-height: 100vh
+}
+
+#content-page {
+    margin-left: calc(300px + 20px);
+    padding: 15px;
+    transition: 300ms margin-left;
+}
+
+.full-width {
+    margin-left: calc(0% + 20px)!important;
 }

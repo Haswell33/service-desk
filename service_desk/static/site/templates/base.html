@@ -4,7 +4,7 @@
   {% load static %}
   <title>{% block title %}Service Desk{% endblock %}</title>
   <script rel="script" type="text/javascript" src="{% static 'scripts/jquery.min.js' %}"></script>
-  <script rel="script" type="text/javascript" src="{% static 'scripts/gui.js' %}"></script>
+  <script rel="script" type="text/javascript" src="{% static 'scripts/base.js' %}"></script>
   <script type="text/javascript" src="{% static 'scripts/bootstrap-filestyle.min.js' %}"> </script>
   <link rel="stylesheet" type="text/css" href="{% static 'styles/style.css' %}"/>
   <!--<link rel="stylesheet" type="text/css" href="{% static 'styles/fonts/Lato' %}"/>-->
@@ -20,6 +20,7 @@
 
 <body>
   <nav id="navbar" class="sticky">
+    {% block header %}
     <div class="navbar-content-block">
       <div id="navbar-logo">
         <a href="{% url 'home' %}">
@@ -63,12 +64,16 @@
         </div>
       {% endif %}
     </div>
-  </nav>
-  <main>
-    {% block content %}
     {% endblock %}
-  </main>
+  </nav>
+  {% block content %}
+  <div id="content-page">
+    {% block content_page %}
+    {% endblock %}
+  </div>
+  {% endblock %}
   <footer>
+    {% block footer %}
     <div class="footer-content-block">
       <p>Karol Siedlaczek &copy; 2022</p>
     </div>
@@ -82,49 +87,19 @@
     <div class="footer-content-block">
       <p>Wojskowa Akademia Techniczna</p>
     </div>
+    {% endblock %}
   </footer>
 </body>
 </html>
 
 <script>
-  $(document).ready(function () {
+  $(document).ready(function(){
     console.log('document ready')
     startFuns()
-    let user_tenant_type = '{{tenant}}'
-    console.log('{{ request.session.items }}')
     let userIsAdmin = ('{{user.is_superuser}}' === 'True')
     let userIsAuth = ('{{user.is_authenticated}}' === 'True')
-    if (userIsAuth){
-      if (userIsAdmin) {
-        $(':root').css({
-          '--theme': '#6554C0', //purple
-          '--theme-transparent': 'rgba(101, 84, 192, 0.6)'
-        })
-      }
-      else if (user_tenant_type === 'customer') {
-        $(':root').css({
-          '--theme': '#4267B2', //blue
-          '--theme-transparent': 'rgba(66, 103, 178, 0.6)'
-        })
-      }
-      else if (user_tenant_type === 'operator'){
-        $(':root').css({
-          '--theme': '#36B37E', // green
-          '--theme-transparent': 'rgba(54, 179, 126, 0.6)'
-        })
-      }
-      else if (user_tenant_type === 'developer'){
-        $(':root').css({
-          '--theme': '#c57117', //orange
-          '--theme-transparent': 'rgba(197, 113, 23, 0.6)'
-        })
-      }
-    }
-    else if(!userIsAuth){
-      $(':root').css({
-        '--theme': '#777777', //gray
-        '--theme-transparent': 'rgba(119, 119, 119, 0.6)'
-      })
-    }
+    let userTenantType = '{{request.session.tenant_type}}'
+    console.log(userTenantType)
+    themeColor(userIsAuth, userIsAdmin, userTenantType)
   })
 </script>
