@@ -2,21 +2,36 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.http.cookie import SimpleCookie
 from django.shortcuts import render, reverse
 from django.conf import settings
-from app.models import Tenant, Status
-# from app.utils import get_user_type
+from .models import Tenant, Status
+from .forms import IssueForm
+# from .utils import get_user_type
 from django.template.loader import get_template
 
 
 def home(request, template_name='home.html'):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(f'{settings.LOGIN_URL}')
-    response = render(request, template_name, status=200)
+    response = render(request, template_name,  status=200)
     response.set_cookie(key='active_tenant_id', value=1)
     return response
     # return render(request, template_name, {'user_tenant_type': user_type}, status=200)
 
 
 def create_ticket(request, template_name='create-ticket.html'):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(f'{settings.LOGIN_URL}')
+    elif request.method == 'POST':
+        form = IssueForm(request.POST)
+        if form.is_valid():
+            form.save()
+            print('form is valid')
+            return render(request, 'submit-ticket.html', status=200)
+    else:
+        form = IssueForm()
+        return render(request, template_name, {'form': form}, status=200)
+
+
+def submit_ticket(request, template_name='submit-ticket.html'):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(f'{settings.LOGIN_URL}')
     response = render(request, template_name, status=200)

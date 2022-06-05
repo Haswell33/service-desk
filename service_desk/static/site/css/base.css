@@ -39,6 +39,7 @@ body {
     overflow-x: hidden;
     margin: 0;
     padding: 0;
+    margin-top: var(--nav-height);
     color: var(--elem-dark);
     font-family: Lato, sans-serif;
 }
@@ -105,6 +106,7 @@ input[type=checkbox] {
 input[type=search] {
     font-size: 13px;
     line-height: 1.3;
+    color: var(--elem-light);
     background: var(--elem-dark-third);
     border: 2px solid var(--elem-dark-third);
     padding: 5px 5px 5px 35px;
@@ -133,7 +135,7 @@ input[type=search]:focus {
 }
 
 .bootstrap-filestyle > input {
-    padding-left: 100px!important;
+    padding-left: 120px!important;
     width: calc(50% - 100px)!important;
 }
 
@@ -154,6 +156,10 @@ input[type=search]:focus {
     background-color: var(--theme);
 }
 
+label.btn.btn-secondary {
+    position: absolute;
+}
+
 textarea {
     padding: 5px 10px!important;
 }
@@ -168,7 +174,7 @@ nav:not(#nav-sidebar) {
     background: var(--elem-dark);
     border-bottom: 5px solid var(--theme);
     margin: 0;
-    position: relative;
+    position: fixed;
     left: 0;
     top: 0;
     z-index: 100;
@@ -287,19 +293,19 @@ footer p {
 }
 
 #account-admin:before {
-    background-image: url('../images/svg/admin.svg');
+    background-image: url('../img/svg/admin.svg');
 }
 
 #account-settings:before{
-    background-image: url('../images/svg/cog.svg');
+    background-image: url('../img/svg/settings.svg');
 }
 
 #account-password-change:before {
-    background-image: url('../images/svg/lock.svg');
+    background-image: url('../img/svg/change-password.svg');
 }
 
 #account-logout:before {
-    background-image: url('../images/svg/log-out.svg');
+    background-image: url('../img/svg/log-out.svg');
 }
 
 #navbar-account ul li:nth-last-child(1) {
@@ -322,7 +328,7 @@ footer p {
     position: relative;
 }
 
-#navbar-search img {
+#navbar-search svg {
     position: absolute;
     bottom: 7px;
     left: 10px;
@@ -330,7 +336,7 @@ footer p {
 
 /* Navbar - Login */
 
-#navbar-login > a{
+#navbar-login > a {
     display: flex;
     align-items: center;
 }
@@ -341,7 +347,7 @@ footer p {
     width: 28px;
     height: 28px;
     background-repeat: no-repeat;
-    background-image: url('../images/svg/log-in.svg');
+    background-image: url('../img/svg/log-in.svg');
 }
 
 /* Content - Logged out */
@@ -424,6 +430,8 @@ footer p {
     display: flex;
     z-index: 40;
     cursor: pointer;
+    height: 100%;
+    position: fixed;
     margin-bottom: var(--footer-height);
     flex-direction: column;
     justify-content: center;
@@ -444,15 +452,20 @@ footer p {
 }
 
 .arrow-left:before {
-    background-image: url('../../site/images/svg/arrow-left.svg');
+    background-image: url('../img/svg/arrow-left.svg');
 }
 
 .arrow-right:before {
-    background-image: url('../../site/images/svg/arrow-right.svg');
+    background-image: url('../img/svg/arrow-right.svg');
 }
 
 #sidebar > #sidebar-content {
+    width: 298px;
+    height: 100%;
+    margin-top: var(--nav-height);
+    position:fixed;
     flex: 0 0 298px;
+    margin-left: 20px;
     visibility: visible;
     border-right: 1px solid var(--elem-light-fourth);
     transition: visibility 0.3s, margin 0.3s;
@@ -592,7 +605,7 @@ footer p {
     height: 17px;
     background-repeat: no-repeat;
     background-size: 17px 17px;
-    background-image: url('../images/logo.png')
+    background-image: url('../img/logo.png')
 }
 
 #recent-actions-module > h2 {
@@ -954,6 +967,7 @@ body.delete-confirmation #content form .cancel-link:hover{
 }
 
 .admin-transition {
+    width: max-content;
     border-radius: 5px;
     padding: 7px 12px 5px 12px;
     font-weight: 700;
@@ -986,6 +1000,146 @@ body.delete-confirmation #content form .cancel-link:hover{
     transition: 300ms margin-left;
 }
 
+
 .full-width {
     margin-left: calc(0% + 20px)!important;
+}
+
+.left-content-full-width {
+    width: calc(100% + 298px)!important;
+}
+
+#create-ticket-content {
+    display: flex;
+    flex-direction: row;
+}
+
+#create-ticket-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid var(--elem-light-third);
+    padding-left: 30px;
+    width: 100%
+}
+
+#create-ticket-info svg {
+    opacity: 0.2;
+    width: 35px;
+    height: 35px;
+}
+
+#create-ticket-info-dialog {
+    color: var(--elem-light-secondary);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#create-ticket-info-dialog p {
+    width: 450px;
+}
+
+#create-ticket-info-dialog p.p-footer {
+    width: 300px;
+    text-align: center;
+    padding-top: 10px;
+    border-top: 1px solid var(--elem-light-third);
+    font-size: 80%;
+}
+
+#create-ticket-form {
+    width: max-content;
+    padding-left: 15px;
+    padding-right: 30px;
+}
+
+.form-field {
+    padding: 10px 0;
+}
+
+.form-field label {
+    font-weight:  500;
+    padding-bottom: 3px;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+    border-radius: 5px;
+    background-color: var(--elem-light);
+    border: 1px solid var(--elem-light-third);
+    box-sizing: border-box;
+}
+
+.short-field input,
+.short-field select,
+.short-field textarea {
+    width: 300px!important;
+}
+
+.medium-field input,
+.medium-field select,
+.medium-field textarea {
+    width: 550px!important;
+}
+
+.long-field input,
+.long-field select,
+.long-field textarea {
+    width: 750px!important;
+}
+
+.very-long-field input,
+.very-long-field select,
+.very-long-field textarea {
+    width: 850px!important;
+}
+
+.form .description {
+    font-size: 80%;
+    padding-top: 3px;
+    color: var(--elem-light-fourth);
+}
+
+/* select2 override */
+
+.select2-selection__choice {
+    color: var(--elem-light)!important;
+    line-height: 1.4!important;
+    background-color: var(--elem-light-secondary)!important;
+}
+
+.select2-selection {
+    background: none!important;
+    height: 35px!important;
+}
+
+.select2-selection__placeholder,
+.select2-selection__rendered {
+    line-height: 35px!important
+}
+
+.select2-search--dropdown {
+    background: var(--elem-light)
+}
+
+.select2-search__field {
+    background: var(--elem-light)!important;
+    color: var(--elem-light-secondary)!important;
+}
+
+.select2-results__option--highlighted,
+.select2-container--default .select2-results__option--highlighted[aria-selected]{
+    background-color: var(--theme)!important;
+    transition: 100ms;
+}
+
+.select2-results__option {
+    background-color: var(--elem-light)!important;
+}
+
+.select2-selection__arrow {
+    height: 32px!important;
+    width: 30px!important;
 }

@@ -1,4 +1,4 @@
-from app.models import Status, Tenant, Group
+from .models import Status, Tenant, Group
 from . import utils
 from django.core import serializers
 from django.forms.models import model_to_dict

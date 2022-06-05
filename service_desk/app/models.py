@@ -7,7 +7,7 @@ from django.db import models
 from django import forms
 from crum import get_current_user
 from datetime import datetime
-from . import utils
+from .utils import get_img_path
 
 GROUP_TYPES = [
     ('customer', 'Customer'),
@@ -147,7 +147,7 @@ class Tenant(models.Model):
         null=True,
         on_delete=models.DO_NOTHING)
     icon = models.ImageField(
-        upload_to=f'{(settings.STATIC_URL).strip("/")}/images/tenant',
+        upload_to=f'{(settings.STATIC_URL).strip("/")}/img/tenant',
         validators=[FileExtensionValidator],
         blank=True,
         max_length=500)
@@ -192,7 +192,7 @@ class Priority(models.Model):
         blank=True,
         null=True)
     icon = models.ImageField(
-        upload_to=f'{(settings.STATIC_URL).strip("/")}/images/priority',
+        upload_to=f'{(settings.STATIC_URL).strip("/")}/img/priority',
         validators=[FileExtensionValidator],
         blank=True,
         max_length=500)
@@ -232,7 +232,7 @@ class IssueType(models.Model):
         blank=True,
         null=True)
     icon = models.ImageField(
-        upload_to=f'{(settings.STATIC_URL).strip("/")}/images/issue_type',
+        upload_to=f'{(settings.STATIC_URL).strip("/")}/img/issue_type',
         validators=[FileExtensionValidator],
         blank=True,
         max_length=500)
@@ -283,10 +283,6 @@ class Status(models.Model):
     name = models.CharField(
         max_length=50,
         unique=True)
-    step = models.IntegerField(
-        validators=[MinValueValidator(0), MaxValueValidator(1000)],
-        default=1,
-        help_text='Order of status')
     board_column = models.ManyToManyField(
         BoardColumn,
         through='BoardColumnAssociation',
@@ -318,11 +314,11 @@ class Status(models.Model):
     def color_hex(self):
         return format_html(f'<div style="background: {self.color};width: 20px; height: 20px; border-radius: 4px;"></div>')
 
-    def get_step(self):
-        return self.step
-
     def __str__(self):
         return self.name
+
+    def status_colored(self):
+        return format_html(f'<div style="background-color: {self.color};" class="admin-transition">{self.name}</div>')
 
     color_hex.short_description = 'Color'
 
@@ -354,7 +350,6 @@ class Transition(models.Model):
             f'<div style="background-color: {src_status_color};" class="admin-transition">{self.src_status}</div>'
             f'<span class="admin-transition-arrow"></span>'
             f'<div style="background-color: {dest_status_color};" class="admin-transition">{self.dest_status}</div>')
-        # return f'{self.src_status} -> {self.dest_status}'
 
     full_transition.short_description = 'Transition'
 
@@ -526,11 +521,11 @@ class Issue(models.Model):
         Comment,
         through='CommentAssociation',
         through_fields=('issue', 'comment'))
-    attachments = models.ManyToManyField(
-        Attachment,
+    attachments = models.FileField(
+        upload_to=f'{(settings.STATIC_URL).strip("/")}/attachments',
+        validators=[FileExtensionValidator],
         blank=True,
-        through='AttachmentAssociation',
-        through_fields=('issue', 'attachment'))
+        null=True)
 
     class Meta:
         db_table = 'issue'
@@ -574,6 +569,11 @@ class Issue(models.Model):
         else:
             return False
 
+    def full_issue_type(self):
+        issue_type_icon = IssueType.objects.filter(id=self.type).values('icon')[0]['icon']
+        issue_type_name = mark_safe(f'<img src="../../../{IssueType.objects.filter(id=self.type).values("name")[0]["name"]}" height="20" width="20"/>')
+        return f'{issue_type_icon} {issue_type_name}'
+
     def __str__(self):
         return self.key
 
@@ -597,10 +597,15 @@ class BoardColumnAssociation(models.Model):
     def board(self):
         return BoardColumn.objects.filter(column_title=self.column).values_list('board')[0]
 
+    def status_colored(self):
+        status_color = Status.objects.filter(name=self.status).values_list('color')[0][0]
+        return format_html(f'<div style="background-color: {status_color};" class="admin-transition">{self.status}</div>')
+
     def __str__(self):
         return f'{self.board()}-{self.column}-{self.status}'
 
     board.short_description = 'Board'
+    status_colored.short_description = 'Status'
 
 
 class TransitionAssociation(models.Model):
@@ -688,12 +693,3 @@ class AttachmentAssociation(models.Model):
 
     def __str__(self):
         return f'{self.issue}-{self.attachment}'
-
-
-# FORMS
-
-
-class IssueForm(forms.ModelForm):
-    class Meta:
-        model = Issue
-        fields = ['title', 'type', 'priority', 'assignee', 'label', 'description', 'attachments']

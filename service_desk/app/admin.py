@@ -3,7 +3,7 @@ from django import forms
 from django.contrib.admin import AdminSite
 from django.contrib.auth.models import Group, User
 from django.contrib.auth.admin import GroupAdmin, UserAdmin
-from app.models import Issue, Tenant, Comment, Priority, Status, Resolution, Transition, TransitionAssociation, IssueType, Label, SLAScheme, Board, BoardColumn, BoardColumnAssociation
+from .models import Issue, Tenant, Comment, Priority, Status, Resolution, Transition, TransitionAssociation, IssueType, Label, SLAScheme, Board, BoardColumn, BoardColumnAssociation
 
 
 class GroupAdminModel(GroupAdmin):
@@ -26,7 +26,7 @@ class BoardColumnAdminModel(admin.ModelAdmin):
 
 @admin.register(BoardColumnAssociation)
 class BoardColumnAssociationAdminModel(admin.ModelAdmin):
-    list_display = ('column', 'status', 'board')
+    list_display = ('column', 'status_colored', 'board')
     search_fields = ['board', 'column', 'status']
     list_filter = ('column', 'status')
 
@@ -51,8 +51,8 @@ class PriorityAdminModel(admin.ModelAdmin):
 
 @admin.register(Status)
 class StatusAdminModel(admin.ModelAdmin):
-    list_display = ('name', 'step', 'resolution', 'color_hex')
-    search_fields = ['name', 'step']
+    list_display = ('name', 'resolution', 'color_hex')
+    search_fields = ['name']
     # list_filter = ('step', 'forward_transition')
 
 
@@ -89,7 +89,7 @@ class LabelAdminModel(admin.ModelAdmin):
 
 @admin.register(Issue)
 class IssueAdminModel(admin.ModelAdmin):
-    list_display = ('key', 'title', 'tenant', 'priority', 'status', 'resolution', 'type', 'label', 'reporter', 'assignee', 'escalated', 'suspended', 'created', 'updated')
+    list_display = ('key', 'title', 'tenant', 'priority', 'status', 'resolution', 'full_issue_type', 'label', 'reporter', 'assignee', 'escalated', 'suspended', 'created', 'updated')
     search_fields = ['key', 'title', 'tenant', 'priority', 'status', 'resolution', 'type', 'label', 'reporter', 'assignee']
 
 

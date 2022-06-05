@@ -13,12 +13,16 @@ $(document).on('click', function(event) {
         $('#content-page').addClass('full-width')
         $(event.target).removeClass('arrow-left')
         $(event.target).addClass('arrow-right')
+
+        $('#create-ticket-form').addClass('left-content-full-width')
     }
     else if ($(event.target).is('#sidebar-toggle') && $('#sidebar-content').hasClass('hidden')){
         $('#sidebar-content').removeClass('hidden')
         $('#content-page').removeClass('full-width')
         $(event.target).addClass('arrow-left')
         $(event.target).removeClass('arrow-right')
+
+        $('#create-ticket-form').removeClass('left-content-full-width')
     }
 })
 
@@ -30,6 +34,7 @@ setTimeout(function(){
 function startFuns(){
     $(":file").filestyle()
     console.log('boostrap-filestyle loaded')
+    select2Fields()
 }
 
 function themeColor(userIsAuth, userIsAdmin, userTenantType){
@@ -63,6 +68,46 @@ function themeColor(userIsAuth, userIsAdmin, userTenantType){
         '--theme-transparent': 'rgba(119, 119, 119, 0.6)'
       })
     }
+}
+
+function select2Fields(){
+    $('#id_type').select2({
+        /*templateResult: function (idioma) {
+            return $("<span><img src='https://www.free-country-flags.com/countries/" +idioma.id+ "/1/tiny/" + idioma.id + ".png'/> " + idioma.text + "</span>");
+        },
+        templateSelection: function (idioma) {
+            return $("<span><img src='https://www.free-country-flags.com/countries/" + idioma.id + "/1/tiny/" + idioma.id + ".png'/> " + idioma.text + "</span>");
+        },*/
+        placeholder: 'Select an issue type',
+    })
+    $('#id_priority').select2({
+        /*templateResult: function (idioma) {
+            return $("<span><img src='https://www.free-country-flags.com/countries/" +idioma.id+ "/1/tiny/" + idioma.id + ".png'/> " + idioma.text + "</span>");
+        },
+        templateSelection: function (idioma) {
+            return $("<span><img src='https://www.free-country-flags.com/countries/" + idioma.id + "/1/tiny/" + idioma.id + ".png'/> " + idioma.text + "</span>");
+        },*/
+        placeholder: 'Select a priority',
+    })
+    $('#id_assignee').select2({
+        /*templateResult: function (idioma) {
+            return $("<span><img src='https://www.free-country-flags.com/countries/" +idioma.id+ "/1/tiny/" + idioma.id + ".png'/> " + idioma.text + "</span>");
+        },
+        templateSelection: function (idioma) {
+            return $("<span><img src='https://www.free-country-flags.com/countries/" + idioma.id + "/1/tiny/" + idioma.id + ".png'/> " + idioma.text + "</span>");
+        },*/
+        placeholder: 'Select a person whose ticket will be assigned',
+    })
+    $('#id_label').select2({
+        /*templateResult: function (idioma) {
+            return $("<span><img src='https://www.free-country-flags.com/countries/" +idioma.id+ "/1/tiny/" + idioma.id + ".png'/> " + idioma.text + "</span>");
+        },
+        templateSelection: function (idioma) {
+            return $("<span><img src='https://www.free-country-flags.com/countries/" + idioma.id + "/1/tiny/" + idioma.id + ".png'/> " + idioma.text + "</span>");
+        },*/
+        placeholder: 'Select a category of ticket',
+        multiple: true
+    })
 }
 
 

@@ -3,12 +3,14 @@
 <head>
   {% load static %}
   <title>{% block title %}Service Desk{% endblock %}</title>
-  <script rel="script" type="text/javascript" src="{% static 'scripts/jquery.min.js' %}"></script>
-  <script rel="script" type="text/javascript" src="{% static 'scripts/base.js' %}"></script>
-  <script type="text/javascript" src="{% static 'scripts/bootstrap-filestyle.min.js' %}"> </script>
-  <link rel="stylesheet" type="text/css" href="{% static 'styles/style.css' %}"/>
+  <script type="text/javascript" rel="script" src="{% static 'js/jquery.min.js' %}"></script>
+  <script type="text/javascript" rel="script" src="{% static 'js/base.js' %}"></script>
+  <script type="text/javascript" rel="script" src="{% static 'js/bootstrap-filestyle.min.js' %}"></script>
+  <script type="text/javascript" rel="script" src="{% static 'js/select2.min.js' %}"></script>
+  <link type="text/css" rel="stylesheet" href="{% static 'css/base.css' %}"/>
+  <link type="text/css" rel="stylesheet" href="{% static 'css/select2.min.css' %}">
   <!--<link rel="stylesheet" type="text/css" href="{% static 'styles/fonts/Lato' %}"/>-->
-  <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+  <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
   <link rel="canonical" href="{{ request.build_absolute_uri }}">
   <meta charset="utf-8">
   <meta name="author" content="Karol Siedlaczek">
@@ -31,8 +33,8 @@
         </a>
       </div>
       {% if user.is_authenticated %}
-        <div id="navbar-create">
-          <a href="#">Logged as {{ user.username }}</a>
+        <div id="navbar-text">
+          <p>Logged as {{ user.username }}</p>
         </div>
       {% else %}
         <p>Welcome!</p>
@@ -41,7 +43,9 @@
     <div class="navbar-content-block">
       {% if user.is_authenticated %}
         <div id="navbar-search">
-          <img class="icon" src="{% static 'images/search.png' %}" alt="Search" width="17" height="17">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 487.95 487.95" fill="#e1e1e1" width="17" height="17">
+	        <path d="M481.8,453l-140-140.1c27.6-33.1,44.2-75.4,44.2-121.6C386,85.9,299.5,0.2,193.1,0.2S0,86,0,191.4s86.5,191.1,192.9,191.1c45.2,0,86.8-15.5,119.8-41.4l140.5,140.5c8.2,8.2,20.4,8.2,28.6,0C490,473.4,490,461.2,481.8,453z M41,191.4c0-82.8,68.2-150.1,151.9-150.1s151.9,67.3,151.9,150.1s-68.2,150.1-151.9,150.1S41,274.1,41,191.4z"/>
+          </svg>
           <input type="search" placeholder="Search ticket...">
         </div>
         <div id="navbar-account">

@@ -1,10 +1,9 @@
 {% extends 'base.html' %}
 
 <head>
-  <title>{% block title %} {{ block.super }} | Board{% endblock %}</title>
+  <title>{% block title %} {{ block.super }}{% endblock %}</title>
   <meta http-equiv="refresh" content="60">
 </head>
-
 {% block content %}
   {% block sidebar %}
   <div id="sidebar" class="sticky">
