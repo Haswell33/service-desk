@@ -9,7 +9,51 @@ from .models import Issue, Tenant, Comment, Priority, Status, Resolution, Transi
 class GroupAdminModel(GroupAdmin):
     list_display = ('name', 'type')
     search_fields = ['name', 'type']
+    fieldsets = (
+        (None, {
+            'fields': ('name', 'type')
+        }),
+        ('Permissions', {
+            'fields': ('permissions',)
+        })
+    )
 
+
+class UserAdminModel(GroupAdmin):
+    list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff', 'icon')
+    search_fields = ['username', 'first_name']
+    list_filter = ('is_superuser', 'is_active')
+    fieldsets = (
+        (None, {
+            'fields': ('username', 'password', 'icon')
+        }),
+        ('Personal Info', {
+            'fields': ('first_name', 'last_name', 'email')
+        }),
+        ('Permissions', {
+            'fields': ('is_active', 'is_staff', 'is_superuser')
+        }),
+        ('Groups', {
+            'fields': ('groups',)
+        }),
+        ('User permissions', {
+            'fields': ('user_permissions',)
+        }),
+        ('Dates', {
+            'fields': ('last_login', 'date_joined')
+        })
+    )
+    ordering = ['id']
+    filter_horizontal = []
+
+    def get_search_results(self, request, queryset, search_term):
+        queryset, use_distinct = super(UserAdminModel, self).get_search_results(request, queryset, search_term)
+        try:
+            search_term_as_int = int(search_term)
+            queryset |= self.model.objects.filter(age=search_term_as_int)
+        except:
+            pass
+        return queryset, use_distinct
 
 @admin.register(Board)
 class BoardAdminModel(admin.ModelAdmin):
@@ -102,7 +146,9 @@ class IssueAdminModel(admin.ModelAdmin):
 
 admin.site.unregister(Group)
 admin.site.register(Group, GroupAdminModel)
+admin.site.unregister(User)
+admin.site.register(User, UserAdminModel)
 AdminSite.index_title = 'Administration'
-admin.site.site_title = 'nowy title'
-admin.site.site_header = 'nowy header'
+# admin.site.site_title = 'nowy title'
+# admin.site.site_header = 'nowy header'
 # admin.site.unregister(Group)

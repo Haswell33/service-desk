@@ -8,25 +8,38 @@ from django import forms
 from crum import get_current_user
 from datetime import datetime
 from .utils import get_img_path
+from ckeditor.fields import RichTextField
 
+DEFAULT_ISSUE_TYPE_ID = 1
+DEFAULT_PRIORITY_ID = 3
 GROUP_TYPES = [
     ('customer', 'Customer'),
     ('operator', 'Operator'),
     ('developer', 'Developer')
 ]
-
 ENV_TYPES = [
     ('service-desk', 'Service Desk'),
     ('software', 'Software')
 ]
 
-Group.add_to_class('type', models.CharField(
-    max_length=25,
-    choices=GROUP_TYPES,
-    blank=True,
-    db_column='type'))
+
+def avatar_icon(self):
+    return mark_safe(f'<img src="../../../{self.avatar}" height="20" width="20"/>')
 
 
+Group.add_to_class(
+    'type', models.CharField(
+        max_length=25,
+        choices=GROUP_TYPES,
+        blank=True,
+        db_column='type'))
+
+User.add_to_class(
+    'icon', models.ImageField(
+        upload_to=f'{(settings.STATIC_URL).strip("/")}/img/avatar',
+        validators=[FileExtensionValidator],
+        default=f'{(settings.STATIC_URL).strip("/")}/img/avatar/default-avatar.png',
+        max_length=500))
 
 
 class Board(models.Model):
@@ -387,7 +400,7 @@ class Comment(models.Model):
     created = models.DateTimeField(
         verbose_name='Created',
         blank=True,
-        help_text='Date when comment has been created')
+        help_text='Date when comment created')
     updated = models.DateTimeField(
         verbose_name='Updated',
         blank=True,
@@ -456,11 +469,18 @@ class Issue(models.Model):
     title = models.CharField(
         max_length=255,
         help_text='Summarize the issue')
-    description = models.TextField(
-        verbose_name='Description',
+    #description = models.RichTextField(
+    #    verbose_name='Description',
+    #    blank=True,
+    #    null=True,
+    #    help_text='The content of the issue')
+    description = RichTextField(
+        config_name='default_ckeditor',
+        verbose_name='description',
         blank=True,
         null=True,
-        help_text='The content of the issue')
+        help_text='Describe the issue'
+    )
     tenant = models.ForeignKey(
         Tenant,
         on_delete=models.CASCADE,
@@ -469,6 +489,7 @@ class Issue(models.Model):
     priority = models.ForeignKey(
         Priority,
         on_delete=models.CASCADE,
+        default=DEFAULT_PRIORITY_ID,
         related_name='%(class)s_priority')
     status = models.ForeignKey(
         Status,
@@ -483,6 +504,7 @@ class Issue(models.Model):
     type = models.ForeignKey(
         IssueType,
         on_delete=models.CASCADE,
+        default=DEFAULT_ISSUE_TYPE_ID,
         related_name='%(class)s_type')
     label = models.ForeignKey(
         Label,

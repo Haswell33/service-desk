@@ -1,10 +1,20 @@
-from .models import Issue
+from .models import Issue, IssueType
 from django.forms import ClearableFileInput
 from django.utils.translation import gettext_lazy as _
 from django import forms
 
 
+class IconField(forms.Select):
+    def create_option(self, name, value, label, selected, index, subindex=None, attrs=None):
+        option = super().create_option(name, value, label, selected, index, subindex, attrs)
+        if value:
+            # option['attrs']['text'] = value.instance.name
+            option['attrs']['icon'] = value.instance.icon
+        return option
+
+
 class IssueForm(forms.ModelForm):
+
     class Meta:
         model = Issue
         fields = ['title', 'type', 'priority', 'assignee', 'label', 'description', 'attachments']
@@ -18,8 +28,19 @@ class IssueForm(forms.ModelForm):
             'attachments': _('Attach a file'),
         }
         help_texts = {
-            'type': _('Take your type'),
+            'title': _('Summarize the ticket'),
+        }
+        id_label = {
+            'type': _('id_dupa'),
         }
         widgets = {
-            'file': ClearableFileInput(attrs={'multiple': True}),
+            'type': IconField,
+            'priority': IconField,
+            'assignee': IconField,
+            'attachments': ClearableFileInput(attrs={'multiple': True}),
         }
+
+
+
+
+# class CustomerIssueForm(forms.Form):

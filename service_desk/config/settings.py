@@ -17,6 +17,9 @@ STATIC_ROOT = f'{BASE_DIR}/static/'
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'logged_out'
+CKEDITOR_BASEPATH = f'/static/ckeditor/ckeditor'
+CKEDITOR_UPLOAD_PATH = f'/static/ckeditor/uploads'
+CKEDITOR_FILENAME_GENERATOR = 'utils.get_filename'
 LANGUAGE_CODE = 'en-us'  # Internationalization https://docs.djangoproject.com/en/3.2/topics/i18n/
 TIME_ZONE = 'Europe/Warsaw'
 USE_I18N = True
@@ -33,7 +36,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'widget_tweaks'
+    'widget_tweaks',
+    'ckeditor',
+    'ckeditor_uploader'
 ]
 
 MIDDLEWARE = [
@@ -61,7 +66,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'app.context_processors.user_tenant_type'
+                'app.context_processors.user_tenant_type',
+                'app.context_processors.get_user_icon'
             ],
         },
     },
@@ -92,6 +98,13 @@ AUTH_PASSWORD_VALIDATORS = [  # https://docs.djangoproject.com/en/3.2/ref/settin
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+CKEDITOR_CONFIGS = {
+    'default_ckeditor': {
+        'toolbar': 'Basic',
+    },
+}
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,

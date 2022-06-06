@@ -31,10 +31,9 @@ setTimeout(function(){
     $('.messagelist').fadeOut()
 }, 5000);
 
-function startFuns(){
+function bootstrapFilestyle(){
     $(":file").filestyle()
     console.log('boostrap-filestyle loaded')
-    select2Fields()
 }
 
 function themeColor(userIsAuth, userIsAdmin, userTenantType){
@@ -70,49 +69,71 @@ function themeColor(userIsAuth, userIsAdmin, userTenantType){
     }
 }
 
-function select2Fields(){
+function select2(){
     $('#id_type').select2({
-        /*templateResult: function (idioma) {
-            return $("<span><img src='https://www.free-country-flags.com/countries/" +idioma.id+ "/1/tiny/" + idioma.id + ".png'/> " + idioma.text + "</span>");
+        templateResult: function (option) {
+            return $("<span class='select-option'><img class='select-option-icon' src='../" + $(option.element).attr('icon') + "'/><p class='select-option-text'>" +  option.text + "</p></span>")
         },
-        templateSelection: function (idioma) {
-            return $("<span><img src='https://www.free-country-flags.com/countries/" + idioma.id + "/1/tiny/" + idioma.id + ".png'/> " + idioma.text + "</span>");
-        },*/
+        templateSelection: function (option) {
+            return $("<span class='select-option'><img class='select-option-icon' src='../" + $(option.element).attr('icon') + "'/><p class='select-option-text'>" +  option.text + "</p></span>")
+        },
         placeholder: 'Select an issue type',
+        minimumResultsForSearch: -1
     })
     $('#id_priority').select2({
-        /*templateResult: function (idioma) {
-            return $("<span><img src='https://www.free-country-flags.com/countries/" +idioma.id+ "/1/tiny/" + idioma.id + ".png'/> " + idioma.text + "</span>");
+        templateResult: function (option) {
+            return $("<span class='select-option'><img class='select-option-icon' src='../" + $(option.element).attr('icon') + "'/><p class='select-option-text'>" +  option.text + "</p></span>")
         },
-        templateSelection: function (idioma) {
-            return $("<span><img src='https://www.free-country-flags.com/countries/" + idioma.id + "/1/tiny/" + idioma.id + ".png'/> " + idioma.text + "</span>");
-        },*/
-        placeholder: 'Select a priority',
+        templateSelection: function (option) {
+            return $("<span class='select-option'><img class='select-option-icon' src='../" + $(option.element).attr('icon') + "'/><p class='select-option-text'>" +  option.text + "</p></span>")
+        },
+        placeholder: 'Select an priority',
+        minimumResultsForSearch: -1
     })
     $('#id_assignee').select2({
-        /*templateResult: function (idioma) {
-            return $("<span><img src='https://www.free-country-flags.com/countries/" +idioma.id+ "/1/tiny/" + idioma.id + ".png'/> " + idioma.text + "</span>");
+        templateResult: function (option) {
+            return $("<span class='select-option'><img class='select-option-icon' src='../" + $(option.element).attr('icon') + "'/><p class='select-option-text'>" +  option.text + "</p></span>")
         },
-        templateSelection: function (idioma) {
-            return $("<span><img src='https://www.free-country-flags.com/countries/" + idioma.id + "/1/tiny/" + idioma.id + ".png'/> " + idioma.text + "</span>");
-        },*/
+        templateSelection: function (option) {
+            return $("<span class='select-option'><img class='select-option-icon' src='../" + $(option.element).attr('icon') + "'/><p class='select-option-text'>" +  option.text + "</p></span>")
+        },
         placeholder: 'Select a person whose ticket will be assigned',
     })
     $('#id_label').select2({
-        /*templateResult: function (idioma) {
-            return $("<span><img src='https://www.free-country-flags.com/countries/" +idioma.id+ "/1/tiny/" + idioma.id + ".png'/> " + idioma.text + "</span>");
-        },
-        templateSelection: function (idioma) {
-            return $("<span><img src='https://www.free-country-flags.com/countries/" + idioma.id + "/1/tiny/" + idioma.id + ".png'/> " + idioma.text + "</span>");
-        },*/
-        placeholder: 'Select a category of ticket',
+        placeholder: 'Categorize a ticket',
+        minimumResultsForSearch: -1,
         multiple: true
+    })
+    $('#id_groups').select2({
+        multiple: true,
+        width: '590px'
+    })
+    $('#id_user_permissions').select2({
+        multiple: true,
+        width: '590px',
+    })
+    $('#id_permissions').select2({
+        multiple: true,
+        width: '590px',
     })
 }
 
 
 
-
+$('.select').on('select2:open', function () {
+    $('.select__dropdown .select2-results__options').mCustomScrollbar('destroy');
+    $('.select__dropdown .select2-results__options').mCustomScrollbar('update');
+    setTimeout(function() {
+        $('.select__dropdown .select2-results__options').mCustomScrollbar({
+            axis: 'y',
+            scrollbarPosition: 'inside',
+            advanced:{
+                updateOnContentResize: true
+            },
+            live: true
+        });
+    }, 0);
+});
 
 
 

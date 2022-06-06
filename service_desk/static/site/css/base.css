@@ -1,4 +1,5 @@
 /* Global settings */
+
 :root {
     --theme: #4267B2;
     --theme-transparent: rgba(66, 103, 178, 0.6);
@@ -11,6 +12,7 @@
     --elem-light-secondary: #656565;
     --elem-light-third: #b9b9b9;
     --elem-light-fourth: #818181;
+    --elem-light-fifth: #d0d0d0;
     --elem-light-filter: invert(100%) sepia(0%) saturate(7465%) hue-rotate(41deg) brightness(130%) contrast(76%);
 
     --error-bg: #f2dede;
@@ -32,6 +34,24 @@
 ::selection {
     background: var(--theme);
     color: var(--elem-light);
+}
+
+/* scrollbar */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--elem-light-fifth);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--elem-light-secondary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--elem-light-secondary);
 }
 
 body {
@@ -70,6 +90,7 @@ input {
     font-size: 115%;
 }
 
+
 input:not([type=button]) {
     padding: 5px 10px 5px 10px;
     width: calc(100% - 20px);
@@ -104,14 +125,18 @@ input[type=checkbox] {
 }
 
 input[type=search] {
-    font-size: 13px;
     line-height: 1.3;
+    font-size: 115%!important;
     color: var(--elem-light);
     background: var(--elem-dark-third);
     border: 2px solid var(--elem-dark-third);
     padding: 5px 5px 5px 35px;
     box-shadow: none;
     transition: 400ms;
+}
+
+#navbar-search input[type=search] {
+    font-size: 13px!important;
 }
 
 input:active,
@@ -162,6 +187,8 @@ label.btn.btn-secondary {
 
 textarea {
     padding: 5px 10px!important;
+    font-family: Lato, sans-serif;
+    font-size: 16px;
 }
 
 /* Navbar and footer*/
@@ -260,9 +287,27 @@ footer p {
     border-radius: 5px;
 }
 
-#navbar-account img:hover {
-    background: var(--elem-dark-secondary);
+#navbar-account ul svg,
+#navbar-account ul img {
+    padding-right: 5px;
+    height: 18px;
+    width: 18px;
+    position: relative;
+    top: 2px;
 }
+
+#navbar-account ul img {
+    height: 32px;
+    width: 32px;
+    top: 0;
+    border-radius: 100%;
+}
+
+#navbar-account ul p {
+    display: inline;
+    margin: 0;
+}
+
 
 #navbar-account ul {
     position: fixed;
@@ -280,11 +325,18 @@ footer p {
     border-bottom: 1px solid var(--elem-dark-third);
     padding: 10px 20px 10px 10px;
     display: flex;
+    font-size: 105%;
     transition: 200ms;
     margin-left: 0;
 }
 
-#navbar-account li:before {
+#navbar-account ul #account-username p {
+    line-height: 2.06;
+    padding-left: 5px;
+    font-weight: 500;
+}
+
+/*#navbar-account li:before {
     content:'';
     width: 25px;
     height: 17px;
@@ -306,7 +358,7 @@ footer p {
 
 #account-logout:before {
     background-image: url('../img/svg/log-out.svg');
-}
+}*/
 
 #navbar-account ul li:nth-last-child(1) {
     border-bottom: none;
@@ -623,6 +675,9 @@ footer p {
     transition: 200ms ease-in-out;
 }
 
+p.datetime {
+    margin-left: 0!important;
+}
 
 .object-tools a:link, .object-tools a:visited {
     padding: 10px 10px 10px 25px;
@@ -853,7 +908,7 @@ fieldset.module > div {
     display: grid;
 }
 
-fieldset.module > .form-row input {
+fieldset.module > .form-row input:not[type=checkbox] {
     width: 50%
 }
 
@@ -1102,12 +1157,31 @@ body.delete-confirmation #content form .cancel-link:hover{
     color: var(--elem-light-fourth);
 }
 
+.select-option {
+
+}
+
+.select-option-icon {
+    width: 20px;
+    height: 20px;
+    padding-right: 5px;
+    position: relative;
+    top: 4px;
+}
+
+.select-option-text {
+    margin: 0;
+    display: inline;
+}
 /* select2 override */
 
 .select2-selection__choice {
     color: var(--elem-light)!important;
     line-height: 1.4!important;
     background-color: var(--elem-light-secondary)!important;
+}
+.select2-selection.select2-selection--multiple .select2-selection__rendered {
+    line-height: 1.2!important
 }
 
 .select2-selection {
@@ -1125,6 +1199,7 @@ body.delete-confirmation #content form .cancel-link:hover{
 }
 
 .select2-search__field {
+    padding-left: 5px!important;
     background: var(--elem-light)!important;
     color: var(--elem-light-secondary)!important;
 }
@@ -1143,3 +1218,27 @@ body.delete-confirmation #content form .cancel-link:hover{
     height: 32px!important;
     width: 30px!important;
 }
+
+.select2-results__option[aria-selected=true] {
+    display: none!important;
+}
+
+.select2-selection--multiple{
+    overflow: hidden !important;
+    height: auto !important;
+}
+
+/* HIDDEN FIELDS */
+
+#add_id_groups {
+    display: none
+}
+
+#group_form .field-permissions .selector {
+    display: none
+}
+
+#id_groups {
+    height: 650px!important;
+}
+

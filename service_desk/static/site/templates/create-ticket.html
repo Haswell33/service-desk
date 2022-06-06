@@ -12,37 +12,38 @@
     <form id="create-ticket-form" class="form" method="post">
       {% csrf_token %}
       <div class="form-field long-field">
-        <label for="id_title">{{ form.title.label }}</label>
+        <label for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
         {{ form.title }}
         <div class="description">{{ form.title.help_text }}</div>
       </div>
       <div class="form-field medium-field">
-        <label for="id_type">{{ form.type.label }}</label>
+        <label for="{{ form.type.id_for_label }}">{{ form.type.label }}</label>
         {{ form.type }}
       </div>
       <div class="form-field medium-field">
-        <label for="id_priority">{{ form.priority.label }}</label>
+        <label for="{{ form.priority.id_for_label }}">{{ form.priority.label }}</label>
         {{ form.priority }}
       </div>
       <div class="form-field medium-field">
-        <label for="id_assignee">{{ form.assignee.label }}</label>
+        <label for="{{ form.assignee.id_for_label }}">{{ form.assignee.label }}</label>
         {{ form.assignee }}
       </div>
       <div class="form-field medium-field">
-        <label for="id_label">{{ form.label.label }}</label>
+        <label for="{{ form.label.id_for_label }}">{{ form.label.label }}</label>
         {{ form.label }}
       </div>
       <div class="form-field medium-field">
-        <label for="id_attachments">{{ form.attachments.label }}</label>
+        <label for="{{ form.attachments.id_for_label }}">{{ form.attachments.label }}</label>
         {{ form.attachments }}
       </div>
       <div class="form-field long-field">
-        <label for="id_description">{{ form.description.label }}</label>
+        <label for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
         {{ form.description }}
       </div>
       <div class="form-field long-field">
         <input type="submit" value="Create">
       </div>
+    {{ form.media }}
     </form>
     <div id="create-ticket-info">
       <div id="create-ticket-info-dialog">
@@ -57,7 +58,6 @@
           <path style="fill:#e1e1e1;" d="M243.6,277.6c-3.2,3.2-3.2,8,0,10.8l82.8,82.8c3.2,3.2,8,3.2,10.8,0c3.2-3.2,3.2-8,0-10.8l-82.8-82.8C251.6,274.8,246.8,274.8,243.6,277.6z"/>
           <path style="fill:#e1e1e1;" d="M266,255.2c-3.2,3.2-3.2,8,0,10.8l82.8,82.8c3.2,3.2,8,3.2,10.8,0c3.2-3.2,3.2-8,0-10.8l-82.8-82.8C274,252.4,268.8,252.4,266,255.2z"/>
         </svg>
-
       </div>
     </div>
   </div>

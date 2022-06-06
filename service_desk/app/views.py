@@ -22,12 +22,22 @@ def create_ticket(request, template_name='create-ticket.html'):
         return HttpResponseRedirect(f'{settings.LOGIN_URL}')
     elif request.method == 'POST':
         form = IssueForm(request.POST)
+
         if form.is_valid():
             form.save()
             print('form is valid')
             return render(request, 'submit-ticket.html', status=200)
     else:
         form = IssueForm()
+        tenant_type = request.session.get('tenant_type')
+        if tenant_type == 'customer':
+            form.fields['type'].initial = 2
+        elif tenant_type == 'operator':
+            form.fields['type'].initial = 1
+        elif tenant_type == 'developer':
+            form.fields['type'].initial = 1
+        else:
+            pass
         return render(request, template_name, {'form': form}, status=200)
 
 
