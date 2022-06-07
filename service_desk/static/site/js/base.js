@@ -10,7 +10,7 @@ $(document).on('click', function(event) {
         $('#navbar-account > ul').hide()
     if ($(event.target).is('#sidebar-toggle') && !$('#sidebar-content').hasClass('hidden')){
         $('#sidebar-content').addClass('hidden')
-        $('#content').addClass('full-width')
+        $('#content-page').addClass('full-width')
         $(event.target).removeClass('arrow-left')
         $(event.target).addClass('arrow-right')
 
@@ -18,7 +18,7 @@ $(document).on('click', function(event) {
     }
     else if ($(event.target).is('#sidebar-toggle') && $('#sidebar-content').hasClass('hidden')){
         $('#sidebar-content').removeClass('hidden')
-        $('#content').removeClass('full-width')
+        $('#content-page').removeClass('full-width')
         $(event.target).addClass('arrow-left')
         $(event.target).removeClass('arrow-right')
 

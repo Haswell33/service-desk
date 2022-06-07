@@ -9,11 +9,20 @@
   <div id="log-in-content" class="center">
     <div id="log-in-dialog" class="dialog">
       <h2>Log In</h2>
-      <form method="post">
+      <form id="log-in-form" class="form" method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <p style="text-align:right; font-size: 80%"><a href="{% url 'password_reset' %}">Forgot password?</a></p>
-        <input type="submit" value="Log In"/>
+        <div class="form-field medium-short-field">
+          <label for="{{ form.username.id_for_label }}">Username</label>
+          {{ form.username }}
+        </div>
+        <div class="form-field medium-short-field">
+          <label for="{{ form.password.id_for_label }}">Password</label>
+          {{ form.password }}
+          <p id="password-reset-p"><a href="{% url 'password_reset' %}">Forgot password?</a></p>
+        </div>
+        <div class="form-field medium-short-field">
+          <input type="submit" value="Log In">
+        </div>
       </form>
     </div>
   </div>

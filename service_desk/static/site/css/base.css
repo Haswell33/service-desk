@@ -56,10 +56,10 @@
 }
 
 body {
-    min-width: 1024px;
-    overflow-x: hidden;
+    min-width: 876px;
     padding: 0;
-    margin: var(--nav-height) 0 0 0;
+    margin: 0;
+    overflow-x: hidden;
     color: var(--elem-dark);
     font-family: Lato, sans-serif;
 }
@@ -114,9 +114,6 @@ button.button,
     transition: 400ms background, border-color, font-weight, color;
 }
 
-input[type=submit] {
-    width: 100%
-}
 
 input[type=checkbox] {
     cursor: pointer;
@@ -156,17 +153,21 @@ input[type=search]:focus {
 }
 
 .bootstrap-filestyle > input {
-    padding-left: 120px!important;
+    padding-left: 100px!important;
     width: calc(50% - 100px)!important;
+}
+
+.filedrag {
+    width: auto!important;
 }
 
 .buttonText {
     color: var(--elem-light);
     position: relative;
     background: var(--elem-light-secondary);
-    bottom: 30px;
-    padding: 7.5px 10px;
-    font-size: 115%;
+    bottom: 27px;
+    padding: 10px;
+    font-size: 95%;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
     cursor: pointer;
@@ -175,6 +176,7 @@ input[type=search]:focus {
 
 .buttonText:hover {
     background-color: var(--theme);
+    color: #fff;
 }
 
 label.btn.btn-secondary {
@@ -197,7 +199,6 @@ nav:not(#nav-sidebar) {
     background: var(--elem-dark);
     border-bottom: 5px solid var(--theme);
     margin: 0;
-    position: fixed;
     left: 0;
     top: 0;
     z-index: 100;
@@ -225,12 +226,11 @@ nav div {
 
 footer {
     background: var(--elem-dark);
-    width: 100%;
     height: var(--footer-height);
+    z-index: 100;
+    width: 100vw;
     position: fixed;
     bottom: 0;
-    left: 0;
-    z-index: 100;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -373,9 +373,9 @@ footer p {
 
 #sidebar {
     display: flex;
+    z-index:30;
     flex-direction: row;
     min-height: 100%;
-    position: absolute;
     top: var(--nav-height);
     bottom: 0;
     margin: 0;
@@ -453,13 +453,14 @@ footer p {
 
 /* Content page */
 
-#content {
+#content-page {
     margin-left: calc(300px + 20px);
+    margin-bottom: var(--footer-height);
     padding: 15px;
     transition: 300ms margin-left;
 }
 
-#content h1 {
+#content-page h1 {
     margin: 0;
     font-size: 20px;
     padding-bottom: 10px;
@@ -488,19 +489,33 @@ footer p {
 
 #log-in-dialog {
     margin: 0 auto;
-    width: 450px;
     max-width: calc(100% - 20px);
     padding: 10px
+}
+
+#log-in-form p {
+    text-align:right;
+    font-size: 80%;
+    margin-bottom: 0;
 }
 
 /* Content page - Password Reset */
 
 #password-reset-dialog {
-    width: 100%;
+    width: 450px
 }
 
-#password-reset-dialog form {
-    width: 400px
+#password-reset-dialog p {
+    margin: 0 0 15px 0;
+    font-size: 110%;
+    font-weight: 500;
+}
+
+/* Content page - Password Change */
+
+#password-change-dialog form div.form-field ul {
+    list-style: none;
+    margin-bottom: 0
 }
 
 /* Content page - Create ticket */
@@ -614,6 +629,12 @@ form .aligned div.help,
     justify-content: center;
 }
 
+.dialog h2 {
+    border-bottom: 1px solid var(--elem-light-third);
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+}
+
 .icon {
     fill: var(--elem-light);
     transition: 150ms;
@@ -681,10 +702,21 @@ form .aligned div.help,
     box-sizing: border-box;
 }
 
+.form-field input[type=submit] {
+
+    border: 1px solid var(--elem-light-secondary);
+}
+
 .short-field input,
 .short-field select,
 .short-field textarea {
     width: 300px!important;
+}
+
+.medium-short-field input,
+.medium-short-field select,
+.medium-short-field textarea {
+    width: 450px!important;
 }
 
 .medium-field input,
