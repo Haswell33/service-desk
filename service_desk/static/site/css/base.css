@@ -1224,6 +1224,7 @@ body.delete-confirmation #content form .cancel-link:hover{
 }
 
 .select2-selection--multiple{
+    font-size: 15px!important;
     overflow: hidden !important;
     height: auto !important;
 }

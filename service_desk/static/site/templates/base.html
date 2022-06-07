@@ -141,7 +141,6 @@
     let userIsAuth = ('{{user.is_authenticated}}' === 'True')
     let userTenantType = '{{request.session.tenant_type}}'
     themeColor(userIsAuth, userIsAdmin, userTenantType)
-    CKEDITOR.config.uiColor = '#656565!important';
-    CKEDITOR.replace('description')
+    //CKEDITOR.replace('description')
   })
 </script>
