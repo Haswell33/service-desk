@@ -5,18 +5,18 @@
 </head>
 
 <body>
-  {% block content %}
-    <div id="content-login" class="center-subdiv">
-      <div id="dialog-login" class="dialog">
-        <h2>Log In</h2>
-        <form method="post">
-          {% csrf_token %}
-          {{ form.as_p }}
-          <p style="text-align:right; font-size: 80%"><a href="{% url 'password_reset' %}">Forgot password?</a></p>
-          <input type="submit" value="Log In"/>
-        </form>
-      </div>
+  {% block content_page %}
+  <div id="log-in-content" class="center">
+    <div id="log-in-dialog" class="dialog">
+      <h2>Log In</h2>
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <p style="text-align:right; font-size: 80%"><a href="{% url 'password_reset' %}">Forgot password?</a></p>
+        <input type="submit" value="Log In"/>
+      </form>
     </div>
+  </div>
   {% endblock %}
 </body>
 

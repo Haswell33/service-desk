@@ -5,17 +5,16 @@
 </head>
 
 <body>
-  {% block content %}
-    <div id="content-logged-out" class="center-subdiv">
-      <div id="dialog-logged-out" class="dialog">
-        <h3>You have successfully logged out</h3>
-        <a href="{% url 'login' %}">
-          <input type="button" value="Log in again"/>
-        </a>
-        <p>Service Desk App</p>
-      </div>
+  {% block content_page %}
+  <div id="logged-out-content" class="center">
+    <div id="logged-out-dialog" class="dialog">
+      <h3>You have successfully logged out</h3>
+      <a href="{% url 'login' %}">
+        <input type="button" value="Log in again"/>
+      </a>
+      <p>Service Desk App</p>
     </div>
+  </div>
   {% endblock %}
 </body>
-
 

@@ -14,7 +14,6 @@ class IconField(forms.Select):
 
 
 class IssueForm(forms.ModelForm):
-
     class Meta:
         model = Issue
         fields = ['title', 'type', 'priority', 'assignee', 'label', 'description', 'attachments']

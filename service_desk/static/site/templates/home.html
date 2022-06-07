@@ -4,7 +4,9 @@
   <title>{% block title %} {{ block.super }}{% endblock %}</title>
   <meta http-equiv="refresh" content="60">
 </head>
-{% block content %}
+
+<body>
+  {% block content %}
   {% block sidebar %}
   <div id="sidebar" class="sticky">
     <div id="sidebar-toggle" class="sticky arrow-left"></div>
@@ -16,13 +18,29 @@
       <div id="sidebar-create-ticket">
         <a href="{% url 'create_ticket' %}"><input type="button" value="Create ticket"></a>
       </div>
+      <div id="sidebar-recent-actions">
+
+      </div>
     </div>
   </div>
   {% endblock %}
-  <div id="content-page">
+  <div id="content">
     {% block content_page %}
+    <h1>Board</h1>
+    <div id="home-content" class="content-page-block">
+      <div id="board">
+        Tickets
+        <div class="board-column">
+
+        </div>
+        <div class="board-column">
+
+        </div>
+      </div>
+    </div>
     {% endblock %}
   </div>
-{% endblock %}
+  {% endblock %}
+</body>
 
 
