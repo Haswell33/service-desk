@@ -1,0 +1,34 @@
+
+.cke_editable {
+    background-color: BLACK!important;
+    color: var(--elem-light)!important
+}
+
+.cke_chrome {
+    border: 1px solid var(--elem-light-fourth) !important;
+    border-radius: 10px!important;
+}
+.cke_top{
+    border-radius: 5px 5px 0 0!important;
+}
+
+.cke_bottom{
+    border-radius: 0 0 5px 5px!important
+}
+
+.ck-editor {
+    color: var(--theme);
+}
+
+.django-ckeditor-widget {
+    border-radius: 5px!important;
+}
+
+.cke_inner,
+.cke_reset {
+    border-radius: 5px!important;
+}
+
+.cke_contents {
+    background-color: #ddd!important
+}

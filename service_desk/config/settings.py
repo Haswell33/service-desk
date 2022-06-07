@@ -55,6 +55,7 @@ MIDDLEWARE = [
 STATICFILES_DIRS = [
     f'{BASE_DIR}/static/site'
 ]
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -101,9 +102,19 @@ AUTH_PASSWORD_VALIDATORS = [  # https://docs.djangoproject.com/en/3.2/ref/settin
 
 CKEDITOR_CONFIGS = {
     'default_ckeditor': {
-        'toolbar': 'Basic',
+        'toolbar_Full': [
+            ['Styles', 'Format', 'Bold', 'Italic', 'Underline', 'Strike', 'SpellChecker', 'Undo', 'Redo'],
+            ['Link', 'Unlink'],
+            ['Image', 'Flash', 'Table', 'HorizontalRule'],
+            ['TextColor', 'BGColor'],
+            ['JustifyLeft', 'JustifyCenter','JustifyRight','JustifyBlock'],
+            ['NumberedList', 'BulletedList'],
+            ['Indent', 'Outdent'],
+        ],
+        'extraPlugins': 'justify,liststyle,indent',
     },
 }
+
 
 LOGGING = {
     'version': 1,
