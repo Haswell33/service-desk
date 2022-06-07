@@ -71,32 +71,32 @@ function themeColor(userIsAuth, userIsAdmin, userTenantType){
 
 function select2(){
     $('#id_type').select2({
-        templateResult: function (option) {
-            return $("<span class='select-option'><img class='select-option-icon' src='../" + $(option.element).attr('icon') + "'/><p class='select-option-text'>" +  option.text + "</p></span>")
+        templateResult: function (option)  {
+            return renderIconOption(option)
         },
-        templateSelection: function (option) {
-            return $("<span class='select-option'><img class='select-option-icon' src='../" + $(option.element).attr('icon') + "'/><p class='select-option-text'>" +  option.text + "</p></span>")
+        templateSelection: function (option)  {
+            return renderIconOption(option)
         },
         placeholder: 'Select an issue type',
         minimumResultsForSearch: -1
     })
     $('#id_priority').select2({
-        templateResult: function (option) {
-            return $("<span class='select-option'><img class='select-option-icon' src='../" + $(option.element).attr('icon') + "'/><p class='select-option-text'>" +  option.text + "</p></span>")
+        templateResult: function (option)  {
+            return renderIconOption(option)
         },
-        templateSelection: function (option) {
-            return $("<span class='select-option'><img class='select-option-icon' src='../" + $(option.element).attr('icon') + "'/><p class='select-option-text'>" +  option.text + "</p></span>")
+        templateSelection: function (option)  {
+            return renderIconOption(option)
         },
         placeholder: 'Select an priority',
         minimumResultsForSearch: -1
     })
     $('#id_assignee').select2({
         templateResult: function (option) {
-            return $("<span class='select-option'><img class='select-option-icon' src='../" + $(option.element).attr('icon') + "'/><p class='select-option-text'>" +  option.text + "</p></span>")
+            return renderIconOption(option)
         },
         templateSelection: function (option) {
-            return $("<span class='select-option'><img class='select-option-icon' src='../" + $(option.element).attr('icon') + "'/><p class='select-option-text'>" +  option.text + "</p></span>")
-        },
+            return renderIconOption(option)
+            },
         placeholder: 'Select a person whose ticket will be assigned',
     })
     $('#id_label').select2({
@@ -118,7 +118,13 @@ function select2(){
     })
 }
 
-
+function renderIconOption(elem) {
+    let iconElement = $(elem.element).attr('icon')
+    if (iconElement !== undefined)
+        return $("<span class='select-option'><img class='select-option-icon' src='../" + $(elem.element).attr('icon') + "'/><p class='select-option-text'>" +  elem.text + "</p></span>")
+    else
+        return elem.text
+}
 
 $('.select').on('select2:open', function () {
     $('.select__dropdown .select2-results__options').mCustomScrollbar('destroy');

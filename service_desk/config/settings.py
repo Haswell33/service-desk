@@ -107,11 +107,11 @@ CKEDITOR_CONFIGS = {
             ['Link', 'Unlink'],
             ['Image', 'Flash', 'Table', 'HorizontalRule'],
             ['TextColor', 'BGColor'],
-            ['JustifyLeft', 'JustifyCenter','JustifyRight','JustifyBlock'],
+            ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
             ['NumberedList', 'BulletedList'],
             ['Indent', 'Outdent'],
         ],
-        'extraPlugins': 'justify,liststyle,indent',
+        'skin': 'office2013',
     },
 }
 

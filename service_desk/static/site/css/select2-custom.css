@@ -24,7 +24,7 @@
 
 .select2-search__field {
     padding-left: 5px!important;
-    background: var(--elem-light)!important;
+    background-color: var(--background)!important;
     color: var(--elem-light-secondary)!important;
 }
 
@@ -51,4 +51,20 @@
     font-size: 15px!important;
     overflow: hidden !important;
     height: auto !important;
+    border-color: 1px solid var(--elem-light-third);
+}
+
+.select2-selection {
+    border-color: 1px solid var(--elem-light-third)
+}
+
+.select2-selection__placeholder {
+    color: #999!important;
+    font-weight: 400!important;
+    font-size: 16px!important;
+    font-family: Lato, sans-serif!important
+}
+
+.select2-container--default {
+    border-color: 1px solid var(--elem-light-third)!important;
 }

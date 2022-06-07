@@ -335,7 +335,7 @@ label.required {
 }
 
 .aligned label {
-    float: none;
+    float: none!important
 }
 
 #changelist .actions{
@@ -345,6 +345,7 @@ label.required {
 #changelist table input {
     vertical-align: middle;
 }
+
 
 #changelist .actions .button{
     color: var(--elem-light)!important;
@@ -388,25 +389,27 @@ label.required {
 
 #toolbar {
     display: flex;
-    border-top: 0!important;;
-    margin-bottom: 0!important;;
+    border-top: 0!important;
+    margin-bottom: 0!important;
     padding: 20px 0 20px 0!important;
 }
 
 #toolbar #searchbar {
-    padding: 5px 10px 5px 30px!important;;
-    font-size: 15px!important;;
+    padding: 5px 10px 5px 30px!important;
+    font-size: 15px!important;
+    height: auto!important;
 }
 
 #toolbar form input[type="submit"] {
-    box-shadow: none!important;;
-    margin-left: 5px!important;;
+    box-shadow: none!important;
+    margin-left: 5px!important;
     text-transform: uppercase;
-    font-weight: 700!important;;
+    font-weight: 700!important;
     color: var(--elem-light)!important;
     background: var(--object-tools-bg)!important;
     transition: 300ms;
-    border: none!important;;
+    border: none!important;
+    padding: 3px 15px 3px 15px!important;
 }
 
 #toolbar form input[type="submit"]:hover {
@@ -493,35 +496,35 @@ fieldset.module {
 }
 
 fieldset.module > div {
-    display: grid;
+    display: grid!important;
 }
 
 fieldset.module > .form-row input:not[type=checkbox] {
-    width: 50%
+    width: 50%!important
 }
 
 .submit-row {
-    border: none;
-    display: flex;
-    padding: 15px 0;
-    flex-direction: row;
-    justify-content: space-around;
+    border: none!important;
+    display: flex!important;
+    padding: 15px 0!important;
+    flex-direction: row!important;
+    justify-content: space-around!important;
 }
 
 .submit-row input.default{
     /*flex: 0 0 100%;*/
-    margin-left: 0;
-    background: var(--elem-light-secondary);
-    color: var(--elem-light)
+    margin-left: 0!important;
+    background: var(--elem-light-secondary)!important;
+    color: var(--elem-light)!important
 }
 
 .submit-row input.default:hover {
-    background: var(--theme);
+    background: var(--theme)!important;
 }
 
 .form-row {
-    overflow: inherit;
-    padding: 15px 0;
+    overflow: inherit!important;
+    padding: 15px 0!important;
 }
 
 .vLargeTextField {
@@ -529,7 +532,7 @@ fieldset.module > .form-row input:not[type=checkbox] {
 }
 
 form#status_form input[type=text] {
-    box-sizing: border-box;
+    box-sizing: border-box!important;
 }
 
 #user_form > div > fieldset {
@@ -627,7 +630,9 @@ body.delete-confirmation #content form .cancel-link:hover{
 
 /* Hidden fields */
 
-#add_id_groups {
+#add_id_groups,
+.add-related,
+.change-related {
     display: none
 }
 
@@ -638,3 +643,86 @@ body.delete-confirmation #content form .cancel-link:hover{
 #id_groups {
     height: 650px!important;
 }
+
+input[type=text],
+input:not[type=submit] {
+    width: 500px!important;
+}
+
+select {
+    width: 350px!important;
+}
+/*
+label {
+    display: block;
+    text-align: left;
+}
+
+input {
+    margin: 0;
+    border-radius: 5px;
+    color: var(--elem-dark-secondary);
+    font-size: 16px;
+}
+
+input:not([type=button]) {
+    padding: 7px 10px 7px 10px;
+    width: calc(100% - 20px);
+    border: 1px solid var(--elem-light-third);
+    background-color: var(--elem-light);
+}
+
+input[type=button],
+input[type=submit],
+button.button,
+.button {
+    box-shadow: none;
+    outline: none;
+    line-height: 1;
+    color: var(--elem-dark);
+    background: var(--elem-light);
+    border: 1px solid var(--elem-light-secondary);
+    cursor: pointer;
+    padding: 10px 20px;
+    font-weight: 500;
+    transition: 400ms background, border-color, font-weight, color;
+}
+
+
+input[type=checkbox] {
+    cursor: pointer;
+    padding: 7px 0;
+    width: 33px;
+}
+
+input[type=search] {
+    line-height: 1.3;
+    font-size: 115%!important;
+    color: var(--elem-light);
+    background: var(--elem-dark-third);
+    border: 2px solid var(--elem-dark-third);
+    padding: 5px 5px 5px 35px;
+    box-shadow: none;
+    transition: 400ms;
+}
+
+input:active,
+input:focus {
+    border: 1px solid var(--elem-dark-secondary);
+    outline: none;
+}
+
+input[type=button]:hover,
+input[type=submit]:hover {
+    background: var(--theme);
+    border-color: var(--theme);
+    color: var(--elem-light);
+}
+
+input[type=search]:focus {
+    border: 2px solid var(--elem-light-secondary);
+    outline-offset: 0;
+    outline: 0;
+    box-shadow: none;
+}
+ */
