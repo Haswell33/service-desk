@@ -17,9 +17,6 @@ STATIC_ROOT = f'{BASE_DIR}/static/'
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'logged_out'
-CKEDITOR_BASEPATH = f'/static/ckeditor/ckeditor'
-CKEDITOR_UPLOAD_PATH = f'/static/ckeditor/uploads'
-CKEDITOR_FILENAME_GENERATOR = 'utils.get_filename'
 LANGUAGE_CODE = 'en-us'  # Internationalization https://docs.djangoproject.com/en/3.2/topics/i18n/
 TIME_ZONE = 'Europe/Warsaw'
 USE_I18N = True
@@ -37,8 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'widget_tweaks',
-    'ckeditor',
-    'ckeditor_uploader'
+    'django_quill'
 ]
 
 MIDDLEWARE = [
@@ -100,21 +96,26 @@ AUTH_PASSWORD_VALIDATORS = [  # https://docs.djangoproject.com/en/3.2/ref/settin
     },
 ]
 
-CKEDITOR_CONFIGS = {
-    'default_ckeditor': {
-        'toolbar_Full': [
-            ['Styles', 'Format', 'Bold', 'Italic', 'Underline', 'Strike', 'SpellChecker', 'Undo', 'Redo'],
-            ['Link', 'Unlink'],
-            ['Image', 'Flash', 'Table', 'HorizontalRule'],
-            ['TextColor', 'BGColor'],
-            ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-            ['NumberedList', 'BulletedList'],
-            ['Indent', 'Outdent'],
-        ],
-        'skin': 'office2013',
-    },
+QUILL_CONFIGS = {
+    'default':{
+        'theme': 'snow',
+        'modules': {
+            'syntax': True,
+            'toolbar': [
+                [
+                    {'font': []},
+                    {'header': []},
+                    {'align': []},
+                    'bold', 'italic', 'underline', 'strike', 'blockquote',
+                    {'color': []},
+                    {'background': []},
+                ],
+                ['code-block', 'link'],
+                ['clean'],
+            ]
+        }
+    }
 }
-
 
 LOGGING = {
     'version': 1,

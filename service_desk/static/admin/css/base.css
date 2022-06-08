@@ -505,7 +505,7 @@ textarea:focus, select:focus, .vTextField:focus {
 }
 
 select {
-
+    height: 30px;
 }
 
 select[multiple] {
@@ -893,7 +893,17 @@ table#change-history tbody th {
 
 /* HEADER */
 
-
+#header {
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+    background: var(--header-bg);
+    color: var(--header-color);
+    overflow: hidden;
+}
 
 #header a:link, #header a:visited {
     color: var(--header-link-color);

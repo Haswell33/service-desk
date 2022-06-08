@@ -144,12 +144,6 @@ $('.select').on('select2:open', function () {
 
 
 
-
-
-
-
-
-
 /*function colorElems(mainColor){
     $('.main-color-border').css('border-color', mainColor)
     $('.main-color-background-hover').hover(function(){

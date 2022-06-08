@@ -1,5 +1,6 @@
 from .models import Issue, IssueType
 from django.forms import ClearableFileInput
+from django_quill.forms import QuillFormField
 from django.utils.translation import gettext_lazy as _
 from django import forms
 
@@ -38,8 +39,6 @@ class IssueForm(forms.ModelForm):
             'assignee': IconField,
             'attachments': ClearableFileInput(attrs={'multiple': True}),
         }
-
-
 
 
 # class CustomerIssueForm(forms.Form):

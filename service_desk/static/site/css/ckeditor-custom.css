@@ -1,0 +1,61 @@
+.cke_editable {
+    background-color: #1C1C1C!important;
+    color: var(--elem-light)!important
+}
+
+.cke_chrome {
+    border: 1px solid var(--elem-light-fourth) !important;
+    border-radius: 5px!important;
+}
+
+.cke_top{
+    border-radius: 5px 5px 0 0!important;
+    background: var(--elem-light-secondary)!important;
+}
+
+.cke_bottom{
+    border-radius: 0 0 5px 5px!important
+}
+
+.ck-editor {
+    color: var(--theme);
+}
+
+.django-ckeditor-widget {
+    border-radius: 5px!important;
+}
+
+.cke_inner,
+.cke_reset {
+    border-radius: 5px!important;
+}
+
+.cke_contents {
+    background-color: #ce2929 !important
+}
+
+.cke_combo_text {
+    color: var(--elem-light)!important;
+    text-shadow: none!important;
+}
+
+.cke_combo_arrow {
+    border-top-color: var(--elem-light)!important
+}
+
+.cke_toolgroup {
+    border: none!important;
+    background: var(--elem-light-secondary)!important;!important;
+}
+
+.cke_combo_button {
+    border: none!important;
+}
+
+html[dir=ltr] {
+    background: #ddd!important
+}
+
+body.cke_editable {
+    background: #ddd!important;
+}

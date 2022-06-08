@@ -8,7 +8,7 @@ from django import forms
 from crum import get_current_user
 from datetime import datetime
 from .utils import get_img_path
-from ckeditor.fields import RichTextField
+from django_quill.fields import QuillField
 
 DEFAULT_ISSUE_TYPE_ID = 1
 DEFAULT_PRIORITY_ID = 3
@@ -474,8 +474,7 @@ class Issue(models.Model):
     #    blank=True,
     #    null=True,
     #    help_text='The content of the issue')
-    description = RichTextField(
-        config_name='default_ckeditor',
+    description = QuillField(
         verbose_name='description',
         blank=True,
         null=True,

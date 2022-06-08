@@ -175,9 +175,10 @@ input[type=submit]:hover {
     color: #fff;
 }
 
-/*label.btn.btn-secondary {
+label.btn.btn-secondary {
     position: absolute;
-}*/
+    width: 100px;
+}
 
 /* Navbar and footer*/
 
