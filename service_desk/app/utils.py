@@ -1,4 +1,3 @@
-import os
 from django.conf import settings
 
 CUSTOMER_GROUP_TYPE = 'customer'
@@ -10,9 +9,5 @@ def get_filename(filename):
     return filename.upper()
 
 
-def get_img_path():
-    return f'{settings.BASE_DIR}{settings.STATIC_URL}images'
-
-
-def get_img_path_2():
-    return f'{settings.STATIC_URL}images'
+def get_media_path():
+    return f'{settings.MEDIA_URL.strip("/")}'

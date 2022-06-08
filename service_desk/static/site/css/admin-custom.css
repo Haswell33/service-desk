@@ -289,7 +289,7 @@ li a:hover {
     height: 17px;
     background-repeat: no-repeat;
     background-size: 17px 17px;
-    background-image: url('../img/logo.png')
+    /*background-image: url('../img/logo.png')*/
 }
 
 #recent-actions-module > h2 {

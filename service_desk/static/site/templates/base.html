@@ -58,7 +58,7 @@
           <ul style="display: none">
             {% if user.is_authenticated %}
             <li id="account-username">
-              <img src="{{ settings.STATIC_URL }}/{{ request.session.user_icon }}" height="17px" width="17px"/>
+              <img src="{{ settings.MEDIA_URL }}/{{ request.session.user_icon }}" height="17px" width="17px"/>
               <p>{{ user.username }}</p>
             </li>
             {% endif %}
@@ -141,5 +141,14 @@
     let userIsAuth = ('{{user.is_authenticated}}' === 'True')
     let userTenantType = '{{request.session.tenant_type}}'
     themeColor(userIsAuth, userIsAdmin, userTenantType)
+    var quill = new Quill('#id_description', {
+    modules: {
+      formula: true,
+      syntax: true,
+      toolbar: '#toolbar-container'
+    },
+    placeholder: 'Compose an epic...',
+    theme: 'snow'
+  });
   })
 </script>

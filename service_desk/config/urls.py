@@ -38,5 +38,6 @@ urlpatterns = [
     path('create-ticket/', views.create_ticket, name='create_ticket'),
     path('submit-ticket', views.submit_ticket, name='submit_ticket'),
     path('ckeditor/', include('ckeditor_uploader.urls'))] \
-        + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+        + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
+        + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
                # path('login/', views.login, name='login'),

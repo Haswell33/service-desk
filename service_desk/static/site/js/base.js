@@ -68,7 +68,7 @@ function themeColor(userIsAuth, userIsAdmin, userTenantType){
       })
     }
 }
-
+element.html('<option></option>').trigger('change');
 function select2(){
     $('#id_type').select2({
         templateResult: function (option)  {
@@ -98,10 +98,10 @@ function select2(){
             return renderIconOption(option)
             },
         placeholder: 'Select a person whose ticket will be assigned',
+        allowClear: true
     })
     $('#id_label').select2({
         placeholder: 'Categorize a ticket',
-        minimumResultsForSearch: -1,
         multiple: true
     })
     $('#id_groups').select2({

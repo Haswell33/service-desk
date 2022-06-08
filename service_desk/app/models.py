@@ -7,7 +7,7 @@ from django.db import models
 from django import forms
 from crum import get_current_user
 from datetime import datetime
-from .utils import get_img_path
+from .utils import get_media_path
 from django_quill.fields import QuillField
 
 DEFAULT_ISSUE_TYPE_ID = 1
@@ -22,11 +22,6 @@ ENV_TYPES = [
     ('software', 'Software')
 ]
 
-
-def avatar_icon(self):
-    return mark_safe(f'<img src="../../../{self.avatar}" height="20" width="20"/>')
-
-
 Group.add_to_class(
     'type', models.CharField(
         max_length=25,
@@ -36,9 +31,9 @@ Group.add_to_class(
 
 User.add_to_class(
     'icon', models.ImageField(
-        upload_to=f'{(settings.STATIC_URL).strip("/")}/img/avatar',
+        upload_to=f'{get_media_path()}/img/user',
         validators=[FileExtensionValidator],
-        default=f'{(settings.STATIC_URL).strip("/")}/img/avatar/default-avatar.png',
+        default=f'{get_media_path()}/img/user/default-avatar.png',
         max_length=500))
 
 
@@ -52,7 +47,7 @@ class Board(models.Model):
         max_length=50,
         choices=ENV_TYPES,
         null=True,
-        blank=True,)
+        blank=True)
 
     def __str__(self):
         return self.name
@@ -70,8 +65,7 @@ class BoardColumn(models.Model):
     column_title = models.CharField(
         max_length=255)
     column_number = models.IntegerField(
-        default=1
-    )
+        default=1)
 
     class Meta:
         db_table = 'board_column'
@@ -160,7 +154,7 @@ class Tenant(models.Model):
         null=True,
         on_delete=models.DO_NOTHING)
     icon = models.ImageField(
-        upload_to=f'{(settings.STATIC_URL).strip("/")}/img/tenant',
+        upload_to=f'{get_media_path()}/img/tenant',
         validators=[FileExtensionValidator],
         blank=True,
         max_length=500)
@@ -185,10 +179,10 @@ class Tenant(models.Model):
         return self.name
 
     def icon_img_admin(self):
-        return mark_safe(f'<img src="../../../{self.icon}" height="20" width="20"/>')
+        return mark_safe(f'<img src="/{self.icon}" height="20" width="20"/>')
 
     def icon_img(self):
-        return mark_safe(f'<img src="{self.icon}" height="20" width="20"/>')
+        return mark_safe(f'<img src="/{self.icon}" height="20" width="20"/>')
 
     icon_img_admin.short_description = 'Icon'
     icon_img.short_description = 'Icon'
@@ -205,7 +199,7 @@ class Priority(models.Model):
         blank=True,
         null=True)
     icon = models.ImageField(
-        upload_to=f'{(settings.STATIC_URL).strip("/")}/img/priority',
+        upload_to=f'{get_media_path()}/img/priority',
         validators=[FileExtensionValidator],
         blank=True,
         max_length=500)
@@ -219,13 +213,9 @@ class Priority(models.Model):
     def __str__(self):
         return self.name
 
-    def icon_img_admin(self):
-        return mark_safe(f'<img src="../../../{self.icon}" height="20" width="20"/>')
-
     def icon_img(self):
-        return mark_safe(f'<img src="{self.icon}" height="20" width="20"/>')
+        return mark_safe(f'<img src="/{self.icon}" height="20" width="20"/>')
 
-    icon_img_admin.short_description = 'Icon'
     icon_img.short_description = 'Icon'
 
 
@@ -245,7 +235,7 @@ class IssueType(models.Model):
         blank=True,
         null=True)
     icon = models.ImageField(
-        upload_to=f'{(settings.STATIC_URL).strip("/")}/img/issue_type',
+        upload_to=f'{get_media_path()}/img/issue_type',
         validators=[FileExtensionValidator],
         blank=True,
         max_length=500)
@@ -259,13 +249,9 @@ class IssueType(models.Model):
     def __str__(self):
         return self.name
 
-    def icon_img_admin(self):
-        return mark_safe(f'<img src="../../../{self.icon}" height="20" width="20"/>')
-
     def icon_img(self):
-        return mark_safe(f'<img src="{self.icon}" height="20" width="20"/>')
+        return mark_safe(f'<img src="/{self.icon}" height="20" width="20"/>')
 
-    icon_img_admin.short_description = 'Icon'
     icon_img.short_description = 'Icon'
 
 
@@ -428,7 +414,7 @@ class Attachment(models.Model):
     id = models.BigAutoField(
         primary_key=True)
     file = models.FileField(
-        upload_to=f'{(settings.STATIC_URL).strip("/")}/attachments',
+        upload_to=f'{get_media_path()}/attachments',
         validators=[FileExtensionValidator],
         blank=True)
     filename = models.CharField(
@@ -508,7 +494,6 @@ class Issue(models.Model):
     label = models.ForeignKey(
         Label,
         on_delete=models.CASCADE,
-        blank=True,
         null=True,
         related_name='%(class)s_label')
     reporter = models.ForeignKey(
@@ -543,7 +528,7 @@ class Issue(models.Model):
         through='CommentAssociation',
         through_fields=('issue', 'comment'))
     attachments = models.FileField(
-        upload_to=f'{(settings.STATIC_URL).strip("/")}/attachments',
+        upload_to=f'{get_media_path()}/attachments',
         validators=[FileExtensionValidator],
         blank=True,
         null=True)
@@ -592,7 +577,7 @@ class Issue(models.Model):
 
     def full_issue_type(self):
         issue_type_icon = IssueType.objects.filter(id=self.type).values('icon')[0]['icon']
-        issue_type_name = mark_safe(f'<img src="../../../{IssueType.objects.filter(id=self.type).values("name")[0]["name"]}" height="20" width="20"/>')
+        issue_type_name = mark_safe(f'<img src="/{IssueType.objects.filter(id=self.type).values("name")[0]["name"]}" height="20" width="20"/>')
         return f'{issue_type_icon} {issue_type_name}'
 
     def __str__(self):

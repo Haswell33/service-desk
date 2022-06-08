@@ -55,6 +55,7 @@ class UserAdminModel(GroupAdmin):
             pass
         return queryset, use_distinct
 
+
 @admin.register(Board)
 class BoardAdminModel(admin.ModelAdmin):
     list_display = ('name', 'env_type')
@@ -89,7 +90,7 @@ class TenantAdminModel(admin.ModelAdmin):
 
 @admin.register(Priority)
 class PriorityAdminModel(admin.ModelAdmin):
-    list_display = ('name', 'icon_img_admin')
+    list_display = ('name', 'icon_img')
     search_fields = ['name']
 
 
@@ -122,7 +123,7 @@ class ResolutionAdminModel(admin.ModelAdmin):
 
 @admin.register(IssueType)
 class IssueTypeAdminModel(admin.ModelAdmin):
-    list_display = ('name', 'env_type', 'icon_img_admin')
+    list_display = ('name', 'env_type', 'icon_img')
     search_fields = ['name', 'env_type']
 
 
