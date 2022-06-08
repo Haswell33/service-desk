@@ -85,6 +85,10 @@ def bad_request(request, exception=None, template_name='errors/400.html'):
     return render(request, template_name, {}, status=400)
 
 
+def unauthorized(request, exception=None, template_name='errors/401.html'):
+    return render(request, template_name, {}, status=401)
+
+
 def permission_denied(request, exception=None, template_name='error/403.html'):
     return render(request, template_name, {}, status=403)
 

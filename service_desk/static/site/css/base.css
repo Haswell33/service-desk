@@ -23,6 +23,8 @@
     --success-fg: #270;
     --success-border: #adcba1;
 
+    --form-bg: #ebebeb;
+
     --nav-height: 61px;
     --sidebar-width: 298px;
     --footer-height: 45px;
@@ -101,7 +103,7 @@ textarea {
     font-family: Lato, sans-serif;
     color: var(--elem-dark-secondary);
     font-size: 16px;
-    background-color: var(--elem-light);
+    background-color: transparent;
     border: 1px solid var(--elem-light-third);
     box-sizing: border-box;
     padding: 7px 10px 7px 10px;
@@ -151,7 +153,6 @@ input[type=submit]:hover {
 
 .bootstrap-filestyle > input {
     padding-left: 100px!important;
-    width: calc(50% - 100px)!important;
 }
 
 .filedrag {
@@ -527,8 +528,18 @@ footer p {
 #create-ticket-content {
     display: flex;
     flex-direction: row;
+    justify-content: center;
 }
 
+#create-ticket-form {
+    width: max-content;
+    background: var(--form-bg);
+    padding: 20px 35px 20px 35px;
+    border: 1px solid var(--elem-light-third);
+    border-radius: 7px;
+}
+
+/*
 #create-ticket-info {
     display: flex;
     align-items: center;
@@ -562,12 +573,7 @@ footer p {
     border-top: 1px solid var(--elem-light-third);
     font-size: 80%;
 }
-
-#create-ticket-form {
-    width: max-content;
-    padding-left: 15px;
-    padding-right: 30px;
-}
+*/
 
 /* Messages, Communicates, Error, Success, Warning */
 
@@ -684,8 +690,16 @@ form .aligned div.help,
     margin-left: calc(0% + 20px)!important;
 }
 
+.left-content-full-width div input,
+.left-content-full-width div select,
+.left-content-full-width div textarea,
+.left-content-full-width .select2-container,
+.left-content-full-width .django-quill-widget-container {
+    width: calc(100%)!important;
+}
+
 .left-content-full-width {
-    width: calc(100% + var(--sidebar-width))!important;
+    width: 80vw!important;
 }
 
 .form .description {
@@ -700,32 +714,43 @@ form .aligned div.help,
 
 .short-field input,
 .short-field select,
-.short-field textarea {
-    width: 300px!important;
+.short-field textarea,
+.short-short .django-quill-widget-container{
+    width: 300px;
 }
 
 .medium-short-field input,
 .medium-short-field select,
-.medium-short-field textarea {
-    width: 450px!important;
+.medium-short-field textarea,
+.medium-short .django-quill-widget-container {
+    width: 450px;
 }
 
 .medium-field input,
 .medium-field select,
-.medium-field textarea {
-    width: 550px!important;
+.medium-field textarea,
+.medium-field .django-quill-widget-container{
+    width: 550px;
 }
 
 .long-field input,
 .long-field select,
-.long-field textarea {
-    width: 750px!important;
+.long-field textarea,
+.long-field .django-quill-widget-container{
+    width: 750px
 }
 
 .very-long-field input,
 .very-long-field select,
-.very-long-field textarea {
-    width: 850px!important;
+.very-long-field textarea,
+.very-long-field .django-quill-widget-container{
+    width: 850px;
+}
+
+.required label:after {
+    content: '*';
+    padding-left: 1px;
+    color: #e00000;
 }
 
 .select-option {
@@ -743,4 +768,23 @@ form .aligned div.help,
 .select-option-text {
     margin: 0;
     display: inline;
+}
+
+input[type="checkbox"] {
+  /* ...existing styles */
+  display: grid;
+  place-content: center;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em var(--theme);
+}
+
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
 }
