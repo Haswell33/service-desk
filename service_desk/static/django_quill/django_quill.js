@@ -1,5 +1,5 @@
-Quill.register("modules/imageCompressor", imageCompressor);
-Quill.register("modules/resize", window.QuillResizeModule);
+//Quill.register("modules/imageCompressor", imageCompressor);
+//Quill.register("modules/resize", window.QuillResizeModule);
 
 class QuillWrapper {
     constructor(targetDivId, targetInputId, quillOptions) {

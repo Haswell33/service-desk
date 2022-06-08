@@ -5,10 +5,12 @@ SECRET_KEY = 'django-insecure-z(g7^uxx3*)@ctru=wvchu5tezwzd3s@0m01rozf=-szc8%_!@
 ALLOWED_HOSTS = ['192.168.0.100', '192.168.0.101', '127.0.0.1']
 ROOT_URLCONF = 'config.urls'
 WSGI_APPLICATION = 'config.wsgi.application'
-STATIC_URL = '/static/site/'  # Static files (CSS, JavaScript, Images) https://docs.djangoproject.com/en/3.2/howto/static-files/
-STATIC_ROOT = f'{BASE_DIR}/static/'
+#STATIC_URL = '/static/'  # Static files (CSS, JavaScript, Images) https://docs.djangoproject.com/en/3.2/howto/static-files/
+#STATIC_ROOT = f'{BASE_DIR}'
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = f'{BASE_DIR}/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'logged_out'
@@ -19,6 +21,8 @@ USE_L10N = True
 USE_TZ = True
 DEBUG = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'  # Default primary key field type https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+
 
 INSTALLED_APPS = [
     'app',
@@ -44,8 +48,9 @@ MIDDLEWARE = [
 ]
 
 STATICFILES_DIRS = [
-    f'{BASE_DIR}/static/site'
+    f'{BASE_DIR}/static'
 ]
+#STATICFILES_DIRS = [BASE_DIR / 'static']
 
 TEMPLATES = [
     {
@@ -137,7 +142,7 @@ LOGGING = {
     },
     'handlers': {
         'request': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'filters': ['require_debug_false'],
             'class': 'logging.handlers.RotatingFileHandler',
             'formatter': 'default',
@@ -146,7 +151,7 @@ LOGGING = {
             'backupCount': 10,
         },
         'template': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'filters': ['require_debug_false'],
             'class': 'logging.handlers.RotatingFileHandler',
             'formatter': 'default',
@@ -155,7 +160,7 @@ LOGGING = {
             'backupCount': 10,
         },
         'server': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'filters': ['require_debug_false'],
             'class': 'logging.handlers.RotatingFileHandler',
             'formatter': 'default',
@@ -164,7 +169,7 @@ LOGGING = {
             'backupCount': 10,
         },
         'security': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'filters': ['require_debug_false'],
             'class': 'logging.handlers.RotatingFileHandler',
             'formatter': 'default',

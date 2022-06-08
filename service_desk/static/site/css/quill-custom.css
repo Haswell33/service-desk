@@ -1,0 +1,57 @@
+.ql-stroke {
+    stroke: var(--elem-light)!important;
+}
+
+.ql-fill {
+    fill: var(--elem-light)!important;
+}
+
+.ql-toolbar.ql-snow {
+    background-color: var(--elem-light-secondary)!important;
+    border: 1px solid var(--elem-light-secondary)!important;
+    border-top-left-radius: 5px!important;
+    border-top-right-radius: 5px!important;
+}
+
+.ql-picker-label.ql-snow,
+.ql-snow .ql-picker {
+    color: var(--elem-light)!important;
+}
+
+.django-quill-widget-container {
+    border-radius: 5px!important;
+}
+
+.ql-toolbar.ql-snow + .ql-container.ql-snow {
+    border-bottom-left-radius: 5px!important;
+    border-bottom-right-radius: 5px!important;
+    border-color: var(--elem-light-third)!important;
+}
+
+.ql-editor {
+    min-height: 150px!important;
+}
+
+.ql-snow.ql-toolbar button.ql-active {
+    background: var(--elem-light-fourth)!important;
+    border-radius: 4px!important;
+}
+
+.ql-snow.ql-toolbar button:hover {
+    background: var(--elem-light-fourth)!important;
+    border-radius: 4px!important;
+}
+
+.ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options,
+.ql-picker-label.ql-active{
+    color: var(--elem-light)!important;
+    background: var(--elem-light-secondary)!important;
+}
+
+.ql-snow.ql-toolbar .ql-picker-item:hover,
+.ql-snow.ql-toolbar .ql-picker-item:active,
+.ql-snow.ql-toolbar .ql-picker-label:hover,
+.ql-snow.ql-toolbar .ql-picker-label:active,
+.ql-picker-item.ql-selected{
+    color: #fff!important
+}

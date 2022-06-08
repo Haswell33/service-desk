@@ -68,7 +68,7 @@ function themeColor(userIsAuth, userIsAdmin, userTenantType){
       })
     }
 }
-element.html('<option></option>').trigger('change');
+
 function select2(){
     $('#id_type').select2({
         templateResult: function (option)  {
@@ -126,7 +126,7 @@ function renderIconOption(elem) {
         return elem.text
 }
 
-$('.select').on('select2:open', function () {
+/*$('.select').on('select2:open', function () {
     $('.select__dropdown .select2-results__options').mCustomScrollbar('destroy');
     $('.select__dropdown .select2-results__options').mCustomScrollbar('update');
     setTimeout(function() {
@@ -139,7 +139,7 @@ $('.select').on('select2:open', function () {
             live: true
         });
     }, 0);
-});
+});*/
 
 
 
@@ -157,4 +157,7 @@ $('.select').on('select2:open', function () {
     $(function(){
         console.log("jQuery + DOM loaded.")
     })
-}*/
+}
+
+.onChange(element.html('<option></option>').trigger('change'))
+*/

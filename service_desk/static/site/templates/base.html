@@ -3,17 +3,18 @@
 <head>
   {% load static %}
   <title>{% block title %}Service Desk{% endblock %}</title>
-  <script type="text/javascript" rel="script" src="{% static 'js/jquery.min.js' %}"></script>
-  <script type="text/javascript" rel="script" src="{% static 'js/base.js' %}"></script>
-  <script type="text/javascript" rel="script" src="{% static 'js/bootstrap-filestyle.min.js' %}"></script>
-  <script type="text/javascript" rel="script" src="{% static 'js/select2.min.js' %}"></script>
-  <script type="text/javascript" rel="script" src="{% static 'django_quill/django_quill.js' %}"></script>
-  <link type="text/css" rel="stylesheet" href="{% static 'css/base.css' %}"/>
-  <link type="text/css" rel="stylesheet" href="{% static 'css/select2.min.css' %}">
-  <link type="text/css" rel="stylesheet" href="{% static 'css/select2-custom.css' %}"/>
-  <link type="text/css" rel="stylesheet" href="{% static 'django_quill/django_quill.css' %}">
+  <script type="text/javascript" rel="script" src="{% static 'site/js/jquery.min.js' %}"></script>
+  <script type="text/javascript" rel="script" src="{% static 'site/js/base.js' %}"></script>
+  <script type="text/javascript" rel="script" src="{% static 'site/js/bootstrap-filestyle.min.js' %}"></script>
+  <script type="text/javascript" rel="script" src="{% static 'site/js/select2.min.js' %}"></script>
+  <!--<script type="text/javascript" rel="script" src="{% static 'django_quill/django_quill.js' %}"></script>-->
+  <link type="text/css" rel="stylesheet" href="{% static 'site/css/base.css' %}"/>
+  <link type="text/css" rel="stylesheet" href="{% static 'site/css/select2.min.css' %}">
+  <link type="text/css" rel="stylesheet" href="{% static 'site/css/select2-custom.css' %}"/>
+  <link type="text/css" rel="stylesheet" href="{% static 'site/css/quill-custom.css' %}">
+  <!--<link type="text/css" rel="stylesheet" href="{% static 'django_quill/django_quill.css' %}">-->
 
-  <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
+  <link rel="icon" type="image/x-icon" href="{% static 'site/img/favicon.ico' %}">
   <link rel="canonical" href="{{ request.build_absolute_uri }}">
   <meta charset="utf-8">
   <meta name="author" content="Karol Siedlaczek">
@@ -141,14 +142,5 @@
     let userIsAuth = ('{{user.is_authenticated}}' === 'True')
     let userTenantType = '{{request.session.tenant_type}}'
     themeColor(userIsAuth, userIsAdmin, userTenantType)
-    var quill = new Quill('#id_description', {
-    modules: {
-      formula: true,
-      syntax: true,
-      toolbar: '#toolbar-container'
-    },
-    placeholder: 'Compose an epic...',
-    theme: 'snow'
-  });
   })
 </script>
