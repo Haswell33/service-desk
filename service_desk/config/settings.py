@@ -34,7 +34,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'widget_tweaks',
-    'django_quill'
+    'django_quill',
+    'quill'
 ]
 
 MIDDLEWARE = [
@@ -49,7 +50,8 @@ MIDDLEWARE = [
 ]
 
 STATICFILES_DIRS = [
-    f'{BASE_DIR}/static/site'
+    f'{BASE_DIR}/static/site',
+    f'{BASE_DIR}/static/django_quill'
 ]
 
 TEMPLATES = [

@@ -3,6 +3,7 @@
 
 <head>
   <title>{% block title %} {{ block.super }} | Create ticket{% endblock %}</title>
+  {{ form.media }}
   {% include 'django_quill/media.html' %}
 </head>
 
@@ -39,7 +40,11 @@
       </div>
       <div class="form-field long-field">
         <label for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
+        {{ form.media }}
         {{ form.description }}
+        {% for issue in issues %}
+        {{issue.description.html|safe}}
+        {% endfor %}
       </div>
       <div class="form-field long-field">
         <input type="submit" value="Create">

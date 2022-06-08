@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.http.cookie import SimpleCookie
 from django.shortcuts import render, reverse
 from django.conf import settings
-from .models import Tenant, Status
+from .models import Tenant, Status, Issue
 from .forms import IssueForm
 # from .utils import get_user_type
 from django.template.loader import get_template
@@ -38,7 +38,8 @@ def create_ticket(request, template_name='create-ticket.html'):
             form.fields['type'].initial = 1
         else:
             pass
-        return render(request, template_name, {'form': form}, status=200)
+        issues = Issue.objects.all()
+        return render(request, template_name, {'form': form, 'issues': issues}, status=200)
 
 
 def submit_ticket(request, template_name='submit-ticket.html'):
