@@ -101,16 +101,18 @@ QUILL_CONFIGS = {
         'theme': 'snow',
         'modules': {
             'syntax': True,
+            'imageResize': True,
             'toolbar': [
                 [
                     {'font': []},
                     {'header': []},
                     {'align': []},
                     'bold', 'italic', 'underline', 'strike', 'blockquote',
+                    {'list': 'ordered'},
+                    {'list': 'bullet'},
                     {'color': []},
-                    {'background': []},
                 ],
-                ['code-block', 'link'],
+                ['code-block', 'link', 'image'],
                 ['clean'],
             ]
         }
