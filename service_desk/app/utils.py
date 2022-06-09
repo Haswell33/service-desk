@@ -2,10 +2,6 @@ from django.conf import settings
 from .models import Tenant, IssueType, Status
 
 
-def get_filename(filename):
-    return filename.upper()
-
-
 def get_tenant(request):
     return Tenant.objects.get(key=request.session.get('tenant_key'))
 
@@ -46,3 +42,7 @@ def get_initial_status(env_type):
         return Status.objects.get(id=settings.SOFT_INITIAL_STATUS)
     else:
         return Status.objects.get(id=settings.SD_INITIAL_STATUS)
+
+
+def change_status():
+    pass

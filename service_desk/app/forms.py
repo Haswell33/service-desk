@@ -19,7 +19,7 @@ class IssueForm(forms.ModelForm):
         fields = ['title', 'type', 'priority', 'assignee', 'label', 'description', 'attachments', 'status']
         labels = {
             'title': _('Title'),
-            'type': _('Issue type'),
+            'type': _('Type'),
             'priority': _('Priority'),
             'assignee': _('Assignee'),
             'label': _('Label/s'),

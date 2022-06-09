@@ -1,6 +1,5 @@
 from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator, FileExtensionValidator
 from django.contrib.auth.models import User, Group
-from django.contrib import admin
 from django.conf import settings
 from django.utils.html import mark_safe, format_html
 from django_quill.fields import QuillField
@@ -527,10 +526,6 @@ class Issue(models.Model):
         if not self.id:
             self.created = datetime.now()
             self.reporter = get_current_user()
-            # tenant_key = get_tenant_key(request, Tenant.objects)
-            # tenant_count = get_tenant_count(tenant_key, Tenant.objects) + 1
-            # self.key = f'{tenant_key}-{tenant_count}'
-            # Tenant.save(Tenant())
         self.updated = datetime.now()
         # send_notifications()
         if len(self.title) > 200:
@@ -560,13 +555,17 @@ class Issue(models.Model):
         else:
             return False
 
-    def issue_type_img(self):
-        return mark_safe(f'<img src="/{str(self.type.icon)}" height="15" width="15"/> {self.type.name}')
+    def type_img(self):
+        return mark_safe(f'<img src="/{str(self.type.icon)}" height="18" width="18"/>')
+
+    def priority_img(self):
+        return mark_safe(f'<img src="/{str(self.priority.icon)}" height="18" width="18"/>')
 
     def __str__(self):
         return self.key
 
-    issue_type_img.short_description = 'Issue type'
+    type_img.short_description = 'Type'
+    priority_img.short_description = 'Priority'
 
 
 class BoardColumnAssociation(models.Model):

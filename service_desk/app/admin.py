@@ -133,9 +133,9 @@ class LabelAdminModel(admin.ModelAdmin):
 
 @admin.register(Issue)
 class IssueAdminModel(admin.ModelAdmin):
-    list_display = ('key', 'title', 'tenant', 'priority', 'status', 'resolution', 'issue_type_img', 'label', 'reporter', 'assignee', 'escalated', 'suspended', 'created', 'updated')
+    list_display = ('key', 'title', 'tenant', 'priority_img', 'status', 'resolution', 'type_img', 'label', 'reporter', 'assignee', 'escalated', 'suspended', 'created', 'updated')
     search_fields = ['key', 'title', 'tenant', 'priority', 'status', 'resolution', 'type', 'label', 'reporter', 'assignee']
-    list_filter = ('type', 'reporter', 'assignee', 'tenant')
+    list_filter = ('type', 'reporter', 'assignee', 'tenant', 'priority')
 
 
 admin.site.unregister(Group)
