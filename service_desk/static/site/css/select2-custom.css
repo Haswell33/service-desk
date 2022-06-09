@@ -20,7 +20,7 @@
 }
 
 .select2-search--dropdown {
-    background: var(--form-bg)!important
+    background: var(--elem-light)!important
 }
 
 .select2-search__field {
@@ -36,7 +36,7 @@
 }
 
 .select2-results__option {
-    background-color: var(--form-bg)!important;
+    background-color: var(--elem-light)!important;
 }
 
 .select2-selection__arrow {

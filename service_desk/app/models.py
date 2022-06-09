@@ -1,31 +1,22 @@
 from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator, FileExtensionValidator
-from django.contrib import admin
 from django.contrib.auth.models import User, Group
-from django.utils.html import mark_safe, format_html
+from django.contrib import admin
 from django.conf import settings
+from django.utils.html import mark_safe, format_html
+from django_quill.fields import QuillField
 from django.db import models
-from django import forms
 from crum import get_current_user
 from datetime import datetime
-from .utils import get_media_path
-from django_quill.fields import QuillField
 
-DEFAULT_ISSUE_TYPE_ID = 1
-DEFAULT_PRIORITY_ID = 3
-GROUP_TYPES = [
-    ('customer', 'Customer'),
-    ('operator', 'Operator'),
-    ('developer', 'Developer')
-]
-ENV_TYPES = [
-    ('service-desk', 'Service Desk'),
-    ('software', 'Software')
-]
+
+def get_media_path():
+    return f'{settings.MEDIA_URL.strip("/")}'
+
 
 Group.add_to_class(
     'type', models.CharField(
         max_length=25,
-        choices=GROUP_TYPES,
+        choices=settings.GROUP_TYPES,
         blank=True,
         db_column='type'))
 
@@ -45,7 +36,7 @@ class Board(models.Model):
         unique=True)
     env_type = models.CharField(
         max_length=50,
-        choices=ENV_TYPES,
+        choices=settings.ENV_TYPES,
         null=True,
         blank=True)
 
@@ -178,13 +169,9 @@ class Tenant(models.Model):
     def __str__(self):
         return self.name
 
-    def icon_img_admin(self):
-        return mark_safe(f'<img src="/{self.icon}" height="20" width="20"/>')
-
     def icon_img(self):
         return mark_safe(f'<img src="/{self.icon}" height="20" width="20"/>')
 
-    icon_img_admin.short_description = 'Icon'
     icon_img.short_description = 'Icon'
 
 
@@ -227,7 +214,7 @@ class IssueType(models.Model):
         unique=True)
     env_types = models.CharField(
         max_length=50,
-        choices=ENV_TYPES,
+        choices=settings.ENV_TYPES,
         name='env_type',
         null=True)
     description = models.TextField(
@@ -451,21 +438,16 @@ class Issue(models.Model):
         primary_key=True)
     key = models.CharField(
         max_length=255,
+        unique=True,
         editable=False)
     title = models.CharField(
         max_length=255,
         help_text='Summarize the issue')
-    #description = models.RichTextField(
-    #    verbose_name='Description',
-    #    blank=True,
-    #    null=True,
-    #    help_text='The content of the issue')
     description = QuillField(
         verbose_name='description',
         blank=True,
         null=True,
-        help_text='Describe the issue'
-    )
+        help_text='Describe the issue')
     tenant = models.ForeignKey(
         Tenant,
         on_delete=models.CASCADE,
@@ -474,10 +456,11 @@ class Issue(models.Model):
     priority = models.ForeignKey(
         Priority,
         on_delete=models.CASCADE,
-        default=DEFAULT_PRIORITY_ID,
+        default=settings.DEFAULT_PRIORITY_ID,
         related_name='%(class)s_priority')
     status = models.ForeignKey(
         Status,
+        blank=True,
         on_delete=models.CASCADE,
         related_name='%(class)s_status')
     resolution = models.ForeignKey(
@@ -489,11 +472,12 @@ class Issue(models.Model):
     type = models.ForeignKey(
         IssueType,
         on_delete=models.CASCADE,
-        default=DEFAULT_ISSUE_TYPE_ID,
+        default=settings.DEFAULT_ISSUE_TYPE_ID,
         related_name='%(class)s_type')
     label = models.ForeignKey(
         Label,
         on_delete=models.CASCADE,
+        blank=True,
         null=True,
         related_name='%(class)s_label')
     reporter = models.ForeignKey(
@@ -543,9 +527,10 @@ class Issue(models.Model):
         if not self.id:
             self.created = datetime.now()
             self.reporter = get_current_user()
-            self.key = f'{Tenant.key}-{Tenant.count}'
-            Tenant.count = Tenant.count + 1
-            Tenant.save(Tenant())
+            # tenant_key = get_tenant_key(request, Tenant.objects)
+            # tenant_count = get_tenant_count(tenant_key, Tenant.objects) + 1
+            # self.key = f'{tenant_key}-{tenant_count}'
+            # Tenant.save(Tenant())
         self.updated = datetime.now()
         # send_notifications()
         if len(self.title) > 200:
@@ -575,13 +560,13 @@ class Issue(models.Model):
         else:
             return False
 
-    def full_issue_type(self):
-        issue_type_icon = IssueType.objects.filter(id=self.type).values('icon')[0]['icon']
-        issue_type_name = mark_safe(f'<img src="/{IssueType.objects.filter(id=self.type).values("name")[0]["name"]}" height="20" width="20"/>')
-        return f'{issue_type_icon} {issue_type_name}'
+    def issue_type_img(self):
+        return mark_safe(f'<img src="/{str(self.type.icon)}" height="15" width="15"/> {self.type.name}')
 
     def __str__(self):
         return self.key
+
+    issue_type_img.short_description = 'Issue type'
 
 
 class BoardColumnAssociation(models.Model):

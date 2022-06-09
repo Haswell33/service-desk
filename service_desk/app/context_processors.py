@@ -1,7 +1,6 @@
-from .models import Status, Tenant, Group
-from . import utils
+from .utils import get_tenant_by_dev_group, get_tenant_by_cust_group, get_tenant_by_oper_group
+from django.conf import settings
 from django.core import serializers
-from django.forms.models import model_to_dict
 
 
 def user_tenant_type(request):
@@ -10,33 +9,23 @@ def user_tenant_type(request):
         return request
     else:
         for group in request.user.groups.all():
-            if group.type == utils.CUSTOMER_GROUP_TYPE:
-                try:
-                    request.session['tenant_key'] = Tenant.objects.filter(customers_group=group.id).values('key')[0]['key']
-                    request.session['tenant_name'] = Tenant.objects.filter(customers_group=group.id).values('name')[0]['name']
-                    request.session['tenant_type'] = group.type
-                    request.session['tenant_icon'] = '../' + Tenant.objects.filter(customers_group=group.id).values('icon')[0]['icon']
-                    request.session['tenant_board'] = Tenant.objects.filter(customers_group=group.id).values('customers_group')[0]['customers_group']
-                except IndexError:
-                    pass
-            elif group.type == utils.OPERATOR_GROUP_TYPE:
-                try:
-                    request.session['tenant_key'] = Tenant.objects.filter(operators_group=group.id).values('key')[0]['key']
-                    request.session['tenant_name'] = Tenant.objects.filter(operators_group=group.id).values('name')[0]['name']
-                    request.session['tenant_type'] = group.type
-                    request.session['tenant_icon'] = '../' + Tenant.objects.filter(operators_group=group.id).values('icon')[0]['icon']
-                    request.session['tenant_board'] = Tenant.objects.filter(operators_group=group.id).values('operators_group')[0]['operators_group']
-                except IndexError:
-                    pass
-            elif group.type == utils.DEVELOPER_GROUP_TYPE:
-                try:
-                    request.session['tenant_key'] = Tenant.objects.filter(developers_group=group.id).values('key')[0]['key']
-                    request.session['tenant_name'] = Tenant.objects.filter(developers_group=group.id).values('name')[0]['name']
-                    request.session['tenant_type'] = group.type
-                    request.session['tenant_icon'] = '../' + Tenant.objects.filter(developers_group=group.id).values('icon')[0]['icon']
-                    request.session['tenant_board'] = Tenant.objects.filter(developers_group=group.id).values('developers_group')[0]['developers_group']
-                except IndexError:
-                    pass
+            if group.type == settings.CUST_TYPE or group.type == settings.OPER_TYPE or group.type == settings.DEV_TYPE:
+                print(group.type)
+                if group.type == settings.CUST_TYPE:
+                    tenant = get_tenant_by_cust_group(group)
+                elif group.type == settings.OPER_TYPE:
+                    tenant = get_tenant_by_oper_group(group)
+                elif group.type == settings.DEV_TYPE:
+                    tenant = get_tenant_by_dev_group(group.id)
+                if tenant:
+                    try:
+                        request.session['tenant_key'] = tenant.key
+                        request.session['tenant_name'] = tenant.name
+                        request.session['tenant_type'] = group.type
+                        request.session['tenant_icon'] = '../' + str(tenant.icon)
+                        request.session['tenant_board'] = str(tenant.developers_board)
+                    except IndexError:
+                        pass
         return request
 
 

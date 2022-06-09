@@ -84,7 +84,7 @@ class SLAAdminModel(admin.ModelAdmin):
 
 @admin.register(Tenant)
 class TenantAdminModel(admin.ModelAdmin):
-    list_display = ('name', 'key', 'count', 'sla', 'customers_group', 'operators_group', 'developers_group', 'customers_board', 'operators_board', 'developers_board', 'icon_img_admin')
+    list_display = ('name', 'key', 'count', 'sla', 'customers_group', 'operators_group', 'developers_group', 'customers_board', 'operators_board', 'developers_board', 'icon_img')
     search_fields = ['name', 'key', 'workflow_developer', 'customers_group', 'operators_group', 'developers_group']
 
 
@@ -98,7 +98,6 @@ class PriorityAdminModel(admin.ModelAdmin):
 class StatusAdminModel(admin.ModelAdmin):
     list_display = ('name', 'resolution', 'color_hex')
     search_fields = ['name']
-    # list_filter = ('step', 'forward_transition')
 
 
 @admin.register(Transition)
@@ -134,15 +133,9 @@ class LabelAdminModel(admin.ModelAdmin):
 
 @admin.register(Issue)
 class IssueAdminModel(admin.ModelAdmin):
-    list_display = ('key', 'title', 'tenant', 'priority', 'status', 'resolution', 'full_issue_type', 'label', 'reporter', 'assignee', 'escalated', 'suspended', 'created', 'updated')
+    list_display = ('key', 'title', 'tenant', 'priority', 'status', 'resolution', 'issue_type_img', 'label', 'reporter', 'assignee', 'escalated', 'suspended', 'created', 'updated')
     search_fields = ['key', 'title', 'tenant', 'priority', 'status', 'resolution', 'type', 'label', 'reporter', 'assignee']
-
-
-#@admin.register(TransitionAssociation)
-#class StatusAssociationAdminModel(admin.ModelAdmin):
-#    list_display = ('issue_type', 'status', 'status_step')
-#    search_fields = ['status', 'issue_type']
-#    list_filter = ('issue_type', 'status')
+    list_filter = ('type', 'reporter', 'assignee', 'tenant')
 
 
 admin.site.unregister(Group)
@@ -150,6 +143,3 @@ admin.site.register(Group, GroupAdminModel)
 admin.site.unregister(User)
 admin.site.register(User, UserAdminModel)
 AdminSite.index_title = 'Administration'
-# admin.site.site_title = 'nowy title'
-# admin.site.site_header = 'nowy header'
-# admin.site.unregister(Group)

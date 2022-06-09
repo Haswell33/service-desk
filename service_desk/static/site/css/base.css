@@ -465,10 +465,10 @@ footer p {
     transition: 300ms margin-left;
 }
 
-#content-page h1 {
-    margin: 0;
-    font-size: 20px;
-    padding-bottom: 10px;
+#content-page h2 {
+    margin: 0 0 5px 0;
+    font-size: 24px;
+    padding-bottom: 7px;
     border-bottom: 1px solid var(--elem-light-third)
 }
 
@@ -533,9 +533,9 @@ footer p {
 
 #create-ticket-form {
     width: max-content;
-    background: var(--form-bg);
-    padding: 20px 35px 20px 35px;
-    border: 1px solid var(--elem-light-third);
+    padding: 0 35px 20px 35px;
+    /*background: var(--form-bg);
+    border: 1px solid var(--elem-light-third);*/
     border-radius: 7px;
 }
 
@@ -768,23 +768,4 @@ form .aligned div.help,
 .select-option-text {
     margin: 0;
     display: inline;
-}
-
-input[type="checkbox"] {
-  /* ...existing styles */
-  display: grid;
-  place-content: center;
-}
-
-input[type="checkbox"]::before {
-  content: "";
-  width: 0.65em;
-  height: 0.65em;
-  transform: scale(0);
-  transition: 120ms transform ease-in-out;
-  box-shadow: inset 1em 1em var(--theme);
-}
-
-input[type="checkbox"]:checked::before {
-  transform: scale(1);
 }

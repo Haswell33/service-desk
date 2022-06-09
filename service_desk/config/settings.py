@@ -1,5 +1,24 @@
 from pathlib import Path
 
+CUST_TYPE = 'customer'
+OPER_TYPE = 'operator'
+DEV_TYPE = 'developer'
+SD_ENV_TYPE = 'service-desk'
+SOFT_ENV_TYPE = 'software'
+DEFAULT_ISSUE_TYPE_ID = 1
+DEFAULT_PRIORITY_ID = 3
+SD_INITIAL_STATUS = 15
+SOFT_INITIAL_STATUS = 26
+GROUP_TYPES = [
+    ('customer', 'Customer'),
+    ('operator', 'Operator'),
+    ('developer', 'Developer')
+]
+ENV_TYPES = [
+    ('service-desk', 'Service Desk'),
+    ('software', 'Software')
+]
+
 BASE_DIR = Path(__file__).resolve().parent.parent  # Build paths inside the project like this: BASE_DIR / 'subdir'.
 SECRET_KEY = 'django-insecure-z(g7^uxx3*)@ctru=wvchu5tezwzd3s@0m01rozf=-szc8%_!@'
 ALLOWED_HOSTS = ['192.168.0.100', '192.168.0.101', '127.0.0.1']

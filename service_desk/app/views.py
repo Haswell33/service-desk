@@ -1,11 +1,10 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.http.cookie import SimpleCookie
 from django.shortcuts import render, reverse
 from django.conf import settings
-from .models import Tenant, Status, Issue
+from .models import Tenant, Status, IssueType
 from .forms import IssueForm
-# from .utils import get_user_type
-from django.template.loader import get_template
+from .utils import get_session_tenant_type, get_env_type, get_initial_status, get_tenant
 
 
 def home(request, template_name='home.html'):
@@ -22,24 +21,31 @@ def create_ticket(request, template_name='create-ticket.html'):
         return HttpResponseRedirect(f'{settings.LOGIN_URL}')
     elif request.method == 'POST':
         form = IssueForm(request.POST)
-
         if form.is_valid():
-            form.save()
-            print('form is valid')
-            return render(request, 'submit-ticket.html', status=200)
+            tenant = get_tenant(request)
+            new_issue = form.save(commit=False)  # create instance, but do not save
+            env_type = get_env_type(new_issue.type.id)  # env_type field from issue type
+            new_issue.status = get_initial_status(env_type)
+            new_issue.key = f'{tenant.key}-{tenant.count + 1}'
+            new_issue.tenant = tenant
+            new_issue.save()  # create issue
+            form.save_m2m()
+            tenant.count += 1
+            tenant.save()
+            #return render(request, 'submit-ticket.html', status=200)
+            return HttpResponseRedirect(f'submit')
+        else:
+            print(form.errors.as_data())
     else:
         form = IssueForm()
-        tenant_type = request.session.get('tenant_type')
-        if tenant_type == 'customer':
+        tenant_type = get_session_tenant_type(request)
+        if tenant_type == settings.CUST_TYPE:
             form.fields['type'].initial = 2
-        elif tenant_type == 'operator':
-            form.fields['type'].initial = 1
-        elif tenant_type == 'developer':
+        elif tenant_type == settings.OPER_TYPE or tenant_type == settings.DEV_TYPE:
             form.fields['type'].initial = 1
         else:
             pass
-        issues = Issue.objects.all()
-        return render(request, template_name, {'form': form, 'issues': issues}, status=200)
+        return render(request, template_name, {'form': form}, status=200)
 
 
 def submit_ticket(request, template_name='submit-ticket.html'):

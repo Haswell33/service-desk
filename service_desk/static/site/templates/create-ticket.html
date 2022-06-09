@@ -3,13 +3,11 @@
 
 <head>
   <title>{% block title %} {{ block.super }} | Create ticket{% endblock %}</title>
-  {{ form.media }}
-  {% include 'django_quill/media.html' %}
 </head>
 
 <body>
   {% block content_page %}
-  <h1>Create ticket</h1>
+  <h2>Create ticket</h2>
   <div id="create-ticket-content" class="content-page-block">
     <form id="create-ticket-form" class="form" method="post">
       {% csrf_token %}
@@ -40,17 +38,12 @@
       </div>
       <div class="form-field long-field">
         <label for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
-        {{ form.media }}
-        {{ form.description }}
-        {% for issue in issues %}
-        {{issue.description.html|safe}}
-        {% endfor %}
+        {{ form.media }} {{ form.description }}
       </div>
       <div class="form-field long-field">
         <input type="submit" value="Create">
       </div>
     </form>
-
     <div id="create-ticket-info" style="display:none">
       <div id="create-ticket-info-dialog">
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent egestas sapien mi, eget auctor sem pretium sit amet. Donec sed ornare felis, et tempor nisi.Cras velit diam, hendrerit eget augue ut, rhoncus tincidunt enim. Vivamus nisl nulla, blandit eu euismod ac, faucibus quis nibh. Mauris cursus nulla sit amet mauris lobortis fermentum</p>

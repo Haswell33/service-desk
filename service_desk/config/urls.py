@@ -21,7 +21,7 @@ urlpatterns = [
     path('password-reset/', auth_views.PasswordResetView.as_view(template_name='password-reset.html'), name='password_reset'),
     path('logged-out/', views.logged_out, name='logged_out'),
     path('admin/', admin.site.urls),
-    path('create-ticket/', views.create_ticket, name='create_ticket'),
-    path('submit-ticket', views.submit_ticket, name='submit_ticket')] \
+    path('ticket/create', views.create_ticket, name='create_ticket'),
+    path('ticket/submit', views.submit_ticket, name='submit_ticket')] \
         + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
         + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
