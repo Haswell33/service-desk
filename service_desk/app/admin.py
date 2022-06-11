@@ -3,7 +3,10 @@ from django import forms
 from django.contrib.admin import AdminSite
 from django.contrib.auth.models import Group, User
 from django.contrib.auth.admin import GroupAdmin, UserAdmin
-from .models import Issue, Tenant, Comment, Priority, Status, Resolution, Transition, TransitionAssociation, IssueType, Label, SLAScheme, Board, BoardColumn, BoardColumnAssociation
+from .models import Issue, Tenant, Comment, Priority, Status, Resolution, Transition, TransitionAssociation, IssueType, Label, LabelAssociation, SLAScheme, Board, BoardColumn, BoardColumnAssociation
+from .forms import IssueForm
+
+
 
 
 class GroupAdminModel(GroupAdmin):
@@ -46,15 +49,6 @@ class UserAdminModel(GroupAdmin):
     ordering = ['id']
     filter_horizontal = []
 
-    def get_search_results(self, request, queryset, search_term):
-        queryset, use_distinct = super(UserAdminModel, self).get_search_results(request, queryset, search_term)
-        try:
-            search_term_as_int = int(search_term)
-            queryset |= self.model.objects.filter(age=search_term_as_int)
-        except:
-            pass
-        return queryset, use_distinct
-
 
 @admin.register(Board)
 class BoardAdminModel(admin.ModelAdmin):
@@ -71,7 +65,7 @@ class BoardColumnAdminModel(admin.ModelAdmin):
 
 @admin.register(BoardColumnAssociation)
 class BoardColumnAssociationAdminModel(admin.ModelAdmin):
-    list_display = ('column', 'status_colored', 'board')
+    list_display = ('column', 'status_color', 'board_name')
     search_fields = ['board', 'column', 'status']
     list_filter = ('column', 'status')
 
@@ -84,7 +78,7 @@ class SLAAdminModel(admin.ModelAdmin):
 
 @admin.register(Tenant)
 class TenantAdminModel(admin.ModelAdmin):
-    list_display = ('name', 'key', 'count', 'sla', 'customers_group', 'operators_group', 'developers_group', 'customers_board', 'operators_board', 'developers_board', 'icon_img')
+    list_display = ('name', 'icon_img', 'key', 'count', 'sla', 'customers_group', 'operators_group', 'developers_group', 'customers_board', 'operators_board', 'developers_board')
     search_fields = ['name', 'key', 'workflow_developer', 'customers_group', 'operators_group', 'developers_group']
 
 
@@ -96,7 +90,7 @@ class PriorityAdminModel(admin.ModelAdmin):
 
 @admin.register(Status)
 class StatusAdminModel(admin.ModelAdmin):
-    list_display = ('name', 'resolution', 'color_hex')
+    list_display = ('name', 'color_hex', 'resolution')
     search_fields = ['name']
 
 
@@ -122,7 +116,7 @@ class ResolutionAdminModel(admin.ModelAdmin):
 
 @admin.register(IssueType)
 class IssueTypeAdminModel(admin.ModelAdmin):
-    list_display = ('name', 'env_type', 'icon_img')
+    list_display = ('name', 'icon_img', 'env_type')
     search_fields = ['name', 'env_type']
 
 
@@ -131,11 +125,40 @@ class LabelAdminModel(admin.ModelAdmin):
     list_display = ('name', 'description')
 
 
+class LabelAssociationInline(admin.StackedInline):
+    model = LabelAssociation
+
+
 @admin.register(Issue)
 class IssueAdminModel(admin.ModelAdmin):
-    list_display = ('key', 'title', 'tenant', 'priority_img', 'status', 'resolution', 'type_img', 'label', 'reporter', 'assignee', 'escalated', 'suspended', 'created', 'updated')
-    search_fields = ['key', 'title', 'tenant', 'priority', 'status', 'resolution', 'type', 'label', 'reporter', 'assignee']
+    list_display = ('key', 'type_img', 'title', 'priority_img', 'status_color', 'resolution', 'reporter_img', 'assignee_img', 'escalated', 'suspended', 'tenant', 'get_labels', 'created_datetime', 'updated_datetime')
+    search_fields = ['key', 'title', 'tenant', 'priority', 'status', 'resolution', 'type', 'labels', 'reporter', 'assignee']
     list_filter = ('type', 'reporter', 'assignee', 'tenant', 'priority')
+    fieldsets = (
+        (None, {
+            'fields': ('title', 'type', 'priority')
+        }),
+        ('Users', {
+            'fields': ('reporter', 'assignee')
+        }),
+        ('State', {
+            'fields': ('status', 'resolution')
+        }),
+        ('Data', {
+            'fields': ('description',)
+        }),
+    )
+    filter_horizontal = ('labels',)
+
+
+    def get_labels(self, instance):
+        return [labels.name for labels in instance.labels.all()]
+
+    #get_labels.fget.allow_tags = True
+    #get_labels.fget.short_description = 'Address display'
+
+
+
 
 
 admin.site.unregister(Group)

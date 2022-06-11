@@ -2,7 +2,7 @@ from django.http import HttpResponseRedirect
 from django.http.cookie import SimpleCookie
 from django.shortcuts import render, reverse
 from django.conf import settings
-from .models import Tenant, Status, IssueType
+from .models import Tenant, Status, IssueType, Issue
 from .forms import IssueForm
 from .utils import get_session_tenant_type, get_env_type, get_initial_status, get_tenant
 
@@ -10,7 +10,8 @@ from .utils import get_session_tenant_type, get_env_type, get_initial_status, ge
 def home(request, template_name='home.html'):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(f'{settings.LOGIN_URL}')
-    response = render(request, template_name,  status=200)
+    issues = Issue.objects.all()
+    response = render(request, template_name, {"issues": issues},  status=200)
     response.set_cookie(key='active_tenant_id', value=1)
     return response
     # return render(request, template_name, {'user_tenant_type': user_type}, status=200)
@@ -28,6 +29,8 @@ def create_ticket(request, template_name='create-ticket.html'):
             new_issue.status = get_initial_status(env_type)
             new_issue.key = f'{tenant.key}-{tenant.count + 1}'
             new_issue.tenant = tenant
+            print(form.fields['description'].getContents())
+            new_issue.description = form.fields['description']
             new_issue.save()  # create issue
             form.save_m2m()
             tenant.count += 1

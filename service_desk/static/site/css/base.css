@@ -416,11 +416,11 @@ footer p {
     height: 100%;
     margin-top: var(--nav-height);
     position:fixed;
-    flex: 0 0 var(--sidebar-width);
-    margin-left: 20px;
+    flex: 0 0 calc(-1 * var(--sidebar-width));
+    margin-left: calc(-1 * var(--sidebar-width));
+    padding-left: 20px;
     visibility: visible;
     border-right: 1px solid var(--elem-light-fourth);
-    transition: visibility 0.3s, margin 0.3s;
 }
 
 #sidebar > #sidebar-content > #sidebar-tenant {
@@ -459,10 +459,9 @@ footer p {
 /* Content page */
 
 #content-page {
-    margin-left: calc(300px + 20px);
+    margin-left: calc(0% + 20px);
     margin-bottom: var(--footer-height);
     padding: 15px;
-    transition: 300ms margin-left;
 }
 
 #content-page h2 {
@@ -676,8 +675,8 @@ form .aligned div.help,
     padding-top: 15px;
 }
 
-.hidden {
-    margin-left: calc(-1 * var(--sidebar-width))!important;
+.passed {
+    margin-left: 0!important;
 }
 
 .sticky {
@@ -686,21 +685,26 @@ form .aligned div.help,
     max-height: 100vh
 }
 
-.full-width {
-    margin-left: calc(0% + 20px)!important;
+.sidebar-transition {
+    transition: visibility 0.3s, margin 0.3s;
 }
 
-.left-content-full-width div input,
-.left-content-full-width div select,
-.left-content-full-width div textarea,
-.left-content-full-width .select2-container,
-.left-content-full-width .django-quill-widget-container {
+.passed-width {
+    margin-left: calc(300px + 20px)!important;
+}
+
+.create-ticket-form-60vw div input,
+.create-ticket-form-60vw div select,
+.create-ticket-form-60vw div textarea,
+.create-ticket-form-60vw .select2-container,
+.create-ticket-form-60vw .django-quill-widget-container {
     width: calc(100%)!important;
 }
 
-.left-content-full-width {
-    width: 80vw!important;
+.create-ticket-form-60vw {
+    width: 60vw!important;
 }
+
 
 .form .description {
     font-size: 80%;
@@ -768,4 +772,26 @@ form .aligned div.help,
 .select-option-text {
     margin: 0;
     display: inline;
+}
+
+.field-full_transition {
+    display: inline-flex
+}
+
+.status {
+    width: max-content;
+    border-radius: 5px;
+    padding: 7px 12px 5px 12px;
+    font-weight: 700;
+    color: var(--elem-light)
+}
+
+.status-arrow {
+    margin-top: 7px;
+}
+
+.status-arrow:after {
+    content: '\2192';
+    padding: 5px 8px 5px 8px;
+    font-size: 26px;
 }

@@ -3,27 +3,16 @@ if (typeof jQuery === "undefined")
 else
     console.log('jQuery loaded')
 
+$(document).ready(function(event){
+    console.log('document ready')
+})
+
+
 $(document).on('click', function(event) {
     if($(event.target).is('#navbar-account svg') || $(event.target).is('#navbar-account path'))
         $('#navbar-account > ul').toggle()
     else if(!$(event.target).is('#navbar-account > ul') && $('#navbar-account > ul').is(':visible'))
         $('#navbar-account > ul').hide()
-    if ($(event.target).is('#sidebar-toggle') && !$('#sidebar-content').hasClass('hidden')){
-        $('#sidebar-content').addClass('hidden')
-        $('#content-page').addClass('full-width')
-        $(event.target).removeClass('arrow-left')
-        $(event.target).addClass('arrow-right')
-
-        $('#create-ticket-form').addClass('left-content-full-width')
-    }
-    else if ($(event.target).is('#sidebar-toggle') && $('#sidebar-content').hasClass('hidden')){
-        $('#sidebar-content').removeClass('hidden')
-        $('#content-page').removeClass('full-width')
-        $(event.target).addClass('arrow-left')
-        $(event.target).removeClass('arrow-right')
-
-        $('#create-ticket-form').removeClass('left-content-full-width')
-    }
 })
 
 setTimeout(function(){
@@ -100,7 +89,17 @@ function select2(){
         placeholder: 'Select a person whose ticket will be assigned',
         allowClear: true
     })
-    $('#id_label').select2({
+    $('#id_reporter').select2({
+        templateResult: function (option) {
+            return renderIconOption(option)
+        },
+        templateSelection: function (option) {
+            return renderIconOption(option)
+            },
+        placeholder: 'Select a reporter',
+        allowClear: true
+    })
+    $('#id_labels').select2({
         placeholder: 'Categorize a ticket',
         multiple: true
     })
@@ -116,48 +115,17 @@ function select2(){
         multiple: true,
         width: '590px',
     })
+
 }
 
 function renderIconOption(elem) {
     let iconElement = $(elem.element).attr('icon')
     if (iconElement !== undefined)
-        return $("<span class='select-option'><img class='select-option-icon' src='../" + $(elem.element).attr('icon') + "'/><p class='select-option-text'>" +  elem.text + "</p></span>")
+        return $("<span class='select-option'><img class='select-option-icon' src='/" + $(elem.element).attr('icon') + "'/><p class='select-option-text'>" +  elem.text + "</p></span>")
     else
         return elem.text
 }
 
-/*$('.select').on('select2:open', function () {
-    $('.select__dropdown .select2-results__options').mCustomScrollbar('destroy');
-    $('.select__dropdown .select2-results__options').mCustomScrollbar('update');
-    setTimeout(function() {
-        $('.select__dropdown .select2-results__options').mCustomScrollbar({
-            axis: 'y',
-            scrollbarPosition: 'inside',
-            advanced:{
-                updateOnContentResize: true
-            },
-            live: true
-        });
-    }, 0);
-});*/
-
-
-
-
-/*function colorElems(mainColor){
-    $('.main-color-border').css('border-color', mainColor)
-    $('.main-color-background-hover').hover(function(){
-        $(this).css("background-color", mainColor)
-    },function() {
-        $(this).css("background-color", 'inherit')
-    })
-}*/
-
-/*window.onload = function() {
-    $(function(){
-        console.log("jQuery + DOM loaded.")
-    })
-}
-
+/*
 .onChange(element.html('<option></option>').trigger('change'))
 */

@@ -1,4 +1,4 @@
-from .models import Issue, IssueType
+from .models import Issue, IssueType, Label
 from django.forms import ClearableFileInput
 from django_quill.forms import QuillFormField
 from django.utils.translation import gettext_lazy as _
@@ -16,13 +16,13 @@ class IconField(forms.Select):
 class IssueForm(forms.ModelForm):
     class Meta:
         model = Issue
-        fields = ['title', 'type', 'priority', 'assignee', 'label', 'description', 'attachments', 'status']
+        fields = ['title', 'type', 'priority', 'assignee', 'labels', 'description', 'attachments', 'status']
         labels = {
             'title': _('Title'),
             'type': _('Type'),
             'priority': _('Priority'),
             'assignee': _('Assignee'),
-            'label': _('Label/s'),
+            'labels': _('Label/s'),
             'description': _('Description'),
             'attachments': _('Attach a file'),
         }
@@ -30,7 +30,7 @@ class IssueForm(forms.ModelForm):
             'title': _('Summarize the ticket'),
         }
         id_label = {
-            'type': _('id_dupa'),
+            'type': _('id_type'),
         }
         widgets = {
             'type': IconField,

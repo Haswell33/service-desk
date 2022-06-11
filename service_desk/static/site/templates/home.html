@@ -30,7 +30,10 @@
     <div id="home-content" class="content-page-block">
       <div id="board">
         Tickets
-
+        {% for issue in issues %}
+          <h1> {{ issue.title }} </h1>
+          {{ issue.description.safe }}
+        {% endfor %}
         <div class="board-column">
 
         </div>

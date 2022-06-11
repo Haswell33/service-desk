@@ -3,6 +3,7 @@ from django.contrib.auth.models import User, Group
 from django.conf import settings
 from django.utils.html import mark_safe, format_html
 from django_quill.fields import QuillField
+from django.utils import timezone
 from django.db import models
 from crum import get_current_user
 from datetime import datetime
@@ -10,6 +11,22 @@ from datetime import datetime
 
 def get_media_path():
     return f'{settings.MEDIA_URL.strip("/")}'
+
+
+def get_img_field(img, name, height, width):
+    return mark_safe(f'<img src="/{str(img)}" height="{height}" width="{width}" title="{name}" alt={name}/>')
+
+
+def get_img_text_field(img, name, height, width):
+    return mark_safe(f'<img src="/{str(img)}" height="{height}" width="{width}" title="{name}" alt={name}/> {name}')
+
+
+def get_status_color(color, name):
+    return mark_safe(f'<div style="background-color: {color};" class="status">{name}</div>')
+
+
+def get_datetime(date):
+    return datetime.strftime(date, '%Y/%m/%d %H:%M:%S')
 
 
 Group.add_to_class(
@@ -39,13 +56,13 @@ class Board(models.Model):
         null=True,
         blank=True)
 
-    def __str__(self):
-        return self.name
-
     class Meta:
         db_table = 'board'
         verbose_name = 'board'
         verbose_name_plural = 'boards'
+
+    def __str__(self):
+        return self.name
 
 
 class BoardColumn(models.Model):
@@ -64,7 +81,7 @@ class BoardColumn(models.Model):
         ordering = ['column_number']
 
     def __str__(self):
-        return f'{self.column_title}'
+        return self.column_title
 
 
 class SLAScheme(models.Model):
@@ -165,13 +182,13 @@ class Tenant(models.Model):
             self.count = 0
         super().save(*args, **kwargs)
 
+    @property
+    def icon_img(self):
+        return get_img_field(self.icon, self.name, 20, 20)
+    icon_img.fget.short_description = 'Icon'
+
     def __str__(self):
         return self.name
-
-    def icon_img(self):
-        return mark_safe(f'<img src="/{self.icon}" height="20" width="20"/>')
-
-    icon_img.short_description = 'Icon'
 
 
 class Priority(models.Model):
@@ -196,13 +213,13 @@ class Priority(models.Model):
         verbose_name_plural = 'priorities'
         ordering = ['id']
 
+    @property
+    def icon_img(self):
+        return get_img_field(self.icon, self.name, 20, 20)
+    icon_img.fget.short_description = 'Icon'
+
     def __str__(self):
         return self.name
-
-    def icon_img(self):
-        return mark_safe(f'<img src="/{self.icon}" height="20" width="20"/>')
-
-    icon_img.short_description = 'Icon'
 
 
 class IssueType(models.Model):
@@ -232,13 +249,13 @@ class IssueType(models.Model):
         verbose_name_plural = 'issue types'
         ordering = ['id']
 
+    @property
+    def icon_img(self):
+        return get_img_field(self.icon, self.name, 20, 20)
+    icon_img.fget.short_description = 'Icon'
+
     def __str__(self):
         return self.name
-
-    def icon_img(self):
-        return mark_safe(f'<img src="/{self.icon}" height="20" width="20"/>')
-
-    icon_img.short_description = 'Icon'
 
 
 class Resolution(models.Model):
@@ -296,16 +313,18 @@ class Status(models.Model):
         verbose_name_plural = 'statuses'
         ordering = ['name']
 
+    @property
     def color_hex(self):
-        return format_html(f'<div style="background: {self.color};width: 20px; height: 20px; border-radius: 4px;"></div>')
+        return format_html(f'<div style="background: {self.color}; width: 20px; height: 20px; border-radius: 4px;"></div>')
+    color_hex.fget.short_description = 'Color'
+
+    @property
+    def status_color(self):
+        return get_status_color(self.color, self.name)
+    status_color.fget.short_description = 'Status'
 
     def __str__(self):
         return self.name
-
-    def status_colored(self):
-        return format_html(f'<div style="background-color: {self.color};" class="admin-transition">{self.name}</div>')
-
-    color_hex.short_description = 'Color'
 
 
 class Transition(models.Model):
@@ -325,18 +344,16 @@ class Transition(models.Model):
         verbose_name_plural = 'transitions'
         ordering = ['src_status']
 
+    @property
+    def full_transition(self):
+        return format_html(
+            f'{get_status_color(self.src_status.color, self.src_status.name)}'
+            f'<span class="status-arrow"></span>'
+            f'{get_status_color(self.dest_status.color, self.dest_status.name)}')
+    full_transition.fget.short_description = 'Transition'
+
     def __str__(self):
         return f'{self.src_status} -> {self.dest_status}'
-
-    def full_transition(self):
-        src_status_color = Status.objects.filter(name=self.src_status).values_list('color')[0][0]
-        dest_status_color = Status.objects.filter(name=self.dest_status).values_list('color')[0][0]
-        return format_html(
-            f'<div style="background-color: {src_status_color};" class="admin-transition">{self.src_status}</div>'
-            f'<span class="admin-transition-arrow"></span>'
-            f'<div style="background-color: {dest_status_color};" class="admin-transition">{self.dest_status}</div>')
-
-    full_transition.short_description = 'Transition'
 
 
 class Label(models.Model):
@@ -386,6 +403,7 @@ class Comment(models.Model):
         ordering = ['id']
 
     def save(self, *args, **kwargs):
+        timezone.now()
         if not self.id:
             self.created = datetime.now()
             self.author = get_current_user()
@@ -402,7 +420,8 @@ class Attachment(models.Model):
     file = models.FileField(
         upload_to=f'{get_media_path()}/attachments',
         validators=[FileExtensionValidator],
-        blank=True)
+        blank=True,
+        null=True)
     filename = models.CharField(
         max_length=255,
         blank=True)
@@ -473,12 +492,6 @@ class Issue(models.Model):
         on_delete=models.CASCADE,
         default=settings.DEFAULT_ISSUE_TYPE_ID,
         related_name='%(class)s_type')
-    label = models.ForeignKey(
-        Label,
-        on_delete=models.CASCADE,
-        blank=True,
-        null=True,
-        related_name='%(class)s_label')
     reporter = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -509,12 +522,18 @@ class Issue(models.Model):
     comments = models.ManyToManyField(
         Comment,
         through='CommentAssociation',
-        through_fields=('issue', 'comment'))
-    attachments = models.FileField(
-        upload_to=f'{get_media_path()}/attachments',
-        validators=[FileExtensionValidator],
         blank=True,
-        null=True)
+        through_fields=('issue', 'comment'))
+    labels = models.ManyToManyField(
+        Label,
+        through='LabelAssociation',
+        blank=True,
+        through_fields=('issue', 'label'))
+    attachments = models.ManyToManyField(
+        Attachment,
+        through='AttachmentAssociation',
+        blank=True,
+        through_fields=('issue', 'attachment'))
 
     class Meta:
         db_table = 'issue'
@@ -524,9 +543,9 @@ class Issue(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.id:
-            self.created = datetime.now()
+            self.created = timezone.now()
             self.reporter = get_current_user()
-        self.updated = datetime.now()
+        self.updated = timezone.now()
         # send_notifications()
         if len(self.title) > 200:
             self.title = f'{self.title[:180]}...'
@@ -555,17 +574,53 @@ class Issue(models.Model):
         else:
             return False
 
+    @property
     def type_img(self):
-        return mark_safe(f'<img src="/{str(self.type.icon)}" height="18" width="18"/>')
+        return get_img_field(self.type.icon, self.type.name, 18, 18)
+    type_img.fget.short_description = 'Type'
 
+    @property
     def priority_img(self):
-        return mark_safe(f'<img src="/{str(self.priority.icon)}" height="18" width="18"/>')
+        return get_img_field(self.priority.icon, self.priority.name, 18, 18)
+    priority_img.fget.short_description = 'Priority'
+
+    @property
+    def assignee_img(self):
+        try:
+            return get_img_text_field(self.assignee.icon, self.assignee, 18, 18)
+        except AttributeError:
+            return self.assignee
+    assignee_img.fget.short_description = 'Assignee'
+
+    @property
+    def reporter_img(self):
+        try:
+            return get_img_text_field(self.reporter.icon, self.reporter, 18, 18)
+        except AttributeError:
+            return self.reporter
+    reporter_img.fget.short_description = 'Reporter'
+
+    @property
+    def status_color(self):
+        return get_status_color(self.status.color, self.status.name)
+    status_color.fget.short_description = 'Status'
+
+    @property
+    def created_datetime(self):
+        return get_datetime(self.created)
+    created_datetime.fget.short_description = 'Created'
+
+    @property
+    def updated_datetime(self):
+        return get_datetime(self.updated)
+    updated_datetime.fget.short_description = 'Updated'
+
+    @property
+    def get_labels(self):
+        return "\n".join([p.labels for p in self.label.all()])
 
     def __str__(self):
         return self.key
-
-    type_img.short_description = 'Type'
-    priority_img.short_description = 'Priority'
 
 
 class BoardColumnAssociation(models.Model):
@@ -584,18 +639,18 @@ class BoardColumnAssociation(models.Model):
         verbose_name_plural = 'board column associations'
         ordering = ['column']
 
-    def board(self):
-        return BoardColumn.objects.filter(column_title=self.column).values_list('board')[0]
+    @property
+    def board_name(self):
+        return self.column.board
+    board_name.fget.short_description = 'Board'
 
-    def status_colored(self):
-        status_color = Status.objects.filter(name=self.status).values_list('color')[0][0]
-        return format_html(f'<div style="background-color: {status_color};" class="admin-transition">{self.status}</div>')
+    @property
+    def status_color(self):
+        return get_status_color(self.status.color, self.status.name)
+    status_color.fget.short_description = 'Status'
 
     def __str__(self):
-        return f'{self.board()}-{self.column}-{self.status}'
-
-    board.short_description = 'Board'
-    status_colored.short_description = 'Status'
+        return f'{self.board_name}-{self.column}-{self.status}'
 
 
 class TransitionAssociation(models.Model):
@@ -618,18 +673,17 @@ class TransitionAssociation(models.Model):
     def __str__(self):
         return f'{self.issue_type} {self.transition}'
 
+    @property
     def full_transition(self):
-        src_status = str(self.transition).split(' -> ')[0]
-        dest_status = str(self.transition).split(' -> ')[1]
-        src_status_color = Status.objects.filter(name=src_status).values_list('color')[0][0]
-        dest_status_color = Status.objects.filter(name=dest_status).values_list('color')[0][0]
+        src_status_name = str(self.transition).split(' -> ')[0]
+        dest_status_name = str(self.transition).split(' -> ')[1]
+        src_status = Status.objects.get(name=src_status_name)
+        dest_status = Status.objects.get(name=dest_status_name)
         return format_html(
-            f'<div style="background-color: {src_status_color};" class="admin-transition">{src_status}</div>'
-            f'<span class="admin-transition-arrow"></span>'
-            f'<div style="background-color: {dest_status_color};" class="admin-transition">{dest_status}</div>')
-        # return f'{self.src_status} -> {self.dest_status}'
-
-    full_transition.short_description = 'Transition'
+            f'{get_status_color(src_status.color, src_status.name)}'
+            f'<span class="status-arrow"></span>'
+            f'{get_status_color(dest_status.color, dest_status.name)}')
+    full_transition.fget.short_description = 'Transition'
 
 
 class IssueAssociation(models.Model):
@@ -683,3 +737,20 @@ class AttachmentAssociation(models.Model):
 
     def __str__(self):
         return f'{self.issue}-{self.attachment}'
+
+
+class LabelAssociation(models.Model):
+    label = models.ForeignKey(
+        Label,
+        on_delete=models.CASCADE,
+        related_name='%(class)s_label')
+    issue = models.ForeignKey(
+        Issue,
+        on_delete=models.CASCADE,
+        related_name='%(class)s_issue')
+
+    class Meta:
+        db_table = 'label_association'
+
+    def __str__(self):
+        return f'{self.issue}-{self.label}'
