@@ -125,7 +125,7 @@ class LabelAdminModel(admin.ModelAdmin):
     list_display = ('name', 'description')
 
 
-class LabelAssociationInline(admin.StackedInline):
+class LabelAssociationInline(admin.TabularInline):
     model = LabelAssociation
 
 
@@ -145,11 +145,10 @@ class IssueAdminModel(admin.ModelAdmin):
             'fields': ('status', 'resolution')
         }),
         ('Data', {
-            'fields': ('description',)
+            'fields': ['description', ]
         }),
     )
-    filter_horizontal = ('labels',)
-
+    inlines = [LabelAssociationInline]
 
     def get_labels(self, instance):
         return [labels.name for labels in instance.labels.all()]

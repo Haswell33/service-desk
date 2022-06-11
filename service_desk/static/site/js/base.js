@@ -116,6 +116,9 @@ function select2(){
         width: '590px',
     })
 
+    $('#id_resolution').select2()
+    $('#id_status').select2()
+
 }
 
 function renderIconOption(elem) {

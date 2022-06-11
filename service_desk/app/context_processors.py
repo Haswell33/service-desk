@@ -10,13 +10,12 @@ def user_tenant_type(request):
     else:
         for group in request.user.groups.all():
             if group.type == settings.CUST_TYPE or group.type == settings.OPER_TYPE or group.type == settings.DEV_TYPE:
-                print(group.type)
                 if group.type == settings.CUST_TYPE:
                     tenant = get_tenant_by_cust_group(group)
                 elif group.type == settings.OPER_TYPE:
                     tenant = get_tenant_by_oper_group(group)
                 elif group.type == settings.DEV_TYPE:
-                    tenant = get_tenant_by_dev_group(group.id)
+                    tenant = get_tenant_by_dev_group(group)
                 if tenant:
                     try:
                         request.session['tenant_key'] = tenant.key

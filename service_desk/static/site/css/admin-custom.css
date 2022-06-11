@@ -630,6 +630,10 @@ input:not[type=submit] {
 select {
     width: 350px!important;
 }
+
+thead th.required {
+    color: var(--elem-dark);
+}
 /*
 label {
     display: block;

@@ -478,8 +478,8 @@ class Issue(models.Model):
         related_name='%(class)s_priority')
     status = models.ForeignKey(
         Status,
-        blank=True,
         on_delete=models.CASCADE,
+        default=15,
         related_name='%(class)s_status')
     resolution = models.ForeignKey(
         Resolution,

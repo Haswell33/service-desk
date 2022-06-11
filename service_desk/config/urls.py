@@ -22,6 +22,7 @@ urlpatterns = [
     path('logged-out/', views.logged_out, name='logged_out'),
     path('admin/', admin.site.urls),
     path('ticket/create', views.create_ticket, name='create_ticket'),
-    path('ticket/submit', views.submit_ticket, name='submit_ticket')] \
+    path('ticket/submit', views.submit_ticket, name='submit_ticket'),
+    path('tinymce/', include('tinymce.urls'))] \
         + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
         + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

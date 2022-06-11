@@ -29,8 +29,7 @@ def create_ticket(request, template_name='create-ticket.html'):
             new_issue.status = get_initial_status(env_type)
             new_issue.key = f'{tenant.key}-{tenant.count + 1}'
             new_issue.tenant = tenant
-            print(form.fields['description'].getContents())
-            new_issue.description = form.fields['description']
+            print(new_issue.description)
             new_issue.save()  # create issue
             form.save_m2m()
             tenant.count += 1
