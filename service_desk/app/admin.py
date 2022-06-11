@@ -7,8 +7,6 @@ from .models import Issue, Tenant, Comment, Priority, Status, Resolution, Transi
 from .forms import IssueForm
 
 
-
-
 class GroupAdminModel(GroupAdmin):
     list_display = ('name', 'type')
     search_fields = ['name', 'type']
@@ -155,9 +153,6 @@ class IssueAdminModel(admin.ModelAdmin):
 
     #get_labels.fget.allow_tags = True
     #get_labels.fget.short_description = 'Address display'
-
-
-
 
 
 admin.site.unregister(Group)

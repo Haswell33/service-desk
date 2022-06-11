@@ -6,14 +6,13 @@
   <script type="text/javascript" rel="script" src="{% static 'site/js/jquery.min.js' %}"></script>
   <script type="text/javascript" rel="script" src="{% static 'site/js/base.js' %}"></script>
   <script type="text/javascript" rel="script" src="{% static 'site/js/sidebar.js' %}"></script>
+  <script type="text/javascript" rel="script" src="{% static 'site/js/render-fields.js' %}"></script>
   <script type="text/javascript" rel="script" src="{% static 'site/js/bootstrap-filestyle.min.js' %}"></script>
   <script type="text/javascript" rel="script" src="{% static 'site/js/select2.min.js' %}"></script>
-  <!--<script type="text/javascript" rel="script" src="{% static 'django_quill/django_quill.js' %}"></script>-->
   <link type="text/css" rel="stylesheet" href="{% static 'site/css/base.css' %}"/>
   <link type="text/css" rel="stylesheet" href="{% static 'site/css/select2.min.css' %}">
   <link type="text/css" rel="stylesheet" href="{% static 'site/css/select2-custom.css' %}"/>
-  <link type="text/css" rel="stylesheet" href="{% static 'site/css/quill-custom.css' %}">
-  <!--<link type="text/css" rel="stylesheet" href="{% static 'django_quill/django_quill.css' %}">-->
+  <link type="text/css" rel="stylesheet" href="{% static 'site/css/tinymce-custom.css' %}">
 
   <link rel="icon" type="image/x-icon" href="{% static 'site/img/favicon.ico' %}">
   <link rel="canonical" href="{{ request.build_absolute_uri }}">
@@ -138,7 +137,6 @@
   $(document).ready(function(){
     console.log('document ready')
     bootstrapFilestyle()
-    select2()
     let userIsAdmin = ('{{user.is_superuser}}' === 'True')
     let userIsAuth = ('{{user.is_authenticated}}' === 'True')
     let userTenantType = '{{request.session.tenant_type}}'

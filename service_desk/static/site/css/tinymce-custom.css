@@ -1,0 +1,129 @@
+.tox-menubar,
+.tox-toolbar,
+.tox-tbtn svg,
+.tox-mbtn,
+.tox-tbtn__select-label,
+.tox-insert-table-picker__label,
+.tox-collection__item-caret svg,
+.tox-button--naked,
+.tox .tox-collection__item,
+.tox .tox-collection__item--active:not(.tox-collection__item--state-disabled),
+.tox .tox-collection__item-accessory,
+.tox .tox-collection__item--state-disabled{
+    fill: var(--elem-light)!important;
+    color: var(--elem-light)!important;
+}
+
+.tox-dialog,
+.tox-dialog__header,
+.tox-menubar,
+.tox-toolbar,
+.tox-menu {
+    background: var(--elem-light-secondary)!important;
+}
+
+.tox-tbtn:hover,
+.tox-mbtn:hover:not(:disabled):not(.tox-mbtn--active),
+.tox-collection__item--active,
+.tox-collection__item--enabled,
+.tox-mbtn--active,
+.tox-button--icon:hover,
+.tox .tox-tbtn--enabled{
+    background-color: var(--elem-light-fourth)!important;
+    transition: 200ms!important;
+}
+
+.tox-menubar {
+    border-bottom: 1px solid var(--elem-light-third)!important
+}
+
+.tox:not([dir=rtl]) .tox-toolbar__group:not(:last-of-type) {
+    border-right: 1px solid var(--elem-light-third)!important
+}
+
+.tox-edit-area__iframe {
+    background-color: var(--background)!important
+}
+
+.tox-collection__group,
+.tox .tox-menu,
+.tox-tinymce {
+    border-color: var(--elem-light-third)!important;
+}
+
+.tox-tinymce,
+.tox .tox-dialog,
+button.tox-button:not(.tox-button--icon){
+    border-radius: 5px!important;
+}
+
+.tox-insert-table-picker__selected {
+    background-color: var(--theme)!important;
+    border-color: var(--elem-light)!important
+}
+
+.tox-statusbar {
+    display: none!important;
+}
+
+/* dialogs */
+
+.tox .tox-dialog-wrap__backdrop {
+    background: var(--dialog-bg)!important
+}
+
+.tox-label {
+    color: var(--elem-dark)!important;
+    font-weight: 500!important;
+    font-size: 100%!important;
+    padding-bottom: 3px!important;
+}
+
+.tox .tox-form__group {
+    margin-bottom: 0!important;
+    padding-bottom: 10px!important;
+}
+
+.tox-dialog__header,
+.tox-dialog__body,
+.tox-dialog__footer {
+    background-color: var(--background)!important
+}
+
+.tox-dialog input,
+.tox-dialog select,
+.tox-dialog button.tox-listbox,
+.tox-dialog textarea {
+    background-color: transparent!important;
+    border-color: var(--elem-light-third)!important;
+}
+
+.tox-dialog input:focus,
+.tox-dialog select:focus,
+.tox-dialog button.tox-listbox:focus,
+.tox-dialog textarea:focus {
+    border-color: var(--elem-light-secondary)!important;
+    outline: none!important;
+}
+
+button.tox-button:not(.tox-button--icon) {
+    font-weight: 500!important;
+    transition: 400ms!important;
+    padding: 5px 20px!important;
+    border: 1px solid var(--elem-light-secondary)!important;
+    background: var(--elem-light-secondary)!important;
+}
+
+button.tox-button--secondary:not(.tox-button--icon) {
+    background-color: transparent!important;
+}
+
+button.tox-button:not(.tox-button--icon):hover {
+    background: var(--theme)!important;
+    border-color: var(--theme)!important;
+    color: var(--elem-light)!important;
+}
+
+.tox-button--icon svg {
+    fill: var(--elem-light-secondary)!important;
+}

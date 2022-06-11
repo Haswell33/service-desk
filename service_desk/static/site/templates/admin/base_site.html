@@ -1,7 +1,7 @@
 {% extends 'admin/base.html' %}
 
 <head>
-    { % load static % }
+
 </head>
 
 <body>
@@ -12,10 +12,16 @@
         <div id="user-tools">
             {% block usertools %}{% endblock %}
         </div>
-    {% block nav-global %}{% include 'base.html' %}{% endblock %}
+    {% block nav-global %}
+        {% include 'base.html' %}
+        <script>
+            $(document).ready(function(){
+                renderFields('admin')
+            })
+        </script>
+    {% endblock %}
     </div>
 </body>
-
 
 
 

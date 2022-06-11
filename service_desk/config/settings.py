@@ -52,7 +52,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'widget_tweaks',
-    'django_quill',
     'tinymce'
 ]
 
@@ -116,27 +115,14 @@ AUTH_PASSWORD_VALIDATORS = [  # https://docs.djangoproject.com/en/3.2/ref/settin
     },
 ]
 
-QUILL_CONFIGS = {
-    'default': {
-        'theme': 'snow',
-        'modules': {
-            'syntax': True,
-            'imageResize': True,
-            'toolbar': [
-                [
-                    {'font': []},
-                    {'header': []},
-                    {'align': []},
-                    'bold', 'italic', 'underline', 'strike', 'blockquote',
-                    {'list': 'ordered'},
-                    {'list': 'bullet'},
-                    {'color': []},
-                ],
-                ['code-block', 'link', 'image'],
-                ['clean'],
-            ]
-        }
-    }
+
+TINYMCE_DEFAULT_CONFIG = {
+    'plugins': "table, paste, searchreplace, link, image, code, autoresize",
+    'cleanup_on_startup': True,
+    'custom_undo_redo_levels': 10,
+    'toolbar1': 'formatselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent | table | link image',
+    'menubar': True,
+    'selector': 'textarea'
 }
 
 LOGGING = {

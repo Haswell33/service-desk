@@ -24,6 +24,8 @@
     --success-border: #adcba1;
 
     --form-bg: #ebebeb;
+    --dialog-bg: rgba(60, 60, 60, 0.48);
+    --default-hover: rgba(60, 60, 60, 0.26);
 
     --nav-height: 61px;
     --sidebar-width: 298px;

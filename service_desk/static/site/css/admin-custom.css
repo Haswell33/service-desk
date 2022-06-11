@@ -166,7 +166,7 @@ tr:nth-child(odd) {
 }
 
 #content-main tr:hover{
-    background: var(--theme-transparent);
+    background-color: var(--default-hover)!important;
 }
 
 td, th {
@@ -374,11 +374,12 @@ label.required {
 }
 
 #changelist table tbody tr.selected {
-    color: var(--elem-light);
-    background-color: var(--theme)
+    /*color: var(--elem-light);*/
+
+    background-color: var(--default-hover)!important;
 }
 .selected a {
-    color: var(--elem-light);
+   /* color: var(--elem-light); */
 }
 
 #changelist-search > div > span.quiet{
@@ -422,17 +423,15 @@ label.required {
 
 #toolbar label > img {
     flex: 0 0 100%;
-    position: relative;
-    left: 5px;
-    top: 4px;
+    position: absolute;
+    padding-left: 6px;
+    padding-top: 4px;
     width: 20px;
     height: 20px;
-    z-index: 1111111111;
+    z-index: 2;
 }
 
-#toolbar label {
-    position: fixed;
-}
+
 
 /* Admin - Result list */
 
@@ -499,7 +498,10 @@ fieldset.module > div {
     display: grid!important;
 }
 
-fieldset.module > .form-row input:not[type=checkbox] {
+fieldset .form-row input:not[type=checkbox],
+fieldset .form-row input.vTextField,
+fieldset .form-row select,
+fieldset .form-row textarea {
     width: 50%!important
 }
 
@@ -525,6 +527,7 @@ fieldset.module > .form-row input:not[type=checkbox] {
 .form-row {
     overflow: inherit!important;
     padding: 15px 0!important;
+    font-size: 16px!important;
 }
 
 .vLargeTextField {
@@ -610,7 +613,8 @@ body.delete-confirmation #content form .cancel-link:hover{
 
 #add_id_groups,
 .add-related,
-.change-related {
+.change-related,
+.delete-related{
     display: none
 }
 
@@ -625,8 +629,13 @@ body.delete-confirmation #content form .cancel-link:hover{
 input[type=text],
 input:not[type=submit] {
     width: 500px!important;
+
 }
 
+input[type=text].vTextField {
+
+    padding: 7px 10px 7px 10px!important;
+}
 select {
     width: 350px!important;
 }

@@ -3,11 +3,6 @@ if (typeof jQuery === "undefined")
 else
     console.log('jQuery loaded')
 
-$(document).ready(function(event){
-    console.log('document ready')
-})
-
-
 $(document).on('click', function(event) {
     if($(event.target).is('#navbar-account svg') || $(event.target).is('#navbar-account path'))
         $('#navbar-account > ul').toggle()
@@ -58,76 +53,7 @@ function themeColor(userIsAuth, userIsAdmin, userTenantType){
     }
 }
 
-function select2(){
-    $('#id_type').select2({
-        templateResult: function (option)  {
-            return renderIconOption(option)
-        },
-        templateSelection: function (option)  {
-            return renderIconOption(option)
-        },
-        placeholder: 'Select an issue type',
-        minimumResultsForSearch: -1
-    })
-    $('#id_priority').select2({
-        templateResult: function (option)  {
-            return renderIconOption(option)
-        },
-        templateSelection: function (option)  {
-            return renderIconOption(option)
-        },
-        placeholder: 'Select an priority',
-        minimumResultsForSearch: -1
-    })
-    $('#id_assignee').select2({
-        templateResult: function (option) {
-            return renderIconOption(option)
-        },
-        templateSelection: function (option) {
-            return renderIconOption(option)
-            },
-        placeholder: 'Select a person whose ticket will be assigned',
-        allowClear: true
-    })
-    $('#id_reporter').select2({
-        templateResult: function (option) {
-            return renderIconOption(option)
-        },
-        templateSelection: function (option) {
-            return renderIconOption(option)
-            },
-        placeholder: 'Select a reporter',
-        allowClear: true
-    })
-    $('#id_labels').select2({
-        placeholder: 'Categorize a ticket',
-        multiple: true
-    })
-    $('#id_groups').select2({
-        multiple: true,
-        width: '590px'
-    })
-    $('#id_user_permissions').select2({
-        multiple: true,
-        width: '590px',
-    })
-    $('#id_permissions').select2({
-        multiple: true,
-        width: '590px',
-    })
 
-    $('#id_resolution').select2()
-    $('#id_status').select2()
-
-}
-
-function renderIconOption(elem) {
-    let iconElement = $(elem.element).attr('icon')
-    if (iconElement !== undefined)
-        return $("<span class='select-option'><img class='select-option-icon' src='/" + $(elem.element).attr('icon') + "'/><p class='select-option-text'>" +  elem.text + "</p></span>")
-    else
-        return elem.text
-}
 
 /*
 .onChange(element.html('<option></option>').trigger('change'))

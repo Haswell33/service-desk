@@ -4,6 +4,14 @@
     background-color: var(--elem-light-secondary)!important;
 }
 
+.select2-selection__choice__remove {
+    transition: 200ms!important;
+}
+
+.select2-selection__choice__remove:hover {
+    color: var(--elem-light)!important
+}
+
 .select2-selection.select2-selection--multiple .select2-selection__rendered {
     line-height: 1.2!important
 }
@@ -17,6 +25,10 @@
 .select2-selection__rendered {
     line-height: 35px!important;
     margin-right: 8px!important;
+}
+
+.select2-selection:focus {
+    border-color: var(--elem-light-secondary);
 }
 
 .select2-search--dropdown {

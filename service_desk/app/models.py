@@ -2,10 +2,10 @@ from django.core.validators import MaxValueValidator, MinValueValidator, RegexVa
 from django.contrib.auth.models import User, Group
 from django.conf import settings
 from django.utils.html import mark_safe, format_html
-from django_quill.fields import QuillField
 from django.utils import timezone
 from django.db import models
 from crum import get_current_user
+from tinymce.models import HTMLField
 from datetime import datetime
 
 
@@ -53,6 +53,7 @@ class Board(models.Model):
     env_type = models.CharField(
         max_length=50,
         choices=settings.ENV_TYPES,
+        verbose_name='Environment type',
         null=True,
         blank=True)
 
@@ -232,6 +233,7 @@ class IssueType(models.Model):
         max_length=50,
         choices=settings.ENV_TYPES,
         name='env_type',
+        verbose_name='Environment type',
         null=True)
     description = models.TextField(
         name='description',
@@ -461,7 +463,12 @@ class Issue(models.Model):
     title = models.CharField(
         max_length=255,
         help_text='Summarize the issue')
-    description = QuillField(
+    #description = QuillField(
+    #    verbose_name='description',
+    #    blank=True,
+     #   null=True,
+     #   help_text='Describe the issue')
+    description = HTMLField(
         verbose_name='description',
         blank=True,
         null=True,
@@ -480,6 +487,7 @@ class Issue(models.Model):
         Status,
         on_delete=models.CASCADE,
         default=15,
+        blank=True,
         related_name='%(class)s_status')
     resolution = models.ForeignKey(
         Resolution,
