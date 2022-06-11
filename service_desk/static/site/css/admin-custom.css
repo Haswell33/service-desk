@@ -339,19 +339,21 @@ label.required {
 }
 
 #changelist .actions{
-    padding: 15px 10px 15px 0;
+    padding: 15px 10px 15px 0!important;
 }
 
 #changelist table input {
-    vertical-align: middle;
+    vertical-align: middle!important;
 }
 
 
 #changelist .actions .button{
     color: var(--elem-light)!important;
-    padding: 0 15px!important;
     background: var(--object-tools-bg)!important;
     transition: 300ms;
+    font-size: 15px!important;
+    height: 33px!important;
+    padding: 4px 20px !important;
     text-transform: uppercase!important;
     border: none!important;
     font-weight: 700!important;
