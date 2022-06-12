@@ -59,7 +59,7 @@
           <ul style="display: none">
             {% if user.is_authenticated %}
             <li id="account-username">
-              <img src="{{ settings.MEDIA_URL }}/{{ request.session.user_icon }}" height="17px" width="17px"/>
+              <img src="{{ MEDIA_URL }}{{ request.session.user_icon }}" height="17px" width="17px"/>
               <p>{{ user.username }}</p>
             </li>
             {% endif %}
@@ -130,6 +130,7 @@
     </div>
     {% endblock %}
   </footer>
+  <div class="dialog-bg" style="display: none"></div>
 </body>
 </html>
 
@@ -137,6 +138,7 @@
   $(document).ready(function(){
     console.log('document ready')
     bootstrapFilestyle()
+    customCheckbox()
     let userIsAdmin = ('{{user.is_superuser}}' === 'True')
     let userIsAuth = ('{{user.is_authenticated}}' === 'True')
     let userTenantType = '{{request.session.tenant_type}}'

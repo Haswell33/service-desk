@@ -2,30 +2,27 @@
 
 :root {
     --theme: #4267B2;
-    --theme-transparent: rgba(66, 103, 178, 0.6);
-    --elem-dark: #353535;
-    --elem-dark-secondary: #4f4f4f;
-    --elem-dark-third: #484848;
+    --theme-hover: rgba(66, 103, 178, 0.6);
 
-    --elem-light: #e1e1e1;
-    --elem-light-secondary: #656565;
-    --elem-light-third: #b9b9b9;
-    --elem-light-fourth: #818181;
-    --elem-light-fifth: #d0d0d0;
-    --elem-light-filter: invert(100%) sepia(0%) saturate(7465%) hue-rotate(41deg) brightness(130%) contrast(76%);
+    --elem-dark-primary: #656565;
+    --elem-dark-secondary: #4f4f4f;
+    --elem-dark-third: #353535;
+    --elem-dark-border: #484848;
+
+    --elem-light-primary: #e1e1e1;
+    --elem-light-secondary: #818181;
+    --elem-light-border: #b9b9b9;
+    --elem-light-hover: rgba(60, 60, 60, 0.26);
 
     --error-bg: #f2dede;
     --error-fg: #a94442;
     --error-border: #ebccd1;
-    /*--error-border: #ebccd1;*/
 
     --success-bg: #DFF2BF;
     --success-fg: #270;
     --success-border: #adcba1;
 
-    --form-bg: #ebebeb;
     --dialog-bg: rgba(60, 60, 60, 0.48);
-    --default-hover: rgba(60, 60, 60, 0.26);
 
     --nav-height: 61px;
     --sidebar-width: 298px;
@@ -37,7 +34,7 @@
 
 ::selection {
     background: var(--theme);
-    color: var(--elem-light);
+    color: var(--elem-light-primary);
 }
 
 ::placeholder {
@@ -54,15 +51,15 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--elem-light-fifth);
+  background: #d0d0d0;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--elem-light-secondary);
+    background: var(--elem-dark-primary);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--elem-light-secondary);
+  background: var(--elem-dark-primary);
 }
 
 body {
@@ -70,21 +67,21 @@ body {
     padding: 0;
     margin: 0;
     overflow-x: hidden;
-    color: var(--elem-dark);
+    color: var(--elem-dark-secondary);
     font-family: Lato, sans-serif;
 }
 
 main {
-    color: var(--elem-dark);
+    color: var(--elem-dark-secondary);
     margin: 10px 10px 0 0;
 }
 
 a,
 a:visited {
-    color: var(--elem-dark);
+    color: var(--elem-dark-secondary);
     vertical-align: middle;
     text-decoration: none;
-    transition: 200ms;
+    transition: 200ms background-color, border, color;
 }
 
 /* Inputs, Labels, Form rows, Submit buttons */
@@ -106,7 +103,7 @@ textarea {
     color: var(--elem-dark-secondary);
     font-size: 16px;
     background-color: transparent;
-    border: 1px solid var(--elem-light-third);
+    border: 1px solid var(--elem-light-border);
     box-sizing: border-box;
     padding: 7px 10px 7px 10px;
 }
@@ -114,7 +111,7 @@ textarea {
 input:focus,
 select:focus,
 textarea:focus {
-    border-color: var(--elem-light-secondary);
+    border-color: var(--elem-dark-primary);
     outline: none;
 }
 
@@ -122,9 +119,8 @@ input[type=button],
 input[type=submit],
 .button {
     line-height: 1;
-    color: var(--elem-dark);
-    background: var(--elem-light);
-    border: 1px solid var(--elem-light-secondary);
+    background: var(--elem-light-primary);
+    border: 1px solid var(--elem-dark-primary);
     cursor: pointer;
     padding: 10px 20px;
     font-weight: 500;
@@ -138,19 +134,19 @@ input[type=checkbox] {
 input[type=search] {
     line-height: 1.3;
     font-size: 16px!important;
-    color: var(--elem-light);
-    background: var(--elem-dark-third);
-    border: 2px solid var(--elem-dark-third);
+    color: var(--elem-light-primary);
+    background: var(--elem-dark-secondary);
+    border: 2px solid var(--elem-dark-border);
     padding: 5px 5px 5px 35px;
     box-shadow: none;
-    transition: 400ms;
+    transition: 400ms border;
 }
 
 input[type=button]:hover,
 input[type=submit]:hover {
     background: var(--theme);
     border-color: var(--theme);
-    color: var(--elem-light);
+    color: var(--elem-light-primary);
 }
 
 .bootstrap-filestyle > input {
@@ -162,9 +158,9 @@ input[type=submit]:hover {
 }
 
 .buttonText {
-    color: var(--elem-light);
+    color: var(--elem-light-primary);
     position: relative;
-    background: var(--elem-light-secondary);
+    background: var(--elem-dark-primary);
     bottom: 27px;
     padding: 10px;
     font-size: 95%;
@@ -191,12 +187,12 @@ nav:not(#nav-sidebar) {
     width: 100%;
     font-size:  15px;
     height: auto;
-    background: var(--elem-dark);
+    background: var(--elem-dark-third);
     border-bottom: 5px solid var(--theme);
     margin: 0;
     left: 0;
     top: 0;
-    z-index: 100;
+    z-index: 101;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -212,7 +208,7 @@ nav > div > div > ul a:visited,
 footer,
 footer a,
 footer a:visited {
-    color: var(--elem-light);
+    color: var(--elem-light-primary);
 }
 
 nav div {
@@ -220,7 +216,7 @@ nav div {
 }
 
 footer {
-    background: var(--elem-dark);
+    background: var(--elem-dark-third);
     height: var(--footer-height);
     z-index: 100;
     width: 100vw;
@@ -239,12 +235,12 @@ footer p {
 /* Navbar - Logo */
 
 #navbar-logo svg {
-    fill: var(--elem-light);
+    fill: var(--elem-light-primary);
     transition: 200ms;
 }
 
 #navbar-logo path {
-    fill: var(--elem-dark);
+    fill: var(--elem-dark-third);
     transition: 200ms;
 }
 
@@ -253,7 +249,7 @@ footer p {
 }
 
 #navbar-logo svg:hover > path {
-    fill: var(--elem-light)
+    fill: var(--elem-light-primary)
 }
 
 /* Navbar - Account */
@@ -293,10 +289,11 @@ footer p {
 
 #navbar-account ul {
     position: fixed;
-    background: var(--elem-dark);
+    background: var(--elem-dark-third);
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
     margin: 0;
+    z-index: 110;
     list-style: none;
     top: var(--nav-height);
     right: 25px;
@@ -304,7 +301,7 @@ footer p {
 }
 
 #navbar-account ul li {
-    border-bottom: 1px solid var(--elem-dark-third);
+    border-bottom: 1px solid var(--elem-dark-border);
     padding: 10px 20px 10px 10px;
     display: flex;
     font-size: 105%;
@@ -325,7 +322,7 @@ footer p {
 }
 
 #navbar-account ul li:nth-child(1):hover {
-    background: var(--elem-dark);
+    background: var(--elem-dark-third);
 }
 
 #navbar-account ul li:hover {
@@ -346,14 +343,14 @@ footer p {
 
 #navbar-search input[type=search] {
     font-size: 13px!important;
-    border: 2px solid var(--elem-light-secondary);
+    border: 2px solid var(--elem-dark-primary);
     outline-offset: 0;
     outline: 0;
     box-shadow: none;
 }
 
 #navbar-search input[type=search]:focus {
-    border: 2px solid var(--elem-light-fourth);
+    border: 2px solid var(--elem-light-secondary);
 }
 
 #navbar-search input[type=search]::placeholder {
@@ -399,7 +396,7 @@ footer p {
     justify-content: center;
     align-items: center;
     padding: 1px;
-    background: var(--elem-light-secondary);
+    background: var(--elem-dark-primary);
     transition: 300ms;
 }
 
@@ -422,16 +419,16 @@ footer p {
     margin-left: calc(-1 * var(--sidebar-width));
     padding-left: 20px;
     visibility: visible;
-    border-right: 1px solid var(--elem-light-fourth);
+    border-right: 1px solid var(--elem-light-secondary);
 }
 
 #sidebar > #sidebar-content > #sidebar-tenant {
-    background: var(--elem-light-secondary);
-    color: var(--elem-light);
+    background: var(--elem-dark-primary);
+    color: var(--elem-light-primary);
     display: flex;
     align-items: center;
     padding: 15px 10px 15px 10px;
-    border-bottom: 1px solid var(--elem-light-fourth);
+    border-bottom: 1px solid var(--elem-light-secondary);
 }
 
 #sidebar > #sidebar-content > #sidebar-tenant p {
@@ -466,11 +463,11 @@ footer p {
     padding: 15px;
 }
 
-#content-page h2 {
+#content-page > h2 {
     margin: 0 0 5px 0;
     font-size: 24px;
     padding-bottom: 7px;
-    border-bottom: 1px solid var(--elem-light-third)
+    border-bottom: 1px solid var(--elem-light-border)
 }
 
 /* Content page - Logged out */
@@ -479,16 +476,6 @@ footer p {
     align-items: center;
     line-height: 50px;
     width: 400px;
-}
-
-#logged-out-dialog p {
-    text-align: center;
-    font-size: 75%;
-    margin-top: 35px;
-    line-height: 2;
-    color: var(--elem-light-secondary);
-    border-top: 1px solid var(--elem-light-secondary);
-    width: inherit;
 }
 
 /* Content page - Log In */
@@ -517,12 +504,9 @@ footer p {
     font-weight: 500;
 }
 
-/* Content page - Password Change */
+/* Content page - Password Change, Password Change success */
 
-#password-change-dialog form div.form-field ul {
-    list-style: none;
-    margin-bottom: 0
-}
+
 
 /* Content page - Create ticket */
 
@@ -536,7 +520,7 @@ footer p {
     width: max-content;
     padding: 0 35px 20px 35px;
     /*background: var(--form-bg);
-    border: 1px solid var(--elem-light-third);*/
+    border: 1px solid var(--elem-light-primary-third);*/
     border-radius: 7px;
 }
 
@@ -545,7 +529,7 @@ footer p {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-left: 1px solid var(--elem-light-third);
+    border-left: 1px solid var(--elem-light-primary-third);
     padding-left: 30px;
     width: 100%
 }
@@ -557,7 +541,7 @@ footer p {
 }
 
 #create-ticket-info-dialog {
-    color: var(--elem-light-secondary);
+    color: var(--elem-light-primary-secondary);
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -571,7 +555,7 @@ footer p {
     width: 300px;
     text-align: center;
     padding-top: 10px;
-    border-top: 1px solid var(--elem-light-third);
+    border-top: 1px solid var(--elem-light-primary-third);
     font-size: 80%;
 }
 */
@@ -606,7 +590,7 @@ form .aligned div.help,
 }
 
 .success a:hover {
-    color: var(--elem-dark)!important;
+    color: var(--elem-dark-third)!important;
 }
 
 .errornote,
@@ -629,7 +613,6 @@ form .aligned div.help,
     position: absolute;
     top: 40%;
     left: 50%;
-    margin: 0;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
 }
@@ -640,14 +623,39 @@ form .aligned div.help,
     justify-content: center;
 }
 
+.dialog p.footer{
+    text-align: center;
+    font-size: 75%;
+    margin-top: 35px;
+    line-height: 2;
+    color: var(--elem-dark-primary);
+    border-top: 1px solid var(--elem-dark-primary);
+    width: inherit;
+}
+
+.dialog a.link {
+    text-align: center;
+    font-weight: 500;
+    margin: 0 auto;
+    width: max-content;
+    border-radius: 5px;
+    transition: 300ms background-color;
+    padding: 10px 15px;
+}
+
+.dialog a.link:hover {
+    background-color: var(--elem-dark-primary);
+    color: var(--elem-light-primary)
+}
+
 .dialog h2 {
-    border-bottom: 1px solid var(--elem-light-third);
+    border-bottom: 1px solid var(--elem-light-border);
     margin-bottom: 15px;
     padding-bottom: 15px;
 }
 
 .icon {
-    fill: var(--elem-light);
+    fill: var(--elem-light-primary);
     transition: 150ms;
 }
 
@@ -707,11 +715,15 @@ form .aligned div.help,
     width: 60vw!important;
 }
 
-
 .form .description {
     font-size: 80%;
     padding-top: 3px;
-    color: var(--elem-light-fourth);
+    color: var(--elem-light-secondary);
+}
+
+.form .description ul {
+    list-style: none;
+    margin-bottom: 0
 }
 
 .form-field {
@@ -785,7 +797,7 @@ form .aligned div.help,
     border-radius: 5px;
     padding: 7px 12px 5px 12px;
     font-weight: 700;
-    color: var(--elem-light)
+    color: var(--elem-light-primary)
 }
 
 .status-arrow {
@@ -796,4 +808,14 @@ form .aligned div.help,
     content: '\2192';
     padding: 5px 8px 5px 8px;
     font-size: 26px;
+}
+
+.dialog-bg {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: var(--nav-height);
+    z-index: 100;
+    background-color: var(--dialog-bg)
 }

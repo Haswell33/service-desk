@@ -41,7 +41,7 @@ DEBUG = True
 TIME_ZONE = 'Europe/Zagreb'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'  # Default primary key field type https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
-
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 INSTALLED_APPS = [
     'app',
@@ -63,7 +63,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'crum.CurrentRequestUserMiddleware',
+    'crum.CurrentRequestUserMiddleware'
+]
+
+MIDDLEWARE_CLASSES = [
+    'app.middleware.test'
 ]
 
 STATICFILES_DIRS = [
@@ -83,7 +87,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'app.context_processors.user_tenant_type',
-                'app.context_processors.get_user_icon'
+                'app.context_processors.get_user_icon',
+                'app.context_processors.get_media'
             ],
         },
     },

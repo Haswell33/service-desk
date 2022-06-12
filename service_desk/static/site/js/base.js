@@ -4,10 +4,17 @@ else
     console.log('jQuery loaded')
 
 $(document).on('click', function(event) {
-    if($(event.target).is('#navbar-account svg') || $(event.target).is('#navbar-account path'))
+    if($(event.target).is('#navbar-account svg') || $(event.target).is('#navbar-account path')){
         $('#navbar-account > ul').toggle()
-    else if(!$(event.target).is('#navbar-account > ul') && $('#navbar-account > ul').is(':visible'))
+        if ($('.dialog-bg').is(":visible"))
+            $('.dialog-bg').css('display', 'none')
+        else
+            $('.dialog-bg').css('display', 'block')
+    }
+    else if(!$(event.target).is('#navbar-account > ul') && $('#navbar-account > ul').is(':visible')){
         $('#navbar-account > ul').hide()
+        $('.dialog-bg').css('display', 'none')
+    }
 })
 
 setTimeout(function(){
@@ -20,35 +27,39 @@ function bootstrapFilestyle(){
     console.log('boostrap-filestyle loaded')
 }
 
+function customCheckbox(){
+    //$('input[type=checkbox]').after($('<span class="checkbox-icon"></span>'))
+}
+
 function themeColor(userIsAuth, userIsAdmin, userTenantType){
     if (userIsAuth && userIsAdmin){
       $(':root').css({
         '--theme': '#6554C0', //purple
-        '--theme-transparent': 'rgba(101, 84, 192, 0.6)'
+        '--theme-hover': 'rgba(101, 84, 192, 0.6)'
       })
     }
     else if (userIsAuth && userTenantType === 'customer') {
       $(':root').css({
         '--theme': '#4267B2', //blue
-        '--theme-transparent': 'rgba(66, 103, 178, 0.6)'
+        '--theme-hover': 'rgba(66, 103, 178, 0.6)'
       })
     }
     else if (userIsAuth && userTenantType === 'operator') {
       $(':root').css({
         '--theme': '#36B37E', // green
-        '--theme-transparent': 'rgba(54, 179, 126, 0.6)'
+        '--theme-hover': 'rgba(54, 179, 126, 0.6)'
       })
     }
     else if (userIsAuth && userTenantType === 'developer'){
       $(':root').css({
         '--theme': '#c57117', //orange
-        '--theme-transparent': 'rgba(197, 113, 23, 0.6)'
+        '--theme-hover': 'rgba(197, 113, 23, 0.6)'
       })
     }
     else if(!userIsAuth){
       $(':root').css({
         '--theme': '#777777', //gray
-        '--theme-transparent': 'rgba(119, 119, 119, 0.6)'
+        '--theme-hover': 'rgba(119, 119, 119, 0.6)'
       })
     }
 }

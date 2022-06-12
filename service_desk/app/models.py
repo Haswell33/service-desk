@@ -10,15 +10,16 @@ from datetime import datetime
 
 
 def get_media_path():
-    return f'{settings.MEDIA_URL.strip("/")}'
+    #return f'{settings.BASE_DIR}{settings.MEDIA_URL.strip("/")}'
+    return f'{settings.BASE_DIR}/{settings.MEDIA_URL.strip("/")}'
 
 
 def get_img_field(img, name, height, width):
-    return mark_safe(f'<img src="/{str(img)}" height="{height}" width="{width}" title="{name}" alt={name}/>')
+    return mark_safe(f'<img src="{settings.MEDIA_URL}/{str(img)}" height="{height}" width="{width}" title="{name}" alt={name}/>')
 
 
 def get_img_text_field(img, name, height, width):
-    return mark_safe(f'<img src="/{str(img)}" height="{height}" width="{width}" title="{name}" alt={name}/> {name}')
+    return mark_safe(f'<img src="{settings.MEDIA_URL}/{str(img)}" height="{height}" width="{width}" title="{name}" alt={name}/> {name}')
 
 
 def get_status_color(color, name):
@@ -40,7 +41,7 @@ User.add_to_class(
     'icon', models.ImageField(
         upload_to=f'{get_media_path()}/img/user',
         validators=[FileExtensionValidator],
-        default=f'{get_media_path()}/img/user/default-avatar.png',
+        default=f'img/user/default-avatar.png',
         max_length=500))
 
 

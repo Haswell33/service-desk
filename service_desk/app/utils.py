@@ -1,6 +1,7 @@
 from django.conf import settings
 from .models import Tenant, IssueType, Status
-
+from django.core import serializers
+import json
 
 def get_tenant(request):
     return Tenant.objects.get(key=request.session.get('tenant_key'))
@@ -29,6 +30,28 @@ def get_tenant_by_dev_group(group_id):
 
 def get_session_tenant_type(request):
     return request.session.get('tenant_type')
+
+
+def get_session_tenant_deserialized(request):
+    #print(request.session.get('tenant'))
+    test = request.session.get('tenant')[1:-1]
+    for x in test.split(']['):
+        print(x)
+    #data = serializers.deserialize(request.session.get('tenant'), 'json')
+    #dict_str = request.session.get('tenant')[0]
+    #dict_list = request.session.get('tenant')[1:-1]
+    #j = [json.loads(i) for i in dict_list]
+    #for key in j:
+    #    print(j[key])
+    return request
+
+
+def get_active_tenant_issues(request):
+    return request
+
+
+def get_tenant_serialized(key):
+    return serializers.serialize('json', Tenant.objects.filter(key=key))
 
 
 def get_env_type(issue_type_id):

@@ -1,65 +1,66 @@
-function renderFields(page) {
+function renderFields(page, mediaUrl) {
     switch(page) {
         case 'admin':
-            adminFields()
+            adminFields(mediaUrl)
             break
         case 'create-ticket':
-            createTicketFields()
+            createTicketFields(mediaUrl)
             break
         default:
             console.error('not found provided page, can not load select2 fields')
     }
 }
 
-function adminFields() {
-    renderField('#id_type', 'Select an issue type', true, false, false, -1)
-    renderField('#id_priority', 'Select a priority', true, false, false, -1)
-    renderField('#id_assignee', 'Select a assignee', true, true, false, 0)
-    renderField('#id_reporter', 'Select a reporter', true, false, false, 0)
-    renderField('#id_status', 'Select a status', false, false, false, -1)
-    renderField('#id_resolution', 'Select a resolution', false, true, false, -1)
+function adminFields(mediaUrl) {
+    renderField('#id_type', mediaUrl, 'Select an issue type', true, false, false, -1)
+    renderField('#id_priority', mediaUrl, 'Select a priority', true, false, false, -1)
+    renderField('#id_assignee', mediaUrl, 'Select a assignee', true, true, false, 0)
+    renderField('#id_reporter', mediaUrl, 'Select a reporter', true, false, false, 0)
+    renderField('#id_status', mediaUrl, 'Select a status', false, false, false, -1)
+    renderField('#id_resolution', mediaUrl, 'Select a resolution', false, true, false, -1)
 
-    renderField('#id_src_status', 'Select a source status', false, false, false, -1)
-    renderField('#id_dest_status', 'Select a destination status', false, false, false, -1)
+    renderField('#id_src_status', mediaUrl, 'Select a source status', false, false, false, -1)
+    renderField('#id_dest_status', mediaUrl, 'Select a destination status', false, false, false, -1)
 
+    renderField('#id_issue_type', mediaUrl, 'Select an issue type', true, false, false, -1)
+    renderField('#id_transition', mediaUrl, 'Select a destination status', false, false, false, -1)
 
-    renderField('#id_issue_type', 'Select an issue type', true, false, false, -1)
-    renderField('#id_transition', 'Select a destination status', false, false, false, -1)
+    renderField('#id_sla', mediaUrl, 'Select a destination status', false, false, false, -1)
+    renderField('#id_customers_group', mediaUrl, 'Select a customers group', false, true, false, 0)
+    renderField('#id_operators_group', mediaUrl, 'Select a developers group', false, true, false, 0)
+    renderField('#id_developers_group', mediaUrl, 'Select a operators group', false, true, false, 0)
+    renderField('#id_customers_board', mediaUrl, 'Select a default board for customers', false, true, false, 0)
+    renderField('#id_operators_board', mediaUrl, 'Select a default board for operators', false, true, false, 0)
+    renderField('#id_developers_board', mediaUrl, 'Select a default board for developers', false, true, false, 0)
 
+    renderField('#id_env_type', mediaUrl, 'Select a purpose of this object', false, true, false, -1)
+    renderField('#id_board', mediaUrl, 'Select a assigned board', false, false, false, 0)
+    renderField('#id_column', mediaUrl, 'Select a column where status will be displayed', false, false, false, 0)
 
-    renderField('#id_sla', 'Select a destination status', false, false, false, -1)
-    renderField('#id_customers_group', 'Select a customers group', false, true, false, 0)
-    renderField('#id_operators_group', 'Select a developers group', false, true, false, 0)
-    renderField('#id_developers_group', 'Select a operators group', false, true, false, 0)
-    renderField('#id_customers_board', 'Select a default board for customers', false, true, false, 0)
-    renderField('#id_operators_board', 'Select a default board for operators', false, true, false, 0)
-    renderField('#id_developers_board', 'Select a default board for developers', false, true, false, 0)
+    renderField('select[name=action]', mediaUrl, 'Select a bulk action for selected rows', false, true, false, -1)
 
-    renderField('#id_env_type', 'Select a purpose of this object', false, true, false, -1)
-    renderField('#id_board', 'Select a assigned board', false, false, false, 0)
-    renderField('#id_column', 'Select a column where status will be displayed', false, false, false, 0)
-
-    renderField('select[name=action]', 'Select a bulk action for selected rows', false, true, false, -1)
+    renderField('#id_user_permissions', mediaUrl, 'Select an user permissions', false, true, true, 0)
+    renderField('#id_groups', mediaUrl, 'Select an groups', false, true, true, 0)
 }
 
-function createTicketFields(){
-    renderField('#id_type', 'Select an issue type', true, false, false, -1)
-    renderField('#id_priority', 'Select a priority', true, false, false, -1)
-    renderField('#id_assignee', 'Select a priority', true, true, false, 0)
-    renderField('#id_labels', 'Categorize a ticket', false, true, true, 0)
+function createTicketFields(mediaUrl){
+    renderField('#id_type', mediaUrl, 'Select an issue type', true, false, false, -1)
+    renderField('#id_priority', mediaUrl, 'Select a priority', true, false, false, -1)
+    renderField('#id_assignee', mediaUrl, 'Select a priority', true, true, false, 0)
+    renderField('#id_labels', mediaUrl, 'Categorize a ticket', false, true, true, 0)
 }
 
-function renderField(htmlTag, placeholderText, icon, allowClear, multiple, minResults) {
+function renderField(htmlTag, mediaUrl, placeholderText, icon, allowClear, multiple, minResults) {
     $(htmlTag).select2({
         templateResult: function (option)  {
             if (icon)
-                return renderIconOption(option)
+                return renderIconOption(option, mediaUrl)
             else
                 return option.text
         },
         templateSelection: function (option)  {
             if (icon)
-                return renderIconOption(option)
+                return renderIconOption(option, mediaUrl)
             else
                 return option.text
         },
@@ -70,71 +71,11 @@ function renderField(htmlTag, placeholderText, icon, allowClear, multiple, minRe
     })
 }
 
-function select2(){
-    $('#id_type').select2({
-        templateResult: function (option)  {
-            return renderIconOption(option)
-        },
-        templateSelection: function (option)  {
-            return renderIconOption(option)
-        },
-        placeholder: 'Select an issue type',
-        minimumResultsForSearch: -1
-    })
-    $('#id_priority').select2({
-        templateResult: function (option)  {
-            return renderIconOption(option)
-        },
-        templateSelection: function (option)  {
-            return renderIconOption(option)
-        },
-        placeholder: 'Select an priority',
-        minimumResultsForSearch: -1
-    })
-    $('#id_assignee').select2({
-        templateResult: function (option) {
-            return renderIconOption(option)
-        },
-        templateSelection: function (option) {
-            return renderIconOption(option)
-            },
-        placeholder: 'Select a person whose ticket will be assigned',
-        allowClear: true
-    })
-    $('#id_reporter').select2({
-        templateResult: function (option) {
-            return renderIconOption(option)
-        },
-        templateSelection: function (option) {
-            return renderIconOption(option)
-            },
-        placeholder: 'Select a reporter',
-        allowClear: true
-    })
-    $('#id_labels').select2({
-        placeholder: 'Categorize a ticket',
-        multiple: true
-    })
-    $('#id_groups').select2({
-        multiple: true,
-        width: '590px'
-    })
-    $('#id_user_permissions').select2({
-        multiple: true,
-        width: '590px',
-    })
-    $('#id_permissions').select2({
-        multiple: true,
-        width: '590px',
-    })
-    $('#id_resolution').select2()
-    $('#id_status').select2()
-}
 
-function renderIconOption(elem) {
+function renderIconOption(elem, mediaUrl) {
     let iconElement = $(elem.element).attr('icon')
     if (iconElement !== undefined)
-        return $("<span class='select-option'><img class='select-option-icon' src='/" + $(elem.element).attr('icon') + "'/><p class='select-option-text'>" +  elem.text + "</p></span>")
+        return $("<span class='select-option'><img class='select-option-icon' src='" + mediaUrl + $(elem.element).attr('icon') + "'/><p class='select-option-text'>" +  elem.text + "</p></span>")
     else
         return elem.text
 }

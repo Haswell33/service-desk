@@ -1,7 +1,7 @@
 .select2-selection__choice {
-    color: var(--elem-light)!important;
+    color: var(--elem-light-primary)!important;
     line-height: 1.4!important;
-    background-color: var(--elem-light-secondary)!important;
+    background-color: var(--elem-dark-primary)!important;
 }
 
 .select2-selection__choice__remove {
@@ -9,7 +9,7 @@
 }
 
 .select2-selection__choice__remove:hover {
-    color: var(--elem-light)!important
+    color: var(--elem-light-primary)!important
 }
 
 .select2-selection.select2-selection--multiple .select2-selection__rendered {
@@ -25,20 +25,21 @@
 .select2-selection__rendered {
     line-height: 35px!important;
     margin-right: 8px!important;
+    color: var(--elem-dark-secondary)!important;
 }
 
 .select2-selection:focus {
-    border-color: var(--elem-light-secondary);
+    border-color: var(--elem-dark-primary);
 }
 
 .select2-search--dropdown {
-    background: var(--elem-light)!important
+    background: var(--elem-light-primary)!important
 }
 
 .select2-search__field {
     padding-left: 5px!important;
     background-color: transparent!important;
-    color: var(--elem-light-secondary)!important;
+    color: var(--elem-dark-primary)!important;
 }
 
 .select2-results__option--highlighted,
@@ -48,7 +49,7 @@
 }
 
 .select2-results__option {
-    background-color: var(--elem-light)!important;
+    background-color: var(--elem-light-primary)!important;
 }
 
 .select2-selection__arrow {
@@ -61,23 +62,23 @@
 }
 
 .select2-selection--multiple{
-    font-size: 15px!important;
     overflow: hidden !important;
     height: auto !important;
-    border-color: 1px solid var(--elem-light-third);
+    border-color: 1px solid var(--elem-light-border);
 }
 
 .select2-selection {
-    border-color: 1px solid var(--elem-light-third)
+    border-color: 1px solid var(--elem-light-border);
+    font-size: 16px!important;
 }
 
 .select2-selection__placeholder {
     color: #999!important;
     font-weight: 400!important;
-    font-size: 16px!important;
+    font-size: 15px!important;
     font-family: Lato, sans-serif!important
 }
 
 .select2-container--default {
-    border-color: 1px solid var(--elem-light-third)!important;
+    border-color: 1px solid var(--elem-light-border)!important;
 }

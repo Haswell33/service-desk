@@ -12,7 +12,12 @@
     <div id="sidebar-toggle" class="sticky arrow-left"></div>
     <div id="sidebar-content" class="sticky">
       <div id="sidebar-tenant">
-        <img src="{{ request.session.tenant_icon }}" alt="tenant-icon" width="25" height="25">
+        <img src="{{ MEDIA_URL }}{{ request.session.tenant_icon }}" alt="tenant-icon" width="25" height="25">
+        <select>
+          {% for tenant in request.session.tenant %}
+            <option>{{ tenant }}</option>
+          {% endfor %}
+        </select>
         <p>{{ request.session.tenant_name}}</p>
       </div>
       <div id="sidebar-create-ticket">
@@ -29,7 +34,7 @@
     <h2>Board</h2>
     <div id="home-content" class="content-page-block">
       <div id="board">
-        Tickets
+        {{ request.session.tenant }}
         {% for issue in issues %}
           <h1> {{ issue.title }} </h1>
           {{ issue.description.safe }}

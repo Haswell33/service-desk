@@ -16,7 +16,7 @@
         {% include 'base.html' %}
         <script>
             $(document).ready(function(){
-                renderFields('admin')
+                renderFields('admin', '{{ MEDIA_URL }}')
             })
         </script>
     {% endblock %}

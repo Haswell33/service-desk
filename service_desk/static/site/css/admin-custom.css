@@ -1,24 +1,24 @@
 :root {
-    --primary: var(--elem-dark);
-    --body-bg: var(--elem-light);
-    --body-fg: var(--elem-dark);
-    --body-quiet-color: var(--elem-dark);
+    --primary: var(--elem-dark-third);
+    --body-bg: var(--elem-light-primary);
+    --body-fg: var(--elem-dark-third);
+    --body-quiet-color: var(--elem-dark-third);
     --link-fg: var(--theme);
-    --darkened-bg: var(--elem-light);
-    --hairline-color: var(--elem-light-third);
+    --darkened-bg: var(--elem-light-primary);
+    --hairline-color: var(--elem-light-border);
     --message-error-bg: var(--error-bg);
 
-    --breadcrumbs-bg: var(--elem-dark-third);
-    --breadcrumbs-fg: var(--elem-light);
+    --breadcrumbs-bg: var(--elem-dark-border);
+    --breadcrumbs-fg: var(--elem-light-primary);
 
-    --object-tools-bg: var(--elem-light-secondary);
-    --object-tools-fg: var(--elem-light);
+    --object-tools-bg: var(--elem-dark-primary);
+    --object-tools-fg: var(--elem-light-primary);
 
     --selected-bg: var(--theme);
     --selected-row: var(--theme);
 
-    --border-color: var(--elem-light-third);
-    --close-button-bg: var(--elem-light-secondary);
+    --border-color: var(--elem-light-border);
+    --close-button-bg: var(--elem-dark-primary);
     font-family: Lato, sans-serif;
 }
 
@@ -30,13 +30,13 @@
 
 div.breadcrumbs {
     padding: 5px 40px!important;
-    background: var(--elem-light-secondary)
+    background: var(--elem-dark-primary)
 }
 
 #nav-filter {
     border: none;
     margin: 0;
-    color: var(--elem-dark)!important;
+    color: var(--elem-dark-third)!important;
     padding: 15px 15px 10px 15px!important;
     border-radius: 0
 }
@@ -55,17 +55,17 @@ div.breadcrumbs {
 }
 
 #content-related .module h2 {
-    border-bottom: 1px solid var(--elem-light-third);
+    border-bottom: 1px solid var(--elem-light-border);
     font-size: 14px!important;
     padding: 12px 8px!important;
     font-weight: 600!important;
     letter-spacing: 0.9px;
-    background: var(--elem-light-secondary);
-    color: var(--elem-light)
+    background: var(--elem-dark-primary);
+    color: var(--elem-light-primary)
 }
 
 #content-related .module h3{
-    color: var(--elem-dark);
+    color: var(--elem-dark-third);
 }
 
 .app-app .content,
@@ -78,7 +78,7 @@ div.breadcrumbs {
 }
 
 .dashboard .module {
-    border: 1px solid var(--elem-light-third);
+    border: 1px solid var(--elem-light-border);
     border-radius: 5px;
 }
 
@@ -88,7 +88,7 @@ div.breadcrumbs {
 
 h1,
 #changelist .paginator {
-    color: var(--elem-dark)
+    color: var(--elem-dark-third)
 }
 
 li, dt, dd {
@@ -100,7 +100,7 @@ li, dt, dd {
     width:calc(15% - 10px);
     margin-left: 10px;
     margin-right: 0;
-    background: var(--elem-light);
+    background: var(--elem-light-primary);
     float: inherit;
 }
 
@@ -119,7 +119,7 @@ li, dt, dd {
 }
 
 #content > h1 {
-    border-bottom: 1.5px solid var(--elem-light-third);
+    border-bottom: 1.5px solid var(--elem-light-border);
     padding: 10px 0;
     margin-bottom: 0;
     font-weight: 500;
@@ -139,21 +139,21 @@ li, dt, dd {
 }
 
 .module h2, .module caption, .inline-group h2 {
-    background: var(--elem-light-secondary);
+    background: var(--elem-dark-primary);
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     padding: 12px 8px;
-    border-bottom: 1px solid var(--elem-light-third);
-    color: var(--elem-dark)
+    border-bottom: 1px solid var(--elem-light-border);
+    color: var(--elem-dark-third)
 }
 
 a:link {
-    color: var(--elem-dark)
+    color: var(--elem-dark-third)
 }
 
 a.section:link,
 a.section:visited {
-    color: var(--elem-light);
+    color: var(--elem-light-primary);
 }
 
 tr:nth-child(even),
@@ -166,7 +166,7 @@ tr:nth-child(odd) {
 }
 
 #content-main tr:hover{
-    background-color: var(--default-hover)!important;
+    background-color: var(--elem-light-hover)!important;
 }
 
 td, th {
@@ -176,7 +176,7 @@ td, th {
 th a:hover,
 td a:hover,
 li a:hover {
-    color: var(--elem-light)
+    color: var(--elem-light-primary)
 }
 
 #nav-sidebar .current-model {
@@ -184,7 +184,7 @@ li a:hover {
 }
 
 #nav-sidebar table > tbody > tr.current-model a {
-    color: var(--elem-light)
+    color: var(--elem-light-primary)
 }
 
 #nav-sidebar table > tbody > tr:not(.current-model) {
@@ -192,7 +192,7 @@ li a:hover {
 }
 
 #nav-sidebar table > tbody > tr:not(.current-model):hover {
-    background: var(--elem-light-third)
+    background: var(--elem-light-border)
 }
 
 @media (max-width: 1024px) {
@@ -209,7 +209,7 @@ li a:hover {
     margin-left: -328px;
     flex: 0 0 328px;
     border-top: none;
-    border-right: 1px solid var(--elem-light-third);
+    border-right: 1px solid var(--elem-light-border);
     border-left: none;
     transition: 300ms;
 }
@@ -225,7 +225,7 @@ li a:hover {
 
 #nav-sidebar table > caption > a,
 #nav-sidebar table > caption > a:visited{
-    color: var(--elem-light)!important;
+    color: var(--elem-light-primary)!important;
 }
 
 #nav-sidebar .module {
@@ -234,15 +234,15 @@ li a:hover {
 }
 
 .toggle-nav-sidebar {
-    background: var(--elem-light-secondary);
+    background: var(--elem-dark-primary);
     border-right: none;
-    color: var(--elem-light);
+    color: var(--elem-light-primary);
     transition: 300ms;
 }
 
 .toggle-nav-sidebar:focus,
 .toggle-nav-sidebar:active {
-   background: var(--elem-light-secondary);
+   background: var(--elem-dark-primary);
 }
 
 .toggle-nav-sidebar:hover {
@@ -256,8 +256,8 @@ li a:hover {
 #recent-actions-module {
     /*position: fixed;*/
     display: block;
-    background: var(--elem-light);
-    border: 1px solid var(--elem-light-third);
+    background: var(--elem-light-primary);
+    border: 1px solid var(--elem-light-border);
     border-radius: 5px;
     /*top: 55px;
     right: 0;*/
@@ -275,7 +275,7 @@ li a:hover {
 }
 
 #recent-actions-module > ul > li:hover {
-    background: var(--theme-transparent);
+    background: var(--theme-hover);
 }
 
 #recent-actions-module .addlink,
@@ -293,7 +293,7 @@ li a:hover {
 }
 
 #recent-actions-module > h2 {
-    border-bottom: 1px solid var(--elem-light-third);
+    border-bottom: 1px solid var(--elem-light-border);
     text-transform: uppercase;
     font-size: 12px;
 }
@@ -331,7 +331,7 @@ p.datetime {
 }
 
 label.required {
-    color: var(--elem-dark)
+    color: var(--elem-dark-third)
 }
 
 .aligned label {
@@ -348,7 +348,7 @@ label.required {
 
 
 #changelist .actions .button{
-    color: var(--elem-light)!important;
+    color: var(--elem-light-primary)!important;
     background: var(--object-tools-bg)!important;
     transition: 300ms;
     font-size: 15px!important;
@@ -365,23 +365,23 @@ label.required {
 }
 
 #changelist-filter {
-    border: 1px solid  var(--elem-light-third)!important;
+    border: 1px solid  var(--elem-light-border)!important;
     border-radius: 5px!important;
     margin: 20px 0 0 30px!important;
 }
 
 #changelist-filter h2 {
-    color: var(--elem-light)!important;
+    color: var(--elem-light-primary)!important;
     font-weight: 700!important;
 }
 
 #changelist table tbody tr.selected {
-    /*color: var(--elem-light);*/
+    /*color: var(--elem-light-primary);*/
 
-    background-color: var(--default-hover)!important;
+    background-color: var(--elem-light-hover)!important;
 }
 .selected a {
-   /* color: var(--elem-light); */
+   /* color: var(--elem-light-primary); */
 }
 
 #changelist-search > div > span.quiet{
@@ -408,7 +408,7 @@ label.required {
     margin-left: 5px!important;
     text-transform: uppercase;
     font-weight: 700!important;
-    color: var(--elem-light)!important;
+    color: var(--elem-light-primary)!important;
     background: var(--object-tools-bg)!important;
     transition: 300ms;
     border: none!important;
@@ -438,19 +438,19 @@ label.required {
 /* Admin - Result list */
 
 div.results {
-    border-top: 1px solid var(--elem-light-third)!important;
+    border-top: 1px solid var(--elem-light-border)!important;
 }
 
 table#result_list {
-    border: 1px solid var(--elem-light-third)!important;
+    border: 1px solid var(--elem-light-border)!important;
     border-radius: 5px!important;
     margin-top: 15px!important;
 }
 
 #result_list > thead > tr > th,
 #result_list > thead > tr > th a{
-    background: var(--elem-light-secondary)!important;
-    color: var(--elem-light)!important;
+    background: var(--elem-dark-primary)!important;
+    color: var(--elem-light-primary)!important;
     font-weight: 600!important;
     transition: 300ms;
 }
@@ -465,12 +465,12 @@ table#result_list {
 }
 
 .dashboard tr:not(:last-child){
-    border-bottom: 1px solid var(--elem-light-third)
+    border-bottom: 1px solid var(--elem-light-border)
 }
 
 .app-app tr,
 .change-list tr{
-    border-bottom: 1px solid var(--elem-light-third)
+    border-bottom: 1px solid var(--elem-light-border)
 }
 
 .paginator {
@@ -486,7 +486,7 @@ table#result_list {
 fieldset h2 {
     font-weight: 600!important;
     text-transform: uppercase;
-    color: var(--elem-light)!important;
+    color: var(--elem-light-primary)!important;
     border-radius: 0!important;
     padding: 10px 0 6px 10px!important
 }
@@ -518,8 +518,8 @@ fieldset .form-row textarea {
 .submit-row input.default{
     /*flex: 0 0 100%;*/
     margin-left: 0!important;
-    background: var(--elem-light-secondary)!important;
-    color: var(--elem-light)!important
+    background: var(--elem-dark-primary)!important;
+    color: var(--elem-light-primary)!important
 }
 
 .submit-row input.default:hover {
@@ -559,7 +559,7 @@ ul.selector-chooser > li a {
 
 .selector-chosen h2,
 .selector-available h2 {
-    background: var(--elem-light-secondary)!important;
+    background: var(--elem-dark-primary)!important;
 }
 
 .file-upload {
@@ -577,7 +577,7 @@ ul.selector-chooser > li a {
 }
 
 .form-row.field-icon > div > p > a {
-    border: 1px solid var(--elem-light-third);
+    border: 1px solid var(--elem-light-border);
     padding: 5px 10px;
     width: 50%;
     font-size: 115%;
@@ -643,7 +643,7 @@ select {
 }
 
 thead th.required {
-    color: var(--elem-dark);
+    color: var(--elem-dark-third);
 }
 /*
 label {
@@ -654,15 +654,15 @@ label {
 input {
     margin: 0;
     border-radius: 5px;
-    color: var(--elem-dark-secondary);
+    color: var(--elem-dark-third-secondary);
     font-size: 16px;
 }
 
 input:not([type=button]) {
     padding: 7px 10px 7px 10px;
     width: calc(100% - 20px);
-    border: 1px solid var(--elem-light-third);
-    background-color: var(--elem-light);
+    border: 1px solid var(--elem-light-primary-third);
+    background-color: var(--elem-light-primary);
 }
 
 input[type=button],
@@ -672,9 +672,9 @@ button.button,
     box-shadow: none;
     outline: none;
     line-height: 1;
-    color: var(--elem-dark);
-    background: var(--elem-light);
-    border: 1px solid var(--elem-light-secondary);
+    color: var(--elem-dark-third);
+    background: var(--elem-light-primary);
+    border: 1px solid var(--elem-light-primary-secondary);
     cursor: pointer;
     padding: 10px 20px;
     font-weight: 500;
@@ -691,9 +691,9 @@ input[type=checkbox] {
 input[type=search] {
     line-height: 1.3;
     font-size: 115%!important;
-    color: var(--elem-light);
-    background: var(--elem-dark-third);
-    border: 2px solid var(--elem-dark-third);
+    color: var(--elem-light-primary);
+    background: var(--elem-dark-third-border);
+    border: 2px solid var(--elem-dark-third-border);
     padding: 5px 5px 5px 35px;
     box-shadow: none;
     transition: 400ms;
@@ -701,7 +701,7 @@ input[type=search] {
 
 input:active,
 input:focus {
-    border: 1px solid var(--elem-dark-secondary);
+    border: 1px solid var(--elem-dark-third-secondary);
     outline: none;
 }
 
@@ -709,11 +709,11 @@ input[type=button]:hover,
 input[type=submit]:hover {
     background: var(--theme);
     border-color: var(--theme);
-    color: var(--elem-light);
+    color: var(--elem-light-primary);
 }
 
 input[type=search]:focus {
-    border: 2px solid var(--elem-light-secondary);
+    border: 2px solid var(--elem-light-primary-secondary);
     outline-offset: 0;
     outline: 0;
     box-shadow: none;
