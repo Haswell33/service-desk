@@ -4,9 +4,10 @@ from django.conf import settings
 
 class test:
     def process_request(self, request):
+        pass
         """
         Determine the organization based on the subdomain
-        """
+        
         if len(request.user.groups.all()) == 0:
             print('no groups')
             return request
@@ -37,3 +38,4 @@ class test:
                         except IndexError:
                             pass
             return request
+"""

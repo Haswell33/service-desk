@@ -1,18 +1,17 @@
-from .utils import get_tenant_by_dev_group, get_tenant_by_cust_group, get_tenant_by_oper_group, get_tenant_serialized
+from .utils import get_tenant_by_dev_group, get_tenant_by_cust_group, get_tenant_by_oper_group, json_to_obj
 from django.conf import settings
-import numpy
+from .models import Tenant
+from django.core import serializers
 import json
 
 
 def user_tenant_type(request):
-    pass
-
     if len(request.user.groups.all()) == 0:
         print('no groups')
         return request
     else:
+        tenants = []
         for group in request.user.groups.all():
-            print(group.name)
             if group.type == settings.CUST_TYPE or group.type == settings.OPER_TYPE or group.type == settings.DEV_TYPE:
                 if group.type == settings.CUST_TYPE:
                     tenant = get_tenant_by_cust_group(group)
@@ -23,19 +22,30 @@ def user_tenant_type(request):
                 if tenant:
                     try:
                         request.session['tenant_type'] = group.type
-                        tenant_data = get_tenant_serialized(tenant.key)
-                        try:
-                            if tenant_data not in request.session['tenant']:
-                                request.session['tenant'] += tenant_data
-                            #print(request.session['tenant'])
-                            #json_object = json.loads(json.dumps([request.session['tenant']]))
-                            #for key in json_object:
-                            #    value = json_object(key)
-                            #    print("The key and value are ({}) = ({})".format(key, value))
-                        except KeyError:
-                            request.session['tenant'] = tenant_data
+                        tenant_data = serializers.serialize('json', Tenant.objects.filter(key=tenant.key))
+                        if tenant_data not in request.session['tenant']:
+                            request.session['tenant'] += tenant_data
+                    except KeyError:
+                        request.session['tenant'] = tenant_data
                     except IndexError:
                         pass
+                tenants_json_str = request.session.get('tenant')[1:-1]
+                for tenant_json_str in tenants_json_str.split(']['):
+                    tenant_json_obj = json_to_obj(tenant_json_str)
+                    #print(tenant_json_obj.model)
+                    #print(tenant_json_obj.pk)
+                    #print(tenant_json_obj.fields.key)
+                    #print(json_object)
+                    #for key in json_object:
+                    #    print('JSON OBJECT:')
+                    #    print(json_object[key])
+                    #    print('\n')
+
+            # print(request.session['tenant'])
+            # json_object = json.loads(json.dumps([request.session['tenant']]))
+            # for key in json_object:
+            #    value = json_object(key)
+            #    print("The key and value are ({}) = ({})".format(key, value))
         return request
 
 

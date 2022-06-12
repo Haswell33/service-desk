@@ -10,7 +10,6 @@ from datetime import datetime
 
 
 def get_media_path():
-    #return f'{settings.BASE_DIR}{settings.MEDIA_URL.strip("/")}'
     return f'{settings.BASE_DIR}/{settings.MEDIA_URL.strip("/")}'
 
 
@@ -23,7 +22,7 @@ def get_img_text_field(img, name, height, width):
 
 
 def get_status_color(color, name):
-    return mark_safe(f'<div style="background-color: {color};" class="status">{name}</div>')
+    return mark_safe(f'<div style="background-color: {color};" class="status" title="{name}">{name}</div>')
 
 
 def get_datetime(date):
@@ -464,11 +463,6 @@ class Issue(models.Model):
     title = models.CharField(
         max_length=255,
         help_text='Summarize the issue')
-    #description = QuillField(
-    #    verbose_name='description',
-    #    blank=True,
-     #   null=True,
-     #   help_text='Describe the issue')
     description = HTMLField(
         verbose_name='description',
         blank=True,
@@ -513,9 +507,11 @@ class Issue(models.Model):
         null=True,
         related_name='%(class)s_assignee')
     escalated = models.BooleanField(
-        default=False, editable=False)
+        default=False,
+        editable=False)
     suspended = models.BooleanField(
-        default=False, editable=False)
+        default=False,
+        editable=False)
     created = models.DateTimeField(
         editable=False,
         help_text='Date when issue has been created')
@@ -630,6 +626,34 @@ class Issue(models.Model):
 
     def __str__(self):
         return self.key
+
+
+class TenantSession(models.Model):
+    id = models.BigAutoField(
+        primary_key=True)
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='%(class)s_user')
+    tenant = models.ForeignKey(
+        Tenant,
+        on_delete=models.CASCADE,
+        related_name='%(class)s_tenant')
+    active = models.BooleanField(
+        default=False,
+        editable=False)
+    user_type = models.CharField(
+        max_length=25,
+        choices=settings.GROUP_TYPES)
+
+    class Meta:
+        db_table = 'tenant_session'
+        verbose_name = 'tenant session'
+        verbose_name_plural = 'tenant sessions'
+        ordering = ['id']
+
+    def __str__(self):
+        return f'{self.tenant.key}-{self.user.username}-{self.user_type}'
 
 
 class BoardColumnAssociation(models.Model):

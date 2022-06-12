@@ -46,7 +46,7 @@ function adminFields(mediaUrl) {
 function createTicketFields(mediaUrl){
     renderField('#id_type', mediaUrl, 'Select an issue type', true, false, false, -1)
     renderField('#id_priority', mediaUrl, 'Select a priority', true, false, false, -1)
-    renderField('#id_assignee', mediaUrl, 'Select a priority', true, true, false, 0)
+    renderField('#id_assignee', mediaUrl, 'Select an assignee', true, true, false, 0)
     renderField('#id_labels', mediaUrl, 'Categorize a ticket', false, true, true, 0)
 }
 
