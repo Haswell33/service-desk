@@ -68,9 +68,10 @@ def tenant_session_exists(tenant, user):
 
 
 def activate_tenant(tenant, request, user):
-    if request.COOKIES.get('active_tenant_id_' + str(user.id)) is None and not TenantSession.objects.filter(active=True, user=user):
+    tenant_cookie = f'active_tenant_id_{str(user.id)}'
+    if request.COOKIES.get(tenant_cookie) is None and not TenantSession.objects.filter(active=True, user=user):
         set_active_tenant(tenant, user)
-    elif request.COOKIES.get('active_tenant_id_' + str(user.id)) == str(tenant.id):
+    elif request.COOKIES.get(tenant_cookie) == str(tenant.id):
         set_active_tenant(tenant, user)
 
 

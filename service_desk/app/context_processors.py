@@ -38,7 +38,3 @@ def get_media(request):
 def get_tenant_sessions(request):
     tenant_sessions = get_all_user_tenant_sessions(request)
     return {'tenant_sessions': tenant_sessions}
-
-
-def set_active_tenant_cookie(request):
-    return request

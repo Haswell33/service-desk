@@ -23,14 +23,11 @@ def home(request, template_name='home.html'):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(f'{settings.LOGIN_URL}')
     else:
-        #tenants = get_session_tenant_deserialized(request)
         # boards = Board.objects.all()
-
         # issues = get_active_tenant_issues(request)
         # response = render(request, template_name,  status=200)
-        #
         if request.COOKIES.get('active_tenant_id_' + str(request.user.id)) is None:
-            print('redireaction')
+            print('redirect tenant__update')
             return redirect('tenant_update')
         return render(request, template_name, status=200)
 
