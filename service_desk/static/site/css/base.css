@@ -455,6 +455,12 @@ footer p {
     padding: 8px 10px 8px 10px;
 }
 
+#sidebar #sidebar-tenant-select {
+    width: 100%;
+    border: var(--elem-dark-border);
+    color: var(--elem-light-primary)!important
+}
+
 /* Content page */
 
 #content-page {

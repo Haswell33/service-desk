@@ -1,7 +1,10 @@
 from django.conf import settings
+from django.core import serializers
 from .models import Tenant, TenantSession, IssueType, Status
-import json
 from collections import namedtuple
+import json
+from django.shortcuts import render, reverse, redirect
+from django.http import HttpResponseRedirect, HttpResponse
 
 
 def get_tenant_by_cust_group(group_id):
@@ -25,22 +28,6 @@ def get_tenant_by_dev_group(group_id):
         return None
 
 
-def get_session_tenant_deserialized(request):
-    #print(request.session.get('tenant'))
-
-    #data = serializers.deserialize(request.session.get('tenant'), 'json')
-    #dict_str = request.session.get('tenant')[0]
-    #dict_list = request.session.get('tenant')[1:-1]
-    #j = [json.loads(i) for i in dict_list]
-    #for key in j:
-    #    print(j[key])
-    return request
-
-
-#def get_active_tenant_issues(request):
-#    return request
-
-
 def get_initial_status(env_type):
     if env_type == settings.SD_ENV_TYPE:
         return Status.objects.get(id=settings.SD_INITIAL_STATUS)
@@ -50,20 +37,57 @@ def get_initial_status(env_type):
         return Status.objects.get(id=settings.SD_INITIAL_STATUS)
 
 
-def tenant_data_in_session(request):
+def get_all_user_tenant_sessions(request):
+    tenant_sessions = TenantSession.objects.filter(user=request.user.id)
+    if tenant_sessions:
+        return tenant_sessions
+    else:
+        return None
+
+
+def tenant_session(user):
     try:
-        request.session.get('tenant')
+        TenantSession.objects.filter(user=user)
         return True
-    except ValueError:
+    except TenantSession.DoesNotExist:
         return False
 
 
-#def change_status():
-#    pass
+def add_tenant_session(tenant, user, user_type):
+    TenantSession.objects.create(
+        user_type=user_type,
+        tenant=tenant,
+        user=user)
+
+
+def tenant_session_exists(tenant, user):
+    if TenantSession.objects.filter(tenant=tenant, user=user):
+        return True
+    else:
+        return False
+
+
+def activate_tenant(tenant, request, user):
+    if request.COOKIES.get('active_tenant_id_' + str(user.id)) is None and not TenantSession.objects.filter(active=True, user=user):
+        set_active_tenant(tenant, user)
+    elif request.COOKIES.get('active_tenant_id_' + str(user.id)) == str(tenant.id):
+        set_active_tenant(tenant, user)
+
+
+def set_active_tenant(tenant, user):
+    tenant_session = TenantSession.objects.get(tenant=tenant, user=user)
+    tenant_session.active = True
+    tenant_session.save()
+    return tenant_session.id
+
 
 def get_env_type(issue_type_id): return IssueType.objects.get(id=issue_type_id).env_type
-def get_session_tenant_type(request): return request.session.get('tenant_type')
-def get_tenant(request): return Tenant.objects.get(key=request.session.get('tenant_key'))
-def clear_tenant_session(user): TenantSession.objects.get(user=user).delete()
+def get_active_tenant(user): return Tenant.objects.get(id=get_active_tenant_session(user).tenant.id)
+def get_active_tenant_session(user): return TenantSession.objects.get(active=True, user=user)
+def clear_tenant_session(user): TenantSession.objects.filter(user=user).delete()
 def json_to_obj(data): return json.loads(data, object_hook=_object_hook)
 def _object_hook(converted_dict): return namedtuple('X', converted_dict.keys())(*converted_dict.values())
+
+
+
+

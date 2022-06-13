@@ -12,11 +12,13 @@ handler401 = 'app.views.unauthorized'
 handler403 = 'app.views.permission_denied'
 handler404 = 'app.views.page_not_found'
 handler500 = 'app.views.internal_server_error'
-
 urlpatterns = [
     path('',
          views.home,
          name='home'),
+    path('tenant/update',
+         views.tenant_update,
+         name='tenant_update'),
     path('login/',
          auth_views.LoginView.as_view(
              template_name='login.html',

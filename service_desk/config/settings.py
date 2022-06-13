@@ -86,9 +86,11 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'app.context_processors.user_tenant_type',
+                'app.context_processors.context_tenant_session',
                 'app.context_processors.get_user_icon',
-                'app.context_processors.get_media'
+                'app.context_processors.get_media',
+                'app.context_processors.get_tenant_sessions',
+                'app.context_processors.set_active_tenant_cookie'
             ],
         },
     },

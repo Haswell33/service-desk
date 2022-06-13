@@ -6,6 +6,9 @@ function renderFields(page, mediaUrl) {
         case 'create-ticket':
             createTicketFields(mediaUrl)
             break
+        case 'home':
+            homeFields(mediaUrl)
+            break
         default:
             console.error('not found provided page, can not load select2 fields')
     }
@@ -43,11 +46,15 @@ function adminFields(mediaUrl) {
     renderField('#id_groups', mediaUrl, 'Select an groups', false, true, true, 0)
 }
 
-function createTicketFields(mediaUrl){
+function createTicketFields(mediaUrl) {
     renderField('#id_type', mediaUrl, 'Select an issue type', true, false, false, -1)
     renderField('#id_priority', mediaUrl, 'Select a priority', true, false, false, -1)
     renderField('#id_assignee', mediaUrl, 'Select an assignee', true, true, false, 0)
     renderField('#id_labels', mediaUrl, 'Categorize a ticket', false, true, true, 0)
+}
+
+function homeFields(mediaUrl) {
+    renderField('#sidebar-tenant-select', mediaUrl, '', true, false, false, -1)
 }
 
 function renderField(htmlTag, mediaUrl, placeholderText, icon, allowClear, multiple, minResults) {

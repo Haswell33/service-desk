@@ -1,11 +1,11 @@
 from django.http import HttpResponseRedirect, HttpResponse
 from django.http.cookie import SimpleCookie
-from django.shortcuts import render, reverse
+from django.shortcuts import render, reverse, redirect
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.tokens import default_token_generator
-from django.contrib.auth.signals import user_logged_out
+from django.contrib.auth.signals import user_logged_out, user_logged_in
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm, PasswordResetForm
 from django.db.models.query_utils import Q
@@ -13,25 +13,26 @@ from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.template.loader import render_to_string
 from django.core.mail import send_mail, BadHeaderError
-from .models import Board
+from .models import Board, TenantSession
 from .forms import IssueForm
-from .utils import get_session_tenant_type, get_env_type, get_initial_status, get_tenant, tenant_data_in_session, clear_tenant_session
-from .context_processors import user_tenant_type
+from .utils import get_env_type, get_initial_status, get_active_tenant, get_active_tenant_session, tenant_session, clear_tenant_session
+from .context_processors import context_tenant_session
 
 
 def home(request, template_name='home.html'):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(f'{settings.LOGIN_URL}')
     else:
-        if not tenant_data_in_session(request):
-            request = user_tenant_type(request)
         #tenants = get_session_tenant_deserialized(request)
-        boards = Board.objects.all()
+        # boards = Board.objects.all()
+
         # issues = get_active_tenant_issues(request)
         # response = render(request, template_name,  status=200)
-        # response.set_cookie(key='active_tenant_id', value=1)
-        return render(request, template_name,  status=200)
-        # return render(request, template_name, {'user_tenant_type': user_type}, status=200)
+        #
+        if request.COOKIES.get('active_tenant_id_' + str(request.user.id)) is None:
+            print('redireaction')
+            return redirect('tenant_update')
+        return render(request, template_name, status=200)
 
 
 def create_ticket(request, template_name='create-ticket.html'):
@@ -40,7 +41,7 @@ def create_ticket(request, template_name='create-ticket.html'):
     elif request.method == 'POST':
         form = IssueForm(request.POST)
         if form.is_valid():
-            tenant = get_tenant(request)
+            tenant = get_active_tenant(request.user)
             new_issue = form.save(commit=False)  # create instance, but do not save
             new_issue.status = get_initial_status(get_env_type(new_issue.type.id))  # env_type field from issue type
             new_issue.key = f'{tenant.key}-{tenant.count + 1}'
@@ -55,10 +56,10 @@ def create_ticket(request, template_name='create-ticket.html'):
             print(form.errors.as_data())
     else:
         form = IssueForm()
-        tenant_type = get_session_tenant_type(request)
-        if tenant_type == settings.CUST_TYPE:
+        tenant_session = get_active_tenant_session(request.user)
+        if tenant_session.user_type == settings.CUST_TYPE:
             form.fields['type'].initial = 2
-        elif tenant_type == settings.OPER_TYPE or tenant_type == settings.DEV_TYPE:
+        elif tenant_session.user_type == settings.OPER_TYPE or tenant_session.user_type == settings.DEV_TYPE:
             form.fields['type'].initial = 1
         else:
             pass
@@ -163,21 +164,36 @@ def internal_server_error(request, exception=None, template_name='error/500.html
     return render(request, template_name, {}, status=500)
 
 
-def after_log_out(sender, user, request, **kwargs):
-    print('log out')
+def tenant_update(request, tenant_id=None):
+    print("tenant_id: " + str(tenant_id))
+    try:
+        tenant_session = get_active_tenant_session(request.user)
+    except TenantSession.DoesNotExist:
+        context_tenant_session(request)
+        tenant_session = get_active_tenant_session(request.user)
+    response = redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
+    response.set_cookie(key='active_tenant_id_' + str(request.user.id), value=tenant_session.tenant.id)
+    return response
+
+
+def after_logout(sender, user, request, **kwargs):
     clear_tenant_session(user)
 
 
-user_logged_out.connect(after_log_out)
+def after_login(sender, user, request, **kwargs):
+    if not tenant_session(user):
+        context_tenant_session(request)
 
 
 
-#def login(request, template_name='login.html'):
-#    if request.user.is_authenticated:
-#        return HttpResponseRedirect(reverse(home))
-#    return render(request, template_name, {}, status=200)
+user_logged_out.connect(after_logout)
+user_logged_in.connect(after_login)
+
 
 '''
-def change_password(request):
-    
+def login(request):
+    print('login')
+    if request.user.is_authenticated:
+        return HttpResponseRedirect(reverse(home))
+    return render(request, {}, status=200)
 '''
