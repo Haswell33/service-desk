@@ -79,7 +79,6 @@ def set_active_tenant(tenant, user):
     tenant_session = TenantSession.objects.get(tenant=tenant, user=user)
     tenant_session.active = True
     tenant_session.save()
-    return tenant_session.id
 
 
 def get_env_type(issue_type_id): return IssueType.objects.get(id=issue_type_id).env_type
