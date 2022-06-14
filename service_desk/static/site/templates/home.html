@@ -41,7 +41,8 @@
     <div id="home-content" class="content-page-block">
       <div id="board">
           {% for board_column_association in board_columns_associations %}
-            <h2>{{ board_column_association.0.column }}</h2>
+            <div class="board-column">
+              <h2>{{ board_column_association.0.column }}</h2>
             {% for association in board_column_association %}
               {% for issue in issues %}
                 {% if issue.status == association.status %}
@@ -49,6 +50,7 @@
                 {% endif %}
               {% endfor %}
             {% endfor %}
+              </div>
           {% endfor %}
       </div>
     </div>
