@@ -6,7 +6,7 @@
   <script type="text/javascript" rel="script" src="{% static 'site/js/jquery.min.js' %}"></script>
   <script type="text/javascript" rel="script" src="{% static 'site/js/base.js' %}"></script>
   <script type="text/javascript" rel="script" src="{% static 'site/js/sidebar.js' %}"></script>
-  <script type="text/javascript" rel="script" src="{% static 'site/js/render-fields.js' %}"></script>
+  <script type="text/javascript" rel="script" src="{% static 'site/js/fields.js' %}"></script>
   <script type="text/javascript" rel="script" src="{% static 'site/js/bootstrap-filestyle.min.js' %}"></script>
   <script type="text/javascript" rel="script" src="{% static 'site/js/select2.min.js' %}"></script>
   <link type="text/css" rel="stylesheet" href="{% static 'site/css/base.css' %}"/>
@@ -141,7 +141,7 @@
     customCheckbox()
     let userIsAdmin = ('{{user.is_superuser}}' === 'True')
     let userIsAuth = ('{{user.is_authenticated}}' === 'True')
-    let userTenantType = '{{request.session.tenant_type}}'
-    themeColor(userIsAuth, userIsAdmin, userTenantType)
+    let userType = '{{ active_tenant_session.user_type }}'
+    themeColor(userIsAuth, userIsAdmin, userType)
   })
 </script>

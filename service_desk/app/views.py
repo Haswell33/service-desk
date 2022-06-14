@@ -9,32 +9,38 @@ from django.contrib.auth.signals import user_logged_out, user_logged_in
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm, PasswordResetForm
 from django.db.models.query_utils import Q
+from django.views.decorators.csrf import csrf_exempt
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.template.loader import render_to_string
 from django.core.mail import send_mail, BadHeaderError
-from .models import Board, TenantSession
+from .models import Board, BoardColumn
 from .forms import IssueForm
-from .utils import get_env_type, get_initial_status, get_active_tenant, get_active_tenant_session, tenant_session, clear_tenant_session
+from .utils import get_env_type, get_initial_status, get_active_tenant, active_tenant_session, get_active_tenant_session, tenant_session, clear_tenant_session, change_active_tenant, get_board_columns, get_tenant_cookie_name, get_active_tenant_issues, get_board_columns_assocations
 from .context_processors import context_tenant_session
+
 
 
 def home(request, template_name='home.html'):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(f'{settings.LOGIN_URL}')
+    elif request.COOKIES.get(get_tenant_cookie_name(request.user)) is None:
+        return redirect('tenant_update')
     else:
-        # boards = Board.objects.all()
-        # issues = get_active_tenant_issues(request)
-        # response = render(request, template_name,  status=200)
-        if request.COOKIES.get('active_tenant_id_' + str(request.user.id)) is None:
-            print('redirect tenant__update')
-            return redirect('tenant_update')
-        return render(request, template_name, status=200)
+        if not active_tenant_session(request.user):
+            context_tenant_session(request)
+        board_columns = get_board_columns(request.user)
+        board_columns_associations = get_board_columns_assocations(board_columns)
+        print(board_columns)
+        active_tenant_issues = get_active_tenant_issues(request.user)
+        return render(request, template_name, {'board_columns': board_columns, 'board_columns_associations': board_columns_associations, 'issues': active_tenant_issues}, status=200)
 
 
 def create_ticket(request, template_name='create-ticket.html'):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(f'{settings.LOGIN_URL}')
+    elif request.COOKIES.get(get_tenant_cookie_name(request.user)) is None:
+        return redirect('tenant_update')
     elif request.method == 'POST':
         form = IssueForm(request.POST)
         if form.is_valid():
@@ -53,6 +59,8 @@ def create_ticket(request, template_name='create-ticket.html'):
             print(form.errors.as_data())
     else:
         form = IssueForm()
+        if not active_tenant_session(request.user):
+            context_tenant_session(request)
         tenant_session = get_active_tenant_session(request.user)
         if tenant_session.user_type == settings.CUST_TYPE:
             form.fields['type'].initial = 2
@@ -161,15 +169,20 @@ def internal_server_error(request, exception=None, template_name='error/500.html
     return render(request, template_name, {}, status=500)
 
 
-def tenant_update(request, tenant_id=None):
-    print("tenant_id: " + str(tenant_id))
-    try:
+@csrf_exempt
+def tenant_update(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(f'{settings.LOGIN_URL}')
+    elif request.method == 'POST':
+        tenant_id = request.POST.get('tenant_id')
+        change_active_tenant(tenant_id, request.user)
+    else:
+        if not active_tenant_session(request.user):
+            context_tenant_session(request)
         tenant_session = get_active_tenant_session(request.user)
-    except TenantSession.DoesNotExist:
-        context_tenant_session(request)
-        tenant_session = get_active_tenant_session(request.user)
+        tenant_id = tenant_session.tenant.id
     response = redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
-    response.set_cookie(key='active_tenant_id_' + str(request.user.id), value=tenant_session.tenant.id)
+    response.set_cookie(key=get_tenant_cookie_name(request.user), value=tenant_id)
     return response
 
 
@@ -182,9 +195,9 @@ def after_login(sender, user, request, **kwargs):
         context_tenant_session(request)
 
 
-
 user_logged_out.connect(after_logout)
 user_logged_in.connect(after_login)
+
 
 
 '''

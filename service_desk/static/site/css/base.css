@@ -800,6 +800,7 @@ form .aligned div.help,
 
 .status {
     width: max-content;
+    display: inline-flex;
     border-radius: 5px;
     padding: 7px 12px 5px 12px;
     font-weight: 700;
@@ -819,7 +820,7 @@ form .aligned div.help,
 .dialog-bg {
     bottom: 0;
     left: 0;
-    position: absolute;
+    position: fixed;
     right: 0;
     top: var(--nav-height);
     z-index: 100;

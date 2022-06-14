@@ -89,9 +89,8 @@ TEMPLATES = [
                 'app.context_processors.context_tenant_session',
                 'app.context_processors.get_user_icon',
                 'app.context_processors.get_media',
-                'app.context_processors.get_tenant_sessions',
-                'app.context_processors.set_active_tenant_cookie'
-            ],
+                'app.context_processors.get_tenants',
+            ]
         },
     },
 ]

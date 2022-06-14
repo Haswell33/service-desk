@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 
 <head>
+
+  {% load filters %}
   <title>{% block title %} {{ block.super }}{% endblock %}</title>
   <meta http-equiv="refresh" content="60">
 </head>
@@ -13,23 +15,24 @@
     <div id="sidebar-content" class="sticky">
       <div id="sidebar-tenant">
         <select id="sidebar-tenant-select">
-          {% for tenant_session in tenant_sessions %}
-            <option icon="{{ tenant_session.tenant.icon }}" >{{ tenant_session.tenant.name }}</option>
-          {% endfor %}
+        {% for tenant_session in tenant_sessions %}
+          {% if tenant_session.active %}
+            <option icon="{{ tenant_session.tenant.icon }}" value="{{ tenant_session.tenant.id }}" selected>{{ tenant_session.tenant.name }}</option>
+          {% else %}
+            <option icon="{{ tenant_session.tenant.icon }}" value="{{ tenant_session.tenant.id }}">{{ tenant_session.tenant.name }}</option>
+          {% endif %}
+        {% endfor %}
         </select>
       </div>
       <div id="sidebar-create-ticket">
         <a href="{% url 'create_ticket' %}"><input type="button" value="Create ticket"></a>
       </div>
       <div id="sidebar-recent-actions">
-        <a href="{% url 'tenant_update' %}?tenant_id=dupa">tenant_update</a>
       </div>
     </div>
   </div>
   <script>
-    $(document).ready(function(){
-      renderFields('home', '{{ MEDIA_URL }}')
-    })
+    $(document).ready(function(){renderFields('home', '{{ MEDIA_URL }}')})
   </script>
   {% endblock %}
   <div id="content-page">
@@ -37,16 +40,16 @@
     <h2>Board</h2>
     <div id="home-content" class="content-page-block">
       <div id="board">
-        {% for issue in issues %}
-          <h1> {{ issue.title }} </h1>
-          {{ issue.description.safe }}
-        {% endfor %}
-        <div class="board-column">
-
-        </div>
-        <div class="board-column">
-
-        </div>
+          {% for board_column_association in board_columns_associations %}
+            <h2>{{ board_column_association.0.column }}</h2>
+            {% for association in board_column_association %}
+              {% for issue in issues %}
+                {% if issue.status == association.status %}
+                  <p>{{ issue.key }} {{ issue.status }}</p>
+                {% endif %}
+              {% endfor %}
+            {% endfor %}
+          {% endfor %}
       </div>
     </div>
     {% endblock %}

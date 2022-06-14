@@ -66,25 +66,6 @@ class Board(models.Model):
         return self.name
 
 
-class BoardColumn(models.Model):
-    board = models.ForeignKey(
-        Board,
-        on_delete=models.CASCADE)
-    column_title = models.CharField(
-        max_length=255)
-    column_number = models.IntegerField(
-        default=1)
-
-    class Meta:
-        db_table = 'board_column'
-        verbose_name = 'board column'
-        verbose_name_plural = "board columns"
-        ordering = ['column_number']
-
-    def __str__(self):
-        return self.column_title
-
-
 class SLAScheme(models.Model):
     id = models.BigAutoField(
         primary_key=True)
@@ -287,10 +268,10 @@ class Status(models.Model):
     name = models.CharField(
         max_length=50,
         unique=True)
-    board_column = models.ManyToManyField(
-        BoardColumn,
-        through='BoardColumnAssociation',
-        through_fields=('status', 'column'))
+    #board_column = models.ManyToManyField(
+    #    BoardColumn,
+    #    through='BoardColumnAssociation',
+    #    through_fields=('status', 'column'))
     description = models.TextField(
         name='description',
         blank=True,
@@ -328,6 +309,28 @@ class Status(models.Model):
     def __str__(self):
         return self.name
 
+
+class BoardColumn(models.Model):
+    board = models.ForeignKey(
+        Board,
+        on_delete=models.CASCADE)
+    column_title = models.CharField(
+        max_length=255)
+    column_number = models.IntegerField(
+        default=1)
+    statuses = models.ManyToManyField(
+        Status,
+        through='BoardColumnAssociation',
+        through_fields=('column', 'status'))
+
+    class Meta:
+        db_table = 'board_column'
+        verbose_name = 'board column'
+        verbose_name_plural = "board columns"
+        ordering = ['column_number']
+
+    def __str__(self):
+        return self.column_title
 
 class Transition(models.Model):
     name = models.CharField(max_length=55)
@@ -676,6 +679,11 @@ class BoardColumnAssociation(models.Model):
     def board_name(self):
         return self.column.board
     board_name.fget.short_description = 'Board'
+
+    #@property
+    #def column_on_board(self):
+    #    return f'{self.column}-{self.column.board}'
+    #column_on_board.fget.short_description = 'Column'
 
     @property
     def status_color(self):

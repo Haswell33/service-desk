@@ -5,7 +5,10 @@ from django.contrib.auth.models import Group, User
 from django.contrib.auth.admin import GroupAdmin, UserAdmin
 from .models import Issue, Tenant, Comment, Priority, Status, Resolution, Transition, TransitionAssociation, IssueType, Label, LabelAssociation, SLAScheme, Board, BoardColumn, BoardColumnAssociation
 from .forms import IssueForm
+from django.utils.html import mark_safe, format_html
+from django import template
 
+register = template.Library()
 
 class GroupAdminModel(GroupAdmin):
     list_display = ('name', 'type')
@@ -54,18 +57,31 @@ class BoardAdminModel(admin.ModelAdmin):
     search_fields = ['name', 'env_type']
 
 
+class BoardColumnAssociationInline(admin.TabularInline):
+    model = BoardColumnAssociation
+
+
 @admin.register(BoardColumn)
 class BoardColumnAdminModel(admin.ModelAdmin):
-    list_display = ('board', 'column_number', 'column_title')
+    list_display = ('board', 'column_number', 'column_title', 'get_statuses')
     search_fields = ['board', 'column_title']
     list_filter = ('board', 'column_number')
+    inlines = [BoardColumnAssociationInline]
 
+    def get_statuses(self, instance):
+        output = ''
+        for statuses in instance.statuses.all():
+            output = output + ' <div class="status" style="background-color:' + statuses.color + ';">' + statuses.name + '</div>'
+        return mark_safe(output)
+    get_statuses.short_description = 'Statuses'
 
+'''
 @admin.register(BoardColumnAssociation)
 class BoardColumnAssociationAdminModel(admin.ModelAdmin):
     list_display = ('column', 'status_color', 'board_name')
     search_fields = ['board', 'column', 'status']
     list_filter = ('column', 'status')
+'''
 
 
 @admin.register(SLAScheme)
@@ -150,6 +166,7 @@ class IssueAdminModel(admin.ModelAdmin):
 
     def get_labels(self, instance):
         return [labels.name for labels in instance.labels.all()]
+    get_labels.short_description = 'Labels'
 
     #get_labels.fget.allow_tags = True
     #get_labels.fget.short_description = 'Address display'

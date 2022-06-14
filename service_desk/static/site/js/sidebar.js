@@ -4,8 +4,8 @@ SIDEBAR_CONTENT = '#sidebar-content'
 CONTENT_PAGE = '#content-page'
 CREATE_TICKET_FORM = '#create-ticket-form'
 
-$(document).ready(function(event){
-    if (localStorage.siteSidebarOpen === null)
+$(document).ready(function(event) {
+    if (localStorage.siteSidebarOpen === null || localStorage.siteSidebarOpen === undefined)
         localStorage.siteSidebarOpen = 'true'
     else if (localStorage.siteSidebarOpen === 'false'){
         $(SIDEBAR_CONTENT).removeClass(SIDEBAR_TRANSITION)

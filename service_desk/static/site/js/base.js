@@ -31,26 +31,26 @@ function customCheckbox(){
     //$('input[type=checkbox]').after($('<span class="checkbox-icon"></span>'))
 }
 
-function themeColor(userIsAuth, userIsAdmin, userTenantType){
+function themeColor(userIsAuth, userIsAdmin, userType){
     if (userIsAuth && userIsAdmin){
       $(':root').css({
         '--theme': '#6554C0', //purple
         '--theme-hover': 'rgba(101, 84, 192, 0.6)'
       })
     }
-    else if (userIsAuth && userTenantType === 'customer') {
+    else if (userIsAuth && userType === 'customer') {
       $(':root').css({
         '--theme': '#4267B2', //blue
         '--theme-hover': 'rgba(66, 103, 178, 0.6)'
       })
     }
-    else if (userIsAuth && userTenantType === 'operator') {
+    else if (userIsAuth && userType === 'operator') {
       $(':root').css({
         '--theme': '#36B37E', // green
         '--theme-hover': 'rgba(54, 179, 126, 0.6)'
       })
     }
-    else if (userIsAuth && userTenantType === 'developer'){
+    else if (userIsAuth && userType === 'developer'){
       $(':root').css({
         '--theme': '#c57117', //orange
         '--theme-hover': 'rgba(197, 113, 23, 0.6)'
@@ -65,7 +65,3 @@ function themeColor(userIsAuth, userIsAdmin, userTenantType){
 }
 
 
-
-/*
-.onChange(element.html('<option></option>').trigger('change'))
-*/
