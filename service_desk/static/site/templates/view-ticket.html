@@ -1,0 +1,14 @@
+{% extends 'home.html' %}
+
+<head>
+  <title>{% block title %} {{ block.super }} | Ticket submitted{% endblock %}</title>
+</head>
+
+<body>
+  {% block content_page %}
+  <h1>ticket view</h1>
+  <div id="view-ticket-content" class="content-page-block">
+    ticket view
+  </div>
+  {% endblock %}
+</body>

@@ -98,6 +98,7 @@ $(document).on('select2:select', function (event) {
             },
             success: function(result){
                 console.log('active tenant changed')
+                location.reload()
             }
         })
     }

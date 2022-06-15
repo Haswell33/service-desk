@@ -513,8 +513,7 @@ class Issue(models.Model):
         default=False,
         editable=False)
     suspended = models.BooleanField(
-        default=False,
-        editable=False)
+        default=False)
     created = models.DateTimeField(
         editable=False,
         help_text='Date when issue has been created')
@@ -593,17 +592,34 @@ class Issue(models.Model):
     priority_img.fget.short_description = 'Priority'
 
     @property
-    def assignee_img(self):
+    def assignee_img_text(self):
         try:
             return get_img_text_field(self.assignee.icon, self.assignee, 18, 18)
         except AttributeError:
             return self.assignee
+    assignee_img_text.fget.short_description = 'Assignee'
+
+    @property
+    def assignee_img(self):
+        try:
+            return get_img_field(self.assignee.icon, self.assignee, 20, 20)
+        except AttributeError:
+            return self.assignee
+
     assignee_img.fget.short_description = 'Assignee'
+
+    @property
+    def reporter_img_text(self):
+        try:
+            return get_img_text_field(self.reporter.icon, self.reporter, 18, 18)
+        except AttributeError:
+            return self.reporter
+    reporter_img_text.fget.short_description = 'Reporter'
 
     @property
     def reporter_img(self):
         try:
-            return get_img_text_field(self.reporter.icon, self.reporter, 18, 18)
+            return get_img_field(self.reporter.icon, self.reporter, 20, 20)
         except AttributeError:
             return self.reporter
     reporter_img.fget.short_description = 'Reporter'

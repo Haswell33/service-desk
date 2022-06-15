@@ -32,7 +32,14 @@
     </div>
   </div>
   <script>
-    $(document).ready(function(){renderFields('home', '{{ MEDIA_URL }}')})
+    $(document).ready(function(){
+      renderFields('home', '{{ MEDIA_URL }}')
+      $('#board > .board-column').each(function(){
+        let ticketNumInColumn = ($(this).find('.issue-view').length)
+        if (ticketNumInColumn === 0)
+          $(this).append('<p class="issue-view-info">No tickets</p>')
+      })
+    })
   </script>
   {% endblock %}
   <div id="content-page">
@@ -41,16 +48,57 @@
     <div id="home-content" class="content-page-block">
       <div id="board">
           {% for board_column_association in board_columns_associations %}
-            <div class="board-column">
+            <div class="board-column" number="{{ board_column_association.0.column.column_number }}">
               <h2>{{ board_column_association.0.column }}</h2>
             {% for association in board_column_association %}
               {% for issue in issues %}
                 {% if issue.status == association.status %}
-                  <p>{{ issue.key }} {{ issue.status }}</p>
+                  {% if issue.suspended %}
+                    <div class="issue-view" key="{{ issue.key }}" style="background-color: #c9c9c9">
+                  {% else %}
+                     {% if issue.assignee == request.user %}#c4cfe5
+                        <div class="issue-view" key="{{ issue.key }}" style="background-color: var(--theme-hover)">
+                     {% else %}
+                        <div class="issue-view" key="{{ issue.key }}">
+                     {% endif %}
+                  {% endif %}
+                    <div class="issue-view-content-block" row="1">
+                      <a href="#">
+                          <div class="issue-view-content-block" id="issue-view-link">
+                          {{ issue.type.icon_img }}
+                          <p class="issue-key">{{ issue.key }}</p>
+                        </div>
+                      </a>
+                      <div class="issue-view-content-block">
+                        {{ issue.status.status_color }}
+                      </div>
+                    </div>
+                    <div class="issue-view-content-block" row="2">
+                      <div class="issue-view-content-block">
+                        {{ issue.priority.icon_img }}
+                      </div>
+                      <div class="issue-view-content-block">
+                        <p class="issue-title">{{ issue.title }}</p>
+                      </div>
+                    </div>
+                    <div class="issue-view-content-block" row="3">
+                      <div class="issue-view-content-block">
+                        {{ issue.reporter_img }}
+                      </div>
+                      <div class="issue-view-content-block">
+                        {% if issue.assignee_img %}
+                          {{ issue.assignee_img }}
+                        {% else %}
+                          <p class="issue-view-info">No assignee</p>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
                 {% endif %}
               {% endfor %}
             {% endfor %}
               </div>
+              <div class="separator"></div>
           {% endfor %}
       </div>
     </div>

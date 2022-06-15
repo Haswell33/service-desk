@@ -66,7 +66,7 @@ urlpatterns = [
          views.submit_ticket,
          name='submit_ticket'),
     path('ticket/view',
-         views.view_ticket,
+         views.IssueListView.as_view(),
          name='view_ticket'),
     path('admin/',
          admin.site.urls),

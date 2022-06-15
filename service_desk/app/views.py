@@ -1,7 +1,7 @@
 from django.http import HttpResponseRedirect, HttpResponse
-from django.http.cookie import SimpleCookie
 from django.shortcuts import render, reverse, redirect
 from django.conf import settings
+from django.core.mail import send_mail, BadHeaderError
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.tokens import default_token_generator
@@ -9,16 +9,15 @@ from django.contrib.auth.signals import user_logged_out, user_logged_in
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm, PasswordResetForm
 from django.db.models.query_utils import Q
+from django.views import generic
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.template.loader import render_to_string
-from django.core.mail import send_mail, BadHeaderError
-from .models import Board, BoardColumn
+from .models import Issue
 from .forms import IssueForm
-from .utils import get_env_type, get_initial_status, get_active_tenant, active_tenant_session, get_active_tenant_session, tenant_session, clear_tenant_session, change_active_tenant, get_board_columns, get_tenant_cookie_name, get_active_tenant_issues, get_board_columns_assocations
+from .utils import get_env_type, get_initial_status, get_active_tenant, active_tenant_session, get_active_tenant_session, tenant_session, clear_tenant_session, change_active_tenant, get_tenant_cookie_name, get_active_tenant_issues, get_board_columns_assocations, get_board_columns
 from .context_processors import context_tenant_session
-
 
 
 def home(request, template_name='home.html'):
@@ -29,11 +28,9 @@ def home(request, template_name='home.html'):
     else:
         if not active_tenant_session(request.user):
             context_tenant_session(request)
-        board_columns = get_board_columns(request.user)
-        board_columns_associations = get_board_columns_assocations(board_columns)
-        print(board_columns)
+        board_columns_associations = get_board_columns_assocations(get_board_columns(request.user))
         active_tenant_issues = get_active_tenant_issues(request.user)
-        return render(request, template_name, {'board_columns': board_columns, 'board_columns_associations': board_columns_associations, 'issues': active_tenant_issues}, status=200)
+        return render(request, template_name, {'board_columns_associations': board_columns_associations, 'issues': active_tenant_issues}, status=200)
 
 
 def create_ticket(request, template_name='create-ticket.html'):
@@ -83,6 +80,10 @@ def view_ticket(request, template_name='view-ticket.html'):
         return HttpResponseRedirect(f'{settings.LOGIN_URL}')
     response = render(request, template_name, status=200)
     return response
+
+
+class IssueListView(generic.ListView):
+    model = Issue
 
 
 def password_change(request, template_name='password-change.html'):
