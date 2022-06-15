@@ -33,7 +33,7 @@ def home(request, template_name='home.html'):
         return render(request, template_name, {'board_columns_associations': board_columns_associations, 'issues': active_tenant_issues}, status=200)
 
 
-def create_ticket(request, template_name='create-ticket.html'):
+def create_ticket(request, template_name='ticket/ticket-create.html'):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(f'{settings.LOGIN_URL}')
     elif request.COOKIES.get(get_tenant_cookie_name(request.user)) is None:
@@ -68,25 +68,31 @@ def create_ticket(request, template_name='create-ticket.html'):
         return render(request, template_name, {'form': form}, status=200)
 
 
-def submit_ticket(request, template_name='submit-ticket.html'):
+def submit_ticket(request, template_name='ticket/ticket-submit.html'):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(f'{settings.LOGIN_URL}')
     response = render(request, template_name, status=200)
     return response
 
 
-def view_ticket(request, template_name='view-ticket.html'):
+def view_ticket(request, template_name='ticket/ticket-view.html'):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(f'{settings.LOGIN_URL}')
     response = render(request, template_name, status=200)
     return response
 
 
-class IssueListView(generic.ListView):
+class TicketDetailView(generic.detail.DetailView):
     model = Issue
+    fields = ['title', 'key', 'status']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['now'] = 'test'
+        return context
 
 
-def password_change(request, template_name='password-change.html'):
+def password_change(request, template_name='password/password-change.html'):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(f'{settings.LOGIN_URL}?next={request.path}')
     elif request.method == 'POST':
@@ -110,14 +116,14 @@ def password_change(request, template_name='password-change.html'):
         return render(request, template_name, {'form': form}, status=200)
 
 
-def password_change_success(request, template_name='password-change-success.html'):
+def password_change_success(request, template_name='password/password-change-success.html'):
     print('dupa dupa')
     if not request.user.is_authenticated:
         return HttpResponseRedirect(f'{settings.LOGIN_URL}')
     return render(request, template_name, status=200)
 
 
-def password_reset(request, template_name='/password-reset/password-reset.html', email_template_name='password-reset/password-reset-email.html'):
+def password_reset(request, template_name='password/password-reset.html', email_template_name='password/password-reset-email.html'):
     if request.method == "POST":
         form = PasswordResetForm(request.POST)
         if form.is_valid():

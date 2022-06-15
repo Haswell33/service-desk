@@ -522,6 +522,9 @@ class Issue(models.Model):
         null=True,
         editable=False,
         help_text='Date when issue has been recently changed')
+    slug = models.SlugField(
+        max_length=55,
+    blank=True)
     associations = models.ManyToManyField(
         'self',
         through='IssueAssociation',
@@ -552,6 +555,7 @@ class Issue(models.Model):
         if not self.id:
             self.created = timezone.now()
             self.reporter = get_current_user()
+            self.slug = self.key
         self.updated = timezone.now()
         # send_notifications()
         if len(self.title) > 200:

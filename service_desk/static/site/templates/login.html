@@ -6,10 +6,10 @@
 
 <body>
   {% block content_page %}
-  <div id="log-in-content" class="center">
-    <div id="log-in-dialog" class="dialog">
+  <div class="content-page-block center">
+    <div id="content-page-block_log-in" class="dialog">
       <h2>Log In</h2>
-      <form id="log-in-form" class="form" method="post">
+      <form id="log-in_form" class="form" method="post">
         {% csrf_token %}
         <div class="form-field medium-short-field">
           <label for="{{ form.username.id_for_label }}">Username</label>

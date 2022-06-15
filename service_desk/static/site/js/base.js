@@ -4,15 +4,15 @@ else
     console.log('jQuery loaded')
 
 $(document).on('click', function(event) {
-    if($(event.target).is('#navbar-account svg') || $(event.target).is('#navbar-account path')){
-        $('#navbar-account > ul').toggle()
+    if($(event.target).is('#navbar-block_menu svg') || $(event.target).is('#navbar-block_menu path')){
+        $('#navbar-block_menu > ul').toggle()
         if ($('.dialog-bg').is(":visible"))
             $('.dialog-bg').css('display', 'none')
         else
             $('.dialog-bg').css('display', 'block')
     }
-    else if(!$(event.target).is('#navbar-account > ul') && $('#navbar-account > ul').is(':visible')){
-        $('#navbar-account > ul').hide()
+    else if(!$(event.target).is('#navbar-block_menu > ul') && $('#navbar-block_menu > ul').is(':visible')){
+        $('#navbar-block_menu > ul').hide()
         $('.dialog-bg').css('display', 'none')
     }
 

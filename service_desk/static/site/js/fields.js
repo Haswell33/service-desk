@@ -54,7 +54,7 @@ function createTicketFields(mediaUrl) {
 }
 
 function homeFields(mediaUrl) {
-    renderField('#sidebar-tenant-select', mediaUrl, '', true, false, false, -1)
+    renderField('#sidebar-block_tenant-set', mediaUrl, '', true, false, false, -1)
 }
 
 function renderField(htmlTag, mediaUrl, placeholderText, icon, allowClear, multiple, minResults) {
@@ -88,7 +88,7 @@ function renderIconOption(elem, mediaUrl) {
 }
 
 $(document).on('select2:select', function (event) {
-    if (event.target.id === 'sidebar-tenant-select') {
+    if (event.target.id === 'sidebar-block_tenant-set') {
         $.ajax({
             type: 'POST',
             url: '/tenant/update',

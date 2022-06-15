@@ -6,9 +6,13 @@
 
 <body>
   {% block content_page %}
-  <h2>Create ticket</h2>
-  <div id="create-ticket-content" class="content-page-block">
-    <form id="create-ticket-form" class="form" method="post">
+  <div id="content-page_header">
+      <div class="content-page_header-block">
+        <h2>Create ticket</h2>
+      </div>
+    </div>
+  <div id="content-page_create-ticket" class="content-page-block">
+    <form id="create-ticket_form" class="form" method="post">
       {% csrf_token %}
       <div class="form-field long-field required">
         <label for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>

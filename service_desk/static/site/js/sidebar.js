@@ -1,6 +1,6 @@
-SIDEBAR_TOGGLE = '#sidebar-toggle'
+SIDEBAR_TOGGLE = '#sidebar-block_toggle'
 SIDEBAR_TRANSITION = 'sidebar-transition' // class
-SIDEBAR_CONTENT = '#sidebar-content'
+SIDEBAR_CONTENT = '#sidebar-block_content'
 CONTENT_PAGE = '#content-page'
 CREATE_TICKET_FORM = '#create-ticket-form'
 
