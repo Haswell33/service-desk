@@ -476,6 +476,21 @@ footer p {
     border-bottom: 1px solid var(--elem-light-border)
 }
 
+#content-page > #content-header {
+    border-bottom: 1px solid var(--elem-light-border)
+}
+
+#content-page > #content-header h2 {
+    margin: 0 0 5px 0;
+    font-size: 24px;
+    padding-bottom: 7px;
+}
+
+#content-header {
+    display: flex;
+    justify-content: space-between;
+}
+
 /* Content page - Logged out */
 
 #logged-out-dialog {
@@ -666,6 +681,17 @@ form .aligned div.help,
 }
 
 .icon:hover{
+    fill: var(--theme);
+}
+
+.content-header-tooltip > .icon {
+    width: 20px;
+    height: 20px;
+    fill: var(--elem-dark-primary);
+    cursor: pointer;
+}
+
+.content-header-tooltip > .icon:hover {
     fill: var(--theme);
 }
 
@@ -916,4 +942,44 @@ form .aligned div.help,
     color: var(--elem-light-border);
     font-style: italic;
     text-align: center;
+}
+
+
+.content-header-tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.content-header-tooltip .tooltip-text {
+    visibility: hidden;
+    width: 180px;
+    font-size: 13px;
+    background-color: var(--elem-dark-primary);
+    color: var(--elem-light-primary);
+    text-align: center;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    right: 150%;
+    top: -5px;
+    padding: 5px;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.content-header-tooltip .tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  right: -10px;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent transparent var(--elem-dark-primary)
+}
+
+.content-header-tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
 }

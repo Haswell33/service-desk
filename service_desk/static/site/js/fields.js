@@ -97,8 +97,8 @@ $(document).on('select2:select', function (event) {
                 xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
             },
             success: function(result){
-                console.log('active tenant changed')
                 location.reload()
+                console.log('active tenant changed')
             }
         })
     }

@@ -29,7 +29,6 @@ def get_board_columns_assocations(board_columns):
     board_columns_associations = []
     for board_column in board_columns:
         board_columns_associations.append(BoardColumnAssociation.objects.filter(column=board_column))
-    print(board_columns_associations)
     return board_columns_associations
 
 

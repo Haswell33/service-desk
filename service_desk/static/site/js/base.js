@@ -15,6 +15,13 @@ $(document).on('click', function(event) {
         $('#navbar-account > ul').hide()
         $('.dialog-bg').css('display', 'none')
     }
+
+   // else if($(event.target).is('#content-header #icon-hint svg') || $(event.target).is('#navbar-account path')){
+//
+   // }
+   // else if(!$(event.target).is('#content-header #icon-hint .tooltip') && $('#content-header #icon-hint .tooltip').is(':visible')){
+//
+   // }
 })
 
 setTimeout(function(){
