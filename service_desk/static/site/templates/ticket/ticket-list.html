@@ -45,7 +45,7 @@
       <div class="content-page_header-block">
         <div class="content-page_header-block filter">
         <form method="GET" action="{% url 'list_ticket' %}">
-          <select id="filter-assignee" name="assignee">
+          <select id="filter-assignee" name="assignee" >
             <option></option>
             {% for user in users %}
             <option icon="{{ user.icon }}" value="{{ user.username }}">{{ user.username }}</option>

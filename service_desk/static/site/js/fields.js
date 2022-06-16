@@ -55,10 +55,10 @@ function createTicketFields(mediaUrl) {
 
 function homeFields(mediaUrl) {
     renderField('#sidebar-block_tenant-set', mediaUrl, '', true, false, false, -1)
-    renderField('#filter-assignee', mediaUrl, 'Filter by assignee', true, false, false, 0)
-    renderField('#filter-reporter', mediaUrl, 'Filter by reporter', true, false, false, 0)
-
-    renderField('#filter-order-by', mediaUrl, 'Order by', false, false, false, 0)
+    renderField('#filter_assignee', mediaUrl, 'Filter by assignee', true, false, false, 0)
+    renderField('#filter_reporter', mediaUrl, 'Filter by reporter', true, false, false, 0)
+    renderField('#filter_order-by', mediaUrl, 'Order by', false, false, false, 0)
+    renderField('#filter_order-type', mediaUrl, 'Ordering type', false, false, false, -1)
 }
 
 function renderField(htmlTag, mediaUrl, placeholderText, icon, allowClear, multiple, minResults) {

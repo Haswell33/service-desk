@@ -526,9 +526,10 @@ footer a:visited {
     width: 400px;
 }
 
-#filter-assignee,
-#filter-reporter,
-#filter-order-by {
+#filter_assignee,
+#filter_reporter,
+#filter_order-by,
+#filter_order-type {
     width: 160px
 }
 /* Content page - Log In */
@@ -954,7 +955,7 @@ form .aligned div.help,
 }
 
 .assigned {
-    background-color: var(--theme-hover);
+    background-color: #e8e8e8;
 }
 
 #ticket-block_link {

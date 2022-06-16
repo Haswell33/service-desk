@@ -97,7 +97,8 @@ class TicketListView(generic.ListView):
         filter_assignee = self.request.GET.get('assignee', '')
         filter_reporter = self.request.GET.get('reporter', '')
         filter_ordering = self.request.GET.get('ordering', '')
-        tickets = get_active_tenant_issues(self.request.user, filter_assignee, filter_reporter, filter_ordering)
+        filter_ordering_type = self.request.GET.get('order_type', 'desc')
+        tickets = get_active_tenant_issues(self.request.user, filter_assignee, filter_reporter, filter_ordering, filter_ordering_type)
         return tickets
 
     def get_context_data(self, **kwargs):
@@ -114,6 +115,10 @@ class TicketListView(generic.ListView):
                 'Created date': 'created',
                 'Escalated': 'escalated',
                 'Suspended': 'suspended',
+            },
+            'ordering_types': {
+                'Ascending': 'asc',
+                'Descending': 'desc'
             }
             # Issue._meta.get_fields()
         })

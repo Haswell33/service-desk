@@ -146,7 +146,7 @@ class LabelAssociationInline(admin.TabularInline):
 @admin.register(Issue)
 class IssueAdminModel(admin.ModelAdmin):
     list_display = ('key', 'type_img', 'title', 'priority_img', 'status_color', 'resolution', 'reporter_img_text', 'assignee_img_text', 'escalated', 'suspended', 'tenant', 'get_labels', 'created_datetime', 'updated_datetime')
-    search_fields = ['key', 'title', 'tenant', 'priority', 'status', 'resolution', 'type', 'labels', 'reporter', 'assignee']
+    search_fields = ['key', 'title', 'tenant__name', 'priority__name', 'status__name', 'resolution__name', 'type__name', 'reporter__username', 'assignee__username']
     list_filter = ('type', 'reporter', 'assignee', 'tenant', 'priority')
     fieldsets = (
         (None, {

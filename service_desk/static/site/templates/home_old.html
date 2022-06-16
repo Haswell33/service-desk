@@ -88,6 +88,7 @@
             <h2>{{ board_column_association.0.column }}</h2>
             {% for association in board_column_association %}
               {% for ticket in tickets %}
+                {{ forloop.counter }}
                 {% if ticket.status == association.status %}
                   {% if ticket.suspended %}
                     <div class="ticket-block suspended" key="{{ ticket.key }}">

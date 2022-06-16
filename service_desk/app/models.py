@@ -195,7 +195,7 @@ class Priority(models.Model):
         db_table = 'priority'
         verbose_name = 'priority'
         verbose_name_plural = 'priorities'
-        ordering = ['step']
+        ordering = ['-step']
 
     @property
     def icon_img(self):
@@ -333,6 +333,7 @@ class BoardColumn(models.Model):
 
     def __str__(self):
         return self.column_title
+
 
 class Transition(models.Model):
     name = models.CharField(max_length=55)
@@ -551,7 +552,6 @@ class Issue(models.Model):
         db_table = 'issue'
         verbose_name = 'issue'
         verbose_name_plural = 'issues'
-        ordering = ['id']
 
     def save(self, *args, **kwargs):
         if not self.id:
