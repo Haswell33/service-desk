@@ -106,9 +106,16 @@ def get_tenant_cookie_name(user):
     return f'active_tenant_id_{str(user.id)}'
 
 
-def get_active_tenant_issues(user):
+def get_active_tenant_issues(user, filter_assignee, filter_reporter, ordering):
     active_tenant = get_active_tenant(user)
-    return Issue.objects.filter(tenant=active_tenant.id)
+    tickets = Issue.objects.filter(tenant=active_tenant.id)
+    if filter_assignee:
+        tickets = tickets.filter(assignee__username=filter_assignee)
+    if filter_reporter:
+        tickets = tickets.filter(reporter__username=filter_reporter)
+    if ordering:
+        tickets = tickets.order_by('-' + ordering)
+    return tickets
 
 
 def change_active_tenant(tenant_id, user):

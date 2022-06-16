@@ -27,6 +27,10 @@
         <a href="{% url 'create_ticket' %}"><input type="button" value="Create ticket"></a>
       </div>
       <div id="sidebar-block_recent-actions">
+<form method="get" action="{% url 'list_ticket' %}">
+    <p>Filter: <input type="text" value={{assignee}} name="filter"/></p>
+    <p><input type="submit" name="assignee" value="admin"/></p>
+</form>
 
       </div>
     </div>
@@ -40,7 +44,7 @@
       </div>
       <div class="content-page_header-block">
         <div class="content-page_header-block filter">
-        <form method="GET" action="{% url 'home' %}">
+        <form method="GET" action="{% url 'list_ticket' %}">
           <select id="filter-assignee" name="assignee">
             <option></option>
             {% for user in users %}
@@ -53,13 +57,7 @@
             <option icon="{{ user.icon }}" value="{{ user.username }}">{{ user.username }}</option>
             {% endfor %}
           </select>
-          <select id="filter-order-by" name="ordering">
-            <option></option>
-            {% for key, value in order_fields.items %}
-            <option value="{{ value }}">{{ key }}</option>
-            {% endfor %}
-          </select>
-          <input type="submit" value="Filter"/>
+            <input type="submit" value="admin"/>
           </form>
         </div>
         <div class="content-page_header-block tooltip">

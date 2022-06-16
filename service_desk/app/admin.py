@@ -98,7 +98,7 @@ class TenantAdminModel(admin.ModelAdmin):
 
 @admin.register(Priority)
 class PriorityAdminModel(admin.ModelAdmin):
-    list_display = ('name', 'icon_img')
+    list_display = ('name', 'icon_img', 'step')
     search_fields = ['name']
 
 
@@ -159,7 +159,7 @@ class IssueAdminModel(admin.ModelAdmin):
             'fields': ('status', 'resolution', 'suspended')
         }),
         ('Data', {
-            'fields': ['description', ]
+            'fields': ['description', 'slug']
         }),
     )
     inlines = [LabelAssociationInline]

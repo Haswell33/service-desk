@@ -13,9 +13,9 @@ handler403 = 'app.views.permission_denied'
 handler404 = 'app.views.page_not_found'
 handler500 = 'app.views.internal_server_error'
 urlpatterns = [
-    path('',
-         views.home,
-         name='home'),
+    #path('',
+    #     views.home,
+    #     name='home'),
     path('tenant/update',
          views.tenant_update,
          name='tenant_update'),
@@ -68,6 +68,9 @@ urlpatterns = [
     path('ticket/view/<slug:slug>',
          views.TicketDetailView.as_view(template_name='ticket/ticket-view.html'),
          name='view_ticket'),
+    path('',
+         views.TicketListView.as_view(template_name='home.html'),
+         name='home'),
     path('admin/',
          admin.site.urls),
     path('tinymce/',

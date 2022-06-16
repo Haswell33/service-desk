@@ -183,6 +183,8 @@ class Priority(models.Model):
         name='description',
         blank=True,
         null=True)
+    step = models.IntegerField(
+        default=1)
     icon = models.ImageField(
         upload_to=f'{get_media_path()}/img/priority',
         validators=[FileExtensionValidator],
@@ -193,7 +195,7 @@ class Priority(models.Model):
         db_table = 'priority'
         verbose_name = 'priority'
         verbose_name_plural = 'priorities'
-        ordering = ['id']
+        ordering = ['step']
 
     @property
     def icon_img(self):
@@ -524,7 +526,7 @@ class Issue(models.Model):
         help_text='Date when issue has been recently changed')
     slug = models.SlugField(
         max_length=55,
-    blank=True)
+        blank=True)
     associations = models.ManyToManyField(
         'self',
         through='IssueAssociation',
@@ -555,7 +557,7 @@ class Issue(models.Model):
         if not self.id:
             self.created = timezone.now()
             self.reporter = get_current_user()
-            self.slug = self.key
+            self.slug = self.key.lower()
         self.updated = timezone.now()
         # send_notifications()
         if len(self.title) > 200:
@@ -646,6 +648,9 @@ class Issue(models.Model):
     @property
     def get_labels(self):
         return "\n".join([p.labels for p in self.label.all()])
+
+    def get_fields(self):
+        return [(field.name, field.value_to_string(self)) for field in Issue._meta.fields]
 
     def __str__(self):
         return self.key
