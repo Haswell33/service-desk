@@ -1,0 +1,110 @@
+{% extends 'home.html' %}
+
+<head>
+  <title>{% block title %} {{ block.super }} | Filter view{% endblock %}</title>
+</head>
+
+<body>
+  {% block content_page %}
+    <div id="content-page_header">
+      <div class="content-page_header-block">
+        <h2>Filter view</h2>
+      </div>
+      <div class="content-page_header-block">
+        <div class="content-page_header-block filter">
+          <form method="GET" action="{% url 'home' %}">
+            <select id="filter-view_filter_assignee" class="filter-field" name="assignee">
+              <option></option>
+              {% for user in users %}
+                <option icon="{{ user.icon }}" value="{{ user.username }}">{{ user.username }}</option>
+              {% endfor %}
+            </select>
+            <select id="filter-view_filter_reporter" class="filter-field" name="reporter">
+              <option></option>
+              {% for user in users %}
+                <option icon="{{ user.icon }}" value="{{ user.username }}">{{ user.username }}</option>
+              {% endfor %}
+            </select>
+            <select id="filter-view_filter_status" class="filter-field" name="status">
+              <option></option>
+              {% for status in statuses %}
+                <option value="{{ status.name }}">{{ status.name }}</option>
+              {% endfor %}
+            </select>
+            <select id="filter-view_filter_resolution" class="filter-field" name="resolution">
+              <option></option>
+              {% for resolution in resolutions %}
+                <option value="{{ resolution.name }}">{{ resolution.name }}</option>
+              {% endfor %}
+            </select>
+            <select id="filter-view_filter_label" class="filter-field" name="label">
+              <option></option>
+              {% for label in labels %}
+                <option value="{{ label.name }}">{{ label.name }}</option>
+              {% endfor %}
+            </select>
+            <select id="filter-view_filter_type" class="filter-field" name="type">
+              <option></option>
+              {% for type in types %}
+                <option icon="{{ type.icon }}"  value="{{ type.name }}">{{ type.name }}</option>
+              {% endfor %}
+            </select>
+            <select id="filter-view_filter_priority" class="filter-field" name="priority">
+              <option></option>
+              {% for priority in priorities %}
+                <option icon="{{ priority.icon }}" value="{{ priority.name }}">{{ priority.name }}</option>
+              {% endfor %}
+            </select>
+            <select id="filter-view_filter_order-by" class="filter-field" name="ordering">
+              <option></option>
+              {% for key, value in order_fields.items %}
+                <option value="{{ value }}">{{ key }}</option>
+              {% endfor %}
+            </select>
+            <select id="filter-view_filter_order-type" class="filter-field" name="order_type">
+              <option></option>
+              {% for key, value in ordering_types.items %}
+                <option value="{{ value }}">{{ key }}</option>
+              {% endfor %}
+            </select>
+            <input type="submit" value="Filter"/>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div id="content-page_content" class="content-page-block">
+      <table id="ticket-table" cellspacing="0">
+        <tr class="table-header">
+        {% for field in fields %}
+          <th>{{ field }}</th>
+        {% endfor %}
+        </tr>
+        {% for ticket in tickets %}
+          {% if ticket.suspended %}
+          <tr class="suspended">
+          {% else %}
+          <tr>
+          {% endif %}
+            <td>{{ ticket.type.icon_img }}</td>
+            <td>
+              <a class="ticket_link" href="{% url 'view_ticket' ticket.slug %}">
+                {{ ticket.key }}
+              </a>
+            </td>
+            <td>{{ ticket.title }}</td>
+            <td>{{ ticket.priority.icon_img }}</td>
+            <td>{{ ticket.status.status_color }}</td>
+            <td>{{ ticket.resolution}}</td>
+            <td>{{ ticket.reporter_img }}</td>
+            <td>{{ ticket.assignee_img }}</td>
+            <td>{{ ticket.updated_datetime }}</td>
+            <td>{{ ticket.created_datetime }}</td>
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
+    <script>
+      $(document).ready(function(){renderFields('filter-view', '{{ MEDIA_URL }}')})
+    </script>
+  {% endblock %}
+</body>

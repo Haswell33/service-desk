@@ -9,6 +9,9 @@ function renderFields(page, mediaUrl) {
         case 'home':
             homeFields(mediaUrl)
             break
+        case 'filter-view':
+            filterViewFields(mediaUrl)
+            break
         default:
             console.error('not found provided page, can not load select2 fields')
     }
@@ -55,10 +58,21 @@ function createTicketFields(mediaUrl) {
 
 function homeFields(mediaUrl) {
     renderField('#sidebar-block_tenant-set', mediaUrl, '', true, false, false, -1)
-    renderField('#filter_assignee', mediaUrl, 'Filter by assignee', true, false, false, 0)
-    renderField('#filter_reporter', mediaUrl, 'Filter by reporter', true, false, false, 0)
-    renderField('#filter_order-by', mediaUrl, 'Order by', false, false, false, 0)
-    renderField('#filter_order-type', mediaUrl, 'Ordering type', false, false, false, -1)
+    renderField('#board_filter_assignee', mediaUrl, 'Filter by assignee', true, false, false, 0)
+    renderField('#board_filter_reporter', mediaUrl, 'Filter by reporter', true, false, false, 0)
+}
+
+function filterViewFields(mediaUrl) {
+    renderField('#filter-view_filter_assignee', mediaUrl, 'Filter by assignee', true, true, true, 0)
+    renderField('#filter-view_filter_reporter', mediaUrl, 'Filter by reporter', true, true, true, 0)
+    renderField('#filter-view_filter_status', mediaUrl, 'Filter by status', false, true, true, 0)
+    renderField('#filter-view_filter_resolution', mediaUrl, 'Filter by result', false, true, true, 0)
+    renderField('#filter-view_filter_label', mediaUrl, 'Filter by labels', false, true, true, 0)
+    renderField('#filter-view_filter_type', mediaUrl, 'Filter by type', true, true, true, 0)
+    renderField('#filter-view_filter_priority', mediaUrl, 'Filter by priority', true, false, true, 0)
+
+    renderField('#filter-view_filter_order-by', mediaUrl, 'Order by', false, false, false, 0)
+    renderField('#filter-view_filter_order-type', mediaUrl, 'Ordering type', false, false, false, -1)
 }
 
 function renderField(htmlTag, mediaUrl, placeholderText, icon, allowClear, multiple, minResults) {

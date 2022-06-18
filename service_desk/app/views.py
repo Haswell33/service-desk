@@ -14,7 +14,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.template.loader import render_to_string
-from .models import Issue, BoardColumnAssociation
+from .models import Issue, IssueType, Priority, Status, Resolution, Label
 from .forms import IssueForm
 from .utils import get_env_type, get_initial_status, get_active_tenant, active_tenant_session, get_active_tenant_session, tenant_session, clear_tenant_session, change_active_tenant, get_tenant_cookie_name, get_active_tenant_issues, get_board_columns_assocations, get_board_columns
 from .context_processors import context_tenant_session
@@ -34,6 +34,29 @@ def home(request, template_name='home.html'):
     response = render(request, template_name, status=200)
     print('dupa')
     return response'''
+
+
+def check_get_request(self, request, view_name, *args, **kwargs):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(f'{settings.LOGIN_URL}')
+    elif request.COOKIES.get(get_tenant_cookie_name(request.user)) is None:
+        return redirect('tenant_update')
+    if not active_tenant_session(request.user):
+        context_tenant_session(request)
+    response = super(view_name, self).get(request, *args, **kwargs)
+    response.status_code = 200
+    return response
+
+
+def after_logout(sender, user, request, **kwargs):
+    clear_tenant_session(user)
+
+
+def after_login(sender, user, request, **kwargs):
+    if not tenant_session(user):
+        context_tenant_session(request)
+
+# Views
 
 
 def create_ticket(request, template_name='ticket/ticket-create.html'):
@@ -87,7 +110,7 @@ class TicketDetailView(generic.detail.DetailView):
         return context
 
 
-class TicketListView(generic.ListView):
+class TicketBoardListView(generic.ListView):
     model = Issue
     paginate_by = 50
     context_object_name = 'tickets'
@@ -102,7 +125,7 @@ class TicketListView(generic.ListView):
         return tickets
 
     def get_context_data(self, **kwargs):
-        context = super(TicketListView, self).get_context_data(**kwargs)
+        context = super(TicketBoardListView, self).get_context_data(**kwargs)
         context.update({
             'board_columns_associations': get_board_columns_assocations(get_board_columns(self.request.user)),
             'users': User.objects.all(),
@@ -125,15 +148,65 @@ class TicketListView(generic.ListView):
         return context
 
     def get(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return HttpResponseRedirect(f'{settings.LOGIN_URL}')
-        elif request.COOKIES.get(get_tenant_cookie_name(request.user)) is None:
-            return redirect('tenant_update')
-        if not active_tenant_session(request.user):
-            context_tenant_session(request)
-        response = super(TicketListView, self).get(request, *args, **kwargs)
-        response.status_code = 200
-        return response
+        return check_get_request(self, request, TicketBoardListView, *args, **kwargs)
+
+
+class TicketFilterListView(generic.ListView):
+    model = Issue
+    paginate_by = 50
+    context_object_name = 'tickets'
+    template_name = 'ticket/ticket-filter.html'
+
+    def get_queryset(self):
+        filter_assignee = self.request.GET.get('assignee', '')
+        filter_reporter = self.request.GET.get('reporter', '')
+        filter_ordering = self.request.GET.get('ordering', '')
+        filter_ordering_type = self.request.GET.get('order_type', 'desc')
+        tickets = get_active_tenant_issues(self.request.user, filter_assignee, filter_reporter, filter_ordering, filter_ordering_type)
+        return tickets
+
+    def get_context_data(self, **kwargs):
+        context = super(TicketFilterListView, self).get_context_data(**kwargs)
+        context.update({
+            'users': User.objects.all(),
+            'priorites'
+            'statuses': Status.objects.all().exclude(name='All'),
+            'resolutions': Resolution.objects.all(),
+            'priorities': Priority.objects.all(),
+            'types': IssueType.objects.all(),
+            'labels': Label.objects.all(),
+            'fields': {
+                'Type': 'type',
+                'Key': 'key',
+                'Title': 'title',
+                'Priority': 'priority',
+                'Status': 'status',
+                'Resolution': 'resolution',
+                'Reporter': 'reporter',
+                'Assignee': 'asignee',
+                'Updated': 'updated',
+                'Created': 'created'
+            },
+            'order_fields': {
+                'Key': 'id',
+                'Priority': 'priority',
+                'Type': 'type',
+                'Status': 'status',
+                'Updated date': 'updated',
+                'Created date': 'created',
+                'Escalated': 'escalated',
+                'Suspended': 'suspended',
+            },
+            'ordering_types': {
+                'Ascending': 'asc',
+                'Descending': 'desc'
+            }
+            # Issue._meta.get_fields()
+        })
+        return context
+
+    def get(self, request, *args, **kwargs):
+        return check_get_request(self, request, TicketFilterListView, *args, **kwargs)
 
 
 def password_change(request, template_name='password/password-change.html'):
@@ -237,19 +310,8 @@ def tenant_update(request):
     return response
 
 
-def after_logout(sender, user, request, **kwargs):
-    clear_tenant_session(user)
-
-
-def after_login(sender, user, request, **kwargs):
-    if not tenant_session(user):
-        context_tenant_session(request)
-
-
 user_logged_out.connect(after_logout)
 user_logged_in.connect(after_login)
-
-
 
 '''
 def login(request):

@@ -25,7 +25,7 @@
     --dialog-bg: rgba(60, 60, 60, 0.48);
 
     --nav-height: 61px;
-    --sidebar-width: 298px;
+    --sidebar-width: 299px;
     --footer-height: 45px;
     --background: #ddd;
     background: #dddddd;
@@ -142,7 +142,7 @@ input[type=submit],
     background: var(--elem-light-primary);
     border: 1px solid var(--elem-dark-primary);
     cursor: pointer;
-    padding: 10px 20px;
+    padding: 8px 20px;
     font-family: Lato-bold, sans-serif;
     transition: 400ms background, border-color, font-weight, color;
 }
@@ -401,19 +401,22 @@ footer a:visited {
     flex-direction: row;
     min-height: 100%;
     top: var(--nav-height);
+    position: fixed;
+    height: 100%;
     bottom: 0;
     margin: 0;
 }
 
 .sidebar-block {
-    height: 100%;
-    position: fixed!important;
+    padding: 10px;
 }
 
 #sidebar-block_toggle {
     display: flex;
     cursor: pointer;
     z-index: 40;
+    height: 100%;
+    position: fixed!important;
     margin-bottom: var(--footer-height);
     flex-direction: column;
     justify-content: center;
@@ -440,6 +443,8 @@ footer a:visited {
     margin-left: calc(-1 * var(--sidebar-width));
     padding-left: 20px;
     visibility: visible;
+    height: 100%;
+    position: fixed!important;
     border-right: 1px solid var(--elem-light-secondary);
 }
 
@@ -461,7 +466,50 @@ footer a:visited {
     letter-spacing: 1px;
 }
 
-#sidebar-block_content > #sidebar-block_create-ticket {
+#sidebar-block_menu ul {
+    list-style: none;
+    font-family: Lato-bold, sans-serif;
+    margin: 0;
+    padding-left: 0;
+}
+
+#sidebar-block_menu ul li {
+    padding: 10px 2px 10px 2px;
+    transition: 300ms background-color;
+}
+
+#sidebar-block_menu ul li:hover {
+    background-color: var(--elem-dark-primary);
+    border-radius: 5px;
+}
+
+#sidebar-block_menu ul li:hover a,
+#sidebar-block_menu ul li:hover svg{
+    color: var(--elem-light-primary);
+    fill: var(--elem-light-primary);
+}
+
+#sidebar-block_menu ul li:not(:last-child) {
+    border-bottom: 1px solid var(--elem-light-border)
+}
+
+#sidebar-block_menu ul svg {
+    padding-right: 5px;
+    height: 28px;
+    width: 28px;
+    fill: var(--elem-dark-primary)
+}
+
+#sidebar-block_menu ul p {
+    margin: 0;
+}
+
+#sidebar-block_menu ul li a {
+    display: flex;
+    align-items: center;
+}
+
+/*#sidebar-block_content > #sidebar-block_create-ticket {
     padding: 10px;
     display: flex;
 }
@@ -474,7 +522,7 @@ footer a:visited {
     width: 100%;
     font-size: 95%;
     padding: 8px 10px 8px 10px;
-}
+}*/
 
 #sidebar-block_tenant-set {
     width: 100%;
@@ -526,11 +574,8 @@ footer a:visited {
     width: 400px;
 }
 
-#filter_assignee,
-#filter_reporter,
-#filter_order-by,
-#filter_order-type {
-    width: 160px
+.filter-field {
+    width: 180px
 }
 /* Content page - Log In */
 
@@ -890,8 +935,17 @@ form .aligned div.help,
     align-items: center;
 }
 
+#board .board-column:first-child {
+    padding-left: 0;
+}
+
+#board  .board-column:last-child {
+    padding-right: 0;
+}
+
 #board > .board-column h2 {
     text-align: center;
+    margin: 10px 0 10px 0;
 }
 
 #board .separator:not(:last-child)  {
@@ -958,7 +1012,7 @@ form .aligned div.help,
     background-color: #e8e8e8;
 }
 
-#ticket-block_link {
+.ticket_link {
     display: flex;
     position:relative;
     left: -5px;
@@ -966,13 +1020,14 @@ form .aligned div.help,
     padding: 5px;
 }
 
-#ticket-block_link:hover {
+.ticket_link:hover {
     background: var(--elem-light-hover);
     border-radius:5px
 }
 
 .ticket-block_info {
     color: var(--elem-light-border);
+    font-size: 90%;
     font-style: italic;
     text-align: center;
 }
@@ -1025,4 +1080,28 @@ form .aligned div.help,
 .tooltip:hover > .tooltip-text {
     visibility: visible;
     opacity: 1;
+}
+
+#ticket-table {
+    width: 100%;
+}
+
+#ticket-table tr.table-header {
+    font-family: Lato-bold, sans-serif;
+    color: var(--elem-light-secondary);
+    padding: 10px 2px 10px;
+}
+
+#ticket-table th {
+    text-align: left;
+}
+
+#ticket-table td,
+#ticket-table th {
+    border-bottom: 1px solid var(--elem-light-border);
+    padding: 5px;
+}
+
+#ticket-table tr{
+    font-size: 90%
 }

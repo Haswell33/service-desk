@@ -1,5 +1,6 @@
 from django.conf import settings
-from django.core import serializers
+from django.http import HttpResponseRedirect, HttpResponse
+from django.shortcuts import render, reverse, redirect
 from .models import Tenant, TenantSession, IssueType, Issue, Status, Board, BoardColumn, BoardColumnAssociation
 from collections import namedtuple
 import json

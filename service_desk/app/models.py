@@ -608,7 +608,10 @@ class Issue(models.Model):
     @property
     def assignee_img(self):
         try:
-            return get_img_field(self.assignee.icon, self.assignee, 20, 20)
+            if self.assignee is None:
+                return mark_safe('<div class="ticket-block_info">Unassigned</div>')
+            else:
+                return get_img_field(self.assignee.icon, self.assignee, 20, 20)
         except AttributeError:
             return self.assignee
 
