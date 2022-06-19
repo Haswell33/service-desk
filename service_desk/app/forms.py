@@ -1,8 +1,8 @@
-from .models import Issue, IssueType, Label
+from .models import Issue, IssueType, Label, User, Status, Resolution, Priority
 from django.forms import ClearableFileInput
-from django_quill.forms import QuillFormField
 from django.utils.translation import gettext_lazy as _
 from django import forms
+from django.conf import settings
 
 
 class IconField(forms.Select):
@@ -38,6 +38,39 @@ class IssueForm(forms.ModelForm):
             'assignee': IconField,
             'attachments': ClearableFileInput(attrs={'multiple': True}),
         }
+
+
+class IssueFilterViewForm(forms.Form):
+    assignee = forms.ModelMultipleChoiceField(
+        queryset=User.objects.all(),
+        required=False,
+        widget=IconField)
+    reporter = forms.ModelMultipleChoiceField(
+        queryset=User.objects.all(),
+        required=False)
+    status = forms.ModelMultipleChoiceField(
+        queryset=Status.objects.all(),
+        required=False)
+    resolution = forms.ModelMultipleChoiceField(
+        queryset=Resolution.objects.all(),
+        required=False)
+    label = forms.ModelMultipleChoiceField(
+        queryset=Label.objects.all(),
+        required=False)
+    type = forms.ModelMultipleChoiceField(
+        queryset=IssueType.objects.all(),
+        required=False,
+        widget=IconField)
+    priority = forms.ModelMultipleChoiceField(
+        queryset=Priority.objects.all(),
+        required=False,
+        widget=IconField)
+    order_by_fields = forms.ChoiceField(
+        choices=settings.ORDER_BY_FIELDS,
+        required=False)
+    order_by_type = forms.ChoiceField(
+        choices=settings.ORDER_BY_TYPES,
+        required=False)
 
 
 # class CustomerIssueForm(forms.Form):

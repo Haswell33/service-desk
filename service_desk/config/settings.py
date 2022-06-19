@@ -18,6 +18,22 @@ ENV_TYPES = [
     ('service-desk', 'Service Desk'),
     ('software', 'Software')
 ]
+ORDER_BY_FIELDS = [
+    ('type', 'Type'),
+    ('key', 'Key'),
+    ('title', 'Title'),
+    ('priority', 'Priority'),
+    ('status', 'Status'),
+    ('resolution', 'Resolution'),
+    ('reporter', 'Reporter'),
+    ('assignee', 'Assignee'),
+    ('updated', 'Updated'),
+    ('created', 'Created')
+]
+ORDER_BY_TYPES = [
+    ('asc', 'Ascending'),
+    ('desc', 'Descending')
+]
 
 BASE_DIR = Path(__file__).resolve().parent.parent  # Build paths inside the project like this: BASE_DIR / 'subdir'.
 SECRET_KEY = 'django-insecure-z(g7^uxx3*)@ctru=wvchu5tezwzd3s@0m01rozf=-szc8%_!@'

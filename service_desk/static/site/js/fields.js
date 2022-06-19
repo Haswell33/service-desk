@@ -24,13 +24,10 @@ function adminFields(mediaUrl) {
     renderField('#id_reporter', mediaUrl, 'Select a reporter', true, false, false, 0)
     renderField('#id_status', mediaUrl, 'Select a status', false, false, false, -1)
     renderField('#id_resolution', mediaUrl, 'Select a resolution', false, true, false, -1)
-
     renderField('#id_src_status', mediaUrl, 'Select a source status', false, false, false, -1)
     renderField('#id_dest_status', mediaUrl, 'Select a destination status', false, false, false, -1)
-
     renderField('#id_issue_type', mediaUrl, 'Select an issue type', true, false, false, -1)
     renderField('#id_transition', mediaUrl, 'Select a destination status', false, false, false, -1)
-
     renderField('#id_sla', mediaUrl, 'Select a destination status', false, false, false, -1)
     renderField('#id_customers_group', mediaUrl, 'Select a customers group', false, true, false, 0)
     renderField('#id_operators_group', mediaUrl, 'Select a developers group', false, true, false, 0)
@@ -38,13 +35,10 @@ function adminFields(mediaUrl) {
     renderField('#id_customers_board', mediaUrl, 'Select a default board for customers', false, true, false, 0)
     renderField('#id_operators_board', mediaUrl, 'Select a default board for operators', false, true, false, 0)
     renderField('#id_developers_board', mediaUrl, 'Select a default board for developers', false, true, false, 0)
-
     renderField('#id_env_type', mediaUrl, 'Select a purpose of this object', false, true, false, -1)
     renderField('#id_board', mediaUrl, 'Select a assigned board', false, false, false, 0)
     renderField('#id_column', mediaUrl, 'Select a column where status will be displayed', false, false, false, 0)
-
     renderField('select[name=action]', mediaUrl, 'Select a bulk action for selected rows', false, true, false, -1)
-
     renderField('#id_user_permissions', mediaUrl, 'Select an user permissions', false, true, true, 0)
     renderField('#id_groups', mediaUrl, 'Select an groups', false, true, true, 0)
 }
@@ -63,7 +57,7 @@ function homeFields(mediaUrl) {
 }
 
 function filterViewFields(mediaUrl) {
-    renderField('#filter-view_filter_assignee', mediaUrl, 'Filter by assignee', true, true, true, 0)
+    renderField('#id_reporter', mediaUrl, 'Filter by assignee', true, true, true, 0)
     renderField('#filter-view_filter_reporter', mediaUrl, 'Filter by reporter', true, true, true, 0)
     renderField('#filter-view_filter_status', mediaUrl, 'Filter by status', false, true, true, 0)
     renderField('#filter-view_filter_resolution', mediaUrl, 'Filter by result', false, true, true, 0)

@@ -15,7 +15,7 @@ from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.template.loader import render_to_string
 from .models import Issue, IssueType, Priority, Status, Resolution, Label
-from .forms import IssueForm
+from .forms import IssueForm, IssueFilterViewForm
 from .utils import get_env_type, get_initial_status, get_active_tenant, active_tenant_session, get_active_tenant_session, tenant_session, clear_tenant_session, change_active_tenant, get_tenant_cookie_name, get_active_tenant_issues, get_board_columns_assocations, get_board_columns
 from .context_processors import context_tenant_session
 
@@ -169,7 +169,8 @@ class TicketFilterListView(generic.ListView):
         context = super(TicketFilterListView, self).get_context_data(**kwargs)
         context.update({
             'users': User.objects.all(),
-            'priorites'
+            'form': IssueFilterViewForm(),
+            'priorites': 'test',
             'statuses': Status.objects.all().exclude(name='All'),
             'resolutions': Resolution.objects.all(),
             'priorities': Priority.objects.all(),
