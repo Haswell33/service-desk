@@ -13,6 +13,20 @@ class IconField(forms.Select):
         return option
 
 
+class EmptyDefault(forms.Select):
+    def create_option(self, name, value, label, selected, index, subindex=None, attrs=None):
+        option = super().create_option(name, value, label, selected, index, subindex, attrs)
+        if value == '':
+            option['attrs']['style'] = 'display: none'
+        return option
+
+
+class ModelIconChoiceField(forms.ModelChoiceField):
+    def __init__(self, my_attr, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.my_attr = my_attr
+
+
 class IssueForm(forms.ModelForm):
     class Meta:
         model = Issue
@@ -41,15 +55,16 @@ class IssueForm(forms.ModelForm):
 
 
 class IssueFilterViewForm(forms.Form):
-    assignee = forms.ModelMultipleChoiceField(
+    assignee = forms.ModelChoiceField(
         queryset=User.objects.all(),
         required=False,
         widget=IconField)
-    reporter = forms.ModelMultipleChoiceField(
+    reporter = forms.ModelChoiceField(
         queryset=User.objects.all(),
-        required=False)
+        required=False,
+        widget=IconField)
     status = forms.ModelMultipleChoiceField(
-        queryset=Status.objects.all(),
+        queryset=Status.objects.all().exclude(name='All'),
         required=False)
     resolution = forms.ModelMultipleChoiceField(
         queryset=Resolution.objects.all(),
@@ -60,17 +75,11 @@ class IssueFilterViewForm(forms.Form):
     type = forms.ModelMultipleChoiceField(
         queryset=IssueType.objects.all(),
         required=False,
-        widget=IconField)
+        widget=IconField(attrs={'multiple': 'true', 'icon': 'dupa'}))
     priority = forms.ModelMultipleChoiceField(
         queryset=Priority.objects.all(),
         required=False,
-        widget=IconField)
-    order_by_fields = forms.ChoiceField(
-        choices=settings.ORDER_BY_FIELDS,
-        required=False)
-    order_by_type = forms.ChoiceField(
-        choices=settings.ORDER_BY_TYPES,
-        required=False)
+        widget=IconField(attrs={'multiple': 'true'}))
 
 
 # class CustomerIssueForm(forms.Form):

@@ -14,9 +14,9 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.template.loader import render_to_string
-from .models import Issue, IssueType, Priority, Status, Resolution, Label
+from .models import Issue
 from .forms import IssueForm, IssueFilterViewForm
-from .utils import get_env_type, get_initial_status, get_active_tenant, active_tenant_session, get_active_tenant_session, tenant_session, clear_tenant_session, change_active_tenant, get_tenant_cookie_name, get_active_tenant_issues, get_board_columns_assocations, get_board_columns
+from .utils import get_env_type, get_initial_status, get_active_tenant, active_tenant_session, get_active_tenant_session, tenant_session, clear_tenant_session, change_active_tenant, get_tenant_cookie_name, get_active_tenant_issues, get_board_columns_assocations, get_board_columns, filter_tickets, order_tickets, get_transitions
 from .context_processors import context_tenant_session
 
 '''
@@ -103,10 +103,12 @@ def submit_ticket(request, template_name='ticket/ticket-submit.html'):
 
 class TicketDetailView(generic.detail.DetailView):
     model = Issue
-    fields = ['title', 'key', 'status']
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context.update({
+            'dest_statuses': get_transitions(self.object)
+        })
         return context
 
 
@@ -117,11 +119,7 @@ class TicketBoardListView(generic.ListView):
     template_name = 'home.html'
 
     def get_queryset(self):
-        filter_assignee = self.request.GET.get('assignee', '')
-        filter_reporter = self.request.GET.get('reporter', '')
-        filter_ordering = self.request.GET.get('ordering', '')
-        filter_ordering_type = self.request.GET.get('order_type', 'desc')
-        tickets = get_active_tenant_issues(self.request.user, filter_assignee, filter_reporter, filter_ordering, filter_ordering_type)
+        tickets = get_active_tenant_issues(self.request.user, True)
         return tickets
 
     def get_context_data(self, **kwargs):
@@ -129,20 +127,7 @@ class TicketBoardListView(generic.ListView):
         context.update({
             'board_columns_associations': get_board_columns_assocations(get_board_columns(self.request.user)),
             'users': User.objects.all(),
-            'order_fields': {
-                'Key': 'id',
-                'Priority': 'priority',
-                'Type': 'type',
-                'Status': 'status',
-                'Updated date': 'updated',
-                'Created date': 'created',
-                'Escalated': 'escalated',
-                'Suspended': 'suspended',
-            },
-            'ordering_types': {
-                'Ascending': 'asc',
-                'Descending': 'desc'
-            }
+            'fields': settings.ORDER_BY_FIELDS,
             # Issue._meta.get_fields()
         })
         return context
@@ -156,55 +141,40 @@ class TicketFilterListView(generic.ListView):
     paginate_by = 50
     context_object_name = 'tickets'
     template_name = 'ticket/ticket-filter.html'
+    ordering = ['key']
 
     def get_queryset(self):
-        filter_assignee = self.request.GET.get('assignee', '')
-        filter_reporter = self.request.GET.get('reporter', '')
-        filter_ordering = self.request.GET.get('ordering', '')
-        filter_ordering_type = self.request.GET.get('order_type', 'desc')
-        tickets = get_active_tenant_issues(self.request.user, filter_assignee, filter_reporter, filter_ordering, filter_ordering_type)
+        filters = {
+            'assignee': self.request.GET.get('assignee', ''),
+            'reporter': self.request.GET.get('reporter', ''),
+            'status': self.request.GET.getlist('status', ''),
+            'resolution': self.request.GET.getlist('resolution', ''),
+            'labels': self.request.GET.getlist('label', ''),
+            'type': self.request.GET.getlist('type', ''),
+            'priority': self.request.GET.getlist('priority', '')
+        }
+        tickets = get_active_tenant_issues(self.request.user, False)
+        tickets = filter_tickets(tickets, filters)
+        if self.request.GET.get('ordering'):  # if any ordering
+            tickets = order_tickets(tickets, self.get_ordering())
         return tickets
 
     def get_context_data(self, **kwargs):
         context = super(TicketFilterListView, self).get_context_data(**kwargs)
+        curr_selected_values = dict()
+        for key, value in dict(self.request.GET).items():  # QueryDict -> common python dict
+            curr_selected_values[key] = value
         context.update({
-            'users': User.objects.all(),
             'form': IssueFilterViewForm(),
-            'priorites': 'test',
-            'statuses': Status.objects.all().exclude(name='All'),
-            'resolutions': Resolution.objects.all(),
-            'priorities': Priority.objects.all(),
-            'types': IssueType.objects.all(),
-            'labels': Label.objects.all(),
-            'fields': {
-                'Type': 'type',
-                'Key': 'key',
-                'Title': 'title',
-                'Priority': 'priority',
-                'Status': 'status',
-                'Resolution': 'resolution',
-                'Reporter': 'reporter',
-                'Assignee': 'asignee',
-                'Updated': 'updated',
-                'Created': 'created'
-            },
-            'order_fields': {
-                'Key': 'id',
-                'Priority': 'priority',
-                'Type': 'type',
-                'Status': 'status',
-                'Updated date': 'updated',
-                'Created date': 'created',
-                'Escalated': 'escalated',
-                'Suspended': 'suspended',
-            },
-            'ordering_types': {
-                'Ascending': 'asc',
-                'Descending': 'desc'
-            }
-            # Issue._meta.get_fields()
+            'fields': settings.ORDER_BY_FIELDS,
+            'curr_ordering': self.request.GET.get('ordering'),
+            'curr_selected': curr_selected_values
         })
         return context
+
+    def get_ordering(self):
+        ordering = self.request.GET.get('ordering', 'key')
+        return ordering
 
     def get(self, request, *args, **kwargs):
         return check_get_request(self, request, TicketFilterListView, *args, **kwargs)

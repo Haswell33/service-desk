@@ -1,7 +1,8 @@
 from django.conf import settings
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, reverse, redirect
-from .models import Tenant, TenantSession, IssueType, Issue, Status, Board, BoardColumn, BoardColumnAssociation
+from django.db.models import Q
+from .models import Tenant, TenantSession, IssueType, Issue, Status, Board, BoardColumn, BoardColumnAssociation, Transition, TransitionAssociation
 from collections import namedtuple
 import json
 
@@ -107,20 +108,46 @@ def get_tenant_cookie_name(user):
     return f'active_tenant_id_{str(user.id)}'
 
 
-def get_active_tenant_issues(user, filter_assignee, filter_reporter, ordering, ordering_type):
+def get_active_tenant_issues(user, only_open):
     active_tenant = get_active_tenant(user)
-    tickets = Issue.objects.filter(tenant=active_tenant.id)
-    if filter_assignee:
-        tickets = tickets.filter(assignee__username=filter_assignee)
-    if filter_reporter:
-        tickets = tickets.filter(reporter__username=filter_reporter)
-    if ordering:  # add DESC or ASC type
-        if ordering_type == 'asc':
-            tickets = tickets.order_by(ordering, 'status')
-        else:
-            tickets = tickets.order_by('-' + ordering, 'status')
+    if only_open:
+        return Issue.objects.filter(tenant=active_tenant.id, resolution__isnull=True)
+    else:
+        return Issue.objects.filter(tenant=active_tenant.id)
+
+
+def filter_tickets(tickets, filters):
+    for filter in filters:
+        filter_value = filters[filter]
+        if filter_value == 'None':
+            tickets = tickets.filter(**{filter + '__isnull': True})
+        elif filter_value and not isinstance(filter_value, list):
+            tickets = tickets.filter(**{filter: filter_value})
+        elif isinstance(filter_value, list):
+            try:
+                tickets = tickets.filter(**{filter + '__in': filter_value})
+            except ValueError:
+                if len(filter_value) == 1:
+                    tickets = tickets.filter(**{filter + '__isnull': True})
+                else:
+                    filter_values_not_null = []
+                    for filtering_value in filter_value:
+                        if filtering_value != 'None':
+                            filter_values_not_null.append(filtering_value)
+                    tickets = tickets.filter(Q(**{filter + '__in': filter_values_not_null}) | Q(**{filter + '__isnull': True}))
     return tickets
 
+
+def order_tickets(tickets, ordering):
+    if ordering:
+        tickets = tickets.order_by(ordering)
+        return tickets
+
+
+def get_transitions(object):
+    transition_associations = TransitionAssociation.objects.filter(Q(transition__src_status=object.status) | Q(type=object.type))
+    print(transition_associations)
+    return Transition.objects.filter(Q(src_status=object.status), src_status__name='All')
 
 def change_active_tenant(tenant_id, user):
     active_tenant_session = get_active_tenant_session(user)

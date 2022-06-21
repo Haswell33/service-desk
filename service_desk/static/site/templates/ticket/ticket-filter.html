@@ -6,65 +6,90 @@
 
 <body>
   {% block content_page %}
+    {% load filters %}
     <div id="content-page_header">
       <div class="content-page_header-block">
         <h2>Filter view</h2>
       </div>
       <div class="content-page_header-block">
         <div class="content-page_header-block filter">
-          <form method="GET" action="{% url 'home' %}">
-            <select id="filter-view_filter_assignee" class="filter-field" name="assignee">
-              <option></option>
-              {% for user in users %}
-                <option icon="{{ user.icon }}" value="{{ user.username }}">{{ user.username }}</option>
+          <form method="GET" class="filter-view_form" action="{% url 'filter_ticket' %}">
+            <select id="{{ form.assignee.id_for_label }}" class='filter-field' name="{{ form.assignee.name }}">
+              {% for value, text in form.fields.assignee.choices %}
+                {% if value|in_list:curr_selected.assignee %}
+                  <option value="{{ value }}" selected>{{ text }}</option>
+                {% else %}
+                  <option value="{{ value }}" >{{ text }}</option>
+                {% endif %}
+              {% endfor %}
+              {% if value|in_list:curr_selected.assignee %}
+                <option value="None" selected>Unassigned</option>
+              {% else %}
+                <option value="None">Unassigned</option>
+              {% endif %}
+            </select>
+            <select id="{{ form.reporter.id_for_label }}" class='filter-field' name="{{ form.reporter.name }}">
+              {% for value, text in form.fields.reporter.choices %}
+                {% if value|in_list:curr_selected.reporter %}
+                  <option value="{{ value }}" selected>{{ text }}</option>
+                {% else %}
+                  <option value="{{ value }}" >{{ text }}</option>
+                {% endif %}
               {% endfor %}
             </select>
-            <select id="filter-view_filter_reporter" class="filter-field" name="reporter">
-              <option></option>
-              {% for user in users %}
-                <option icon="{{ user.icon }}" value="{{ user.username }}">{{ user.username }}</option>
+            <select id="{{ form.status.id_for_label }}" class='filter-field' name="{{ form.status.name }}" multiple>
+              {% for value, text in form.fields.status.choices %}
+                {% if value|in_list:curr_selected.status %}
+                  <option value="{{ value }}" selected>{{ text }}</option>
+                {% else %}
+                  <option value="{{ value }}" >{{ text }}</option>
+                {% endif %}
               {% endfor %}
             </select>
-            <select id="filter-view_filter_status" class="filter-field" name="status">
-              <option></option>
-              {% for status in statuses %}
-                <option value="{{ status.name }}">{{ status.name }}</option>
+            <select id="{{ form.resolution.id_for_label }}" class='filter-field' name="{{ form.resolution.name }}" multiple>
+              {% for value, text in form.fields.resolution.choices %}
+                {% if value|in_list:curr_selected.resolution %}
+                  <option value="{{ value }}" selected>{{ text }}</option>
+                {% else %}
+                  <option value="{{ value }}" >{{ text }}</option>
+                {% endif %}
+              {% endfor %}
+              {% if value|in_list:curr_selected.resolution %}
+                <option value="None" selected>Unresolved</option>
+              {% else %}
+                <option value="None">Unresolved</option>
+              {% endif %}
+            </select>
+            <select id="{{ form.label.id_for_label }}" class='filter-field' name="{{ form.label.name }}" multiple>
+              {% for value, text in form.fields.label.choices %}
+                {% if value|in_list:curr_selected.label %}
+                  <option value="{{ value }}" selected>{{ text }}</option>
+                {% else %}
+                  <option value="{{ value }}" >{{ text }}</option>
+                {% endif %}
+              {% endfor %}
+              {% if value|in_list:curr_selected.label %}
+                <option value="None" selected>None</option>
+              {% else %}
+                <option value="None">None</option>
+              {% endif %}
+            </select>
+            <select id="{{ form.type.id_for_label }}" class='filter-field' name="{{ form.type.name }}" multiple>
+              {% for value, text in form.fields.type.choices %}
+                {% if value|in_list:curr_selected.type %}
+                  <option value="{{ value }}" selected>{{ text }}</option>
+                {% else %}
+                  <option value="{{ value }}" >{{ text }}</option>
+                {% endif %}
               {% endfor %}
             </select>
-            <select id="filter-view_filter_resolution" class="filter-field" name="resolution">
-              <option></option>
-              {% for resolution in resolutions %}
-                <option value="{{ resolution.name }}">{{ resolution.name }}</option>
-              {% endfor %}
-            </select>
-            <select id="filter-view_filter_label" class="filter-field" name="label">
-              <option></option>
-              {% for label in labels %}
-                <option value="{{ label.name }}">{{ label.name }}</option>
-              {% endfor %}
-            </select>
-            <select id="filter-view_filter_type" class="filter-field" name="type">
-              <option></option>
-              {% for type in types %}
-                <option icon="{{ type.icon }}"  value="{{ type.name }}">{{ type.name }}</option>
-              {% endfor %}
-            </select>
-            <select id="filter-view_filter_priority" class="filter-field" name="priority">
-              <option></option>
-              {% for priority in priorities %}
-                <option icon="{{ priority.icon }}" value="{{ priority.name }}">{{ priority.name }}</option>
-              {% endfor %}
-            </select>
-            <select id="filter-view_filter_order-by" class="filter-field" name="ordering">
-              <option></option>
-              {% for key, value in order_fields.items %}
-                <option value="{{ value }}">{{ key }}</option>
-              {% endfor %}
-            </select>
-            <select id="filter-view_filter_order-type" class="filter-field" name="order_type">
-              <option></option>
-              {% for key, value in ordering_types.items %}
-                <option value="{{ value }}">{{ key }}</option>
+            <select id="{{ form.priority.id_for_label }}" class='filter-field' name="{{ form.priority.name }}" multiple>
+              {% for value, text in form.fields.priority.choices %}
+                {% if value|in_list:curr_selected.priority %}
+                  <option value="{{ value }}" selected>{{ text }}</option>
+                {% else %}
+                  <option value="{{ value }}" >{{ text }}</option>
+                {% endif %}
               {% endfor %}
             </select>
             <input type="submit" value="Filter"/>
@@ -72,18 +97,32 @@
         </div>
       </div>
     </div>
-    <div id="content-page_content" class="content-page-block">
+    <div class="content-page-block">
       <table id="ticket-table" cellspacing="0">
         <tr class="table-header">
-        {% for field in fields %}
-          <th>{{ field }}</th>
-        {% endfor %}
+            {% for field in fields %}
+              {% if curr_ordering == field.0 %}
+                <th class="table-header_title filtering" onclick="sortTable('{{ field.0 }}', '{{ curr_ordering }}')">
+                  <h2>{{ field.1 }}</h2>
+                  <i class="arrow up"></i>
+                </th>
+              {% elif curr_ordering == "-"|add:field.0  %}
+                <th class="table-header_title" onclick="sortTable('{{ field.0 }}', '{{ curr_ordering }}')">
+                  <h2>{{ field.1 }}</h2>
+                  <i class="arrow down"></i>
+                </th>
+              {% else %}
+                <th class="table-header_title" onclick="sortTable('{{ field.0 }}', '{{ curr_ordering }}')">
+                  <h2>{{ field.1 }}</h2>
+                </th>
+              {% endif %}
+            {% endfor %}
         </tr>
         {% for ticket in tickets %}
           {% if ticket.suspended %}
-          <tr class="suspended">
+            <tr class="suspended">
           {% else %}
-          <tr>
+            <tr>
           {% endif %}
             <td>{{ ticket.type.icon_img }}</td>
             <td>
@@ -94,22 +133,14 @@
             <td>{{ ticket.title }}</td>
             <td>{{ ticket.priority.icon_img }}</td>
             <td>{{ ticket.status.status_color }}</td>
-            <td>{{ ticket.resolution}}</td>
-            <td>{{ ticket.reporter_img }}</td>
-            <td>{{ ticket.assignee_img }}</td>
+            <td>{{ ticket.get_resolution }}</td>
+            <td>{{ ticket.reporter_img_text }}</td>
+            <td>{{ ticket.assignee_img_text }}</td>
             <td>{{ ticket.updated_datetime }}</td>
             <td>{{ ticket.created_datetime }}</td>
           </tr>
         {% endfor %}
       </table>
-
-      <form action="" method="post">
-    {% csrf_token %}
-    <table>
-    {{ form.as_table }}
-    </table>
-    <input type="submit" value="Submit">
-  </form>
     </div>
     <script>
       $(document).ready(function(){renderFields('filter-view', '{{ MEDIA_URL }}')})

@@ -38,6 +38,27 @@ function customCheckbox(){
     //$('input[type=checkbox]').after($('<span class="checkbox-icon"></span>'))
 }
 
+function replaceUrlParam(url, paramName, paramValue) {
+    if (paramValue == null)
+        paramValue = ''
+    let pattern = new RegExp('\\b('+paramName+'=).*?(&|#|$)')
+    if (url.search(pattern) >= 0)
+        return url.replace(pattern, '$1' + paramValue + '$2')
+    url = url.replace(/[?#]$/, '')
+    return url + (url.indexOf('?')>0 ? '&' : '?') + paramName + '=' + paramValue
+}
+
+function sortTable(newOrderValue, currOrderValue){
+    let url = window.location.href
+    let paramValue
+    if (newOrderValue === currOrderValue)
+        paramValue = '-' + newOrderValue // desc
+    else
+        paramValue = newOrderValue // asc
+    url = replaceUrlParam(url, 'ordering', paramValue)
+    window.location.href = url
+}
+
 function themeColor(userIsAuth, userIsAdmin, userType){
     if (userIsAuth && userIsAdmin){
       $(':root').css({
@@ -71,4 +92,22 @@ function themeColor(userIsAuth, userIsAdmin, userType){
     }
 }
 
+
+/*function sortFilterView(data){
+    console.log(data)
+    $.ajax({
+            type: 'GET',
+            url: '/ticket/filter',
+            data: {
+                'ordering': data
+            },
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
+            },
+            success: function(result){
+                console.log(result)
+                console.log('sorted')
+            }
+        })
+}*/
 

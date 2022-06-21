@@ -37,6 +37,7 @@
 }
 
 .select2-search__field {
+    line-height: 23px!important;
     padding-left: 5px!important;
     background-color: transparent!important;
     color: var(--elem-dark-primary)!important;
@@ -79,8 +80,8 @@
     font-family: Lato, sans-serif!important
 }
 
-.select2-container--default {
-
+.select2-container .select2-selection--multiple {
+    min-height: 35px;!important;
 }
 
 .select2-selection--single,

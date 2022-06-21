@@ -57,16 +57,16 @@ function homeFields(mediaUrl) {
 }
 
 function filterViewFields(mediaUrl) {
-    renderField('#id_reporter', mediaUrl, 'Filter by assignee', true, true, true, 0)
-    renderField('#filter-view_filter_reporter', mediaUrl, 'Filter by reporter', true, true, true, 0)
-    renderField('#filter-view_filter_status', mediaUrl, 'Filter by status', false, true, true, 0)
-    renderField('#filter-view_filter_resolution', mediaUrl, 'Filter by result', false, true, true, 0)
-    renderField('#filter-view_filter_label', mediaUrl, 'Filter by labels', false, true, true, 0)
-    renderField('#filter-view_filter_type', mediaUrl, 'Filter by type', true, true, true, 0)
-    renderField('#filter-view_filter_priority', mediaUrl, 'Filter by priority', true, false, true, 0)
+    renderField('#id_assignee', mediaUrl, 'Filter by assignee', true, true, false, 0)
+    renderField('#id_reporter', mediaUrl, 'Filter by reporter', true, true, false, 0)
+    renderField('#id_status', mediaUrl, 'Filter by status', false, true, true, 0)
+    renderField('#id_resolution', mediaUrl, 'Filter by result', false, true, true, 0)
+    renderField('#id_label', mediaUrl, 'Filter by labels', false, true, true, 0)
+    renderField('#id_type', mediaUrl, 'Filter by type', true, true, true, 0)
+    renderField('#id_priority', mediaUrl, 'Filter by priority', true, false, true, 0)
 
-    renderField('#filter-view_filter_order-by', mediaUrl, 'Order by', false, false, false, 0)
-    renderField('#filter-view_filter_order-type', mediaUrl, 'Ordering type', false, false, false, -1)
+    renderField('#id_order_by', mediaUrl, 'Order by field', false, true, false, 0)
+    renderField('#id_order_by_type', mediaUrl, 'Order type', false, true, false, -1)
 }
 
 function renderField(htmlTag, mediaUrl, placeholderText, icon, allowClear, multiple, minResults) {

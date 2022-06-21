@@ -68,7 +68,7 @@ urlpatterns = [
     path('ticket/view/<slug:slug>',
          views.TicketDetailView.as_view(template_name='ticket/ticket-view.html'),
          name='view_ticket'),
-    path('ticket/filter',
+    path('ticket/filter/',
          views.TicketFilterListView.as_view(template_name='ticket/ticket-filter.html'),
          name='filter_ticket'),
     path('',

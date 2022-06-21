@@ -1,17 +1,58 @@
 {% extends 'home.html' %}
-
+{% load filters %}
 <head>
   <title>{% block title %} {{ block.super }} | Ticket {{ object.key }}{% endblock %}</title>
 </head>
 
 <body>
   {% block content_page %}
-  <h1>ticket view</h1>
-  <div id="view-ticket-content" class="content-page-block">
-    ticket view
+  <div id="content-page_header">
+    <div class="content-page_header-block">
+      <div class="content-page_header-block_type">{{ object.type.icon_img }}</div>
+      <h2>{{ object.key }}</h2>
+    </div>
+  </div>
+  <div class="content-page-block">
+    <div id="ticket-view_navbar">
+      {% for dest_status in dest_statuses %}
+        {{ dest_status }}
+      {% endfor %}
+    </div>
+    <div class="ticket-view_field">
+      <div class="ticket-view_field_label">
+        {% get_verbose_name object 'title' %}
+      </div>
+      <div class="ticket-view_field_content">
+        {{ object.title }}
+      </div>
+    </div>
+    <div class="ticket-view_field">
+      <div class="ticket-view_field_label">
+        {% get_verbose_name object 'type' %}
+      </div>
+      <div class="ticket-view_field_content">
+        {{ object.type }}
+      </div>
+    </div>
+    <div class="ticket-view_field">
+      <div class="ticket-view_field_label">
+        {% get_verbose_name object 'priority' %}
+      </div>
+      <div class="ticket-view_field_content">
+        {{ object.priority.icon_img_text }}
+      </div>
+    </div>
+    <div class="ticket-view_field">
+      <div class="ticket-view_field_label">
+        {% get_verbose_name object 'resolution' %}
+      </div>
+      <div class="ticket-view_field_content">
+        {{ object.get_resolution }}
+      </div>
+    </div>
+    <label></label>
 
-    <h1>{{ object.title }}</h1>
-    <p>{{ object.key }}</p>
+    <p></p>
   </div>
   {% endblock %}
 </body>

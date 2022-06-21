@@ -26,12 +26,12 @@
       <div class="sidebar-block">
         <div id="sidebar-block_menu">
           <ul>
-            <li id="menu-block_create-ticket">
-              <a href="{% url 'create_ticket' %}">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 16 16">
-                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+            <li id="menu-block_board">
+              <a href="{% url 'home' %}">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                  <path d="M0 1.5A1.5 1.5 0 0 1 1.5 0h13A1.5 1.5 0 0 1 16 1.5v13a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 14.5v-13zM1.5 1a.5.5 0 0 0-.5.5v13a.5.5 0 0 0 .5.5H5V1H1.5zM10 15V1H6v14h4zm1 0h3.5a.5.5 0 0 0 .5-.5v-13a.5.5 0 0 0-.5-.5H11v14z"/>
                 </svg>
-                <p>Create ticket</p>
+                <p>Board</p>
               </a>
             </li>
             <li id="menu-block_filter-view">
@@ -42,6 +42,15 @@
                 <p>Filter view</p>
               </a>
             </li>
+            <li id="menu-block_create-ticket">
+              <a href="{% url 'create_ticket' %}">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 16 16">
+                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                </svg>
+                <p>Create ticket</p>
+              </a>
+            </li>
+
           </ul>
         </div>
         <div id="sidebar-block_recent-actions">
@@ -58,23 +67,6 @@
         <h2>Board</h2>
       </div>
       <div class="content-page_header-block">
-        <div class="content-page_header-block filter">
-          <form method="GET" action="{% url 'home' %}">
-            <select id="board_filter_assignee" class="filter-field" name="assignee">
-              <option></option>
-              {% for user in users %}
-                <option icon="{{ user.icon }}" value="{{ user.username }}">{{ user.username }}</option>
-              {% endfor %}
-            </select>
-            <select id="board_filter_reporter" class="filter-field" name="reporter">
-              <option></option>
-              {% for user in users %}
-                <option icon="{{ user.icon }}" value="{{ user.username }}">{{ user.username }}</option>
-              {% endfor %}
-            </select>
-            <input type="submit" value="Filter"/>
-          </form>
-        </div>
         <div class="content-page_header-block tooltip">
           <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
             <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.496 6.033h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286a.237.237 0 0 0 .241.247zm2.325 6.443c.61 0 1.029-.394 1.029-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94 0 .533.425.927 1.01.927z"/>
@@ -155,7 +147,7 @@
       $('#board > .board-column').each(function(){
         let ticketNumInColumn = ($(this).find('.ticket-block').length)
         if (ticketNumInColumn === 0)
-          $(this).append('<p class="ticket-block_info">No tickets</p>')
+          $(this).append('<p class="ticket-block_info-center">No tickets</p>')
       })
     })
   </script>

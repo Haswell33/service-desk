@@ -18,7 +18,7 @@ def get_img_field(img, name, height, width):
 
 
 def get_img_text_field(img, name, height, width):
-    return mark_safe(f'<img src="{settings.MEDIA_URL}/{str(img)}" height="{height}" width="{width}" title="{name}" alt={name}/> {name}')
+    return mark_safe(f'<div class="img-text_field"><img src="{settings.MEDIA_URL}/{str(img)}" height="{height}" width="{width}" title="{name}" alt={name}/> {name}</div>')
 
 
 def get_status_color(color, name):
@@ -201,6 +201,14 @@ class Priority(models.Model):
     def icon_img(self):
         return get_img_field(self.icon, self.name, 20, 20)
     icon_img.fget.short_description = 'Icon'
+
+    @property
+    def icon_img_text(self):
+        try:
+            return get_img_text_field(self.icon, self.name, 18, 18)
+        except AttributeError:
+            return self.name
+    icon_img_text.fget.short_description = 'Priority'
 
     def __str__(self):
         return self.name
@@ -468,9 +476,10 @@ class Issue(models.Model):
         editable=False)
     title = models.CharField(
         max_length=255,
-        help_text='Summarize the issue')
+        help_text='Summarize the issue',
+        verbose_name='Title')
     description = HTMLField(
-        verbose_name='description',
+        verbose_name='Description',
         blank=True,
         null=True,
         help_text='Describe the issue')
@@ -483,48 +492,58 @@ class Issue(models.Model):
         Priority,
         on_delete=models.CASCADE,
         default=settings.DEFAULT_PRIORITY_ID,
-        related_name='%(class)s_priority')
+        related_name='%(class)s_priority',
+        verbose_name='Priority')
     status = models.ForeignKey(
         Status,
         on_delete=models.CASCADE,
         default=15,
         blank=True,
-        related_name='%(class)s_status')
+        related_name='%(class)s_status',
+        verbose_name='Status')
     resolution = models.ForeignKey(
         Resolution,
         on_delete=models.CASCADE,
         blank=True,
         null=True,
-        related_name='%(class)s_resolution')
+        related_name='%(class)s_resolution',
+        verbose_name='Resolution')
     type = models.ForeignKey(
         IssueType,
         on_delete=models.CASCADE,
         default=settings.DEFAULT_ISSUE_TYPE_ID,
-        related_name='%(class)s_type')
+        related_name='%(class)s_type',
+        verbose_name='Type')
     reporter = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         blank=True,
-        related_name='%(class)s_reporter')
+        related_name='%(class)s_reporter',
+        verbose_name='Reporter')
     assignee = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         blank=True,
         null=True,
-        related_name='%(class)s_assignee')
+        related_name='%(class)s_assignee',
+        verbose_name='Assignee')
     escalated = models.BooleanField(
         default=False,
-        editable=False)
+        editable=False,
+        verbose_name='Escalated')
     suspended = models.BooleanField(
-        default=False)
+        default=False,
+        verbose_name='Suspended')
     created = models.DateTimeField(
         editable=False,
-        help_text='Date when issue has been created')
+        help_text='Date when issue has been created',
+        verbose_name='Created date')
     updated = models.DateTimeField(
         blank=True,
         null=True,
         editable=False,
-        help_text='Date when issue has been recently changed')
+        help_text='Date when issue has been recently changed',
+        verbose_name='Updated date')
     slug = models.SlugField(
         max_length=55,
         blank=True)
@@ -536,17 +555,20 @@ class Issue(models.Model):
         Comment,
         through='CommentAssociation',
         blank=True,
-        through_fields=('issue', 'comment'))
+        through_fields=('issue', 'comment'),
+        verbose_name='Comments')
     labels = models.ManyToManyField(
         Label,
         through='LabelAssociation',
         blank=True,
-        through_fields=('issue', 'label'))
+        through_fields=('issue', 'label'),
+        verbose_name='Labels')
     attachments = models.ManyToManyField(
         Attachment,
         through='AttachmentAssociation',
         blank=True,
-        through_fields=('issue', 'attachment'))
+        through_fields=('issue', 'attachment'),
+        verbose_name='Attachments')
 
     class Meta:
         db_table = 'issue'
@@ -600,7 +622,10 @@ class Issue(models.Model):
     @property
     def assignee_img_text(self):
         try:
-            return get_img_text_field(self.assignee.icon, self.assignee, 18, 18)
+            if self.assignee is None:
+                return mark_safe('<div class="ticket-block_info-left">Unassigned</div>')
+            else:
+                return get_img_text_field(self.assignee.icon, self.assignee, 18, 18)
         except AttributeError:
             return self.assignee
     assignee_img_text.fget.short_description = 'Assignee'
@@ -609,12 +634,11 @@ class Issue(models.Model):
     def assignee_img(self):
         try:
             if self.assignee is None:
-                return mark_safe('<div class="ticket-block_info">Unassigned</div>')
+                return mark_safe('<div class="ticket-block_info-left">Unassigned</div>')
             else:
                 return get_img_field(self.assignee.icon, self.assignee, 20, 20)
         except AttributeError:
             return self.assignee
-
     assignee_img.fget.short_description = 'Assignee'
 
     @property
@@ -654,6 +678,13 @@ class Issue(models.Model):
 
     def get_fields(self):
         return [(field.name, field.value_to_string(self)) for field in Issue._meta.fields]
+
+    def get_resolution(self):
+        if self.resolution is None:
+            return mark_safe('<div class="ticket-block_info-left">Unresolved</div>')
+        else:
+            return self.resolution
+    get_resolution.short_description = 'Resolution'
 
     def __str__(self):
         return self.key
@@ -723,10 +754,12 @@ class BoardColumnAssociation(models.Model):
 
 
 class TransitionAssociation(models.Model):
-    issue_type = models.ForeignKey(
+    type = models.ForeignKey(
         IssueType,
         on_delete=models.CASCADE,
-        related_name='%(class)s_issue_type')
+        related_name='%(class)s_type',
+        blank=True,
+        null=True)
     transition = models.ForeignKey(
         Transition,
         on_delete=models.CASCADE,
@@ -737,10 +770,10 @@ class TransitionAssociation(models.Model):
         verbose_name = 'transition association'
         verbose_name_plural = 'transition associations'
         ordering = ['transition']
-        unique_together = ['issue_type', 'transition']
+        unique_together = ['type', 'transition']
 
     def __str__(self):
-        return f'{self.issue_type} {self.transition}'
+        return f'{self.type} {self.transition}'
 
     @property
     def full_transition(self):

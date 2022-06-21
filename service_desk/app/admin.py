@@ -117,9 +117,9 @@ class TransitionAdminModel(admin.ModelAdmin):
 
 @admin.register(TransitionAssociation)
 class TransitionAssociationAdminModel(admin.ModelAdmin):
-    list_display = ('issue_type', 'full_transition')
-    search_fields = ['issue_type', 'transition']
-    list_filter = ('issue_type', 'transition')
+    list_display = ('type', 'full_transition')
+    search_fields = ['type', 'transition']
+    list_filter = ('type', 'transition')
 
 
 @admin.register(Resolution)
