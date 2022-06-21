@@ -149,6 +149,7 @@ def get_transitions(object):
     print(transition_associations)
     return Transition.objects.filter(Q(src_status=object.status), src_status__name='All')
 
+
 def change_active_tenant(tenant_id, user):
     active_tenant_session = get_active_tenant_session(user)
     active_tenant_session.active = False
@@ -156,6 +157,13 @@ def change_active_tenant(tenant_id, user):
     curr_tenant_session = TenantSession.objects.get(tenant=tenant_id, user=user.id)
     curr_tenant_session.active = True
     curr_tenant_session.save()
+
+
+def convert_query_dict_to_dict(query_dict):
+    new_dict = dict()
+    for key, value in dict(query_dict).items():  # QueryDict -> common python dict
+        new_dict[key] = value
+    return new_dict
 
 
 def get_env_type(issue_type_id): return IssueType.objects.get(id=issue_type_id).env_type

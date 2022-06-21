@@ -27,7 +27,7 @@ class ModelIconChoiceField(forms.ModelChoiceField):
         self.my_attr = my_attr
 
 
-class IssueForm(forms.ModelForm):
+class TicketCreateForm(forms.ModelForm):
     class Meta:
         model = Issue
         fields = ['title', 'type', 'priority', 'assignee', 'labels', 'description', 'attachments', 'status']
@@ -54,7 +54,7 @@ class IssueForm(forms.ModelForm):
         }
 
 
-class IssueFilterViewForm(forms.Form):
+class TicketFilterViewForm(forms.Form):
     assignee = forms.ModelChoiceField(
         queryset=User.objects.all(),
         required=False,

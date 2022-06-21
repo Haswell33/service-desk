@@ -4,7 +4,6 @@ from django.contrib.admin import AdminSite
 from django.contrib.auth.models import Group, User
 from django.contrib.auth.admin import GroupAdmin, UserAdmin
 from .models import Issue, Tenant, Comment, Priority, Status, Resolution, Transition, TransitionAssociation, IssueType, Label, LabelAssociation, SLAScheme, Board, BoardColumn, BoardColumnAssociation
-from .forms import IssueForm
 from django.utils.html import mark_safe, format_html
 from django import template
 

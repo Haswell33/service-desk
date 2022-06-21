@@ -739,11 +739,6 @@ class BoardColumnAssociation(models.Model):
         return self.column.board
     board_name.fget.short_description = 'Board'
 
-    #@property
-    #def column_on_board(self):
-    #    return f'{self.column}-{self.column.board}'
-    #column_on_board.fget.short_description = 'Column'
-
     @property
     def status_color(self):
         return get_status_color(self.status.color, self.status.name)

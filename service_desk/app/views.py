@@ -14,9 +14,10 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.template.loader import render_to_string
+from django.urls.exceptions import NoReverseMatch
 from .models import Issue
-from .forms import IssueForm, IssueFilterViewForm
-from .utils import get_env_type, get_initial_status, get_active_tenant, active_tenant_session, get_active_tenant_session, tenant_session, clear_tenant_session, change_active_tenant, get_tenant_cookie_name, get_active_tenant_issues, get_board_columns_assocations, get_board_columns, filter_tickets, order_tickets, get_transitions
+from .forms import TicketCreateForm, TicketFilterViewForm
+from .utils import get_env_type, get_initial_status, get_active_tenant, active_tenant_session, get_active_tenant_session, tenant_session, clear_tenant_session, change_active_tenant, get_tenant_cookie_name, get_active_tenant_issues, get_board_columns_assocations, get_board_columns, filter_tickets, order_tickets, get_transitions, convert_query_dict_to_dict
 from .context_processors import context_tenant_session
 
 '''
@@ -36,9 +37,9 @@ def home(request, template_name='home.html'):
     return response'''
 
 
-def check_get_request(self, request, view_name, *args, **kwargs):
+def validate_get_request(self, request, view_name, *args, **kwargs):
     if not request.user.is_authenticated:
-        return HttpResponseRedirect(f'{settings.LOGIN_URL}')
+        return login_page(request)
     elif request.COOKIES.get(get_tenant_cookie_name(request.user)) is None:
         return redirect('tenant_update')
     if not active_tenant_session(request.user):
@@ -46,6 +47,10 @@ def check_get_request(self, request, view_name, *args, **kwargs):
     response = super(view_name, self).get(request, *args, **kwargs)
     response.status_code = 200
     return response
+
+
+def login_page(request):
+    return HttpResponseRedirect(f'{settings.LOGIN_URL}?next={request.path}')
 
 
 def after_logout(sender, user, request, **kwargs):
@@ -59,13 +64,20 @@ def after_login(sender, user, request, **kwargs):
 # Views
 
 
+def submit_ticket(request, template_name='ticket/ticket-submit.html'):
+    if not request.user.is_authenticated:
+        return login_page(request)
+    response = render(request, template_name, status=200)
+    return response
+
+
 def create_ticket(request, template_name='ticket/ticket-create.html'):
     if not request.user.is_authenticated:
-        return HttpResponseRedirect(f'{settings.LOGIN_URL}')
+        return login_page(request)
     elif request.COOKIES.get(get_tenant_cookie_name(request.user)) is None:
         return redirect('tenant_update')
     elif request.method == 'POST':
-        form = IssueForm(request.POST)
+        form = TicketCreateForm(request.POST)
         if form.is_valid():
             tenant = get_active_tenant(request.user)
             new_issue = form.save(commit=False)  # create instance, but do not save
@@ -81,7 +93,7 @@ def create_ticket(request, template_name='ticket/ticket-create.html'):
         else:
             print(form.errors.as_data())
     else:
-        form = IssueForm()
+        form = TicketCreateForm()
         if not active_tenant_session(request.user):
             context_tenant_session(request)
         tenant_session = get_active_tenant_session(request.user)
@@ -94,14 +106,48 @@ def create_ticket(request, template_name='ticket/ticket-create.html'):
         return render(request, template_name, {'form': form}, status=200)
 
 
-def submit_ticket(request, template_name='ticket/ticket-submit.html'):
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect(f'{settings.LOGIN_URL}')
-    response = render(request, template_name, status=200)
-    return response
+class TicketCreateView(generic.CreateView):
+    model = Issue
+    context_object_name = 'ticket'
+    template_name = 'ticket/ticket-create.html'
+
+    def get_queryset(self):
+        pass
+
+    def get_context_data(self, **kwargs):
+        context = super(TicketCreateView, self).get_context_data(**kwargs)
+        form = TicketCreateForm()
+        tenant_session = get_active_tenant_session(self.request.user)
+        if tenant_session.user_type == settings.CUST_TYPE:
+            form.fields['type'].initial = 2
+        elif tenant_session.user_type == settings.OPER_TYPE or tenant_session.user_type == settings.DEV_TYPE:
+            form.fields['type'].initial = 1
+        context.update({
+            'form': form,
+        })
+        return context
+
+    def get(self, request, *args, **kwargs):
+        return validate_get_request(self, request, TicketCreateView, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        form = TicketCreateForm(request.POST)
+        if form.is_valid():
+            tenant = get_active_tenant(request.user)
+            new_ticket = form.save(commit=False)  # create instance, but do not save
+            new_ticket.status = get_initial_status(get_env_type(new_ticket.type.id))  # env_type field from issue type
+            new_ticket.key = f'{tenant.key}-{tenant.count + 1}'
+            new_ticket.tenant = tenant
+            new_ticket.save()  # create ticket
+            form.save_m2m()
+            tenant.count += 1
+            tenant.save()
+            return HttpResponseRedirect(f'submit')
+        else:
+            print(form.errors.as_data())
 
 
-class TicketDetailView(generic.detail.DetailView):
+class TicketDetailView(generic.detail.DetailView):  # Detail view for ticket
     model = Issue
 
     def get_context_data(self, **kwargs):
@@ -127,13 +173,12 @@ class TicketBoardListView(generic.ListView):
         context.update({
             'board_columns_associations': get_board_columns_assocations(get_board_columns(self.request.user)),
             'users': User.objects.all(),
-            'fields': settings.ORDER_BY_FIELDS,
-            # Issue._meta.get_fields()
+            'fields': settings.ORDER_BY_FIELDS
         })
         return context
 
     def get(self, request, *args, **kwargs):
-        return check_get_request(self, request, TicketBoardListView, *args, **kwargs)
+        return validate_get_request(self, request, TicketBoardListView, *args, **kwargs)
 
 
 class TicketFilterListView(generic.ListView):
@@ -155,34 +200,30 @@ class TicketFilterListView(generic.ListView):
         }
         tickets = get_active_tenant_issues(self.request.user, False)
         tickets = filter_tickets(tickets, filters)
-        if self.request.GET.get('ordering'):  # if any ordering
+        if self.request.GET.get('ordering'):  # if any ordering provided in request
             tickets = order_tickets(tickets, self.get_ordering())
         return tickets
 
     def get_context_data(self, **kwargs):
         context = super(TicketFilterListView, self).get_context_data(**kwargs)
-        curr_selected_values = dict()
-        for key, value in dict(self.request.GET).items():  # QueryDict -> common python dict
-            curr_selected_values[key] = value
         context.update({
-            'form': IssueFilterViewForm(),
+            'form': TicketFilterViewForm(),
             'fields': settings.ORDER_BY_FIELDS,
             'curr_ordering': self.request.GET.get('ordering'),
-            'curr_selected': curr_selected_values
+            'curr_selected': convert_query_dict_to_dict(self.request.GET)
         })
         return context
 
     def get_ordering(self):
-        ordering = self.request.GET.get('ordering', 'key')
-        return ordering
+        return self.request.GET.get('ordering', 'key')
 
     def get(self, request, *args, **kwargs):
-        return check_get_request(self, request, TicketFilterListView, *args, **kwargs)
+        return validate_get_request(self, request, TicketFilterListView, *args, **kwargs)
 
 
 def password_change(request, template_name='password/password-change.html'):
     if not request.user.is_authenticated:
-        return HttpResponseRedirect(f'{settings.LOGIN_URL}?next={request.path}')
+        return login_page(request)
     elif request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
@@ -207,7 +248,7 @@ def password_change(request, template_name='password/password-change.html'):
 def password_change_success(request, template_name='password/password-change-success.html'):
     print('dupa dupa')
     if not request.user.is_authenticated:
-        return HttpResponseRedirect(f'{settings.LOGIN_URL}')
+        return login_page(request)
     return render(request, template_name, status=200)
 
 
@@ -229,7 +270,7 @@ def password_reset(request, template_name='password/password-reset.html', email_
                         'protocol': 'http'}
                     email = render_to_string(email_template_name, email_data)
                     try:
-                        send_mail('', email, 'admin@example.com', [user.email], fail_silently=False)
+                        send_mail('', email, 'admin@example.com', [user.email])
                     except BadHeaderError:
                         return HttpResponse('Invalid header found.')
                 return HttpResponseRedirect("password_reset_sent")
@@ -267,7 +308,7 @@ def internal_server_error(request, exception=None, template_name='error/500.html
 @csrf_exempt
 def tenant_update(request):
     if not request.user.is_authenticated:
-        return HttpResponseRedirect(f'{settings.LOGIN_URL}')
+        return login_page(request)
     elif request.method == 'POST':
         tenant_id = request.POST.get('tenant_id')
         change_active_tenant(tenant_id, request.user)
@@ -276,9 +317,14 @@ def tenant_update(request):
             context_tenant_session(request)
         tenant_session = get_active_tenant_session(request.user)
         tenant_id = tenant_session.tenant.id
-    response = redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
-    response.set_cookie(key=get_tenant_cookie_name(request.user), value=tenant_id)
-    return response
+    try:
+        response = redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
+        response.set_cookie(key=get_tenant_cookie_name(request.user), value=tenant_id)
+        return response
+    except NoReverseMatch:
+        response = redirect('home')
+        response.set_cookie(key=get_tenant_cookie_name(request.user), value=tenant_id)
+        return response
 
 
 user_logged_out.connect(after_logout)
