@@ -108,9 +108,9 @@ def get_tenant_cookie_name(user):
     return f'active_tenant_id_{str(user.id)}'
 
 
-def get_active_tenant_issues(user, only_open):
+def get_active_tenant_tickets(user, only_open):
     active_tenant = get_active_tenant(user)
-    if only_open:
+    if only_open:  # returns tickets where resolution is null
         return Issue.objects.filter(tenant=active_tenant.id, resolution__isnull=True)
     else:
         return Issue.objects.filter(tenant=active_tenant.id)

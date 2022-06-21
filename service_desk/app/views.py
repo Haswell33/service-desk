@@ -17,7 +17,7 @@ from django.template.loader import render_to_string
 from django.urls.exceptions import NoReverseMatch
 from .models import Issue
 from .forms import TicketCreateForm, TicketFilterViewForm
-from .utils import get_env_type, get_initial_status, get_active_tenant, active_tenant_session, get_active_tenant_session, tenant_session, clear_tenant_session, change_active_tenant, get_tenant_cookie_name, get_active_tenant_issues, get_board_columns_assocations, get_board_columns, filter_tickets, order_tickets, get_transitions, convert_query_dict_to_dict
+from .utils import get_env_type, get_initial_status, get_active_tenant, active_tenant_session, get_active_tenant_session, tenant_session, clear_tenant_session, change_active_tenant, get_tenant_cookie_name, get_active_tenant_tickets, get_board_columns_assocations, get_board_columns, filter_tickets, order_tickets, get_transitions, convert_query_dict_to_dict
 from .context_processors import context_tenant_session
 
 '''
@@ -39,18 +39,21 @@ def home(request, template_name='home.html'):
 
 def validate_get_request(self, request, view_name, *args, **kwargs):
     if not request.user.is_authenticated:
-        return login_page(request)
+        return login_page(request.path)
     elif request.COOKIES.get(get_tenant_cookie_name(request.user)) is None:
         return redirect('tenant_update')
-    if not active_tenant_session(request.user):
-        context_tenant_session(request)
+    if not active_tenant_session(request.user):  # check if any record in tenant_session is stored with active state
+        context_tenant_session(request)  # assign active tenant/s based on membership to groups
     response = super(view_name, self).get(request, *args, **kwargs)
     response.status_code = 200
     return response
 
 
-def login_page(request):
-    return HttpResponseRedirect(f'{settings.LOGIN_URL}?next={request.path}')
+def login_page(path):
+    if not path == '/':
+        return HttpResponseRedirect(f'{settings.LOGIN_URL}?next={path}')
+    else:
+        return HttpResponseRedirect(settings.LOGIN_URL)
 
 
 def after_logout(sender, user, request, **kwargs):
@@ -66,14 +69,14 @@ def after_login(sender, user, request, **kwargs):
 
 def submit_ticket(request, template_name='ticket/ticket-submit.html'):
     if not request.user.is_authenticated:
-        return login_page(request)
+        return login_page(request.path)
     response = render(request, template_name, status=200)
     return response
 
 
 def create_ticket(request, template_name='ticket/ticket-create.html'):
     if not request.user.is_authenticated:
-        return login_page(request)
+        return login_page(request.path)
     elif request.COOKIES.get(get_tenant_cookie_name(request.user)) is None:
         return redirect('tenant_update')
     elif request.method == 'POST':
@@ -116,7 +119,7 @@ class TicketCreateView(generic.CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(TicketCreateView, self).get_context_data(**kwargs)
-        form = TicketCreateForm()
+        form = TicketCreateForm(self.request)
         tenant_session = get_active_tenant_session(self.request.user)
         if tenant_session.user_type == settings.CUST_TYPE:
             form.fields['type'].initial = 2
@@ -165,7 +168,7 @@ class TicketBoardListView(generic.ListView):
     template_name = 'home.html'
 
     def get_queryset(self):
-        tickets = get_active_tenant_issues(self.request.user, True)
+        tickets = get_active_tenant_tickets(self.request.user, True)
         return tickets
 
     def get_context_data(self, **kwargs):
@@ -198,7 +201,7 @@ class TicketFilterListView(generic.ListView):
             'type': self.request.GET.getlist('type', ''),
             'priority': self.request.GET.getlist('priority', '')
         }
-        tickets = get_active_tenant_issues(self.request.user, False)
+        tickets = get_active_tenant_tickets(self.request.user, False)
         tickets = filter_tickets(tickets, filters)
         if self.request.GET.get('ordering'):  # if any ordering provided in request
             tickets = order_tickets(tickets, self.get_ordering())
@@ -223,7 +226,7 @@ class TicketFilterListView(generic.ListView):
 
 def password_change(request, template_name='password/password-change.html'):
     if not request.user.is_authenticated:
-        return login_page(request)
+        return login_page(request.path)
     elif request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
@@ -248,7 +251,7 @@ def password_change(request, template_name='password/password-change.html'):
 def password_change_success(request, template_name='password/password-change-success.html'):
     print('dupa dupa')
     if not request.user.is_authenticated:
-        return login_page(request)
+        return login_page(request.path)
     return render(request, template_name, status=200)
 
 
@@ -308,7 +311,7 @@ def internal_server_error(request, exception=None, template_name='error/500.html
 @csrf_exempt
 def tenant_update(request):
     if not request.user.is_authenticated:
-        return login_page(request)
+        return login_page(request.path)
     elif request.method == 'POST':
         tenant_id = request.POST.get('tenant_id')
         change_active_tenant(tenant_id, request.user)

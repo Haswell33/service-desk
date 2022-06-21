@@ -53,6 +53,9 @@ class TicketCreateForm(forms.ModelForm):
             'attachments': ClearableFileInput(attrs={'multiple': True}),
         }
 
+        # def __init__(self, request):
+
+
 
 class TicketFilterViewForm(forms.Form):
     assignee = forms.ModelChoiceField(
