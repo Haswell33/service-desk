@@ -839,6 +839,12 @@ footer a:visited {
 .ticket-view_field-group {
     display:flex;
     align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.ticket-view_field-group.ticket-detail > .ticket-view_field {
+    flex: 50%;
+    margin-bottom: 25px;
 }
 
 /*.ticket-view_field-group:first-child {
@@ -855,9 +861,6 @@ footer a:visited {
     margin-left: 8px;
 }
 
-.ticket-view_field {
-}
-
 .ticket-view_field_label {
     font-family: Lato-bold, sans-serif;
     font-size: 105%
@@ -865,7 +868,6 @@ footer a:visited {
 
 .ticket-view_field_content {
     padding-top: 10px
-
 }
 
 .ticket-view_field.ticket-title {
@@ -876,16 +878,16 @@ footer a:visited {
     margin-bottom: 15px;
 }
 
-.ticket-view_field.ticket-user img {
-    width: 20px;
-    height: 20px;
+.ticket-view_field_content.ticket-user img {
+    width: 23px;
+    height: 23px;
+    border-radius: 100%;
 }
 
 .ticket-label {
     border-radius: 4px;
     font-size: 90%;
     color: var(--elem-light-primary);
-    line-height: 1.4;
     padding: 3px 6px 3px 6px;
     display: inline-table;
     margin-bottom: 5px;
@@ -1271,7 +1273,8 @@ i.up {
 }
 
 .img-text_field {
-    display: flex
+    display: flex;
+    align-items: center;
 }
 
 .img-text_field img {
