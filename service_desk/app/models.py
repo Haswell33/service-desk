@@ -238,8 +238,8 @@ class IssueType(models.Model):
 
     class Meta:
         db_table = 'issue_type'
-        verbose_name = 'issue type'
-        verbose_name_plural = 'issue types'
+        verbose_name = 'type'
+        verbose_name_plural = 'types'
         ordering = ['id']
 
     @property
@@ -593,8 +593,8 @@ class Issue(models.Model):
 
     class Meta:
         db_table = 'issue'
-        verbose_name = 'issue'
-        verbose_name_plural = 'issues'
+        verbose_name = 'ticket'
+        verbose_name_plural = 'tickets'
 
     def save(self, *args, **kwargs):
         if not self.id:
@@ -693,9 +693,12 @@ class Issue(models.Model):
         return get_datetime(self.updated)
     updated_datetime.fget.short_description = 'Updated'
 
-    @property
-    def get_labels(self):
-        return "\n".join([p.labels for p in self.label.all()])
+    #@property
+    #def get_labels(self):
+    #    return "\n".join([p.labels for p in self.labels.all()])
+    #@property
+    #def get_labels(self):
+    #    return [labels.name for labels in self.labels.all()]
 
     def get_fields(self):
         return [(field.name, field.value_to_string(self)) for field in Issue._meta.fields]

@@ -109,3 +109,7 @@ select#sidebar-block_tenant-set + .select2-container--default .select2-selection
 select#sidebar-block_tenant-set + .select2-container--default .select2-selection__arrow b[role=presentation] {
     border-color: var(--elem-dark-border) transparent transparent transparent!important
 }
+
+.select2-selection__choice {
+    border: none!important
+}

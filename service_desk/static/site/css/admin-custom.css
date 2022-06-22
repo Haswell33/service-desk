@@ -29,8 +29,8 @@
 }
 
 div.breadcrumbs {
-    padding: 5px 40px!important;
-    background: var(--elem-dark-primary)
+    padding: 10px 40px!important;
+    background: var(--elem-dark-secondary)
 }
 
 #nav-filter {
@@ -176,7 +176,7 @@ td, th {
 th a:hover,
 td a:hover,
 li a:hover {
-    color: var(--elem-light-primary)
+    text-decoration: underline
 }
 
 #nav-sidebar .current-model {
@@ -457,11 +457,11 @@ table#result_list {
 
 #result_list > thead > tr > th:not(.sorted):hover,
 #result_list > thead > tr > th:not(.sorted) a:hover {
-    -webkit-filter: brightness(108%);
+    background-color: var(--elem-light-hover)
 }
 
 #result_list > thead > tr > th.sorted {
-    -webkit-filter: brightness(115%);
+    background-color: var(--elem-light-hover)
 }
 
 .dashboard tr:not(:last-child){
@@ -512,7 +512,7 @@ fieldset .form-row textarea {
     display: flex!important;
     padding: 15px 0!important;
     flex-direction: row!important;
-    justify-content: space-around!important;
+    justify-content: flex-start!important;
 }
 
 .submit-row input.default{
@@ -524,6 +524,13 @@ fieldset .form-row textarea {
 
 .submit-row input.default:hover {
     background: var(--theme)!important;
+}
+.submit-row > * {
+     margin-left: 5px!important;
+}
+
+.delete-confirmation form input[type="submit"] {
+    color: var(--elem-light-primary)!important
 }
 
 .form-row {
@@ -663,13 +670,13 @@ form .aligned div.help,
     top: 150px;
     width: 300px;
     border-radius: 5px;
-    color: var(--success-fg)!important;
-    background-color: var(--success-bg)!important;
+    color: var(--success-color)!important;
+    background-color: var(--success-background)!important;
     border: 1px solid var(--success-border)!important;
 }
 
 .success a {
-    color: var(--success-fg)!important;
+    color: var(--success-color)!important;
     transition: 100ms;
 }
 
@@ -685,8 +692,20 @@ form .aligned div.help,
     top: 155px;
     z-index: 9999;
     color: var(--error-fg) !important;
-    background-color: var(--error-bg) !important;
+    background-color: var(--error-background) !important;
     border-color: var(--error-fg);
+}
+
+.inline-group {
+    margin-bottom: 0!important;
+}
+
+input[type=submit] {
+    color: inherit!important;
+}
+
+input[type=submit]:hover {
+    color: var(--elem-light-primary)!important;
 }
 /*
 label {
