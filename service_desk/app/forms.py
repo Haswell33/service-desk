@@ -30,7 +30,7 @@ class ModelIconChoiceField(forms.ModelChoiceField):
 class TicketCreateForm(forms.ModelForm):
     class Meta:
         model = Issue
-        fields = ['title', 'type', 'priority', 'assignee', 'labels', 'description', 'attachments', 'status']
+        fields = ['title', 'type', 'priority', 'assignee', 'reporter', 'labels', 'description', 'attachments', 'status']
         labels = {
             'title': _('Title'),
             'type': _('Type'),
@@ -53,8 +53,9 @@ class TicketCreateForm(forms.ModelForm):
             'attachments': ClearableFileInput(attrs={'multiple': True}),
         }
 
-        # def __init__(self, request):
-
+    def __init__(self, *args, **kwargs):
+        # self.reporter = kwargs.pop('reporter')
+        super(TicketCreateForm, self).__init__(*args, **kwargs)
 
 
 class TicketFilterViewForm(forms.Form):

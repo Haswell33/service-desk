@@ -14,13 +14,18 @@
     --elem-light-border: #b9b9b9;
     --elem-light-hover: rgba(60, 60, 60, 0.26);
 
-    --error-bg: #f2dede;
-    --error-fg: #a94442;
-    --error-border: #ebccd1;
-
-    --success-bg: #DFF2BF;
-    --success-fg: #270;
-    --success-border: #adcba1;
+    --error-background: #f8d7da;
+    --error-color: #721c24;
+    --error-border: #f5c6cb;
+    --error-link: #491217;
+    --warning-background: #fff3cd;
+    --warning-color: #856404;
+    --warning-border: #ffeeba;
+    --warning-link: #533f03;
+    --success-background: #d4edda;
+    --success-color: #155724;
+    --success-border: #c3e6cb;
+    --success-link: #0b2e13;
 
     --dialog-bg: rgba(60, 60, 60, 0.48);
 
@@ -147,6 +152,11 @@ input[type=submit],
     transition: 400ms background, border-color, font-weight, color;
 }
 
+input[type=submit].button,
+input[type=button].button{
+    padding: 11px 20px;
+}
+
 input[type=checkbox] {
     cursor: pointer;
 }
@@ -162,8 +172,26 @@ input[type=search] {
     transition: 400ms border;
 }
 
+button[type=action] {
+    background: transparent;
+    font-size: 16px;
+    color: var(--elem-dark-primary);
+    border: 1px solid var(--elem-dark-primary);
+    font-family: Lato-bold, sans-serif;
+    border-radius: 5px;
+    width: max-content;
+    cursor: pointer;
+    padding: 8px 15px;
+    transition: 400ms background, border-color, font-weight, color
+}
+
+button[type=action]:not(:last-child) {
+    margin-right: 5px;
+}
+
 input[type=button]:hover,
-input[type=submit]:hover {
+input[type=submit]:hover,
+button[type=action]:hover {
     background: var(--theme);
     border-color: var(--theme);
     color: var(--elem-light-primary);
@@ -479,7 +507,7 @@ footer a:visited {
 }
 
 #sidebar-block_menu ul li:hover {
-    background-color: var(--elem-dark-primary);
+    background-color: var(--theme);
     border-radius: 5px;
 }
 
@@ -538,6 +566,10 @@ footer a:visited {
     align-items: center;
 }
 
+#content-page > .separated {
+    border-bottom: none!important;
+}
+
 #content-page > #content-page_header h2 {
     margin: 0;
     font-size: 24px;
@@ -551,6 +583,7 @@ footer a:visited {
 .content-page_header-block:not(:first-child) {
     padding-left: 15px;
 }
+
 /* Content page - Logged out */
 
 #content-page-block_log-out {
@@ -683,13 +716,6 @@ footer a:visited {
     margin: 10px 0 10px 0;
 }
 
-#board .separator:not(:last-child)  {
-    width: 4px;
-    border-radius: 80px;
-    background: var(--elem-light-border);
-    min-height: 100vh;
-}
-
 .board-column .ticket-block {
     border: 1px solid var(--elem-light-border);
     padding: 10px 10px;
@@ -797,61 +823,81 @@ footer a:visited {
     padding-right: 10px;
 }
 
+#ticket-view_navbar {
+    border-bottom: 1px solid var(--elem-light-border);
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    display: flex
+}
+
+.ticket-view_navbar-block:not(:first-child) {
+    border-left: 1px solid var(--elem-light-border);
+    padding-left: 8px;
+    margin-left: 8px;
+}
+
 .ticket-view_field {
     display: flex;
+    flex-direction: column;
     width: 40%;
+    padding-bottom: 25px
 }
 
 .ticket-view_field_label {
-
+    font-family: Lato-bold, sans-serif;
+    font-size: 105%
 }
 
 .ticket-view_field_content {
+    padding-top: 3px
 
 }
+
 /* Messages, Communicates, Error, Success, Warning */
 
-ul.messagelist li {
-    padding: 14px 10px 10px 65px;
+.message {
+    border-radius: 5px;
+    position: fixed;
+    top: 140px;
+    right: 15px;
+    z-index: 101;
+    padding: 15px 20px 15px 20px;
+    font-size: 14px;
+    border: 1px solid;
 }
 
-form .aligned div.help,
-.errorlist {
-    margin-left: 0!important;
-    padding: 5px 0 0 0 !important;
+.message a {
+    font-family: Lato-bold, sans-serif;
+}
+
+.error {
+    border-color: var(--error-border);
+    background: var(--error-background);
+    color: var(--error-color)
+}
+
+.error a {
+    color: var(--error-link)
+}
+
+.warning {
+    border-color: var(--warning-border);
+    background: var(--warning-background);
+    color: var(--warning-color)
+}
+
+.warning a {
+    color: var(--warning-link)
 }
 
 .success {
-    z-index: 99;
-    position: absolute;
-    right: 10px;
-    top: 150px;
-    width: 300px;
-    border-radius: 5px;
-    color: var(--success-fg)!important;
-    background-color: var(--success-bg)!important;
-    border: 1px solid var(--success-border)!important;
+    border-color: var(--success-border);
+    background: var(--success-background);
+    color: var(--success-color)
 }
 
 .success a {
-    color: var(--success-fg)!important;
-    transition: 100ms;
-}
-
-.success a:hover {
-    color: var(--elem-dark-third)!important;
-}
-
-.errornote,
-.errornote a,
-.errornote a:hover {
-    position: fixed;
-    right: 10px;
-    top: 155px;
-    z-index: 9999;
-    color: var(--error-fg) !important;
-    background-color: var(--error-bg) !important;
-    border-color: var(--error-fg);
+    color: var(--success-link)
 }
 
 /* Classes */
@@ -1103,6 +1149,20 @@ form .aligned div.help,
     font-size: 90%;
     font-style: italic;
     text-align: left;
+}
+
+.separator-vertical:not(:last-child)  {
+    width: 4px;
+    border-radius: 80px;
+    background: var(--elem-light-border);
+    min-height: 100vh;
+}
+
+.separator-horizontal {
+    height: 4px;
+    border-radius: 80px;
+    background: var(--elem-light-border);
+    width: 100%;
 }
 
 .tooltip > .icon {

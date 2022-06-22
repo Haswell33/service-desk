@@ -44,10 +44,10 @@
         {{ form.media }} {{ form.description }}
       </div>
       <div class="form-field long-field">
-        <input type="submit" value="Create">
+        <input type="submit" class="button" value="Create">
       </div>
     </form>
-    <div id="create-ticket-info" style="display:none">
+    <!--<div id="create-ticket-info" style="display:none">
       <div id="create-ticket-info-dialog">
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent egestas sapien mi, eget auctor sem pretium sit amet. Donec sed ornare felis, et tempor nisi.Cras velit diam, hendrerit eget augue ut, rhoncus tincidunt enim. Vivamus nisl nulla, blandit eu euismod ac, faucibus quis nibh. Mauris cursus nulla sit amet mauris lobortis fermentum</p>
         <p class="p-footer">ServiceDesk App</p>
@@ -61,7 +61,7 @@
           <path style="fill:#e1e1e1;" d="M266,255.2c-3.2,3.2-3.2,8,0,10.8l82.8,82.8c3.2,3.2,8,3.2,10.8,0c3.2-3.2,3.2-8,0-10.8l-82.8-82.8C274,252.4,268.8,252.4,266,255.2z"/>
         </svg>
       </div>
-    </div>
+    </div>-->
   </div>
   <script>
     $(document).ready(function(){renderFields('create-ticket', '{{ MEDIA_URL }}')})

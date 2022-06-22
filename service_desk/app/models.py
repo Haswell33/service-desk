@@ -247,6 +247,14 @@ class IssueType(models.Model):
         return get_img_field(self.icon, self.name, 20, 20)
     icon_img.fget.short_description = 'Icon'
 
+    @property
+    def icon_img_text(self):
+        try:
+            return get_img_text_field(self.icon, self.name, 18, 18)
+        except AttributeError:
+            return self.name
+    icon_img_text.fget.short_description = 'Type'
+
     def __str__(self):
         return self.name
 
@@ -348,11 +356,19 @@ class Transition(models.Model):
     src_status = models.ForeignKey(
         Status,
         on_delete=models.CASCADE,
+        blank=True,
+        null=True,
         related_name='%(class)s_src_status')
     dest_status = models.ForeignKey(
         Status,
         on_delete=models.CASCADE,
+        blank=True,
+        null=True,
         related_name='%(class)s_dest_status')
+    types = models.ManyToManyField(
+        IssueType,
+        through='TransitionAssociation',
+        through_fields=('transition', 'type'))
 
     class Meta:
         db_table = 'transition'
@@ -362,10 +378,15 @@ class Transition(models.Model):
 
     @property
     def full_transition(self):
-        return format_html(
-            f'{get_status_color(self.src_status.color, self.src_status.name)}'
-            f'<span class="status-arrow"></span>'
-            f'{get_status_color(self.dest_status.color, self.dest_status.name)}')
+        try:
+            src_status = get_status_color(self.src_status.color, self.src_status.name)
+        except AttributeError:
+            src_status = mark_safe(f'<span style="display: flex; align-items: center">All statuses</span>')
+        try:
+            dest_status = get_status_color(self.dest_status.color, self.dest_status.name)
+        except AttributeError:
+            dest_status = mark_safe(f'<span style="display: flex; align-items: center">All statuses</span>')
+        return format_html(f'{src_status}<span class="status-arrow"></span>{dest_status}')
     full_transition.fget.short_description = 'Transition'
 
     def __str__(self):
@@ -685,6 +706,9 @@ class Issue(models.Model):
         else:
             return self.resolution
     get_resolution.short_description = 'Resolution'
+
+    def get_absolute_url(self):
+        pass
 
     def __str__(self):
         return self.key

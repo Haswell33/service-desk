@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django import forms
+from django.conf import settings
 from django.contrib.admin import AdminSite
 from django.contrib.auth.models import Group, User
 from django.contrib.auth.admin import GroupAdmin, UserAdmin
@@ -8,6 +8,7 @@ from django.utils.html import mark_safe, format_html
 from django import template
 
 register = template.Library()
+
 
 class GroupAdminModel(GroupAdmin):
     list_display = ('name', 'type')
@@ -74,14 +75,6 @@ class BoardColumnAdminModel(admin.ModelAdmin):
         return mark_safe(output)
     get_statuses.short_description = 'Statuses'
 
-'''
-@admin.register(BoardColumnAssociation)
-class BoardColumnAssociationAdminModel(admin.ModelAdmin):
-    list_display = ('column', 'status_color', 'board_name')
-    search_fields = ['board', 'column', 'status']
-    list_filter = ('column', 'status')
-'''
-
 
 @admin.register(SLAScheme)
 class SLAAdminModel(admin.ModelAdmin):
@@ -107,19 +100,32 @@ class StatusAdminModel(admin.ModelAdmin):
     search_fields = ['name']
 
 
+class TransitionAssociationInline(admin.TabularInline):
+    model = TransitionAssociation
+
+
 @admin.register(Transition)
 class TransitionAdminModel(admin.ModelAdmin):
-    list_display = ('name', 'full_transition')
+    list_display = ('name', 'full_transition', 'get_types')
     search_fields = ['name', 'src_status', 'dest_status']
-    list_filter = ('name', 'src_status', 'dest_status')
+    list_filter = ('name', 'src_status', 'dest_status', 'types')
+    inlines = [TransitionAssociationInline]
+
+    def get_types(self, instance):
+        output = ''
+        for types in instance.types.all():
+            output = output + mark_safe(f'<img src="{settings.MEDIA_URL}/{str(types.icon)}" height="20" width="20" title="{types.name}" alt={types.name}/> ')
+        return mark_safe(output)
+    get_types.short_description = 'Types'
 
 
+'''
 @admin.register(TransitionAssociation)
 class TransitionAssociationAdminModel(admin.ModelAdmin):
     list_display = ('type', 'full_transition')
     search_fields = ['type', 'transition']
     list_filter = ('type', 'transition')
-
+'''
 
 @admin.register(Resolution)
 class ResolutionAdminModel(admin.ModelAdmin):

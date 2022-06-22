@@ -6,17 +6,25 @@
 
 <body>
   {% block content_page %}
-  <div id="content-page_header">
+  <div id="content-page_header" class="separated">
     <div class="content-page_header-block">
       <div class="content-page_header-block_type">{{ object.type.icon_img }}</div>
       <h2>{{ object.key }}</h2>
     </div>
   </div>
+  <div class="separator-horizontal"></div>
   <div class="content-page-block">
     <div id="ticket-view_navbar">
-      {% for dest_status in dest_statuses %}
-        {{ dest_status }}
+      <div class="ticket-view_navbar-block">
+        <button type="action">Edit</button>
+      </div>
+      <div class="ticket-view_navbar-block">
+        {% for transition in transitions %}
+        <button type="action">
+          {{ transition.transition.name }}
+        </button>
       {% endfor %}
+      </div>
     </div>
     <div class="ticket-view_field">
       <div class="ticket-view_field_label">
@@ -31,7 +39,7 @@
         {% get_verbose_name object 'type' %}
       </div>
       <div class="ticket-view_field_content">
-        {{ object.type }}
+        {{ object.type.name }}
       </div>
     </div>
     <div class="ticket-view_field">
@@ -51,8 +59,13 @@
       </div>
     </div>
     <label></label>
-
-    <p></p>
+    {% if messages %}
+      <div class="message success">
+        {% for message in messages %}
+          {{ message }}
+        {% endfor %}
+      </div>
+    {% endif %}
   </div>
   {% endblock %}
 </body>

@@ -145,9 +145,7 @@ def order_tickets(tickets, ordering):
 
 
 def get_transitions(object):
-    transition_associations = TransitionAssociation.objects.filter(Q(transition__src_status=object.status) | Q(type=object.type))
-    print(transition_associations)
-    return Transition.objects.filter(Q(src_status=object.status), src_status__name='All')
+    return TransitionAssociation.objects.filter((Q(transition__src_status=object.status) | Q(transition__src_status__isnull=True)) & Q(type=object.type))
 
 
 def change_active_tenant(tenant_id, user):

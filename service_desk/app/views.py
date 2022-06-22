@@ -8,33 +8,20 @@ from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.signals import user_logged_out, user_logged_in
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm, PasswordResetForm
+from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models.query_utils import Q
 from django.views import generic
+from django.utils.translation import gettext as _
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.template.loader import render_to_string
+from django.urls import reverse_lazy
 from django.urls.exceptions import NoReverseMatch
 from .models import Issue
 from .forms import TicketCreateForm, TicketFilterViewForm
 from .utils import get_env_type, get_initial_status, get_active_tenant, active_tenant_session, get_active_tenant_session, tenant_session, clear_tenant_session, change_active_tenant, get_tenant_cookie_name, get_active_tenant_tickets, get_board_columns_assocations, get_board_columns, filter_tickets, order_tickets, get_transitions, convert_query_dict_to_dict
 from .context_processors import context_tenant_session
-
-'''
-def home(request, template_name='home.html'):
-    
-    else:
-        if not active_tenant_session(request.user):
-            context_tenant_session(request)
-        return render(request, template_name, status=200)
-'''
-
-'''def view_ticket(request, template_name='ticket/ticket-view.html'):
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect(f'{settings.LOGIN_URL}')
-    response = render(request, template_name, status=200)
-    print('dupa')
-    return response'''
 
 
 def validate_get_request(self, request, view_name, *args, **kwargs):
@@ -64,90 +51,54 @@ def after_login(sender, user, request, **kwargs):
     if not tenant_session(user):
         context_tenant_session(request)
 
+
+user_logged_out.connect(after_logout)
+user_logged_in.connect(after_login)
+
 # Views
 
 
-def submit_ticket(request, template_name='ticket/ticket-submit.html'):
-    if not request.user.is_authenticated:
-        return login_page(request.path)
-    response = render(request, template_name, status=200)
-    return response
-
-
-def create_ticket(request, template_name='ticket/ticket-create.html'):
-    if not request.user.is_authenticated:
-        return login_page(request.path)
-    elif request.COOKIES.get(get_tenant_cookie_name(request.user)) is None:
-        return redirect('tenant_update')
-    elif request.method == 'POST':
-        form = TicketCreateForm(request.POST)
-        if form.is_valid():
-            tenant = get_active_tenant(request.user)
-            new_issue = form.save(commit=False)  # create instance, but do not save
-            new_issue.status = get_initial_status(get_env_type(new_issue.type.id))  # env_type field from issue type
-            new_issue.key = f'{tenant.key}-{tenant.count + 1}'
-            new_issue.tenant = tenant
-            new_issue.save()  # create issue
-            form.save_m2m()
-            tenant.count += 1
-            tenant.save()
-            #return render(request, 'submit-ticket.html', status=200)
-            return HttpResponseRedirect(f'submit')
-        else:
-            print(form.errors.as_data())
-    else:
-        form = TicketCreateForm()
-        if not active_tenant_session(request.user):
-            context_tenant_session(request)
-        tenant_session = get_active_tenant_session(request.user)
-        if tenant_session.user_type == settings.CUST_TYPE:
-            form.fields['type'].initial = 2
-        elif tenant_session.user_type == settings.OPER_TYPE or tenant_session.user_type == settings.DEV_TYPE:
-            form.fields['type'].initial = 1
-        else:
-            pass
-        return render(request, template_name, {'form': form}, status=200)
-
-
-class TicketCreateView(generic.CreateView):
+class TicketCreateView(SuccessMessageMixin, generic.CreateView):
     model = Issue
-    context_object_name = 'ticket'
+    form_class = TicketCreateForm
     template_name = 'ticket/ticket-create.html'
+    success_url = reverse_lazy('submit')
 
-    def get_queryset(self):
-        pass
-
-    def get_context_data(self, **kwargs):
-        context = super(TicketCreateView, self).get_context_data(**kwargs)
-        form = TicketCreateForm(self.request)
+    def get_initial(self):
+        initial = super(TicketCreateView, self).get_initial()
         tenant_session = get_active_tenant_session(self.request.user)
         if tenant_session.user_type == settings.CUST_TYPE:
-            form.fields['type'].initial = 2
+            initial['type'] = 2  # Service Request
         elif tenant_session.user_type == settings.OPER_TYPE or tenant_session.user_type == settings.DEV_TYPE:
-            form.fields['type'].initial = 1
-        context.update({
-            'form': form,
-        })
-        return context
+            initial['type'] = 1  # Task
+        initial['status'] = get_initial_status(get_env_type(initial['type']))
+        initial['reporter'] = self.request.user
+        return initial
+
+    def get_success_url(self, **kwargs):
+        return reverse_lazy('view_ticket', args=(self.object.slug,))
+
+    def get_success_message(self, cleaned_data):
+        print(cleaned_data)
+        return f'Ticket {self.object.key} was created successfully'
+
+    def form_valid(self, form):
+        tenant = get_active_tenant(self.request.user)
+        new_ticket = form.save(commit=False)  # create instance, but do not save
+        new_ticket.key = f'{tenant.key}-{tenant.count + 1}'
+        new_ticket.tenant = tenant
+        new_ticket.save()  # create ticket
+        form.save_m2m()
+        tenant.count += 1
+        tenant.save()
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        print(form.errors.as_data())
+        return HttpResponse('invalid form')
 
     def get(self, request, *args, **kwargs):
         return validate_get_request(self, request, TicketCreateView, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        form = TicketCreateForm(request.POST)
-        if form.is_valid():
-            tenant = get_active_tenant(request.user)
-            new_ticket = form.save(commit=False)  # create instance, but do not save
-            new_ticket.status = get_initial_status(get_env_type(new_ticket.type.id))  # env_type field from issue type
-            new_ticket.key = f'{tenant.key}-{tenant.count + 1}'
-            new_ticket.tenant = tenant
-            new_ticket.save()  # create ticket
-            form.save_m2m()
-            tenant.count += 1
-            tenant.save()
-            return HttpResponseRedirect(f'submit')
-        else:
-            print(form.errors.as_data())
 
 
 class TicketDetailView(generic.detail.DetailView):  # Detail view for ticket
@@ -156,9 +107,16 @@ class TicketDetailView(generic.detail.DetailView):  # Detail view for ticket
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
-            'dest_statuses': get_transitions(self.object)
+            'transitions': get_transitions(self.object)
         })
         return context
+
+    '''def get_object(self):
+        obj = super().get_object()
+        # Record the last accessed date
+        obj.last_accessed = timezone.now()
+        obj.save()
+        return obj'''
 
 
 class TicketBoardListView(generic.ListView):
@@ -330,13 +288,86 @@ def tenant_update(request):
         return response
 
 
-user_logged_out.connect(after_logout)
-user_logged_in.connect(after_login)
-
 '''
 def login(request):
     print('login')
     if request.user.is_authenticated:
         return HttpResponseRedirect(reverse(home))
     return render(request, {}, status=200)
+'''
+
+'''
+def home(request, template_name='home.html'):
+
+    else:
+        if not active_tenant_session(request.user):
+            context_tenant_session(request)
+        return render(request, template_name, status=200)
+'''
+
+'''def view_ticket(request, template_name='ticket/ticket-view.html'):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(f'{settings.LOGIN_URL}')
+    response = render(request, template_name, status=200)
+    print('dupa')
+    return response'''
+
+'''
+def create_ticket(request, template_name='ticket/ticket-create.html'):
+    if not request.user.is_authenticated:
+        return login_page(request.path)
+    elif request.COOKIES.get(get_tenant_cookie_name(request.user)) is None:
+        return redirect('tenant_update')
+    elif request.method == 'POST':
+        form = TicketCreateForm(request.POST)
+        if form.is_valid():
+            tenant = get_active_tenant(request.user)
+            new_issue = form.save(commit=False)  # create instance, but do not save
+            new_issue.status = get_initial_status(get_env_type(new_issue.type.id))  # env_type field from issue type
+            new_issue.key = f'{tenant.key}-{tenant.count + 1}'
+            new_issue.tenant = tenant
+            new_issue.save()  # create issue
+            form.save_m2m()
+            tenant.count += 1
+            tenant.save()
+            #return render(request, 'submit-ticket.html', status=200)
+            return HttpResponseRedirect(f'submit')
+        else:
+            print(form.errors.as_data())
+    else:
+        form = TicketCreateForm()
+        if not active_tenant_session(request.user):
+            context_tenant_session(request)
+        tenant_session = get_active_tenant_session(request.user)
+        if tenant_session.user_type == settings.CUST_TYPE:
+            form.fields['type'].initial = 2
+        elif tenant_session.user_type == settings.OPER_TYPE or tenant_session.user_type == settings.DEV_TYPE:
+            form.fields['type'].initial = 1
+        else:
+            pass
+        return render(request, template_name, {'form': form}, status=200)
+'''
+
+
+'''
+
+ticket create view
+def get_context_data(self, **kwargs):
+        context = super(TicketCreateView, self).get_context_data(**kwargs)
+        context.update({
+            'form': self.get_form()
+        })
+        return context
+
+    def get_form_kwargs(self):
+        kwargs = super(TicketCreateView, self).get_form_kwargs()
+        kwargs['reporter'] = self.request.user
+        return kwargs'''
+
+'''
+def submit_ticket(request, template_name='ticket/ticket-submit.html'):
+    if not request.user.is_authenticated:
+        return login_page(request.path)
+    response = render(request, template_name, status=200)
+    return response
 '''

@@ -645,6 +645,49 @@ select {
 thead th.required {
     color: var(--elem-dark-third);
 }
+
+ul.messagelist li {
+    padding: 14px 10px 10px 65px;
+}
+
+form .aligned div.help,
+.errorlist {
+    margin-left: 0!important;
+    padding: 5px 0 0 0 !important;
+}
+
+.success {
+    z-index: 99;
+    position: absolute;
+    right: 10px;
+    top: 150px;
+    width: 300px;
+    border-radius: 5px;
+    color: var(--success-fg)!important;
+    background-color: var(--success-bg)!important;
+    border: 1px solid var(--success-border)!important;
+}
+
+.success a {
+    color: var(--success-fg)!important;
+    transition: 100ms;
+}
+
+.success a:hover {
+    color: var(--elem-dark-third)!important;
+}
+
+.errornote,
+.errornote a,
+.errornote a:hover {
+    position: fixed;
+    right: 10px;
+    top: 155px;
+    z-index: 9999;
+    color: var(--error-fg) !important;
+    background-color: var(--error-bg) !important;
+    border-color: var(--error-fg);
+}
 /*
 label {
     display: block;

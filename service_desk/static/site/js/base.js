@@ -27,6 +27,7 @@ $(document).on('click', function(event) {
 setTimeout(function(){
     $('.errornote').fadeOut()
     $('.messagelist').fadeOut()
+    $('.message').fadeOut()
 }, 5000);
 
 function bootstrapFilestyle(){
