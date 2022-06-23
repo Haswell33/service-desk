@@ -18,9 +18,9 @@ from django.utils.encoding import force_bytes
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.urls.exceptions import NoReverseMatch
-from .models import Issue
-from .forms import TicketCreateForm, TicketFilterViewForm
-from .utils import get_env_type, get_initial_status, get_active_tenant, active_tenant_session, get_active_tenant_session, tenant_session, clear_tenant_session, change_active_tenant, get_tenant_cookie_name, get_active_tenant_tickets, get_board_columns_assocations, get_board_columns, filter_tickets, order_tickets, get_transitions, convert_query_dict_to_dict
+from .models import Issue, TransitionAssociation
+from .forms import TicketCreateForm, TicketFilterViewForm, TicketUpdateAssigneeForm, TicketUpdateForm
+from .utils import get_env_type, get_initial_status, get_active_tenant, active_tenant_session, get_active_tenant_session, tenant_session, clear_tenant_session, change_active_tenant, get_tenant_cookie_name, get_active_tenant_tickets, get_board_columns_assocations, get_board_columns, filter_tickets, order_tickets, get_transitions, convert_query_dict_to_dict, set_ticket_status, set_ticket_assignee, update_ticket
 from .context_processors import context_tenant_session
 
 
@@ -62,7 +62,6 @@ class TicketCreateView(SuccessMessageMixin, generic.CreateView):
     model = Issue
     form_class = TicketCreateForm
     template_name = 'ticket/ticket-create.html'
-    success_url = reverse_lazy('submit')
 
     def get_initial(self):
         initial = super(TicketCreateView, self).get_initial()
@@ -71,7 +70,6 @@ class TicketCreateView(SuccessMessageMixin, generic.CreateView):
             initial['type'] = 2  # Service Request
         elif tenant_session.user_type == settings.OPER_TYPE or tenant_session.user_type == settings.DEV_TYPE:
             initial['type'] = 1  # Task
-        initial['status'] = get_initial_status(get_env_type(initial['type']))
         initial['reporter'] = self.request.user
         return initial
 
@@ -79,14 +77,14 @@ class TicketCreateView(SuccessMessageMixin, generic.CreateView):
         return reverse_lazy('view_ticket', args=(self.object.slug,))
 
     def get_success_message(self, cleaned_data):
-        print(cleaned_data)
-        return f'Ticket {self.object.key} was created successfully'
+        return f'Ticket <strong>{self.object.key}</strong> was created successfully'
 
     def form_valid(self, form):
         tenant = get_active_tenant(self.request.user)
         new_ticket = form.save(commit=False)  # create instance, but do not save
         new_ticket.key = f'{tenant.key}-{tenant.count + 1}'
         new_ticket.tenant = tenant
+        new_ticket.status = get_initial_status(get_env_type(new_ticket.type.id))
         new_ticket.save()  # create ticket
         form.save_m2m()
         tenant.count += 1
@@ -107,9 +105,13 @@ class TicketDetailView(generic.detail.DetailView):  # Detail view for ticket
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
-            'transitions': get_transitions(self.object)
+            'transitions': get_transitions(self.object),
+            'form_update_assignee': TicketUpdateAssigneeForm(instance=self.object),
+            'form_update': TicketUpdateForm(instance=self.object)
         })
         return context
+
+
 
     '''def get_object(self):
         obj = super().get_object()
@@ -117,6 +119,93 @@ class TicketDetailView(generic.detail.DetailView):  # Detail view for ticket
         obj.last_accessed = timezone.now()
         obj.save()
         return obj'''
+
+
+class TicketDetailUpdate(generic.UpdateView):
+    model = Issue
+    fields = ['title', 'priority', 'description']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'form_edit': TicketUpdateAssigneeForm()
+        })
+        return context
+
+    def form_valid(self, form):
+        print('dupa')
+        new_ticket = form.save(commit=False)  # create instance, but do not save
+        new_ticket.save()  # create ticket
+        form.save_m2m()
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        print(form.errors.as_data())
+        return HttpResponse('invalid form')
+
+    def post(self, request, *args, **kwargs):
+        ticket = Issue.objects.get(slug=self.kwargs.get('slug'))
+        updated_ticket = update_ticket(request.POST, self.fields, ticket)
+
+        return HttpResponseRedirect(reverse('view_ticket', args=[ticket.slug]))
+
+
+class TicketDetailUpdateStatus(generic.UpdateView):
+    model = Issue
+    fields = ['status']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'transitions': get_transitions(self.object)  # transition associations
+        })
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super().post(request, *args, **kwargs)
+        transition_association = TransitionAssociation.objects.get(id=request.POST.get('transition'))
+        context_transition_associations = self.get_context_data().get('transitions')
+        ticket = Issue.objects.get(slug=self.kwargs.get('slug'))
+        ticket_updated = set_ticket_status(transition_association, context_transition_associations, ticket)
+        try:
+            messages.success(request, f'Status of <strong>{ticket_updated.key}</strong> has been changed to <strong>{ticket_updated.status}</strong>')
+        except AttributeError:
+            messages.error(request, f'Status in <strong>{ticket.key}</strong> cannot be changed!')
+        return HttpResponseRedirect(reverse('view_ticket', args=[ticket.slug]))
+
+
+class TicketDetailUpdateAssignee(generic.UpdateView):
+    model = Issue
+    fields = ['assignee']
+
+   # def get_context_data(self, **kwargs):
+   #     context = super().get_context_data(**kwargs)
+   #     context.update({
+   #     })
+   #     return context
+
+    #def get_success_message(self, cleaned_data):
+    #    return f'Ticket has been assigned to {self.assignee}'
+
+    #def get_success_url(self, **kwargs):
+    #    return reverse_lazy('view_ticket', args=(self.object.slug,))
+
+    def post(self, request, *args, **kwargs):
+        try:
+            user = User.objects.get(id=request.POST.get('assignee'))
+        except ValueError:
+            user = None
+        ticket = Issue.objects.get(slug=self.kwargs.get('slug'))
+        ticket_updated = set_ticket_assignee(user, ticket)
+        if user is None:
+            messages.success(request, f'Ticket has been unassigned')
+        else:
+            messages.success(request, f'Ticket has been assigned to <strong>{ticket_updated.assignee}</strong>')
+        return HttpResponseRedirect(reverse('view_ticket', args=[ticket.slug]))
+
+    #def form_valid(self, form):
+    #    self.assignee = 'dupa'
+    #    return super().form_valid(form)
 
 
 class TicketBoardListView(generic.ListView):

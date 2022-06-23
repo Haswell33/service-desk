@@ -16,14 +16,55 @@
   <div class="content-page-block">
     <div id="ticket-view_navbar">
       <div class="ticket-view_navbar-block">
-        <button type="action">Edit</button>
+        <button id="button_ticket-edit" data-type="action">Edit</button>
+        <div id="navbar-block_edit-dialog" class="dialog center">
+          <form action="{% url 'update_ticket' object.slug %}" method="post">
+            {% csrf_token %}
+            <div class="form-field long-field required">
+              <label for="{{ form_update.title.id_for_label }}">{{ form_update.title.label }}</label>
+              {{ form_update.title }}
+              <div class="description">{{ form_update.title.help_text }}</div>
+            </div>
+            <div class="form-field medium-field required">
+              <label for="{{ form_update.priority.id_for_label }}">{{ form_update.priority.label }}</label>
+              {{ form_update.priority }}
+            </div>
+            <div class="form-field medium-field">
+              <label for="{{ form_update.labels.id_for_label }}">{{ form_update.labels.label }}</label>
+              {{ form_update.labels }}
+            </div>
+            <div class="form-field long-field">
+              <label for="{{ form_update.description.id_for_label }}">{{ form_update.description.label }}</label>
+              {{ form_update.media }} {{ form_update.description }}
+            </div>
+            <div class="form-field long-field">
+              <input type="submit" class="button" value="Save">
+            </div>
+          </form>
+        </div>
       </div>
       <div class="ticket-view_navbar-block">
-        {% for transition in transitions %}
-          <button type="action" title='Change status to "{{ transition.transition.dest_status }}"' onmouseover="this.style.background-color={{transition.transition.dest_status.color}}">
-            {{ transition.transition.name }}
-          </button>
-      {% endfor %}
+        <form action="{% url 'update_ticket_status' object.slug %}" method="post">
+          {% csrf_token %}
+          {% for transition in transitions %}
+            <button type="submit" name="transition" value="{{ transition.id }}" data-type="action" title='Change status to "{{ transition.transition.dest_status }}"' onmouseover="this.style.background-color={{transition.transition.dest_status.color}}">
+              {{ transition.transition.name }}
+            </button>
+          {% endfor %}
+        </form>
+      </div>
+      <div class="ticket-view_navbar-block">
+        <button id="button_ticket-assignee" data-type="action">Assign</button>
+        <div id="navbar-block_assignee-dialog" class="dialog center">
+          <form action="{% url 'update_ticket_assignee' object.slug %}" method="post">
+            {% csrf_token %}
+            <div class="form-field short-field">
+              <label for="{{ form_update_assignee.assignee.id_for_label }}">{{ form_update_assignee.assignee.label }}</label>
+              {{ form_update_assignee.assignee }}
+            </div>
+            <input type="submit" value="Save">
+          </form>
+        </div>
       </div>
     </div>
     <div id="ticket-view_content">
@@ -43,7 +84,7 @@
             {% get_verbose_name object 'type' %}
           </div>
           <div class="ticket-view_field_content">
-            {{ object.type.name }}
+            {{ object.type.icon_img_text }}
           </div>
         </div>
         <div class="ticket-view_field">
@@ -98,6 +139,22 @@
         </div>
         <div class="ticket-view_field">
           <div class="ticket-view_field_label">
+            {% get_verbose_name object 'created' %}
+          </div>
+          <div class="ticket-view_field_content ticket-user">
+            {{ object.created_datetime }}
+          </div>
+        </div>
+        <div class="ticket-view_field">
+          <div class="ticket-view_field_label">
+            {% get_verbose_name object 'updated' %}
+          </div>
+          <div class="ticket-view_field_content ticket-user">
+            {{ object.updated_datetime }}
+          </div>
+        </div>
+        <div class="ticket-view_field">
+          <div class="ticket-view_field_label">
             {% get_verbose_name object 'resolution' %}
           </div>
           <div class="ticket-view_field_content">
@@ -107,12 +164,15 @@
       </div>
     </div>
     {% if messages %}
-      <div class="message success">
-        {% for message in messages %}
-          {{ message }}
-        {% endfor %}
-      </div>
+      {% for message in messages %}
+        <div class="message {{ message.tags }}">
+          {{ message|safe }}
+        </div>
+      {% endfor %}
     {% endif %}
   </div>
+  <script>
+    $(document).ready(function(){renderFields('ticket-view', '{{ MEDIA_URL }}')})
+  </script>
   {% endblock %}
 </body>

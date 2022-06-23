@@ -6,16 +6,30 @@ else
 $(document).on('click', function(event) {
     if($(event.target).is('#navbar-block_menu svg') || $(event.target).is('#navbar-block_menu path')){
         $('#navbar-block_menu > ul').toggle()
-        if ($('.dialog-bg').is(":visible"))
-            $('.dialog-bg').css('display', 'none')
-        else
-            $('.dialog-bg').css('display', 'block')
+        dialogBg()
     }
     else if(!$(event.target).is('#navbar-block_menu > ul') && $('#navbar-block_menu > ul').is(':visible')){
         $('#navbar-block_menu > ul').hide()
-        $('.dialog-bg').css('display', 'none')
+        dialogBg()
     }
 
+    if($(event.target).is('#button_ticket-assignee')) {
+        $('#navbar-block_assignee-dialog').toggle()
+        dialogBg()
+    }
+    else if(!$(event.target).is('#navbar-block_assignee-dialog') && !$(event.target).is('#navbar-block_assignee-dialog *') && !$(event.target).is('.select2-dropdown *') && $('#navbar-block_assignee-dialog').is(':visible')) {
+        $('#navbar-block_assignee-dialog').hide()
+        dialogBg()
+    }
+
+    if($(event.target).is('#button_ticket-edit')) {
+        $('#navbar-block_edit-dialog').toggle()
+        dialogBg()
+    }
+    else if(!$(event.target).is('#navbar-block_edit-dialog') && !$(event.target).is('#navbar-block_edit-dialog *') && !$(event.target).is('.select2-dropdown *') && $('#navbar-block_edit-dialog').is(':visible')) {
+        $('#navbar-block_edit-dialog').hide()
+        dialogBg()
+    }
    // else if($(event.target).is('#content-header #icon-hint svg') || $(event.target).is('#navbar-account path')){
 //
    // }
@@ -34,6 +48,14 @@ function bootstrapFilestyle(){
     $(":file").filestyle()
     console.log('boostrap-filestyle loaded')
 }
+
+function dialogBg() {
+    if ($('.dialog-bg').is(":visible"))
+        $('.dialog-bg').css('display', 'none')
+    else
+        $('.dialog-bg').css('display', 'block')
+}
+
 
 function customCheckbox(){
     //$('input[type=checkbox]').after($('<span class="checkbox-icon"></span>'))

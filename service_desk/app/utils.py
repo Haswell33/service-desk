@@ -139,13 +139,39 @@ def filter_tickets(tickets, filters):
 
 
 def order_tickets(tickets, ordering):
-    if ordering:
-        tickets = tickets.order_by(ordering)
-        return tickets
+    tickets = tickets.order_by(ordering)
+    return tickets
 
 
 def get_transitions(object):
     return TransitionAssociation.objects.filter((Q(transition__src_status=object.status) | Q(transition__src_status__isnull=True)) & Q(type=object.type))
+
+
+def update_ticket(post_data, fields, ticket):  # TO DO - change attr value
+    ticket_updated = None
+    for field in fields:
+        print(field)
+        print(post_data.get(field))
+        if getattr(ticket, field) != post_data.get(field):
+            setattr(ticket, field, post_data.get(field))
+    ticket.save()
+    return ticket
+
+
+def set_ticket_status(transition_association, context_transition_associations, ticket):
+    for context_transition_association in context_transition_associations:
+        if context_transition_association.id == transition_association.id and ticket.type == transition_association.type:
+            ticket.status = transition_association.transition.dest_status
+            ticket.resolution = transition_association.transition.dest_status.resolution
+            ticket.save()
+            return ticket
+    return None
+
+
+def set_ticket_assignee(user, ticket):
+    ticket.assignee = user
+    ticket.save()
+    return ticket
 
 
 def change_active_tenant(tenant_id, user):

@@ -54,8 +54,40 @@ class TicketCreateForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        # self.reporter = kwargs.pop('reporter')
         super(TicketCreateForm, self).__init__(*args, **kwargs)
+
+
+class TicketUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Issue
+        fields = ['title', 'priority', 'labels', 'description']
+        labels = {
+            'title': _('Title'),
+            'priority': _('Priority'),
+            'labels': _('Label/s'),
+            'description': _('Description'),
+        }
+        help_texts = {
+            'title': _('Summarize the ticket'),
+        }
+        widgets = {
+            'priority': IconField
+        }
+
+    #def __init__(self, *args, **kwargs):
+    #    super(TicketUpdateForm, self).__init__(*args, **kwargs)
+
+
+class TicketUpdateAssigneeForm(forms.ModelForm):
+    class Meta:
+        model = Issue
+        fields = ['assignee']
+        labels = {
+            'assignee': _('Set assignee'),
+        }
+        widgets = {
+            'assignee': IconField,
+        }
 
 
 class TicketFilterViewForm(forms.Form):
@@ -84,6 +116,3 @@ class TicketFilterViewForm(forms.Form):
         queryset=Priority.objects.all(),
         required=False,
         widget=IconField(attrs={'multiple': 'true'}))
-
-
-# class CustomerIssueForm(forms.Form):

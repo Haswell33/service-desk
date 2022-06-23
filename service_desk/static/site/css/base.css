@@ -172,7 +172,7 @@ input[type=search] {
     transition: 400ms border;
 }
 
-button[type=action] {
+button[data-type=action] {
     background: transparent;
     font-size: 16px;
     color: var(--elem-dark-primary);
@@ -185,13 +185,13 @@ button[type=action] {
     transition: 400ms background, border-color, font-weight, color
 }
 
-button[type=action]:not(:last-child) {
-    margin-right: 5px;
+button[data-type=action]:not(:last-child) {
+    /*margin-right: 5px;*/
 }
 
 input[type=button]:hover,
 input[type=submit]:hover,
-button[type=action]:hover {
+button[data-type=action]:hover {
     background: var(--theme);
     border-color: var(--theme);
     color: var(--elem-light-primary);
@@ -844,7 +844,7 @@ footer a:visited {
 
 .ticket-view_field-group.ticket-detail > .ticket-view_field {
     flex: 50%;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
 }
 
 /*.ticket-view_field-group:first-child {
@@ -867,7 +867,7 @@ footer a:visited {
 }
 
 .ticket-view_field_content {
-    padding-top: 10px
+    padding-top: 5px
 }
 
 .ticket-view_field.ticket-title {
@@ -892,6 +892,15 @@ footer a:visited {
     display: inline-table;
     margin-bottom: 5px;
     background: var(--elem-dark-primary);
+}
+
+#navbar-block_assignee-dialog,
+#navbar-block_edit-dialog{
+    position: fixed;
+    padding: 30px 50px 50px 50px;
+    background: var(--elem-light-primary);
+    z-index: 101;
+    display: none;
 }
 
 /* Messages, Communicates, Error, Success, Warning */
@@ -944,19 +953,21 @@ footer a:visited {
 /* Classes */
 
 .center {
-    display: flex;
-    justify-content: center;
-    position: absolute;
-    top: 40%;
+    position: fixed;
+    top: 50%;
     left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -60%);
 }
 
 .dialog {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    border-radius: 5px;
+}
+
+.dialog input[type=submit] {
+    width: 100%;
 }
 
 .dialog p.footer{
@@ -1051,7 +1062,7 @@ footer a:visited {
     width: 60vw!important;
 }
 
-.form .description {
+.description {
     font-size: 80%;
     padding-top: 3px;
     color: var(--elem-light-secondary);
@@ -1279,4 +1290,6 @@ i.up {
 
 .img-text_field img {
     padding-right: 5px;
+    padding-bottom: 2px;
 }
+

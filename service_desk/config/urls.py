@@ -70,6 +70,18 @@ urlpatterns = [
          views.TicketDetailView.as_view(
              template_name='ticket/ticket-view.html'),
          name='view_ticket'),
+    path('ticket/update/<slug:slug>',
+         views.TicketDetailUpdate.as_view(
+             template_name='ticket/ticket-view.html'),
+         name='update_ticket'),
+    path('ticket/update/status/<slug:slug>',
+         views.TicketDetailUpdateStatus.as_view(
+             template_name='ticket/ticket-view.html'),
+         name='update_ticket_status'),
+    path('ticket/update/assignee/<slug:slug>',
+         views.TicketDetailUpdateAssignee.as_view(
+             template_name='ticket/ticket-view.html'),
+         name='update_ticket_assignee'),
     path('ticket/filter/',
          views.TicketFilterListView.as_view(
              template_name='ticket/ticket-filter.html'),
