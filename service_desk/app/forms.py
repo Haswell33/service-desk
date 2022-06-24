@@ -1,5 +1,5 @@
 from .models import Issue, IssueType, Label, User, Status, Resolution, Priority
-from django.forms import ClearableFileInput, FileInput, FileField
+from django.forms import ClearableFileInput, FileInput, FileField, MultiValueField
 from django.utils.translation import gettext_lazy as _
 from django.forms import ValidationError
 from django import forms
@@ -33,7 +33,7 @@ class ModelIconChoiceField(forms.ModelChoiceField):
 class TicketCreateForm(forms.ModelForm):
     class Meta:
         model = Issue
-        fields = ['title', 'type', 'priority', 'assignee', 'reporter', 'labels', 'description', 'attachments']
+        fields = ['title', 'type', 'priority', 'assignee', 'reporter', 'labels', 'description', ] # 'attachments'
         labels = {
             'title': _('Title'),
             'type': _('Type'),
@@ -53,7 +53,8 @@ class TicketCreateForm(forms.ModelForm):
             'type': IconField,
             'priority': IconField,
             'assignee': IconField,
-            'attachments': ClearableFileInput(attrs={'multiple': True}),
+            #'attachments': ClearableFileInput(attrs={'multiple': True}),
+            #'attachments': MultiValueField,
         }
 
     def __init__(self, *args, **kwargs, ):
@@ -62,18 +63,16 @@ class TicketCreateForm(forms.ModelForm):
         #print(str(*args))
         #self.fields['attachments'] = forms.ChoiceField(label=u'attachments', choices='new', widget=ClearableFileInput(attrs={'multiple': True}), required=False)
 
-
     def clean(self):
         super(TicketCreateForm, self).clean()
         #if not (self.attachments):
         #     raise ValidationError("dont have a attachments file")
-        print('clean')
-        print(self.__dict__)
+        #print('clean')
+        #print(self.__dict__)
         #attachments = self.cleaned_data['attachments']
         #print(attachments)
         if self._errors:
             print(self._errors)
-
 
 
 class TicketUpdateForm(forms.ModelForm):

@@ -469,6 +469,7 @@ class Attachment(models.Model):
     file = models.ImageField(
         upload_to=f'{get_media_path()}/attachments',
         null=True,
+        blank=True,
         max_length=5000)
     filename = models.CharField(
         max_length=255,
@@ -616,6 +617,7 @@ class Issue(models.Model):
         db_table = 'issue'
         verbose_name = 'ticket'
         verbose_name_plural = 'tickets'
+        ordering = ['-updated']
 
     def save(self, *args, **kwargs):
         if not self.id:

@@ -173,7 +173,8 @@ def get_transitions(object):
 def create_ticket(form, request):
     tenant = get_active_tenant(request.user)
     new_ticket = form.save(commit=False)  # create instance, but do not save
-    print(form.__dict__)
+    print('files')
+    print(request.FILES)
     new_ticket.key = f'{tenant.key}-{tenant.count + 1}'
     new_ticket.tenant = tenant
     new_ticket.status = get_initial_status(get_env_type(new_ticket.type.id))

@@ -80,26 +80,12 @@ class TicketCreateView(SuccessMessageMixin, generic.CreateView):
         return f'Ticket <strong>{self.object.key}</strong> was created successfully'
 
     def form_valid(self, form):
-        print('valid')
-        #handle_uploaded_file(request.FILES['file'])
         create_ticket(form, self.request)
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        print(self.request.FILES)
-        print(form.errors.as_data())
-        print(form.cleaned_data.get('attachments'))
-        if form.errors.get('attachments'):
-            messages.error(self.request, f'Extension of attached file/s is not allowed')
+        messages.error(self.request, form.errors.as_data())
         return redirect(self.request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
-
-   # def post(self, request, *args, **kwargs):
-   #     print('dupa')
-   #     form = TicketCreateForm(request.POST, request.FILES)
-   #     print(form.is_valid())
-   #     print(self.request.FILES)
-#
-   #     return redirect(self.request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
 
     def get(self, request, *args, **kwargs):
         return validate_get_request(self, request, TicketCreateView, *args, **kwargs)

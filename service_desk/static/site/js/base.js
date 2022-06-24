@@ -45,8 +45,8 @@ setTimeout(function(){
 }, 5000);
 
 function bootstrapFilestyle(){
-    //$(":file").filestyle()
-    //console.log('boostrap-filestyle loaded')
+    $(":file").filestyle()
+    console.log('boostrap-filestyle loaded')
 }
 
 function dialogBg() {

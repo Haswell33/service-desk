@@ -47,3 +47,19 @@
 2022-06-24 05:25:12 INFO | admin 127.0.0.1 | object Issue with instance id 82 ticket "HSW-43" create
 2022-06-24 05:49:49 INFO | admin 127.0.0.1 | object Issue with instance id 83 ticket "HSW-44" create
 2022-06-24 05:51:47 INFO | admin 127.0.0.1 | object Issue with instance id 84 ticket "HSW-45" create
+2022-06-24 06:10:00 INFO | admin 127.0.0.1 | object Issue with instance id 27 field update "status" to "Resolved"
+2022-06-24 06:10:10 INFO | admin 127.0.0.1 | object Issue with instance id 31 field update "status" to "New"
+2022-06-24 06:10:15 INFO | admin 127.0.0.1 | object Issue with instance id 31 field update "description" to "<p>test</p>"
+2022-06-24 06:10:20 INFO | admin 127.0.0.1 | object Issue with instance id 31 field update "suspended" to "True"
+2022-06-24 06:10:21 INFO | admin 127.0.0.1 | object Issue with instance id 31 field update "suspended" to "False"
+2022-06-24 06:10:22 INFO | admin 127.0.0.1 | object Issue with instance id 31 field update "suspended" to "True"
+2022-06-24 06:10:23 INFO | admin 127.0.0.1 | object Issue with instance id 31 field update "suspended" to "False"
+2022-06-24 06:10:26 INFO | admin 127.0.0.1 | object Issue with instance id 31 field update "suspended" to "True"
+2022-06-24 06:13:38 INFO | admin 127.0.0.1 | object Issue with instance id 85 ticket "HSW-46" create
+2022-06-24 06:14:23 INFO | admin 127.0.0.1 | object Issue with instance id 86 ticket "HSW-47" create
+2022-06-24 06:34:00 INFO | admin 127.0.0.1 | object Issue with instance id 87 ticket "HSW-48" create
+2022-06-24 06:34:49 INFO | admin 127.0.0.1 | object Issue with instance id 88 ticket "HSW-49" create
+2022-06-24 06:36:01 INFO | admin 127.0.0.1 | object Issue with instance id 89 ticket "HSW-50" create
+2022-06-24 06:36:06 INFO | admin 127.0.0.1 | object Issue with instance id 90 ticket "HSW-51" create
+2022-06-24 06:36:15 INFO | admin 127.0.0.1 | object Issue with instance id 91 ticket "HSW-52" create
+2022-06-24 06:38:05 INFO | admin 127.0.0.1 | object Issue with instance id 92 ticket "HSW-53" create

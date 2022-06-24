@@ -43,8 +43,7 @@
         <label for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
         {{ form.media }} {{ form.description }}
       </div>
-      <input name="attachment" value="ez"/>
-      <input name="kurde_bela" value="tak"/>
+      <input type="file" name="attachments" multiple/>
       <div class="form-field long-field">
         <input type="submit" class="button" value="Create">
       </div>
