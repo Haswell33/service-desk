@@ -22,6 +22,10 @@
     --warning-color: #856404;
     --warning-border: #ffeeba;
     --warning-link: #533f03;
+    --info-background: #cce5ff;
+    --info-color: #004085;
+    --info-border: #b8daff;
+    --info-link: #002752;
     --success-background: #d4edda;
     --success-color: #155724;
     --success-border: #c3e6cb;
@@ -842,8 +846,18 @@ footer a:visited {
     flex-wrap: wrap;
 }
 
-.ticket-view_field-group.ticket-detail > .ticket-view_field {
+.ticket-view_field {
     flex: 50%;
+}
+
+.ticket-view_field:not(:last-child) {
+    margin-bottom: 15px;
+}
+
+
+.ticket-view_field-group:not(:last-child) {
+    border-bottom: 1px solid var(--elem-light-border);
+    padding-bottom: 15px;
     margin-bottom: 15px;
 }
 
@@ -873,15 +887,16 @@ footer a:visited {
 .ticket-view_field.ticket-title {
     font-size: 120%;
     width: 100%;
-    border-bottom: 1px solid var(--elem-light-border);
-    padding-bottom: 15px;
-    margin-bottom: 15px;
 }
 
 .ticket-view_field_content.ticket-user img {
     width: 23px;
     height: 23px;
     border-radius: 100%;
+}
+
+.ticket-view_field_content.description {
+    padding: 0 10px 10px 10px;
 }
 
 .ticket-label {
@@ -907,13 +922,14 @@ footer a:visited {
 
 .message {
     border-radius: 5px;
+    max-width: 310px;
     position: fixed;
     top: 140px;
     right: 15px;
     z-index: 101;
     padding: 15px 20px 15px 20px;
-    font-size: 14px;
-    border: 1px solid;
+    font-size: 15px;
+    border: 2px solid;
 }
 
 .message a {
@@ -950,13 +966,23 @@ footer a:visited {
     color: var(--success-link)
 }
 
+.info {
+    border-color: var(--info-border);
+    background: var(--info-background);
+    color: var(--info-color)
+}
+
+.info a {
+    color: var(--info-link)
+}
+
 /* Classes */
 
 .center {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -60%);
+    transform: translate(-50%, -55%);
 }
 
 .dialog {

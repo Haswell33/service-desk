@@ -26,7 +26,7 @@ $(document).on('click', function(event) {
         $('#navbar-block_edit-dialog').toggle()
         dialogBg()
     }
-    else if(!$(event.target).is('#navbar-block_edit-dialog') && !$(event.target).is('#navbar-block_edit-dialog *') && !$(event.target).is('.select2-dropdown *') && $('#navbar-block_edit-dialog').is(':visible')) {
+    else if(!$(event.target).is('#navbar-block_edit-dialog') && !$(event.target).is('#navbar-block_edit-dialog *') && !$(event.target).is('.select2-dropdown *') && !$(event.target).is('.select2-selection__choice__remove') && !$(event.target).is('.tox-dialog-wrap *') && $('#navbar-block_edit-dialog').is(':visible')) {
         $('#navbar-block_edit-dialog').hide()
         dialogBg()
     }
@@ -45,8 +45,8 @@ setTimeout(function(){
 }, 5000);
 
 function bootstrapFilestyle(){
-    $(":file").filestyle()
-    console.log('boostrap-filestyle loaded')
+    //$(":file").filestyle()
+    //console.log('boostrap-filestyle loaded')
 }
 
 function dialogBg() {

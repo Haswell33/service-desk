@@ -1,3 +1,5 @@
+import os.path
+
 from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator, FileExtensionValidator
 from django.contrib.auth.models import User, Group
 from django.conf import settings
@@ -7,6 +9,16 @@ from django.db import models
 from crum import get_current_user
 from tinymce.models import HTMLField
 from datetime import datetime
+import math
+
+
+def validate_file_extension(value):
+    import os
+    from django.core.exceptions import ValidationError
+    ext = os.path.splitext(value.name)[1]  # [0] returns path+filename
+    valid_extensions = ['.pdf', '.doc', '.docx', '.jpg', '.png', '.xlsx', '.xls', 'txt']
+    if not ext.lower() in valid_extensions:
+        raise ValidationError('Unsupported file extension.')
 
 
 def get_media_path():
@@ -454,16 +466,16 @@ class Comment(models.Model):
 class Attachment(models.Model):
     id = models.BigAutoField(
         primary_key=True)
-    file = models.FileField(
+    file = models.ImageField(
         upload_to=f'{get_media_path()}/attachments',
-        validators=[FileExtensionValidator],
-        blank=True,
-        null=True)
+        null=True,
+        max_length=5000)
     filename = models.CharField(
         max_length=255,
         blank=True)
     size = models.IntegerField(
-        blank=True)
+        blank=True,
+        editable=False)
 
     class Meta:
         db_table = 'attachment'
@@ -472,20 +484,29 @@ class Attachment(models.Model):
         ordering = ['id']
 
     def save(self, *args, **kwargs):
-        if not self.size:
-            self.size = self.get_size()
-        if not self.filename:
-            self.filename = self.get_filename()
+        self.filename = self.get_filename()
+        self.size = self.get_size()
         super().save(*args, **kwargs)
 
     def get_filename(self):
         return str(self.file)
 
     def get_size(self):
-        return self.file.__sizeof__()
+        return self.file.size
+
+    @property
+    def display_size(self):
+        if self.size == 0:
+            return "0B"
+        size_names = ("B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB")
+        i = int(math.floor(math.log(self.size, 1024)))
+        p = math.pow(1024, i)
+        display_size = round(self.size / p, 2)
+        return f'{display_size} {size_names[i]}'
+    display_size.fget.short_description = 'Size'
 
     def __str__(self):
-        return self.id
+        return self.filename
 
 
 class Issue(models.Model):
@@ -696,9 +717,9 @@ class Issue(models.Model):
     #@property
     #def get_labels(self):
     #    return "\n".join([p.labels for p in self.labels.all()])
-    #@property
-    #def get_labels(self):
-    #    return [labels.name for labels in self.labels.all()]
+    @property
+    def get_labels(self):
+        return [labels.name for labels in self.labels.all()]
 
     def get_fields(self):
         return [(field.name, field.value_to_string(self)) for field in Issue._meta.fields]
@@ -709,6 +730,9 @@ class Issue(models.Model):
         else:
             return self.resolution
     get_resolution.short_description = 'Resolution'
+
+    def getattr(self, field_name):
+        return getattr(self, field_name)
 
     def get_absolute_url(self):
         pass
@@ -743,6 +767,37 @@ class TenantSession(models.Model):
 
     def __str__(self):
         return f'{self.tenant.key}-{self.user.username}-{self.user_type}'
+
+
+class AuditLog(models.Model):
+    id = models.BigAutoField(
+        primary_key=True)
+    created = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='%(class)s_user')
+    object = models.PositiveIntegerField()
+    object_type = models.CharField(
+        max_length=50)
+    session = models.CharField(
+        max_length=500)
+    ip_address = models.GenericIPAddressField()
+    url = models.URLField()
+    message = models.TextField()
+
+    class Meta:
+        db_table = 'audit_log'
+        verbose_name = 'audit log'
+        verbose_name_plural = 'audit logs'
+        ordering = ['id']
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            # self.created = timezone.now()
+            self.user = get_current_user()
+            self.message = f'{self.user} {self.ip_address} | {self.message}'
+        super(AuditLog, self).save(*args, **kwargs)
 
 
 class BoardColumnAssociation(models.Model):

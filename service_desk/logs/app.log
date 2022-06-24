@@ -1,0 +1,49 @@
+2022-06-24 01:10:36 INFO | admin 127.0.0.1 | object Issue with instance id 46 field update "user" to "operator-tst"
+2022-06-24 01:11:16 INFO | admin 127.0.0.1 | object Issue with instance id 46 field update "status" to "Waiting for approval"
+2022-06-24 01:11:51 INFO | admin 127.0.0.1 | object Issue with instance id 46 field update "title" to "access removel"
+2022-06-24 01:11:51 INFO | admin 127.0.0.1 | object Issue with instance id 46 field update "priority" to "Normal"
+2022-06-24 01:11:51 INFO | admin 127.0.0.1 | object Issue with instance id 46 field update "labels" to "['3', '4']"
+2022-06-24 01:14:56 INFO | dev-hsw 127.0.0.1 | object TenantSession with instance id 290 field update "active" to "True"
+2022-06-24 01:15:28 INFO | admin 127.0.0.1 | object TenantSession with instance id 293 field update "active" to "True"
+2022-06-24 01:18:11 INFO | admin 127.0.0.1 | object Issue with instance id 45 field update "description" to "<p>123123123n</p>"
+2022-06-24 01:18:11 INFO | admin 127.0.0.1 | object Issue with instance id 45 field update "priority" to "Low"
+2022-06-24 01:18:11 INFO | admin 127.0.0.1 | object Issue with instance id 45 field update "labels" to "['3', '4', '5', '6']"
+2022-06-24 01:24:33 INFO | admin 127.0.0.1 | object Issue with instance id 45 field update "assignee" to "admin"
+2022-06-24 01:24:38 INFO | admin 127.0.0.1 | object Issue with instance id 45 field update "assignee" to "admin"
+2022-06-24 01:25:26 INFO | admin 127.0.0.1 | object Issue with instance id 45 field update "assignee" to "oper-hsw"
+2022-06-24 01:25:28 INFO | admin 127.0.0.1 | object Issue with instance id 45 field update "assignee" to "operator-tst"
+2022-06-24 01:28:15 INFO | admin 127.0.0.1 | object Issue with instance id 45 field update "assignee" to "operator-tst"
+2022-06-24 01:30:24 INFO | admin 127.0.0.1 | object Issue with instance id 45 field update "status" to "Resolved"
+2022-06-24 01:30:35 INFO | admin 127.0.0.1 | object Issue with instance id 51 field update "status" to "New"
+2022-06-24 01:30:37 INFO | admin 127.0.0.1 | object Issue with instance id 51 field update "status" to "On 1LS"
+2022-06-24 01:30:38 INFO | admin 127.0.0.1 | object Issue with instance id 51 field update "status" to "On reporter"
+2022-06-24 01:30:39 INFO | admin 127.0.0.1 | object Issue with instance id 51 field update "status" to "On 1LS"
+2022-06-24 01:30:41 INFO | admin 127.0.0.1 | object Issue with instance id 51 field update "status" to "Resolved"
+2022-06-24 01:30:42 INFO | admin 127.0.0.1 | object Issue with instance id 51 field update "status" to "Closed"
+2022-06-24 01:30:45 INFO | admin 127.0.0.1 | object Issue with instance id 51 field update "assignee" to "customer-tst"
+2022-06-24 01:35:53 INFO | admin 127.0.0.1 | object Issue with instance id 75 ticket "HSW-36 create"
+2022-06-24 01:43:58 INFO | admin 127.0.0.1 | object Issue with instance id 75 field update "status" to "In progress"
+2022-06-24 01:44:02 INFO | admin 127.0.0.1 | object Issue with instance id 75 field update "assignee" to "oper-hsw"
+2022-06-24 01:45:36 INFO | admin 127.0.0.1 | object Issue with instance id 75 field update "suspended" to "True"
+2022-06-24 01:45:38 INFO | admin 127.0.0.1 | object Issue with instance id 75 field update "suspended" to "False"
+2022-06-24 01:45:39 INFO | admin 127.0.0.1 | object Issue with instance id 75 field update "suspended" to "True"
+2022-06-24 01:45:41 INFO | admin 127.0.0.1 | object Issue with instance id 75 field update "suspended" to "False"
+2022-06-24 01:45:57 INFO | admin 127.0.0.1 | object Issue with instance id 75 field update "suspended" to "True"
+2022-06-24 01:46:00 INFO | admin 127.0.0.1 | object Issue with instance id 75 field update "suspended" to "False"
+2022-06-24 01:46:01 INFO | admin 127.0.0.1 | object Issue with instance id 75 field update "suspended" to "True"
+2022-06-24 01:46:02 INFO | admin 127.0.0.1 | object Issue with instance id 75 field update "suspended" to "False"
+2022-06-24 01:46:41 INFO | admin 127.0.0.1 | object Issue with instance id 75 field update "suspended" to "True"
+2022-06-24 01:46:47 INFO | admin 127.0.0.1 | object Issue with instance id 75 field update "suspended" to "False"
+2022-06-24 01:46:50 INFO | admin 127.0.0.1 | object Issue with instance id 75 field update "suspended" to "True"
+2022-06-24 02:20:40 INFO | admin 127.0.0.1 | object Issue with instance id 76 ticket "HSW-37" create
+2022-06-24 02:23:53 INFO | admin 127.0.0.1 | object Issue with instance id 77 ticket "HSW-38" create
+2022-06-24 02:25:05 INFO | admin 127.0.0.1 | object Issue with instance id 78 ticket "HSW-39" create
+2022-06-24 02:25:50 INFO | admin 127.0.0.1 | object Issue with instance id 79 ticket "HSW-40" create
+2022-06-24 04:01:23 INFO | admin 127.0.0.1 | object Issue with instance id 80 ticket "HSW-41" create
+2022-06-24 04:01:27 INFO | admin 127.0.0.1 | object Issue with instance id 80 field update "suspended" to "True"
+2022-06-24 04:01:28 INFO | admin 127.0.0.1 | object Issue with instance id 80 field update "suspended" to "False"
+2022-06-24 04:15:23 INFO | admin 127.0.0.1 | object Issue with instance id 33 field update "suspended" to "True"
+2022-06-24 04:16:49 INFO | admin 127.0.0.1 | object Issue with instance id 81 ticket "HSW-42" create
+2022-06-24 05:25:12 INFO | admin 127.0.0.1 | object Issue with instance id 82 ticket "HSW-43" create
+2022-06-24 05:49:49 INFO | admin 127.0.0.1 | object Issue with instance id 83 ticket "HSW-44" create
+2022-06-24 05:51:47 INFO | admin 127.0.0.1 | object Issue with instance id 84 ticket "HSW-45" create

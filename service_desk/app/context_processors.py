@@ -14,7 +14,7 @@ def context_tenant_session(request):
                 tenant = get_tenant_by_group_type(group.type, group)
                 if tenant and not tenant_session_exists(tenant, request.user):
                     add_tenant_session(tenant, request.user, group.type)  # add record to database with information about available tenant
-                    set_active_tenant(tenant, request, request.user)  # check if in django sessions is already activated any tenant
+                    set_active_tenant(tenant, request)  # check if in django sessions is already activated any tenant
         return request
 
 

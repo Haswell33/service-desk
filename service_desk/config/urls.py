@@ -82,6 +82,10 @@ urlpatterns = [
          views.TicketDetailUpdateAssignee.as_view(
              template_name='ticket/ticket-view.html'),
          name='update_ticket_assignee'),
+    path('ticket/update/suspended/<slug:slug>',
+         views.TicketDetailUpdateSuspend.as_view(
+             template_name='ticket/ticket-view.html'),
+         name='update_ticket_suspend'),
     path('ticket/filter/',
          views.TicketFilterListView.as_view(
              template_name='ticket/ticket-filter.html'),

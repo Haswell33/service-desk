@@ -12,7 +12,7 @@
       </div>
     </div>
   <div id="content-page_create-ticket" class="content-page-block">
-    <form id="create-ticket_form" class="form" method="post">
+    <form enctype="multipart/form-data" id="create-ticket_form" class="form" method="post" novalidate>
       {% csrf_token %}
       <div class="form-field long-field required">
         <label for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
@@ -43,6 +43,8 @@
         <label for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
         {{ form.media }} {{ form.description }}
       </div>
+      <input name="attachment" value="ez"/>
+      <input name="kurde_bela" value="tak"/>
       <div class="form-field long-field">
         <input type="submit" class="button" value="Create">
       </div>
@@ -62,6 +64,13 @@
         </svg>
       </div>
     </div>-->
+    {% if messages %}
+      {% for message in messages %}
+        <div class="message {{ message.tags }}">
+          {{ message|safe }}
+        </div>
+      {% endfor %}
+    {% endif %}
   </div>
   <script>
     $(document).ready(function(){renderFields('create-ticket', '{{ MEDIA_URL }}')})

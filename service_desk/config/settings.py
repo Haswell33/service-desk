@@ -30,7 +30,11 @@ ORDER_BY_FIELDS = [
     ('updated', 'Updated'),
     ('created', 'Created')
 ]
-
+ALLOW_EXTENSION_UPLOAD_LIST = [
+    'pdf', 'txt', 'doc', 'docx', 'odt', 'rtf', '.html', 'pptx',
+    'csv', 'xlsx', 'ods', 'tsv',
+    'jpg', 'jpeg', 'png', 'gif', 'svg', 'webp', '.ico', 'bmp', 'tiff',
+    'zip', 'rar', '7zip']
 
 BASE_DIR = Path(__file__).resolve().parent.parent  # Build paths inside the project like this: BASE_DIR / 'subdir'.
 SECRET_KEY = 'django-insecure-z(g7^uxx3*)@ctru=wvchu5tezwzd3s@0m01rozf=-szc8%_!@'
@@ -149,12 +153,12 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'default': {
-            'format': '{asctime} {levelname} {request} {status_code} {process:d} {thread:d} {message}',
+            'format': '{asctime} {levelname} | {message}',
             'style': '{',
             'datefmt': '%Y-%m-%d %H:%M:%S'
         },
         'format-request': {
-            'format': '{asctime} {levelname} "{request} {status_code}" {process:d} {thread:d} {message}',
+            'format': "{asctime} {levelname} {request.user} {request.method} {status_code} {message}",
             'style': '{',
             'datefmt': '%Y-%m-%d %H:%M:%S'
         },
@@ -169,17 +173,15 @@ LOGGING = {
     },
     'handlers': {
         'request': {
-            'level': 'INFO',
-            'filters': ['require_debug_false'],
+            'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
-            'formatter': 'default',
+            'formatter': 'format-request',
             'filename': f'{BASE_DIR}/logs/request.log',
             'maxBytes': 1024*1024*15,  # 15MB
             'backupCount': 10,
         },
         'template': {
-            'level': 'INFO',
-            'filters': ['require_debug_false'],
+            'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
             'formatter': 'default',
             'filename': f'{BASE_DIR}/logs/template.log',
@@ -187,8 +189,7 @@ LOGGING = {
             'backupCount': 10,
         },
         'server': {
-            'level': 'INFO',
-            'filters': ['require_debug_false'],
+            'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
             'formatter': 'default',
             'filename': f'{BASE_DIR}/logs/server.log',
@@ -196,8 +197,7 @@ LOGGING = {
             'backupCount': 10,
         },
         'security': {
-            'level': 'INFO',
-            'filters': ['require_debug_false'],
+            'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
             'formatter': 'default',
             'filename': f'{BASE_DIR}/logs/security.log',
@@ -211,7 +211,15 @@ LOGGING = {
             'formatter': 'default',
             'filename': f'{BASE_DIR}/logs/sql.log',
             'maxBytes': 1024*1024*50,
-            'backupCount': 15,
+            'backupCount': 5,
+        },
+        'app': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'formatter': 'default',
+            'filename': f'{BASE_DIR}/logs/app.log',
+            'maxBytes': 1024*1024*50,
+            'backupCount': 5,
         },
     },
     'loggers': {
@@ -237,6 +245,11 @@ LOGGING = {
         },
         'django.db.backends.schema': {
             'handlers': ['sql'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'app': {
+            'handlers': ['app'],
             'level': 'DEBUG',
             'propagate': True,
         },

@@ -1,7 +1,10 @@
 from .models import Issue, IssueType, Label, User, Status, Resolution, Priority
-from django.forms import ClearableFileInput
+from django.forms import ClearableFileInput, FileInput, FileField
 from django.utils.translation import gettext_lazy as _
+from django.forms import ValidationError
 from django import forms
+
+from tinymce.widgets import TinyMCE
 from django.conf import settings
 
 
@@ -30,7 +33,7 @@ class ModelIconChoiceField(forms.ModelChoiceField):
 class TicketCreateForm(forms.ModelForm):
     class Meta:
         model = Issue
-        fields = ['title', 'type', 'priority', 'assignee', 'reporter', 'labels', 'description', 'attachments', 'status']
+        fields = ['title', 'type', 'priority', 'assignee', 'reporter', 'labels', 'description', 'attachments']
         labels = {
             'title': _('Title'),
             'type': _('Type'),
@@ -53,8 +56,24 @@ class TicketCreateForm(forms.ModelForm):
             'attachments': ClearableFileInput(attrs={'multiple': True}),
         }
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs, ):
         super(TicketCreateForm, self).__init__(*args, **kwargs)
+        #super(TicketCreateForm, self).__init__()
+        #print(str(*args))
+        #self.fields['attachments'] = forms.ChoiceField(label=u'attachments', choices='new', widget=ClearableFileInput(attrs={'multiple': True}), required=False)
+
+
+    def clean(self):
+        super(TicketCreateForm, self).clean()
+        #if not (self.attachments):
+        #     raise ValidationError("dont have a attachments file")
+        print('clean')
+        print(self.__dict__)
+        #attachments = self.cleaned_data['attachments']
+        #print(attachments)
+        if self._errors:
+            print(self._errors)
+
 
 
 class TicketUpdateForm(forms.ModelForm):
@@ -71,10 +90,16 @@ class TicketUpdateForm(forms.ModelForm):
             'title': _('Summarize the ticket'),
         }
         widgets = {
-            'priority': IconField
+            'priority': IconField,
+            'labels': forms.SelectMultiple(attrs={'multiple': True})
+        }
+        limit_choices_to = {
+            'priority': 5,
+            'labels': 4,
         }
 
     #def __init__(self, *args, **kwargs):
+    #    self.title = kwargs.pop('title', None)
     #    super(TicketUpdateForm, self).__init__(*args, **kwargs)
 
 
@@ -116,3 +141,39 @@ class TicketFilterViewForm(forms.Form):
         queryset=Priority.objects.all(),
         required=False,
         widget=IconField(attrs={'multiple': 'true'}))
+
+
+
+
+
+
+
+
+
+
+
+
+
+class TicketCreateForm2(forms.Form):
+    title = forms.CharField()
+    type = forms.ModelMultipleChoiceField(
+        queryset=IssueType.objects.all(),
+        required=True,
+        widget=IconField(attrs={'multiple': 'true'}))
+    priority = forms.ModelMultipleChoiceField(
+        queryset=Priority.objects.all(),
+        required=True,
+        widget=IconField(attrs={'multiple': 'true'}))
+    assignee = forms.ModelChoiceField(
+        queryset=User.objects.all(),
+        required=False,
+        widget=IconField)
+    labels = forms.ModelMultipleChoiceField(
+        queryset=Label.objects.all(),
+        required=False)
+    attachments = forms.ClearableFileInput(
+        attrs={'multiple': True})
+    description = forms.CharField(
+        required=False,
+        help_text='Describe the issue',
+        widget=TinyMCE)

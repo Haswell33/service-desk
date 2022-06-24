@@ -1,291 +1,1430 @@
-2022-05-22 00:50:48 WARNING <WSGIRequest: GET '/static/styles/style.css'> 404 14368 6172 Not Found: /static/styles/style.css
-2022-05-22 00:51:15 WARNING <WSGIRequest: GET '/static/styles/style.css'> 404 14368 6172 Not Found: /static/styles/style.css
-2022-05-22 00:52:34 WARNING <WSGIRequest: GET '/static/scripts/jquery.min.js'> 404 14368 6172 Not Found: /static/scripts/jquery.min.js
-2022-05-22 00:52:34 WARNING <WSGIRequest: GET '/static/styles/style.css'> 404 14368 7164 Not Found: /static/styles/style.css
-2022-05-22 00:52:34 WARNING <WSGIRequest: GET '/static/scripts/base.js'> 404 14368 17456 Not Found: /static/scripts/base.js
-2022-05-22 00:52:34 WARNING <WSGIRequest: GET '/static/images/search.png'> 404 14368 7164 Not Found: /static/images/search.png
-2022-05-22 00:52:34 WARNING <WSGIRequest: GET '/static/styles/style.css'> 404 14368 17456 Not Found: /static/styles/style.css
-2022-05-22 00:52:34 WARNING <WSGIRequest: GET '/static/images/favicon.ico'> 404 14368 17456 Not Found: /static/images/favicon.ico
-2022-05-22 00:52:37 WARNING <WSGIRequest: GET '/static/scripts/jquery.min.js'> 404 15096 14736 Not Found: /static/scripts/jquery.min.js
-2022-05-22 00:52:37 WARNING <WSGIRequest: GET '/static/styles/style.css'> 404 15096 4068 Not Found: /static/styles/style.css
-2022-05-22 00:52:37 WARNING <WSGIRequest: GET '/static/scripts/base.js'> 404 15096 17160 Not Found: /static/scripts/base.js
-2022-05-22 00:52:38 WARNING <WSGIRequest: GET '/static/styles/style.css'> 404 15096 17160 Not Found: /static/styles/style.css
-2022-05-22 00:52:38 WARNING <WSGIRequest: GET '/static/images/search.png'> 404 15096 4068 Not Found: /static/images/search.png
-2022-05-22 00:54:34 WARNING <WSGIRequest: GET '/static/scripts/jquery.min.js'> 404 7276 8096 Not Found: /static/scripts/jquery.min.js
-2022-05-22 00:54:34 WARNING <WSGIRequest: GET '/static/styles/style.css'> 404 7276 17080 Not Found: /static/styles/style.css
-2022-05-22 00:54:34 WARNING <WSGIRequest: GET '/static/scripts/base.js'> 404 7276 8096 Not Found: /static/scripts/base.js
-2022-05-22 00:54:34 WARNING <WSGIRequest: GET '/static/images/search.png'> 404 7276 17080 Not Found: /static/images/search.png
-2022-05-22 00:54:34 WARNING <WSGIRequest: GET '/static/styles/style.css'> 404 7276 8096 Not Found: /static/styles/style.css
-2022-05-22 00:54:34 WARNING <WSGIRequest: GET '/static/images/favicon.ico'> 404 7276 8096 Not Found: /static/images/favicon.ico
-2022-05-22 00:57:08 WARNING <WSGIRequest: GET '/static/scripts/base.js'> 404 14788 3016 Not Found: /static/scripts/base.js
-2022-05-22 00:57:08 WARNING <WSGIRequest: GET '/static/styles/style.css'> 404 14788 17536 Not Found: /static/styles/style.css
-2022-05-22 00:57:08 WARNING <WSGIRequest: GET '/static/scripts/jquery.min.js'> 404 14788 13172 Not Found: /static/scripts/jquery.min.js
-2022-05-22 00:57:08 WARNING <WSGIRequest: GET '/static/images/search.png'> 404 14788 17536 Not Found: /static/images/search.png
-2022-05-22 00:57:08 WARNING <WSGIRequest: GET '/static/styles/style.css'> 404 14788 13172 Not Found: /static/styles/style.css
-2022-05-22 00:58:05 WARNING <WSGIRequest: GET '/static/scripts/jquery.min.js'> 404 14788 13172 Not Found: /static/scripts/jquery.min.js
-2022-05-22 00:58:05 WARNING <WSGIRequest: GET '/static/styles/style.css'> 404 14788 3016 Not Found: /static/styles/style.css
-2022-05-22 00:58:05 WARNING <WSGIRequest: GET '/static/scripts/base.js'> 404 14788 17536 Not Found: /static/scripts/base.js
-2022-05-22 00:58:05 WARNING <WSGIRequest: GET '/static/images/search.png'> 404 14788 3016 Not Found: /static/images/search.png
-2022-05-22 00:58:05 WARNING <WSGIRequest: GET '/static/styles/style.css'> 404 14788 17536 Not Found: /static/styles/style.css
-2022-05-22 00:58:05 WARNING <WSGIRequest: GET '/static/images/favicon.ico'> 404 14788 17536 Not Found: /static/images/favicon.ico
-2022-05-22 00:58:06 WARNING <WSGIRequest: GET '/static/scripts/jquery.min.js'> 404 14788 17536 Not Found: /static/scripts/jquery.min.js
-2022-05-22 00:58:06 WARNING <WSGIRequest: GET '/static/scripts/base.js'> 404 14788 3016 Not Found: /static/scripts/base.js
-2022-05-22 00:58:06 WARNING <WSGIRequest: GET '/static/styles/style.css'> 404 14788 13172 Not Found: /static/styles/style.css
-2022-05-22 00:58:06 WARNING <WSGIRequest: GET '/static/images/search.png'> 404 14788 3016 Not Found: /static/images/search.png
-2022-05-22 00:58:06 WARNING <WSGIRequest: GET '/static/images/favicon.ico'> 404 14788 3016 Not Found: /static/images/favicon.ico
-2022-05-22 00:58:06 WARNING <WSGIRequest: GET '/static/scripts/base.js'> 404 14788 13172 Not Found: /static/scripts/base.js
-2022-05-22 00:58:06 WARNING <WSGIRequest: GET '/static/scripts/jquery.min.js'> 404 14788 3016 Not Found: /static/scripts/jquery.min.js
-2022-05-22 00:58:06 WARNING <WSGIRequest: GET '/static/styles/style.css'> 404 14788 17536 Not Found: /static/styles/style.css
-2022-05-22 00:58:06 WARNING <WSGIRequest: GET '/static/images/search.png'> 404 14788 3016 Not Found: /static/images/search.png
-2022-05-22 00:58:06 WARNING <WSGIRequest: GET '/static/images/favicon.ico'> 404 14788 3016 Not Found: /static/images/favicon.ico
-2022-05-22 00:58:06 WARNING <WSGIRequest: GET '/static/scripts/base.js'> 404 14788 17536 Not Found: /static/scripts/base.js
-2022-05-22 00:58:06 WARNING <WSGIRequest: GET '/static/styles/style.css'> 404 14788 13172 Not Found: /static/styles/style.css
-2022-05-22 00:58:06 WARNING <WSGIRequest: GET '/static/scripts/jquery.min.js'> 404 14788 3016 Not Found: /static/scripts/jquery.min.js
-2022-05-22 00:58:06 WARNING <WSGIRequest: GET '/static/images/search.png'> 404 14788 13172 Not Found: /static/images/search.png
-2022-05-22 00:58:06 WARNING <WSGIRequest: GET '/static/styles/style.css'> 404 14788 3016 Not Found: /static/styles/style.css
-2022-05-22 00:58:06 WARNING <WSGIRequest: GET '/static/images/favicon.ico'> 404 14788 3016 Not Found: /static/images/favicon.ico
-2022-05-22 00:58:06 WARNING <WSGIRequest: GET '/static/styles/style.css'> 404 14788 17536 Not Found: /static/styles/style.css
-2022-05-22 00:58:06 WARNING <WSGIRequest: GET '/static/scripts/base.js'> 404 14788 3016 Not Found: /static/scripts/base.js
-2022-05-22 00:58:06 WARNING <WSGIRequest: GET '/static/scripts/jquery.min.js'> 404 14788 13172 Not Found: /static/scripts/jquery.min.js
-2022-05-22 00:58:06 WARNING <WSGIRequest: GET '/static/images/search.png'> 404 14788 3016 Not Found: /static/images/search.png
-2022-05-22 00:58:06 WARNING <WSGIRequest: GET '/static/styles/style.css'> 404 14788 13172 Not Found: /static/styles/style.css
-2022-05-22 00:58:06 WARNING <WSGIRequest: GET '/static/scripts/jquery.min.js'> 404 14788 17536 Not Found: /static/scripts/jquery.min.js
-2022-05-22 00:58:07 WARNING <WSGIRequest: GET '/static/scripts/base.js'> 404 14788 13172 Not Found: /static/scripts/base.js
-2022-05-22 00:58:07 WARNING <WSGIRequest: GET '/static/styles/style.css'> 404 14788 3016 Not Found: /static/styles/style.css
-2022-05-22 00:58:07 WARNING <WSGIRequest: GET '/static/images/search.png'> 404 14788 13172 Not Found: /static/images/search.png
-2022-05-22 00:58:07 WARNING <WSGIRequest: GET '/static/images/favicon.ico'> 404 14788 13172 Not Found: /static/images/favicon.ico
-2022-05-22 00:58:07 WARNING <WSGIRequest: GET '/static/styles/style.css'> 404 14788 17536 Not Found: /static/styles/style.css
-2022-05-22 00:58:07 WARNING <WSGIRequest: GET '/static/scripts/jquery.min.js'> 404 14788 3016 Not Found: /static/scripts/jquery.min.js
-2022-05-22 00:58:07 WARNING <WSGIRequest: GET '/static/scripts/base.js'> 404 14788 13172 Not Found: /static/scripts/base.js
-2022-05-22 00:58:07 WARNING <WSGIRequest: GET '/static/images/search.png'> 404 14788 3016 Not Found: /static/images/search.png
-2022-05-22 00:58:07 WARNING <WSGIRequest: GET '/static/styles/style.css'> 404 14788 13172 Not Found: /static/styles/style.css
-2022-05-22 00:58:09 WARNING <WSGIRequest: GET '/static/styles/style.css'> 404 14788 13172 Not Found: /static/styles/style.css
-2022-05-22 01:00:39 WARNING <WSGIRequest: GET '/static/styles/style.css'> 404 17848 17320 Not Found: /static/styles/style.css
-2022-05-22 01:00:39 WARNING <WSGIRequest: GET '/static/admin/js/vendor/jquery/jquery.min.js'> 404 17848 14536 Not Found: /static/admin/js/vendor/jquery/jquery.min.js
-2022-05-22 01:00:39 WARNING <WSGIRequest: GET '/static/admin/css/changelists.css'> 404 17848 14188 Not Found: /static/admin/css/changelists.css
-2022-05-22 01:00:39 WARNING <WSGIRequest: GET '/static/admin/css/nav_sidebar.css'> 404 17848 9084 Not Found: /static/admin/css/nav_sidebar.css
-2022-05-22 01:00:39 WARNING <WSGIRequest: GET '/static/admin/css/base.css'> 404 17848 12688 Not Found: /static/admin/css/base.css
-2022-05-22 01:00:39 WARNING <WSGIRequest: GET '/static/admin/js/jquery.init.js'> 404 17848 17320 Not Found: /static/admin/js/jquery.init.js
-2022-05-22 01:00:39 WARNING <WSGIRequest: GET '/static/admin/css/responsive.css'> 404 17848 9196 Not Found: /static/admin/css/responsive.css
-2022-05-22 01:00:39 WARNING <WSGIRequest: GET '/static/admin/js/core.js'> 404 17848 14536 Not Found: /static/admin/js/core.js
-2022-05-22 01:00:39 WARNING <WSGIRequest: GET '/static/admin/js/admin/RelatedObjectLookups.js'> 404 17848 14188 Not Found: /static/admin/js/admin/RelatedObjectLookups.js
-2022-05-22 01:00:39 WARNING <WSGIRequest: GET '/static/admin/js/actions.js'> 404 17848 9084 Not Found: /static/admin/js/actions.js
-2022-05-22 01:00:39 WARNING <WSGIRequest: GET '/static/admin/js/urlify.js'> 404 17848 12688 Not Found: /static/admin/js/urlify.js
-2022-05-22 01:00:39 WARNING <WSGIRequest: GET '/static/admin/js/vendor/xregexp/xregexp.min.js'> 404 17848 9196 Not Found: /static/admin/js/vendor/xregexp/xregexp.min.js
-2022-05-22 01:00:40 WARNING <WSGIRequest: GET '/static/admin/js/prepopulate.js'> 404 17848 17320 Not Found: /static/admin/js/prepopulate.js
-2022-05-22 01:00:40 WARNING <WSGIRequest: GET '/static/scripts/jquery.min.js'> 404 17848 14536 Not Found: /static/scripts/jquery.min.js
-2022-05-22 01:00:40 WARNING <WSGIRequest: GET '/static/scripts/base.js'> 404 17848 14188 Not Found: /static/scripts/base.js
-2022-05-22 01:00:40 WARNING <WSGIRequest: GET '/static/admin/js/nav_sidebar.js'> 404 17848 9196 Not Found: /static/admin/js/nav_sidebar.js
-2022-05-22 01:00:40 WARNING <WSGIRequest: GET '/static/admin/img/search.svg'> 404 17848 9084 Not Found: /static/admin/img/search.svg
-2022-05-22 01:00:40 WARNING <WSGIRequest: GET '/static/admin/img/icon-no.svg'> 404 17848 14188 Not Found: /static/admin/img/icon-no.svg
-2022-05-22 01:00:40 WARNING <WSGIRequest: GET '/static/images/search.png'> 404 17848 12688 Not Found: /static/images/search.png
-2022-05-22 01:00:40 WARNING <WSGIRequest: GET '/static/admin/img/icon-yes.svg'> 404 17848 14536 Not Found: /static/admin/img/icon-yes.svg
-2022-05-22 01:00:40 WARNING <WSGIRequest: GET '/static/admin/css/responsive.css'> 404 17848 17320 Not Found: /static/admin/css/responsive.css
-2022-05-22 01:00:40 WARNING <WSGIRequest: GET '/static/styles/style.css'> 404 17848 17320 Not Found: /static/styles/style.css
-2022-05-22 01:00:40 WARNING <WSGIRequest: GET '/favicon.ico'> 404 17848 17320 Not Found: /favicon.ico
-2022-05-22 01:01:42 WARNING <WSGIRequest: GET '/static/admin/css/base.css'> 404 12208 14140 Not Found: /static/admin/css/base.css
-2022-05-22 01:01:42 WARNING <WSGIRequest: GET '/static/admin/css/nav_sidebar.css'> 404 12208 17768 Not Found: /static/admin/css/nav_sidebar.css
-2022-05-22 01:01:42 WARNING <WSGIRequest: GET '/static/admin/css/changelists.css'> 404 12208 11740 Not Found: /static/admin/css/changelists.css
-2022-05-22 01:01:42 WARNING <WSGIRequest: GET '/static/styles/style.css'> 404 12208 3152 Not Found: /static/styles/style.css
-2022-05-22 01:01:42 WARNING <WSGIRequest: GET '/static/admin/css/responsive.css'> 404 12208 15876 Not Found: /static/admin/css/responsive.css
-2022-05-22 01:01:42 WARNING <WSGIRequest: GET '/static/admin/js/vendor/jquery/jquery.min.js'> 404 12208 14140 Not Found: /static/admin/js/vendor/jquery/jquery.min.js
-2022-05-22 01:01:42 WARNING <WSGIRequest: GET '/static/admin/js/jquery.init.js'> 404 12208 17768 Not Found: /static/admin/js/jquery.init.js
-2022-05-22 01:01:42 WARNING <WSGIRequest: GET '/static/admin/js/admin/RelatedObjectLookups.js'> 404 12208 3152 Not Found: /static/admin/js/admin/RelatedObjectLookups.js
-2022-05-22 01:01:42 WARNING <WSGIRequest: GET '/static/admin/js/core.js'> 404 12208 11740 Not Found: /static/admin/js/core.js
-2022-05-22 01:01:42 WARNING <WSGIRequest: GET '/static/admin/js/prepopulate.js'> 404 12208 17768 Not Found: /static/admin/js/prepopulate.js
-2022-05-22 01:01:42 WARNING <WSGIRequest: GET '/static/admin/js/actions.js'> 404 12208 15876 Not Found: /static/admin/js/actions.js
-2022-05-22 01:01:42 WARNING <WSGIRequest: GET '/static/admin/js/vendor/xregexp/xregexp.min.js'> 404 12208 13252 Not Found: /static/admin/js/vendor/xregexp/xregexp.min.js
-2022-05-22 01:01:42 WARNING <WSGIRequest: GET '/static/admin/js/urlify.js'> 404 12208 14140 Not Found: /static/admin/js/urlify.js
-2022-05-22 01:01:42 WARNING <WSGIRequest: GET '/static/scripts/jquery.min.js'> 404 12208 3152 Not Found: /static/scripts/jquery.min.js
-2022-05-22 01:01:42 WARNING <WSGIRequest: GET '/static/scripts/base.js'> 404 12208 11740 Not Found: /static/scripts/base.js
-2022-05-22 01:01:42 WARNING <WSGIRequest: GET '/static/admin/css/responsive.css'> 404 12208 14140 Not Found: /static/admin/css/responsive.css
-2022-05-22 01:01:42 WARNING <WSGIRequest: GET '/static/admin/js/nav_sidebar.js'> 404 12208 13252 Not Found: /static/admin/js/nav_sidebar.js
-2022-05-22 01:01:42 WARNING <WSGIRequest: GET '/static/images/search.png'> 404 12208 15876 Not Found: /static/images/search.png
-2022-05-22 01:01:42 WARNING <WSGIRequest: GET '/static/admin/img/search.svg'> 404 12208 17768 Not Found: /static/admin/img/search.svg
-2022-05-22 01:01:42 WARNING <WSGIRequest: GET '/static/admin/img/icon-yes.svg'> 404 12208 3152 Not Found: /static/admin/img/icon-yes.svg
-2022-05-22 01:01:42 WARNING <WSGIRequest: GET '/static/admin/img/icon-no.svg'> 404 12208 11740 Not Found: /static/admin/img/icon-no.svg
-2022-05-22 01:01:42 WARNING <WSGIRequest: GET '/static/styles/style.css'> 404 12208 14140 Not Found: /static/styles/style.css
-2022-05-22 01:01:42 WARNING <WSGIRequest: GET '/favicon.ico'> 404 12208 14140 Not Found: /favicon.ico
-2022-05-22 01:01:43 WARNING <WSGIRequest: GET '/static/admin/css/base.css'> 404 12208 14140 Not Found: /static/admin/css/base.css
-2022-05-22 01:01:43 WARNING <WSGIRequest: GET '/static/admin/css/nav_sidebar.css'> 404 12208 11740 Not Found: /static/admin/css/nav_sidebar.css
-2022-05-22 01:01:43 WARNING <WSGIRequest: GET '/static/admin/js/vendor/jquery/jquery.min.js'> 404 12208 13252 Not Found: /static/admin/js/vendor/jquery/jquery.min.js
-2022-05-22 01:01:43 WARNING <WSGIRequest: GET '/static/styles/style.css'> 404 12208 3152 Not Found: /static/styles/style.css
-2022-05-22 01:01:43 WARNING <WSGIRequest: GET '/static/admin/css/changelists.css'> 404 12208 17768 Not Found: /static/admin/css/changelists.css
-2022-05-22 01:01:43 WARNING <WSGIRequest: GET '/static/admin/js/jquery.init.js'> 404 12208 15876 Not Found: /static/admin/js/jquery.init.js
-2022-05-22 01:01:43 WARNING <WSGIRequest: GET '/static/admin/css/responsive.css'> 404 12208 14140 Not Found: /static/admin/css/responsive.css
-2022-05-22 01:01:43 WARNING <WSGIRequest: GET '/static/admin/js/core.js'> 404 12208 11740 Not Found: /static/admin/js/core.js
-2022-05-22 01:01:43 WARNING <WSGIRequest: GET '/static/admin/js/admin/RelatedObjectLookups.js'> 404 12208 13252 Not Found: /static/admin/js/admin/RelatedObjectLookups.js
-2022-05-22 01:01:43 WARNING <WSGIRequest: GET '/static/admin/js/urlify.js'> 404 12208 17768 Not Found: /static/admin/js/urlify.js
-2022-05-22 01:01:43 WARNING <WSGIRequest: GET '/static/admin/js/actions.js'> 404 12208 3152 Not Found: /static/admin/js/actions.js
-2022-05-22 01:01:43 WARNING <WSGIRequest: GET '/static/admin/js/prepopulate.js'> 404 12208 15876 Not Found: /static/admin/js/prepopulate.js
-2022-05-22 01:01:43 WARNING <WSGIRequest: GET '/static/admin/js/vendor/xregexp/xregexp.min.js'> 404 12208 14140 Not Found: /static/admin/js/vendor/xregexp/xregexp.min.js
-2022-05-22 01:01:43 WARNING <WSGIRequest: GET '/static/scripts/jquery.min.js'> 404 12208 11740 Not Found: /static/scripts/jquery.min.js
-2022-05-22 01:01:43 WARNING <WSGIRequest: GET '/static/scripts/base.js'> 404 12208 13252 Not Found: /static/scripts/base.js
-2022-05-22 01:01:43 WARNING <WSGIRequest: GET '/static/admin/js/nav_sidebar.js'> 404 12208 15876 Not Found: /static/admin/js/nav_sidebar.js
-2022-05-22 01:01:43 WARNING <WSGIRequest: GET '/static/admin/img/search.svg'> 404 12208 17768 Not Found: /static/admin/img/search.svg
-2022-05-22 01:01:43 WARNING <WSGIRequest: GET '/static/admin/img/icon-yes.svg'> 404 12208 11740 Not Found: /static/admin/img/icon-yes.svg
-2022-05-22 01:01:43 WARNING <WSGIRequest: GET '/static/admin/css/responsive.css'> 404 12208 14140 Not Found: /static/admin/css/responsive.css
-2022-05-22 01:01:43 WARNING <WSGIRequest: GET '/static/admin/img/icon-no.svg'> 404 12208 13252 Not Found: /static/admin/img/icon-no.svg
-2022-05-22 01:01:44 WARNING <WSGIRequest: GET '/static/images/search.png'> 404 12208 3152 Not Found: /static/images/search.png
-2022-05-22 01:01:44 WARNING <WSGIRequest: GET '/static/styles/style.css'> 404 12208 14140 Not Found: /static/styles/style.css
-2022-05-22 01:01:45 WARNING <WSGIRequest: GET '/static/admin/css/base.css'> 404 12208 14140 Not Found: /static/admin/css/base.css
-2022-05-22 01:01:45 WARNING <WSGIRequest: GET '/static/admin/js/vendor/jquery/jquery.min.js'> 404 12208 15876 Not Found: /static/admin/js/vendor/jquery/jquery.min.js
-2022-05-22 01:01:45 WARNING <WSGIRequest: GET '/static/admin/css/changelists.css'> 404 12208 11740 Not Found: /static/admin/css/changelists.css
-2022-05-22 01:01:45 WARNING <WSGIRequest: GET '/static/admin/css/nav_sidebar.css'> 404 12208 3152 Not Found: /static/admin/css/nav_sidebar.css
-2022-05-22 01:01:45 WARNING <WSGIRequest: GET '/static/styles/style.css'> 404 12208 13252 Not Found: /static/styles/style.css
-2022-05-22 01:01:45 WARNING <WSGIRequest: GET '/static/admin/css/responsive.css'> 404 12208 14140 Not Found: /static/admin/css/responsive.css
-2022-05-22 01:01:45 WARNING <WSGIRequest: GET '/static/admin/js/jquery.init.js'> 404 12208 15876 Not Found: /static/admin/js/jquery.init.js
-2022-05-22 01:01:45 WARNING <WSGIRequest: GET '/static/admin/js/admin/RelatedObjectLookups.js'> 404 12208 11740 Not Found: /static/admin/js/admin/RelatedObjectLookups.js
-2022-05-22 01:01:45 WARNING <WSGIRequest: GET '/static/admin/js/core.js'> 404 12208 17768 Not Found: /static/admin/js/core.js
-2022-05-22 01:01:45 WARNING <WSGIRequest: GET '/static/admin/js/actions.js'> 404 12208 3152 Not Found: /static/admin/js/actions.js
-2022-05-22 01:01:45 WARNING <WSGIRequest: GET '/static/admin/js/urlify.js'> 404 12208 13252 Not Found: /static/admin/js/urlify.js
-2022-05-22 01:01:45 WARNING <WSGIRequest: GET '/static/admin/js/prepopulate.js'> 404 12208 14140 Not Found: /static/admin/js/prepopulate.js
-2022-05-22 01:01:45 WARNING <WSGIRequest: GET '/static/admin/js/vendor/xregexp/xregexp.min.js'> 404 12208 15876 Not Found: /static/admin/js/vendor/xregexp/xregexp.min.js
-2022-05-22 01:01:45 WARNING <WSGIRequest: GET '/static/scripts/jquery.min.js'> 404 12208 11740 Not Found: /static/scripts/jquery.min.js
-2022-05-22 01:01:45 WARNING <WSGIRequest: GET '/static/scripts/base.js'> 404 12208 17768 Not Found: /static/scripts/base.js
-2022-05-22 01:01:45 WARNING <WSGIRequest: GET '/static/admin/js/nav_sidebar.js'> 404 12208 14140 Not Found: /static/admin/js/nav_sidebar.js
-2022-05-22 01:01:45 WARNING <WSGIRequest: GET '/static/admin/css/responsive.css'> 404 12208 15876 Not Found: /static/admin/css/responsive.css
-2022-05-22 01:01:45 WARNING <WSGIRequest: GET '/static/images/search.png'> 404 12208 13252 Not Found: /static/images/search.png
-2022-05-22 01:01:45 WARNING <WSGIRequest: GET '/static/admin/img/search.svg'> 404 12208 3152 Not Found: /static/admin/img/search.svg
-2022-05-22 01:01:45 WARNING <WSGIRequest: GET '/static/admin/img/icon-yes.svg'> 404 12208 11740 Not Found: /static/admin/img/icon-yes.svg
-2022-05-22 01:01:45 WARNING <WSGIRequest: GET '/static/admin/img/icon-no.svg'> 404 12208 17768 Not Found: /static/admin/img/icon-no.svg
-2022-05-22 01:01:45 WARNING <WSGIRequest: GET '/static/styles/style.css'> 404 12208 15876 Not Found: /static/styles/style.css
-2022-05-22 01:01:46 WARNING <WSGIRequest: GET '/static/admin/css/base.css'> 404 12208 15876 Not Found: /static/admin/css/base.css
-2022-05-22 01:01:46 WARNING <WSGIRequest: GET '/static/admin/js/vendor/jquery/jquery.min.js'> 404 12208 14140 Not Found: /static/admin/js/vendor/jquery/jquery.min.js
-2022-05-22 01:01:46 WARNING <WSGIRequest: GET '/static/admin/css/changelists.css'> 404 12208 3152 Not Found: /static/admin/css/changelists.css
-2022-05-22 01:01:46 WARNING <WSGIRequest: GET '/static/admin/css/nav_sidebar.css'> 404 12208 17768 Not Found: /static/admin/css/nav_sidebar.css
-2022-05-22 01:01:46 WARNING <WSGIRequest: GET '/static/styles/style.css'> 404 12208 11740 Not Found: /static/styles/style.css
-2022-05-22 01:01:46 WARNING <WSGIRequest: GET '/static/admin/css/responsive.css'> 404 12208 15876 Not Found: /static/admin/css/responsive.css
-2022-05-22 01:01:46 WARNING <WSGIRequest: GET '/static/admin/js/core.js'> 404 12208 14140 Not Found: /static/admin/js/core.js
-2022-05-22 01:01:46 WARNING <WSGIRequest: GET '/static/admin/js/jquery.init.js'> 404 12208 13252 Not Found: /static/admin/js/jquery.init.js
-2022-05-22 01:01:46 WARNING <WSGIRequest: GET '/static/admin/js/admin/RelatedObjectLookups.js'> 404 12208 3152 Not Found: /static/admin/js/admin/RelatedObjectLookups.js
-2022-05-22 01:01:46 WARNING <WSGIRequest: GET '/static/admin/js/actions.js'> 404 12208 17768 Not Found: /static/admin/js/actions.js
-2022-05-22 01:01:46 WARNING <WSGIRequest: GET '/static/admin/js/urlify.js'> 404 12208 11740 Not Found: /static/admin/js/urlify.js
-2022-05-22 01:01:46 WARNING <WSGIRequest: GET '/static/admin/js/prepopulate.js'> 404 12208 15876 Not Found: /static/admin/js/prepopulate.js
-2022-05-22 01:01:46 WARNING <WSGIRequest: GET '/static/admin/js/vendor/xregexp/xregexp.min.js'> 404 12208 14140 Not Found: /static/admin/js/vendor/xregexp/xregexp.min.js
-2022-05-22 01:01:46 WARNING <WSGIRequest: GET '/static/scripts/jquery.min.js'> 404 12208 13252 Not Found: /static/scripts/jquery.min.js
-2022-05-22 01:01:46 WARNING <WSGIRequest: GET '/static/scripts/base.js'> 404 12208 3152 Not Found: /static/scripts/base.js
-2022-05-22 01:01:46 WARNING <WSGIRequest: GET '/static/admin/img/search.svg'> 404 12208 17768 Not Found: /static/admin/img/search.svg
-2022-05-22 01:01:46 WARNING <WSGIRequest: GET '/static/admin/js/nav_sidebar.js'> 404 12208 15876 Not Found: /static/admin/js/nav_sidebar.js
-2022-05-22 01:01:46 WARNING <WSGIRequest: GET '/static/images/search.png'> 404 12208 11740 Not Found: /static/images/search.png
-2022-05-22 01:01:46 WARNING <WSGIRequest: GET '/static/admin/css/responsive.css'> 404 12208 14140 Not Found: /static/admin/css/responsive.css
-2022-05-22 01:01:46 WARNING <WSGIRequest: GET '/static/admin/img/icon-yes.svg'> 404 12208 13252 Not Found: /static/admin/img/icon-yes.svg
-2022-05-22 01:01:46 WARNING <WSGIRequest: GET '/static/admin/img/icon-no.svg'> 404 12208 3152 Not Found: /static/admin/img/icon-no.svg
-2022-05-22 01:01:46 WARNING <WSGIRequest: GET '/static/styles/style.css'> 404 12208 14140 Not Found: /static/styles/style.css
-2022-05-22 01:01:48 WARNING <WSGIRequest: GET '/static/styles/style.css'> 404 12208 13252 Not Found: /static/styles/style.css
-2022-05-22 01:01:48 WARNING <WSGIRequest: GET '/static/admin/css/base.css'> 404 12208 14140 Not Found: /static/admin/css/base.css
-2022-05-22 01:01:48 WARNING <WSGIRequest: GET '/static/admin/js/vendor/jquery/jquery.min.js'> 404 12208 17768 Not Found: /static/admin/js/vendor/jquery/jquery.min.js
-2022-05-22 01:01:48 WARNING <WSGIRequest: GET '/static/admin/css/changelists.css'> 404 12208 11740 Not Found: /static/admin/css/changelists.css
-2022-05-22 01:01:48 WARNING <WSGIRequest: GET '/static/admin/css/nav_sidebar.css'> 404 12208 3152 Not Found: /static/admin/css/nav_sidebar.css
-2022-05-22 01:01:48 WARNING <WSGIRequest: GET '/static/admin/css/responsive.css'> 404 12208 15876 Not Found: /static/admin/css/responsive.css
-2022-05-22 01:01:48 WARNING <WSGIRequest: GET '/static/admin/js/jquery.init.js'> 404 12208 13252 Not Found: /static/admin/js/jquery.init.js
-2022-05-22 01:01:48 WARNING <WSGIRequest: GET '/static/admin/js/core.js'> 404 12208 14140 Not Found: /static/admin/js/core.js
-2022-05-22 01:01:48 WARNING <WSGIRequest: GET '/static/admin/js/admin/RelatedObjectLookups.js'> 404 12208 17768 Not Found: /static/admin/js/admin/RelatedObjectLookups.js
-2022-05-22 01:01:48 WARNING <WSGIRequest: GET '/static/admin/js/actions.js'> 404 12208 11740 Not Found: /static/admin/js/actions.js
-2022-05-22 01:01:48 WARNING <WSGIRequest: GET '/static/admin/js/urlify.js'> 404 12208 3152 Not Found: /static/admin/js/urlify.js
-2022-05-22 01:01:48 WARNING <WSGIRequest: GET '/static/admin/js/prepopulate.js'> 404 12208 15876 Not Found: /static/admin/js/prepopulate.js
-2022-05-22 01:01:48 WARNING <WSGIRequest: GET '/static/admin/js/vendor/xregexp/xregexp.min.js'> 404 12208 13252 Not Found: /static/admin/js/vendor/xregexp/xregexp.min.js
-2022-05-22 01:01:48 WARNING <WSGIRequest: GET '/static/scripts/jquery.min.js'> 404 12208 14140 Not Found: /static/scripts/jquery.min.js
-2022-05-22 01:01:48 WARNING <WSGIRequest: GET '/static/scripts/base.js'> 404 12208 17768 Not Found: /static/scripts/base.js
-2022-05-22 01:01:48 WARNING <WSGIRequest: GET '/static/images/search.png'> 404 12208 3152 Not Found: /static/images/search.png
-2022-05-22 01:01:48 WARNING <WSGIRequest: GET '/static/admin/js/nav_sidebar.js'> 404 12208 15876 Not Found: /static/admin/js/nav_sidebar.js
-2022-05-22 01:01:48 WARNING <WSGIRequest: GET '/static/admin/img/search.svg'> 404 12208 11740 Not Found: /static/admin/img/search.svg
-2022-05-22 01:01:48 WARNING <WSGIRequest: GET '/static/admin/css/responsive.css'> 404 12208 13252 Not Found: /static/admin/css/responsive.css
-2022-05-22 01:01:48 WARNING <WSGIRequest: GET '/static/admin/img/icon-yes.svg'> 404 12208 14140 Not Found: /static/admin/img/icon-yes.svg
-2022-05-22 01:01:48 WARNING <WSGIRequest: GET '/static/admin/img/icon-no.svg'> 404 12208 17768 Not Found: /static/admin/img/icon-no.svg
-2022-05-22 01:01:48 WARNING <WSGIRequest: GET '/static/styles/style.css'> 404 12208 13252 Not Found: /static/styles/style.css
-2022-05-22 01:01:49 WARNING <WSGIRequest: GET '/static/admin/css/base.css'> 404 12208 13252 Not Found: /static/admin/css/base.css
-2022-05-22 01:01:49 WARNING <WSGIRequest: GET '/static/styles/style.css'> 404 12208 14140 Not Found: /static/styles/style.css
-2022-05-22 01:01:49 WARNING <WSGIRequest: GET '/static/admin/js/vendor/jquery/jquery.min.js'> 404 12208 3152 Not Found: /static/admin/js/vendor/jquery/jquery.min.js
-2022-05-22 01:01:49 WARNING <WSGIRequest: GET '/static/admin/css/changelists.css'> 404 12208 11740 Not Found: /static/admin/css/changelists.css
-2022-05-22 01:01:49 WARNING <WSGIRequest: GET '/static/admin/css/nav_sidebar.css'> 404 12208 17768 Not Found: /static/admin/css/nav_sidebar.css
-2022-05-22 01:01:49 WARNING <WSGIRequest: GET '/static/admin/css/responsive.css'> 404 12208 15876 Not Found: /static/admin/css/responsive.css
-2022-05-22 01:01:49 WARNING <WSGIRequest: GET '/static/admin/js/jquery.init.js'> 404 12208 13252 Not Found: /static/admin/js/jquery.init.js
-2022-05-22 01:01:49 WARNING <WSGIRequest: GET '/static/admin/js/core.js'> 404 12208 14140 Not Found: /static/admin/js/core.js
-2022-05-22 01:01:49 WARNING <WSGIRequest: GET '/static/admin/js/admin/RelatedObjectLookups.js'> 404 12208 3152 Not Found: /static/admin/js/admin/RelatedObjectLookups.js
-2022-05-22 01:01:49 WARNING <WSGIRequest: GET '/static/admin/js/urlify.js'> 404 12208 17768 Not Found: /static/admin/js/urlify.js
-2022-05-22 01:01:49 WARNING <WSGIRequest: GET '/static/admin/js/actions.js'> 404 12208 11740 Not Found: /static/admin/js/actions.js
-2022-05-22 01:01:49 WARNING <WSGIRequest: GET '/static/admin/js/prepopulate.js'> 404 12208 15876 Not Found: /static/admin/js/prepopulate.js
-2022-05-22 01:01:49 WARNING <WSGIRequest: GET '/static/admin/js/vendor/xregexp/xregexp.min.js'> 404 12208 13252 Not Found: /static/admin/js/vendor/xregexp/xregexp.min.js
-2022-05-22 01:01:49 WARNING <WSGIRequest: GET '/static/scripts/jquery.min.js'> 404 12208 14140 Not Found: /static/scripts/jquery.min.js
-2022-05-22 01:01:49 WARNING <WSGIRequest: GET '/static/scripts/base.js'> 404 12208 3152 Not Found: /static/scripts/base.js
-2022-05-22 01:01:49 WARNING <WSGIRequest: GET '/static/admin/css/responsive.css'> 404 12208 13252 Not Found: /static/admin/css/responsive.css
-2022-05-22 01:01:49 WARNING <WSGIRequest: GET '/static/images/search.png'> 404 12208 11740 Not Found: /static/images/search.png
-2022-05-22 01:01:49 WARNING <WSGIRequest: GET '/static/admin/js/nav_sidebar.js'> 404 12208 15876 Not Found: /static/admin/js/nav_sidebar.js
-2022-05-22 01:01:49 WARNING <WSGIRequest: GET '/static/admin/img/icon-yes.svg'> 404 12208 14140 Not Found: /static/admin/img/icon-yes.svg
-2022-05-22 01:01:49 WARNING <WSGIRequest: GET '/static/admin/img/icon-no.svg'> 404 12208 3152 Not Found: /static/admin/img/icon-no.svg
-2022-05-22 01:01:49 WARNING <WSGIRequest: GET '/static/admin/img/search.svg'> 404 12208 17768 Not Found: /static/admin/img/search.svg
-2022-05-22 01:01:49 WARNING <WSGIRequest: GET '/static/styles/style.css'> 404 12208 13252 Not Found: /static/styles/style.css
-2022-05-22 01:01:50 WARNING <WSGIRequest: GET '/static/admin/css/nav_sidebar.css'> 404 12208 17768 Not Found: /static/admin/css/nav_sidebar.css
-2022-05-22 01:01:50 WARNING <WSGIRequest: GET '/static/admin/js/actions.js'> 404 12208 11740 Not Found: /static/admin/js/actions.js
-2022-05-22 01:01:50 WARNING <WSGIRequest: GET '/static/admin/css/base.css'> 404 12208 13252 Not Found: /static/admin/css/base.css
-2022-05-22 01:01:50 WARNING <WSGIRequest: GET '/static/styles/style.css'> 404 12208 3152 Not Found: /static/styles/style.css
-2022-05-22 01:01:50 WARNING <WSGIRequest: GET '/static/admin/css/changelists.css'> 404 12208 14140 Not Found: /static/admin/css/changelists.css
-2022-05-22 01:01:50 WARNING <WSGIRequest: GET '/static/admin/css/responsive.css'> 404 12208 15876 Not Found: /static/admin/css/responsive.css
-2022-05-22 01:01:50 WARNING <WSGIRequest: GET '/static/admin/js/vendor/jquery/jquery.min.js'> 404 12208 17768 Not Found: /static/admin/js/vendor/jquery/jquery.min.js
-2022-05-22 01:01:50 WARNING <WSGIRequest: GET '/static/admin/js/jquery.init.js'> 404 12208 11740 Not Found: /static/admin/js/jquery.init.js
-2022-05-22 01:01:50 WARNING <WSGIRequest: GET '/static/admin/js/core.js'> 404 12208 13252 Not Found: /static/admin/js/core.js
-2022-05-22 01:01:50 WARNING <WSGIRequest: GET '/static/admin/js/admin/RelatedObjectLookups.js'> 404 12208 3152 Not Found: /static/admin/js/admin/RelatedObjectLookups.js
-2022-05-22 01:01:51 WARNING <WSGIRequest: GET '/static/admin/js/urlify.js'> 404 12208 14140 Not Found: /static/admin/js/urlify.js
-2022-05-22 01:01:51 WARNING <WSGIRequest: GET '/static/admin/js/prepopulate.js'> 404 12208 15876 Not Found: /static/admin/js/prepopulate.js
-2022-05-22 01:01:51 WARNING <WSGIRequest: GET '/static/admin/js/vendor/xregexp/xregexp.min.js'> 404 12208 17768 Not Found: /static/admin/js/vendor/xregexp/xregexp.min.js
-2022-05-22 01:01:51 WARNING <WSGIRequest: GET '/static/scripts/jquery.min.js'> 404 12208 11740 Not Found: /static/scripts/jquery.min.js
-2022-05-22 01:01:51 WARNING <WSGIRequest: GET '/static/scripts/base.js'> 404 12208 13252 Not Found: /static/scripts/base.js
-2022-05-22 01:01:51 WARNING <WSGIRequest: GET '/static/admin/js/nav_sidebar.js'> 404 12208 15876 Not Found: /static/admin/js/nav_sidebar.js
-2022-05-22 01:01:51 WARNING <WSGIRequest: GET '/static/images/search.png'> 404 12208 14140 Not Found: /static/images/search.png
-2022-05-22 01:01:51 WARNING <WSGIRequest: GET '/static/admin/img/search.svg'> 404 12208 3152 Not Found: /static/admin/img/search.svg
-2022-05-22 01:01:51 WARNING <WSGIRequest: GET '/static/admin/css/responsive.css'> 404 12208 17768 Not Found: /static/admin/css/responsive.css
-2022-05-22 01:01:51 WARNING <WSGIRequest: GET '/static/admin/img/icon-yes.svg'> 404 12208 11740 Not Found: /static/admin/img/icon-yes.svg
-2022-05-22 01:01:51 WARNING <WSGIRequest: GET '/static/admin/img/icon-no.svg'> 404 12208 13252 Not Found: /static/admin/img/icon-no.svg
-2022-05-22 01:01:51 WARNING <WSGIRequest: GET '/static/styles/style.css'> 404 12208 17768 Not Found: /static/styles/style.css
-2022-06-12 01:16:24 WARNING <WSGIRequest: GET '/static/site/js/jquery.min.js'> 404 5272 6568 Not Found: /static/site/js/jquery.min.js
-2022-06-12 01:16:24 WARNING <WSGIRequest: GET '/static/site/js/sidebar.js'> 404 5272 19672 Not Found: /static/site/js/sidebar.js
-2022-06-12 01:16:24 WARNING <WSGIRequest: GET '/static/site/css/base.css'> 404 5272 11864 Not Found: /static/site/css/base.css
-2022-06-12 01:16:24 WARNING <WSGIRequest: GET '/static/site/css/select2.min.css'> 404 5272 21992 Not Found: /static/site/css/select2.min.css
-2022-06-12 01:16:24 WARNING <WSGIRequest: GET '/static/site/js/base.js'> 404 5272 23868 Not Found: /static/site/js/base.js
-2022-06-12 01:16:24 WARNING <WSGIRequest: GET '/static/site/js/render-fields.js'> 404 5272 9712 Not Found: /static/site/js/render-fields.js
-2022-06-12 01:16:24 WARNING <WSGIRequest: GET '/static/site/css/select2-custom.css'> 404 5272 6568 Not Found: /static/site/css/select2-custom.css
-2022-06-12 01:16:24 WARNING <WSGIRequest: GET '/static/site/css/tinymce-custom.css'> 404 5272 19672 Not Found: /static/site/css/tinymce-custom.css
-2022-06-12 01:16:24 WARNING <WSGIRequest: GET '/static/site/js/bootstrap-filestyle.min.js'> 404 5272 11864 Not Found: /static/site/js/bootstrap-filestyle.min.js
-2022-06-12 01:16:24 WARNING <WSGIRequest: GET '/static/site/js/select2.min.js'> 404 5272 21992 Not Found: /static/site/js/select2.min.js
-2022-06-12 01:16:24 WARNING <WSGIRequest: GET '/media/img/user/bear.png'> 404 5272 11864 Not Found: /media/img/user/bear.png
-2022-06-12 01:16:24 WARNING <WSGIRequest: GET '/static/site/css/select2-custom.css'> 404 5272 6568 Not Found: /static/site/css/select2-custom.css
-2022-06-12 01:16:24 WARNING <WSGIRequest: GET '/static/site/css/base.css'> 404 5272 21992 Not Found: /static/site/css/base.css
-2022-06-12 01:16:24 WARNING <WSGIRequest: GET '/static/site/css/tinymce-custom.css'> 404 5272 9712 Not Found: /static/site/css/tinymce-custom.css
-2022-06-12 01:16:24 WARNING <WSGIRequest: GET '/static/site/css/select2.min.css'> 404 5272 19672 Not Found: /static/site/css/select2.min.css
-2022-06-12 01:16:24 WARNING <WSGIRequest: GET '/static/site/img/favicon.ico'> 404 5272 19672 Not Found: /static/site/img/favicon.ico
-2022-06-12 01:16:28 WARNING <WSGIRequest: GET '/favicon.ico'> 404 5272 19672 Not Found: /favicon.ico
-2022-06-12 01:16:50 WARNING <WSGIRequest: GET '/static/site/js/render-fields.js'> 404 5272 6568 Not Found: /static/site/js/render-fields.js
-2022-06-12 01:16:50 WARNING <WSGIRequest: GET '/static/site/js/select2.min.js'> 404 5272 23868 Not Found: /static/site/js/select2.min.js
-2022-06-12 01:16:50 WARNING <WSGIRequest: GET '/static/site/js/jquery.min.js'> 404 5272 19672 Not Found: /static/site/js/jquery.min.js
-2022-06-12 01:16:50 WARNING <WSGIRequest: GET '/static/site/js/bootstrap-filestyle.min.js'> 404 5272 11864 Not Found: /static/site/js/bootstrap-filestyle.min.js
-2022-06-12 01:16:50 WARNING <WSGIRequest: GET '/static/site/js/base.js'> 404 5272 9712 Not Found: /static/site/js/base.js
-2022-06-12 01:16:50 WARNING <WSGIRequest: GET '/static/site/js/sidebar.js'> 404 5272 21992 Not Found: /static/site/js/sidebar.js
-2022-06-12 01:16:50 WARNING <WSGIRequest: GET '/static/site/css/base.css'> 404 5272 6568 Not Found: /static/site/css/base.css
-2022-06-12 01:16:50 WARNING <WSGIRequest: GET '/static/site/css/select2-custom.css'> 404 5272 19672 Not Found: /static/site/css/select2-custom.css
-2022-06-12 01:16:50 WARNING <WSGIRequest: GET '/static/site/css/select2.min.css'> 404 5272 23868 Not Found: /static/site/css/select2.min.css
-2022-06-12 01:16:50 WARNING <WSGIRequest: GET '/static/site/css/tinymce-custom.css'> 404 5272 11864 Not Found: /static/site/css/tinymce-custom.css
-2022-06-12 01:16:50 WARNING <WSGIRequest: GET '/media/img/user/bear.png'> 404 5272 21992 Not Found: /media/img/user/bear.png
-2022-06-12 01:16:53 WARNING <WSGIRequest: GET '/static/site/js/jquery.min.js'> 404 5272 21992 Not Found: /static/site/js/jquery.min.js
-2022-06-12 01:16:53 WARNING <WSGIRequest: GET '/static/site/js/bootstrap-filestyle.min.js'> 404 5272 6568 Not Found: /static/site/js/bootstrap-filestyle.min.js
-2022-06-12 01:16:53 WARNING <WSGIRequest: GET '/static/site/js/sidebar.js'> 404 5272 23868 Not Found: /static/site/js/sidebar.js
-2022-06-12 01:16:53 WARNING <WSGIRequest: GET '/static/site/js/select2.min.js'> 404 5272 9712 Not Found: /static/site/js/select2.min.js
-2022-06-12 01:16:53 WARNING <WSGIRequest: GET '/static/site/js/base.js'> 404 5272 11864 Not Found: /static/site/js/base.js
-2022-06-12 01:16:53 WARNING <WSGIRequest: GET '/static/site/js/render-fields.js'> 404 5272 19672 Not Found: /static/site/js/render-fields.js
-2022-06-12 01:16:53 WARNING <WSGIRequest: GET '/static/site/css/base.css'> 404 5272 21992 Not Found: /static/site/css/base.css
-2022-06-12 01:16:53 WARNING <WSGIRequest: GET '/static/site/css/select2.min.css'> 404 5272 6568 Not Found: /static/site/css/select2.min.css
-2022-06-12 01:16:53 WARNING <WSGIRequest: GET '/static/site/css/select2-custom.css'> 404 5272 23868 Not Found: /static/site/css/select2-custom.css
-2022-06-12 01:16:53 WARNING <WSGIRequest: GET '/static/site/css/tinymce-custom.css'> 404 5272 9712 Not Found: /static/site/css/tinymce-custom.css
-2022-06-12 01:16:53 WARNING <WSGIRequest: GET '/media/img/user/bear.png'> 404 5272 11864 Not Found: /media/img/user/bear.png
-2022-06-12 01:16:54 WARNING <WSGIRequest: GET '/static/site/js/base.js'> 404 5272 9712 Not Found: /static/site/js/base.js
-2022-06-12 01:16:54 WARNING <WSGIRequest: GET '/static/site/js/select2.min.js'> 404 5272 19672 Not Found: /static/site/js/select2.min.js
-2022-06-12 01:16:54 WARNING <WSGIRequest: GET '/static/site/js/jquery.min.js'> 404 5272 11864 Not Found: /static/site/js/jquery.min.js
-2022-06-12 01:16:54 WARNING <WSGIRequest: GET '/static/site/js/render-fields.js'> 404 5272 6568 Not Found: /static/site/js/render-fields.js
-2022-06-12 01:16:54 WARNING <WSGIRequest: GET '/static/site/js/bootstrap-filestyle.min.js'> 404 5272 21992 Not Found: /static/site/js/bootstrap-filestyle.min.js
-2022-06-12 01:16:54 WARNING <WSGIRequest: GET '/static/site/js/sidebar.js'> 404 5272 23868 Not Found: /static/site/js/sidebar.js
-2022-06-12 01:16:54 WARNING <WSGIRequest: GET '/static/site/css/base.css'> 404 5272 9712 Not Found: /static/site/css/base.css
-2022-06-12 01:16:54 WARNING <WSGIRequest: GET '/static/site/css/select2-custom.css'> 404 5272 11864 Not Found: /static/site/css/select2-custom.css
-2022-06-12 01:16:54 WARNING <WSGIRequest: GET '/static/site/css/tinymce-custom.css'> 404 5272 6568 Not Found: /static/site/css/tinymce-custom.css
-2022-06-12 01:16:54 WARNING <WSGIRequest: GET '/static/site/css/select2.min.css'> 404 5272 19672 Not Found: /static/site/css/select2.min.css
-2022-06-12 01:16:54 WARNING <WSGIRequest: GET '/media/img/user/bear.png'> 404 5272 23868 Not Found: /media/img/user/bear.png
-2022-06-12 01:16:54 WARNING <WSGIRequest: GET '/static/site/img/favicon.ico'> 404 5272 23868 Not Found: /static/site/img/favicon.ico
+2022-06-23 23:46:42 WARNING admin GET 404 Not Found: /adasda
+2022-06-24 00:46:19 ERROR admin POST 500 Internal Server Error: /ticket/update/tst-1
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 153, in post
+    ticket_updated = update_ticket(form, request)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\utils.py", line 187, in update_ticket
+    instance_updated = update_instance_field(instance, instance_updated, attr, form_attr_value, form, request)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\utils.py", line 204, in update_instance_field
+    logger.info(add_audit_log(request, instance_updated, f'field update {attr} to {form_attr_value}'))
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\utils.py", line 27, in add_audit_log
+    session=request.session.session.key,
+AttributeError: 'SessionStore' object has no attribute 'session'
+2022-06-24 00:46:20 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 00:59:39 ERROR admin POST 500 Internal Server Error: /ticket/update/status/tst-2
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 177, in post
+    ticket_updated = set_ticket_status(transition_association, context_transition_associations, ticket)
+TypeError: set_ticket_status() missing 1 required positional argument: 'request'
+2022-06-24 00:59:52 ERROR admin POST 500 Internal Server Error: /ticket/update/status/tst-2
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 177, in post
+    ticket_updated = set_ticket_status(transition_association, context_transition_associations, ticket, request)
+TypeError: set_ticket_status() missing 1 required positional argument: 'request'
+2022-06-24 00:59:56 ERROR admin POST 500 Internal Server Error: /ticket/update/status/tst-2
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 177, in post
+    ticket_updated = set_ticket_status(transition_association, context_transition_associations, ticket, request)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\utils.py", line 213, in set_ticket_status
+    logger.info(add_audit_log(request, ticket, f'field update {ticket._meta.status.__name__} to {ticket.status}'))
+AttributeError: 'Options' object has no attribute 'status'
+2022-06-24 01:00:29 ERROR admin POST 500 Internal Server Error: /ticket/update/status/tst-2
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 177, in post
+    ticket_updated = set_ticket_status(transition_association, context_transition_associations, ticket, request)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\utils.py", line 213, in set_ticket_status
+    logger.info(add_audit_log(request, ticket, f'field update {ticket.status._meta.__name__} to {ticket.status}'))
+AttributeError: 'Options' object has no attribute '__name__'
+2022-06-24 01:00:34 ERROR admin POST 500 Internal Server Error: /ticket/update/status/tst-2
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 177, in post
+    ticket_updated = set_ticket_status(transition_association, context_transition_associations, ticket, request)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\utils.py", line 213, in set_ticket_status
+    logger.info(add_audit_log(request, ticket, f'field update {ticket.status._meta.__name__} to {ticket.status}'))
+AttributeError: 'Options' object has no attribute '__name__'
+2022-06-24 01:01:25 ERROR admin POST 500 Internal Server Error: /ticket/update/status/tst-2
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 177, in post
+    ticket_updated = set_ticket_status(transition_association, context_transition_associations, ticket, request)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\utils.py", line 213, in set_ticket_status
+    logger.info(add_audit_log(request, ticket, f'field update {ticket.status.get_field()} to {ticket.status}'))
+AttributeError: 'Status' object has no attribute 'get_field'
+2022-06-24 01:01:25 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 01:03:13 ERROR admin POST 500 Internal Server Error: /ticket/update/status/tst-2
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 177, in post
+    ticket_updated = set_ticket_status(transition_association, context_transition_associations, ticket, request)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\utils.py", line 213, in set_ticket_status
+    logger.info(add_audit_log(request, ticket, f'field update {getattr(ticket, ticket.status)} to {ticket.status}'))
+TypeError: getattr(): attribute name must be string
+2022-06-24 01:03:14 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 01:03:24 ERROR admin POST 500 Internal Server Error: /ticket/update/status/tst-2
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 177, in post
+    ticket_updated = set_ticket_status(transition_association, context_transition_associations, ticket, request)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\utils.py", line 213, in set_ticket_status
+    logger.info(add_audit_log(request, ticket, f'field update {getattr(ticket, str(ticket.status))} to {ticket.status}'))
+AttributeError: 'Issue' object has no attribute 'Resolved'
+2022-06-24 01:14:36 ERROR admin GET 500 Internal Server Error: /
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 239, in get
+    return validate_get_request(self, request, TicketBoardListView, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 33, in validate_get_request
+    context_tenant_session(request)  # assign active tenant/s based on membership to groups
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\context_processors.py", line 17, in context_tenant_session
+    set_active_tenant(tenant, request)  # check if in django sessions is already activated any tenant
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\utils.py", line 117, in set_active_tenant
+    _set_active_tenant(tenant, request)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\utils.py", line 111, in _set_active_tenant
+    logger.info(add_audit_log(request, tenant_session, f'field update "active" to "{tenant_session.activ}"'))
+AttributeError: 'TenantSession' object has no attribute 'activ'
+2022-06-24 01:14:36 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 01:26:31 ERROR admin POST 500 Internal Server Error: /ticket/update/assignee/tst-1
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 197, in post
+    print(self.object)
+AttributeError: 'TicketDetailUpdateAssignee' object has no attribute 'object'
+2022-06-24 01:26:31 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 01:26:42 ERROR admin POST 500 Internal Server Error: /ticket/update/assignee/tst-1
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 197, in post
+    print(self.object)
+AttributeError: 'TicketDetailUpdateAssignee' object has no attribute 'object'
+2022-06-24 01:27:17 ERROR admin POST 500 Internal Server Error: /ticket/update/assignee/tst-1
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 197, in post
+    print(self.object)
+AttributeError: 'TicketDetailUpdateAssignee' object has no attribute 'object'
+2022-06-24 01:27:31 ERROR admin POST 500 Internal Server Error: /ticket/update/assignee/tst-1
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 197, in post
+    print(self.object)
+AttributeError: 'TicketDetailUpdateAssignee' object has no attribute 'object'
+2022-06-24 01:27:31 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 01:29:46 ERROR admin POST 500 Internal Server Error: /ticket/update/status/tst-1
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 176, in post
+    context = super().post(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 194, in post
+    return super().post(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 140, in post
+    form = self.get_form()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 32, in get_form
+    form_class = self.get_form_class()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 96, in get_form_class
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Using ModelFormMixin (base class of TicketDetailUpdateStatus) without the 'fields' attribute is prohibited.
+2022-06-24 01:29:46 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 01:30:10 ERROR admin POST 500 Internal Server Error: /ticket/update/status/tst-1
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 176, in post
+    context = super().post(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 194, in post
+    return super().post(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 140, in post
+    form = self.get_form()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 32, in get_form
+    form_class = self.get_form_class()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 96, in get_form_class
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Using ModelFormMixin (base class of TicketDetailUpdateStatus) without the 'fields' attribute is prohibited.
+2022-06-24 01:30:11 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 01:41:05 ERROR admin GET 500 Internal Server Error: /ticket/view/hsw-36
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 204, in _get_response
+    response = response.render()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 105, in render
+    self.content = self.rendered_content
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 83, in rendered_content
+    return template.render(context, self._request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\loader_tags.py", line 62, in render
+    result = block.nodelist.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\loader_tags.py", line 62, in render
+    result = block.nodelist.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'update_ticket_suspend' not found. 'update_ticket_suspend' is not a valid view function or pattern name.
+2022-06-24 01:41:05 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 01:41:33 ERROR admin GET 500 Internal Server Error: /ticket/view/hsw-36
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 204, in _get_response
+    response = response.render()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 105, in render
+    self.content = self.rendered_content
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 83, in rendered_content
+    return template.render(context, self._request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\loader_tags.py", line 62, in render
+    result = block.nodelist.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\loader_tags.py", line 62, in render
+    result = block.nodelist.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'update_ticket_suspend' not found. 'update_ticket_suspend' is not a valid view function or pattern name.
+2022-06-24 01:41:33 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 01:41:37 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 01:42:19 ERROR admin POST 500 Internal Server Error: /ticket/update/suspended/hsw-36
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 182, in post
+    user = User.objects.get(id=request.POST.get('assignee'))
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 435, in get
+    raise self.model.DoesNotExist(
+django.contrib.auth.models.User.DoesNotExist: User matching query does not exist.
+2022-06-24 01:42:19 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 01:42:41 ERROR admin POST 500 Internal Server Error: /ticket/update/suspended/hsw-36
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 182, in post
+    user = User.objects.get(id=request.POST.get('assignee'))
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 435, in get
+    raise self.model.DoesNotExist(
+django.contrib.auth.models.User.DoesNotExist: User matching query does not exist.
+2022-06-24 01:43:21 ERROR admin POST 500 Internal Server Error: /ticket/update/suspended/hsw-36
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 182, in post
+    user = User.objects.get(id=request.POST.get('assignee'))
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 435, in get
+    raise self.model.DoesNotExist(
+django.contrib.auth.models.User.DoesNotExist: User matching query does not exist.
+2022-06-24 01:43:28 ERROR admin POST 500 Internal Server Error: /ticket/update/suspended/hsw-36
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 182, in post
+    user = User.objects.get(id=request.POST.get('assignee'))
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 435, in get
+    raise self.model.DoesNotExist(
+django.contrib.auth.models.User.DoesNotExist: User matching query does not exist.
+2022-06-24 01:44:04 ERROR admin POST 500 Internal Server Error: /ticket/update/suspended/hsw-36
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 182, in post
+    user = User.objects.get(id=request.POST.get('assignee'))
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 435, in get
+    raise self.model.DoesNotExist(
+django.contrib.auth.models.User.DoesNotExist: User matching query does not exist.
+2022-06-24 01:44:49 ERROR admin POST 500 Internal Server Error: /ticket/update/suspended/hsw-36
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 182, in post
+    user = User.objects.get(id=request.POST.get('assignee'))
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 435, in get
+    raise self.model.DoesNotExist(
+django.contrib.auth.models.User.DoesNotExist: User matching query does not exist.
+2022-06-24 01:44:49 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 01:45:07 ERROR admin POST 500 Internal Server Error: /ticket/update/suspended/hsw-36
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 202, in post
+    ticket_updated = set_ticket_suspend(ticket, request)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\utils.py", line 244, in set_ticket_suspend
+    logger.info(add_audit_log(request, ticket, f'field update "suspended" to "{ticket.supsended}"'))
+AttributeError: 'Issue' object has no attribute 'supsended'
+2022-06-24 01:45:08 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 01:45:24 ERROR admin POST 500 Internal Server Error: /ticket/update/suspended/hsw-36
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 202, in post
+    ticket_updated = set_ticket_suspend(ticket, request)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\utils.py", line 244, in set_ticket_suspend
+    logger.info(add_audit_log(request, ticket, f'field update "suspended" to "{ticket.supsended}"'))
+AttributeError: 'Issue' object has no attribute 'supsended'
+2022-06-24 01:48:21 ERROR admin POST 500 Internal Server Error: /admin/app/attachment/add/
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 616, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\decorators\cache.py", line 44, in _wrapped_view_func
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\sites.py", line 232, in inner
+    return view(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1657, in add_view
+    return self.changeform_view(request, None, form_url, extra_context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 43, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1540, in changeform_view
+    return self._changeform_view(request, object_id, form_url, extra_context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1590, in _changeform_view
+    self.log_addition(request, new_object, change_message)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 815, in log_addition
+    object_repr=str(object),
+TypeError: __str__ returned non-string (type int)
+2022-06-24 01:48:21 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 01:49:01 ERROR admin POST 500 Internal Server Error: /admin/app/attachment/add/
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 616, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\decorators\cache.py", line 44, in _wrapped_view_func
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\sites.py", line 232, in inner
+    return view(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1657, in add_view
+    return self.changeform_view(request, None, form_url, extra_context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 43, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1540, in changeform_view
+    return self._changeform_view(request, object_id, form_url, extra_context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1590, in _changeform_view
+    self.log_addition(request, new_object, change_message)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 815, in log_addition
+    object_repr=str(object),
+TypeError: __str__ returned non-string (type FieldFile)
+2022-06-24 02:07:46 ERROR admin POST 500 Internal Server Error: /admin/app/attachment/add/
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 616, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\decorators\cache.py", line 44, in _wrapped_view_func
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\sites.py", line 232, in inner
+    return view(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1657, in add_view
+    return self.changeform_view(request, None, form_url, extra_context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 43, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1540, in changeform_view
+    return self._changeform_view(request, object_id, form_url, extra_context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1586, in _changeform_view
+    self.save_model(request, new_object, form, not add)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1099, in save_model
+    obj.save()
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 478, in save
+    self.size = self.get_size()
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 485, in get_size
+    return os.path.getsize(str(self.file))
+  File "D:\Apps\Python\Python-3.9.5\lib\genericpath.py", line 50, in getsize
+    return os.stat(filename).st_size
+FileNotFoundError: [WinError 2] The system cannot find the file specified: 'AMB - Arkusz1.pdf'
+2022-06-24 02:07:46 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 02:08:22 ERROR admin POST 500 Internal Server Error: /admin/app/attachment/add/
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 616, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\decorators\cache.py", line 44, in _wrapped_view_func
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\sites.py", line 232, in inner
+    return view(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1657, in add_view
+    return self.changeform_view(request, None, form_url, extra_context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 43, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1540, in changeform_view
+    return self._changeform_view(request, object_id, form_url, extra_context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1586, in _changeform_view
+    self.save_model(request, new_object, form, not add)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1099, in save_model
+    obj.save()
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 478, in save
+    self.size = self.get_size()
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 485, in get_size
+    return os.path.getsize(f'{get_media_path()}/attachments/{str(self.file)}')
+  File "D:\Apps\Python\Python-3.9.5\lib\genericpath.py", line 50, in getsize
+    return os.stat(filename).st_size
+FileNotFoundError: [WinError 2] The system cannot find the file specified: 'F:\\Programs\\Repository\\Python\\Private\\service-desk\\service_desk/media/attachments/Generator umów [Copy].xlsx'
+2022-06-24 02:10:09 ERROR admin POST 500 Internal Server Error: /admin/app/attachment/add/
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 616, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\decorators\cache.py", line 44, in _wrapped_view_func
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\sites.py", line 232, in inner
+    return view(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1657, in add_view
+    return self.changeform_view(request, None, form_url, extra_context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 43, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1540, in changeform_view
+    return self._changeform_view(request, object_id, form_url, extra_context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1586, in _changeform_view
+    self.save_model(request, new_object, form, not add)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1099, in save_model
+    obj.save()
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 478, in save
+    self.size = self.get_size(self.filename)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 485, in get_size
+    return os.path.getsize(f'{get_media_path()}/attachments/{str(filename)}')
+  File "D:\Apps\Python\Python-3.9.5\lib\genericpath.py", line 50, in getsize
+    return os.stat(filename).st_size
+FileNotFoundError: [WinError 2] The system cannot find the file specified: 'F:\\Programs\\Repository\\Python\\Private\\service-desk\\service_desk/media/attachments/Asset data - Jetbrains.csv'
+2022-06-24 02:11:26 ERROR admin POST 500 Internal Server Error: /admin/app/attachment/add/
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 616, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\decorators\cache.py", line 44, in _wrapped_view_func
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\sites.py", line 232, in inner
+    return view(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1657, in add_view
+    return self.changeform_view(request, None, form_url, extra_context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 43, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1540, in changeform_view
+    return self._changeform_view(request, object_id, form_url, extra_context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1586, in _changeform_view
+    self.save_model(request, new_object, form, not add)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1099, in save_model
+    obj.save()
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 478, in save
+    self.size = self.get_size()
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 485, in get_size
+    return self.filename.size
+AttributeError: 'str' object has no attribute 'size'
+2022-06-24 02:28:44 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 02:38:20 ERROR admin POST 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 144, in post
+    return self.form_invalid(form)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 88, in form_invalid
+    messages.error(request, '')
+NameError: name 'request' is not defined
+2022-06-24 02:49:03 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 02:50:00 ERROR admin POST 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 188, in _get_response
+    self.check_response(response, callback)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 309, in check_response
+    raise ValueError(
+ValueError: The view app.views.TicketCreateView didn't return an HttpResponse object. It returned None instead.
+2022-06-24 02:50:17 ERROR admin POST 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_response(request, response)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\middleware\clickjacking.py", line 26, in process_response
+    if response.get('X-Frame-Options') is not None:
+AttributeError: '__proxy__' object has no attribute 'get'
+2022-06-24 02:50:34 ERROR admin POST 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_response(request, response)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\middleware\clickjacking.py", line 26, in process_response
+    if response.get('X-Frame-Options') is not None:
+AttributeError: '__proxy__' object has no attribute 'get'
+2022-06-24 02:51:41 WARNING admin GET 404 Not Found: /ticket/ticket/ticket-create.html
+2022-06-24 02:51:58 WARNING admin GET 404 Not Found: /ticket/ticket/ticket-create.html
+2022-06-24 02:52:15 WARNING admin GET 404 Not Found: /ticket/ticket/ticket-create.html
+2022-06-24 03:10:45 ERROR admin POST 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 144, in post
+    return self.form_invalid(form)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 90, in form_invalid
+    return redirect(self.request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'), {'form': form.request.POST})
+AttributeError: 'TicketCreateForm' object has no attribute 'request'
+2022-06-24 03:10:45 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 03:22:41 ERROR admin POST 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\fields\__init__.py", line 1823, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: b'\x00\x00\x00xl/styles.xml\xc5TMo\xdb0\x0c\xbd\xefW\x08\xba\xafvR\xa0(\n'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\models.py", line 1365, in _check_values
+    self.queryset.filter(**{key: pk})
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 941, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 961, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 968, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\sql\query.py", line 1416, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\sql\query.py", line 1435, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\sql\query.py", line 1370, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\sql\query.py", line 1216, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\lookups.py", line 25, in __init__
+    self.rhs = self.get_prep_lookup()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\lookups.py", line 77, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\fields\__init__.py", line 1825, in get_prep_value
+    raise e.__class__(
+ValueError: Field 'id' expected a number but got b'\x00\x00\x00xl/styles.xml\xc5TMo\xdb0\x0c\xbd\xefW\x08\xba\xafvR\xa0(\n'.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 141, in post
+    if form.is_valid():
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\forms.py", line 175, in is_valid
+    return self.is_bound and not self.errors
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\forms.py", line 170, in errors
+    self.full_clean()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\forms.py", line 372, in full_clean
+    self._clean_fields()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\forms.py", line 390, in _clean_fields
+    value = field.clean(value)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\models.py", line 1340, in clean
+    qs = self._check_values(value)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\models.py", line 1368, in _check_values
+    self.error_messages['invalid_pk_value'],
+KeyError: 'invalid_pk_value'
+2022-06-24 03:22:41 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 03:27:23 ERROR admin POST 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\fields\__init__.py", line 1823, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: b'<?xml version="1.0" ?><svg width="28px" height="28px" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M16.3382 1.94393L25.9705 9.82424L26.0201 9.8788C
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\models.py", line 1365, in _check_values
+    self.queryset.filter(**{key: pk})
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 941, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 961, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 968, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\sql\query.py", line 1416, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\sql\query.py", line 1435, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\sql\query.py", line 1370, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\sql\query.py", line 1216, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\lookups.py", line 25, in __init__
+    self.rhs = self.get_prep_lookup()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\lookups.py", line 77, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\fields\__init__.py", line 1825, in get_prep_value
+    raise e.__class__(
+ValueError: Field 'id' expected a number but got b'<?xml version="1.0" ?><svg width="28px" height="28px" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M16.3382 1.94393L25.9705 9.82424L26.0201 9.8788C26.1701 10.0437 26.3998 10.3064 26.5943 10.6198C26.7798 10.9189 27 11.3686 27 11.8956V24.9976C27 26.1013 26.1068 27 25 27H18.7601C17.9317 27 17.2601 26.3284 17.2601 25.5V20.7939C17.2601 18.9948 15.8058 17.5405 14.0168 17.5405C12.2279 17.5405 10.7735 18.9948 10.7735 20.7939V25.5C10.7735 26.3284 10.102 27 9.27354 27H3C1.89318 27 1 26.1013 1 24.9976V11.7425C1 11.0901 1.36299 10.564 1.56986 10.3028C1.69049 10.1505 1.80873 10.0264 1.89631 9.94036C1.9407 9.89677 1.97877 9.86147 2.0074 9.83565C2.02175 9.8227 2.03384 9.81204 2.0433 9.80382L2.05551 9.79329L2.06007 9.7894L2.06278 9.7871C2.06278 9.7871 2.06356 9.78646 2.7075 10.5515L2.06356 9.78646L2.07352 9.77807L11.6288 1.94617C12.9452 0.685478 15.0206 0.684487 16.3382 1.94393ZM3.35246 11.3159L3.3468 11.3209C3.33673 11.33 3.31953 11.3459 3.29759 11.3674C3.25251 11.4117 3.19388 11.4736 3.13764 11.5446C3.07966 11.6178 3.038 11.6834 3.01374 11.7344C3.00661 11.7494 3.00238 11.7602 3 11.767V24.9976L3.00006 24.9992L3.0007 25H8.77354V20.7939C8.77354 17.8948 11.1188 15.5405 14.0168 15.5405C16.9149 15.5405 19.2601 17.8948 19.2601 20.7939V25H24.9993L24.9999 24.9992L25 24.9976V11.8956C25 11.8989 25.0008 11.8992 25 11.8956C24.9966 11.8812 24.9788 11.8095 24.8948 11.6742C24.8108 11.5389 24.7005 11.4037 24.588 11.2772L15.004 3.43645L14.9714 3.40439C14.4228 2.86484 13.5451 2.86525 12.997 3.40534L12.9644 3.43744L3.35246 11.3159Z" fill="black" fill-rule="evenodd"/></svg>'.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 141, in post
+    if form.is_valid():
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\forms.py", line 175, in is_valid
+    return self.is_bound and not self.errors
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\forms.py", line 170, in errors
+    self.full_clean()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\forms.py", line 372, in full_clean
+    self._clean_fields()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\forms.py", line 390, in _clean_fields
+    value = field.clean(value)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\models.py", line 1340, in clean
+    qs = self._check_values(value)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\models.py", line 1368, in _check_values
+    self.error_messages['invalid_pk_value'],
+KeyError: 'invalid_pk_value'
+2022-06-24 03:27:23 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 03:40:55 ERROR admin POST 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 144, in post
+    return self.form_invalid(form)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 87, in form_invalid
+    print(form.error.as_data())
+AttributeError: 'TicketCreateForm' object has no attribute 'error'
+2022-06-24 03:40:55 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 03:45:17 ERROR admin POST 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 144, in post
+    return self.form_invalid(form)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 88, in form_invalid
+    print(form.cleander_data['attachments'])
+AttributeError: 'TicketCreateForm' object has no attribute 'cleander_data'
+2022-06-24 03:45:27 ERROR admin POST 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 144, in post
+    return self.form_invalid(form)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 88, in form_invalid
+    print(form.cleaned_data['attachments'])
+KeyError: 'attachments'
+2022-06-24 03:59:56 ERROR admin POST 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 188, in _get_response
+    self.check_response(response, callback)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 309, in check_response
+    raise ValueError(
+ValueError: The view app.views.TicketCreateView didn't return an HttpResponse object. It returned None instead.
+2022-06-24 03:59:56 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 04:24:48 ERROR admin POST 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 141, in post
+    if form.is_valid():
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\forms.py", line 175, in is_valid
+    return self.is_bound and not self.errors
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\forms.py", line 170, in errors
+    self.full_clean()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\forms.py", line 373, in full_clean
+    self._clean_form()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\forms.py", line 400, in _clean_form
+    cleaned_data = self.clean()
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\forms.py", line 59, in clean
+    attachments = self.cleaned_data['attachments']
+KeyError: 'attachments'
+2022-06-24 04:24:48 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 04:26:22 ERROR admin POST 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 141, in post
+    if form.is_valid():
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\forms.py", line 175, in is_valid
+    return self.is_bound and not self.errors
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\forms.py", line 170, in errors
+    self.full_clean()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\forms.py", line 373, in full_clean
+    self._clean_form()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\forms.py", line 400, in _clean_form
+    cleaned_data = self.clean()
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\forms.py", line 60, in clean
+    attachments = self.cleaned_data['attachments']
+KeyError: 'attachments'
+2022-06-24 04:36:46 ERROR admin POST 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 141, in post
+    if form.is_valid():
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\forms.py", line 175, in is_valid
+    return self.is_bound and not self.errors
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\forms.py", line 170, in errors
+    self.full_clean()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\forms.py", line 373, in full_clean
+    self._clean_form()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\forms.py", line 400, in _clean_form
+    cleaned_data = self.clean()
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\forms.py", line 60, in clean
+    attachments = self.cleaned_data['attachments']
+KeyError: 'attachments'
+2022-06-24 04:36:46 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 04:42:00 ERROR admin POST 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 141, in post
+    if form.is_valid():
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\forms.py", line 175, in is_valid
+    return self.is_bound and not self.errors
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\forms.py", line 170, in errors
+    self.full_clean()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\forms.py", line 373, in full_clean
+    self._clean_form()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\forms.py", line 400, in _clean_form
+    cleaned_data = self.clean()
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\forms.py", line 59, in clean
+    if not (self.attachments):
+AttributeError: 'TicketCreateForm' object has no attribute 'attachments'
+2022-06-24 04:42:00 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 05:08:48 ERROR admin GET 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 103, in get
+    return validate_get_request(self, request, TicketCreateView, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 34, in validate_get_request
+    response = super(view_name, self).get(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 168, in get
+    return super().get(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 133, in get
+    return self.render_to_response(self.get_context_data())
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 66, in get_context_data
+    kwargs['form'] = self.get_form()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 33, in get_form
+    return form_class(**self.get_form_kwargs())
+TypeError: __init__() got an unexpected keyword argument 'instance'
+2022-06-24 05:08:48 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 05:10:00 ERROR admin GET 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 103, in get
+    return validate_get_request(self, request, TicketCreateView, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 34, in validate_get_request
+    response = super(view_name, self).get(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 168, in get
+    return super().get(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 133, in get
+    return self.render_to_response(self.get_context_data())
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 66, in get_context_data
+    kwargs['form'] = self.get_form()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 33, in get_form
+    return form_class(**self.get_form_kwargs())
+TypeError: __init__() got an unexpected keyword argument 'instance'
+2022-06-24 05:10:00 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 05:10:20 ERROR admin GET 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 103, in get
+    return validate_get_request(self, request, TicketCreateView, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 34, in validate_get_request
+    response = super(view_name, self).get(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 168, in get
+    return super().get(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 133, in get
+    return self.render_to_response(self.get_context_data())
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 66, in get_context_data
+    kwargs['form'] = self.get_form()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 33, in get_form
+    return form_class(**self.get_form_kwargs())
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\forms.py", line 58, in __init__
+    super(TicketCreateForm2, self).__init__(*args, **kwargs)
+TypeError: __init__() got an unexpected keyword argument 'instance'
+2022-06-24 05:10:20 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 05:10:55 ERROR admin GET 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 103, in get
+    return validate_get_request(self, request, TicketCreateView, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 34, in validate_get_request
+    response = super(view_name, self).get(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 168, in get
+    return super().get(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 133, in get
+    return self.render_to_response(self.get_context_data())
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 66, in get_context_data
+    kwargs['form'] = self.get_form()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 33, in get_form
+    return form_class(**self.get_form_kwargs())
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\forms.py", line 58, in __init__
+    class Meta:
+TypeError: __init__() got an unexpected keyword argument 'instance'
+2022-06-24 05:10:55 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 05:10:56 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 05:10:56 ERROR admin GET 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 103, in get
+    return validate_get_request(self, request, TicketCreateView, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 34, in validate_get_request
+    response = super(view_name, self).get(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 168, in get
+    return super().get(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 133, in get
+    return self.render_to_response(self.get_context_data())
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 66, in get_context_data
+    kwargs['form'] = self.get_form()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 33, in get_form
+    return form_class(**self.get_form_kwargs())
+TypeError: __init__() got an unexpected keyword argument 'instance'
+2022-06-24 05:10:57 ERROR admin GET 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 103, in get
+    return validate_get_request(self, request, TicketCreateView, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 34, in validate_get_request
+    response = super(view_name, self).get(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 168, in get
+    return super().get(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 133, in get
+    return self.render_to_response(self.get_context_data())
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 66, in get_context_data
+    kwargs['form'] = self.get_form()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 33, in get_form
+    return form_class(**self.get_form_kwargs())
+TypeError: __init__() got an unexpected keyword argument 'instance'
+2022-06-24 05:10:57 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 05:11:13 ERROR admin GET 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 103, in get
+    return validate_get_request(self, request, TicketCreateView, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 34, in validate_get_request
+    response = super(view_name, self).get(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 168, in get
+    return super().get(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 133, in get
+    return self.render_to_response(self.get_context_data())
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 66, in get_context_data
+    kwargs['form'] = self.get_form()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 33, in get_form
+    return form_class(**self.get_form_kwargs())
+TypeError: __init__() got an unexpected keyword argument 'instance'
+2022-06-24 05:11:13 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 05:23:35 ERROR admin POST 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 141, in post
+    if form.is_valid():
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\forms.py", line 175, in is_valid
+    return self.is_bound and not self.errors
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\forms.py", line 170, in errors
+    self.full_clean()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\forms.py", line 372, in full_clean
+    self._clean_fields()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\forms.py", line 393, in _clean_fields
+    value = getattr(self, 'clean_%s' % name)()
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\forms.py", line 76, in clean_attachments
+    print(self.__dict)
+AttributeError: 'TicketCreateForm' object has no attribute '_TicketCreateForm__dict'
+2022-06-24 05:23:35 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 05:56:16 ERROR admin GET 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 105, in get
+    return validate_get_request(self, request, TicketCreateView, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 34, in validate_get_request
+    response = super(view_name, self).get(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 168, in get
+    return super().get(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 133, in get
+    return self.render_to_response(self.get_context_data())
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 66, in get_context_data
+    kwargs['form'] = self.get_form()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 33, in get_form
+    return form_class(**self.get_form_kwargs())
+TypeError: __init__() got an unexpected keyword argument 'initial'
+2022-06-24 05:56:16 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 05:57:17 ERROR admin GET 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 105, in get
+    return validate_get_request(self, request, TicketCreateView, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 34, in validate_get_request
+    response = super(view_name, self).get(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 168, in get
+    return super().get(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 133, in get
+    return self.render_to_response(self.get_context_data())
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 66, in get_context_data
+    kwargs['form'] = self.get_form()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 33, in get_form
+    return form_class(**self.get_form_kwargs())
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\forms.py", line 63, in __init__
+    print(**kwargs)
+TypeError: 'initial' is an invalid keyword argument for print()
+2022-06-24 05:57:41 ERROR admin GET 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 105, in get
+    return validate_get_request(self, request, TicketCreateView, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 34, in validate_get_request
+    response = super(view_name, self).get(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 168, in get
+    return super().get(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 133, in get
+    return self.render_to_response(self.get_context_data())
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 66, in get_context_data
+    kwargs['form'] = self.get_form()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 33, in get_form
+    return form_class(**self.get_form_kwargs())
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\forms.py", line 63, in __init__
+    print(str(**kwargs))
+TypeError: 'initial' is an invalid keyword argument for print()
+2022-06-24 05:57:41 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 05:57:42 ERROR admin GET 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 105, in get
+    return validate_get_request(self, request, TicketCreateView, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 34, in validate_get_request
+    response = super(view_name, self).get(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 168, in get
+    return super().get(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 133, in get
+    return self.render_to_response(self.get_context_data())
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 66, in get_context_data
+    kwargs['form'] = self.get_form()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 33, in get_form
+    return form_class(**self.get_form_kwargs())
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\forms.py", line 63, in __init__
+    print(str(**kwargs))
+TypeError: 'initial' is an invalid keyword argument for print()
+2022-06-24 05:57:43 ERROR admin GET 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 105, in get
+    return validate_get_request(self, request, TicketCreateView, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 34, in validate_get_request
+    response = super(view_name, self).get(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 168, in get
+    return super().get(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 133, in get
+    return self.render_to_response(self.get_context_data())
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 66, in get_context_data
+    kwargs['form'] = self.get_form()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 33, in get_form
+    return form_class(**self.get_form_kwargs())
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\forms.py", line 63, in __init__
+    print(str(**kwargs))
+TypeError: 'initial' is an invalid keyword argument for str()
+2022-06-24 05:57:43 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 05:57:43 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 05:57:43 ERROR admin GET 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 105, in get
+    return validate_get_request(self, request, TicketCreateView, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 34, in validate_get_request
+    response = super(view_name, self).get(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 168, in get
+    return super().get(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 133, in get
+    return self.render_to_response(self.get_context_data())
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 66, in get_context_data
+    kwargs['form'] = self.get_form()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 33, in get_form
+    return form_class(**self.get_form_kwargs())
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\forms.py", line 63, in __init__
+    print(str(**kwargs))
+TypeError: 'initial' is an invalid keyword argument for str()
+2022-06-24 05:57:43 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-24 05:58:40 ERROR admin POST 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 141, in post
+    if form.is_valid():
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\forms.py", line 175, in is_valid
+    return self.is_bound and not self.errors
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\forms.py", line 170, in errors
+    self.full_clean()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\forms.py", line 372, in full_clean
+    self._clean_fields()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\forms.py", line 390, in _clean_fields
+    value = field.clean(value)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\fields.py", line 150, in clean
+    self.validate(value)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\fields.py", line 816, in validate
+    if value and not self.valid_value(value):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\fields.py", line 826, in valid_value
+    for k, v in self.choices:
+ValueError: not enough values to unpack (expected 2, got 1)
+2022-06-24 05:58:41 WARNING admin GET 404 Not Found: /favicon.ico

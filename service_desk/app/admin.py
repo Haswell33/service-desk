@@ -3,7 +3,7 @@ from django.conf import settings
 from django.contrib.admin import AdminSite
 from django.contrib.auth.models import Group, User
 from django.contrib.auth.admin import GroupAdmin, UserAdmin
-from .models import Issue, Tenant, Comment, Priority, Status, Resolution, Transition, TransitionAssociation, IssueType, Label, LabelAssociation, SLAScheme, Board, BoardColumn, BoardColumnAssociation
+from .models import Issue, Tenant, Comment, Priority, Status, Resolution, Transition, Attachment, AttachmentAssociation,TransitionAssociation, IssueType, Label, LabelAssociation, SLAScheme, Board, BoardColumn, BoardColumnAssociation
 from django.utils.html import mark_safe, format_html
 from django import template
 
@@ -80,6 +80,14 @@ class BoardColumnAdminModel(admin.ModelAdmin):
 class SLAAdminModel(admin.ModelAdmin):
     list_display = ('name', 'reaction_time', 'resolve_time', 'hour_range')
     search_fields = ['name']
+
+
+@admin.register(Attachment)
+class AttachmentAdminModel(admin.ModelAdmin):
+    list_display = ('filename', 'file', 'display_size')
+    search_fields = ['file']
+    fields = ('file',)
+    readonly_fields = ('filename',)
 
 
 @admin.register(Tenant)
@@ -182,3 +190,5 @@ admin.site.register(Group, GroupAdminModel)
 admin.site.unregister(User)
 admin.site.register(User, UserAdminModel)
 AdminSite.index_title = 'Administration'
+
+admin.site.register(AttachmentAssociation)

@@ -1,0 +1,5 @@
+2022-06-24 00:44:27 DEBUG | CREATE TABLE "app_auditlog" ("id" bigserial NOT NULL PRIMARY KEY, "created" timestamp with time zone NOT NULL, "object" integer NOT NULL CHECK ("object" >= 0), "object_type" varchar(50) NOT NULL, "session" varchar(500) NOT NULL, "ip_address" inet NOT NULL, "url" varchar(200) NOT NULL, "message" text NOT NULL, "user_id" integer NOT NULL); (params None)
+2022-06-24 00:44:27 DEBUG | ALTER TABLE "app_auditlog" ADD CONSTRAINT "app_auditlog_user_id_58b3ddfe_fk_auth_user_id" FOREIGN KEY ("user_id") REFERENCES "auth_user" ("id") DEFERRABLE INITIALLY DEFERRED; (params ())
+2022-06-24 00:44:27 DEBUG | CREATE INDEX "app_auditlog_user_id_58b3ddfe" ON "app_auditlog" ("user_id"); (params ())
+2022-06-24 00:45:59 DEBUG | ALTER TABLE "app_auditlog" RENAME TO "audit_log"; (params ())
+2022-06-24 03:56:42 DEBUG | ALTER TABLE "attachment" ALTER COLUMN "file" TYPE varchar(5000); (params [])
