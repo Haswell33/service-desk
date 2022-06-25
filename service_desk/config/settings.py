@@ -31,10 +31,27 @@ ORDER_BY_FIELDS = [
     ('created', 'Created')
 ]
 ALLOW_EXTENSION_UPLOAD_LIST = [
-    'pdf', 'txt', 'doc', 'docx', 'odt', 'rtf', '.html', 'pptx',
-    'csv', 'xlsx', 'ods', 'tsv',
-    'jpg', 'jpeg', 'png', 'gif', 'svg', 'webp', '.ico', 'bmp', 'tiff',
-    'zip', 'rar', '7zip']
+    'pdf', 'txt', 'doc', 'docx', 'odt', 'rtf', 'html', 'pptx',  # documents
+    'csv', 'xlsx', 'ods', 'tsv',  # sheets
+    'jpg', 'jpeg', 'png', 'svg', 'webp', 'ico', 'bmp', 'tiff', 'jfif' # img
+    'mp3',  # music
+    'mp4', 'mkv', 'avi', 'webm', 'gif', 'gifv'  # video
+    'zip', 'rar', '7zip', 'tar', 'gz',  # zip
+    'java', 'py', 'c', 'cpp', 'js', 'gs', 'groovy', 'sh'  # code ,
+
+
+]
+
+FILE_EXTENSIONS = {
+    'pdf': ['pdf'],
+    'doc': ['txt', 'doc', 'docx', 'odt', 'rtf', 'html', 'pptx'],
+    'sheet': ['csv', 'xlsx', 'ods', 'tsv'],
+    'img': ['jpg', 'jpeg', 'png', 'svg', 'webp', '.ico', 'bmp', 'tiff', 'jfif'],
+    'music': ['mp3'],
+    'video': ['mp4', 'mkv', 'avi', 'webm', 'gif', 'gifv'],
+    'zip': ['zip', 'rar', '7zip', 'tar', 'gz'],
+    'code': ['java', 'py', 'c', 'cpp', 'js', 'gs', 'groovy', 'sh']
+}
 
 BASE_DIR = Path(__file__).resolve().parent.parent  # Build paths inside the project like this: BASE_DIR / 'subdir'.
 SECRET_KEY = 'django-insecure-z(g7^uxx3*)@ctru=wvchu5tezwzd3s@0m01rozf=-szc8%_!@'

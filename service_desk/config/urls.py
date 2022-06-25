@@ -86,6 +86,22 @@ urlpatterns = [
          views.TicketDetailUpdateSuspend.as_view(
              template_name='ticket/ticket-view.html'),
          name='update_ticket_suspend'),
+    path('ticket/update/attachment/add/<slug:slug>/',
+         views.TicketDetailAddAttachment.as_view(
+             template_name='ticket/ticket-view.html'),
+         name='update_ticket_attachment_add'),
+    path('ticket/update/attachment/delete/<slug:slug>/',
+         views.TicketDetailDeleteAttachment.as_view(
+            template_name='ticket/ticket-view.html'),
+         name='update_ticket_attachment_delete'),
+    path('ticket/update/relation/add/<slug:slug>/',
+         views.TicketDetailAddRelation.as_view(
+             template_name='ticket/ticket-view.html'),
+         name='update_ticket_relation_add'),
+    path('ticket/update/relation/delete/<slug:slug>/',
+         views.TicketDetailDeleteRelation.as_view(
+             template_name='ticket/ticket-view.html'),
+         name='update_ticket_relation_delete'),
     path('ticket/filter/',
          views.TicketFilterListView.as_view(
              template_name='ticket/ticket-filter.html'),

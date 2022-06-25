@@ -22,6 +22,24 @@ $(document).on('click', function(event) {
         dialogBg()
     }
 
+    if($(event.target).is('#button_ticket-attachment-add') || $(event.target).is('#button_ticket-attachment-add svg')) {
+        $('#navbar-block_attachment-add-dialog').toggle()
+        dialogBg('.attachment-dialog-bg')
+    }
+    else if(!$(event.target).is('#navbar-block_attachment-add-dialog') && !$(event.target).is('#navbar-block_attachment-add-dialog *') && $('#navbar-block_attachment-add-dialog').is(':visible')) {
+        $('#navbar-block_attachment-add-dialog').hide()
+        dialogBg('.attachment-dialog-bg')
+    }
+
+    if($(event.target).is('#button_ticket-relation-add') || $(event.target).is('#button_ticket-relation-add svg')) {
+        $('#navbar-block_relation-add-dialog').toggle()
+        dialogBg('.relation-dialog-bg')
+    }
+    else if(!$(event.target).is('#navbar-block_relation-add-dialog') && !$(event.target).is('#navbar-block_relation-add-dialog *') && $('#navbar-block_relation-add-dialog').is(':visible')) {
+        $('#navbar-block_relation-add-dialog').hide()
+        dialogBg('.relation-dialog-bg')
+    }
+
     if($(event.target).is('#button_ticket-edit')) {
         $('#navbar-block_edit-dialog').toggle()
         dialogBg()
@@ -49,11 +67,16 @@ function bootstrapFilestyle(){
     console.log('boostrap-filestyle loaded')
 }
 
-function dialogBg() {
-    if ($('.dialog-bg').is(":visible"))
-        $('.dialog-bg').css('display', 'none')
+function dialogBg(dialogClass) {
+    let dialogElem
+    if (dialogClass)
+        dialogElem= dialogClass
     else
-        $('.dialog-bg').css('display', 'block')
+        dialogElem = '.dialog-bg'
+    if ($(dialogElem).is(":visible"))
+        $(dialogElem).css('display', 'none')
+    else
+        $(dialogElem).css('display', 'block')
 }
 
 
@@ -132,5 +155,6 @@ function themeColor(userIsAuth, userIsAdmin, userType){
                 console.log('sorted')
             }
         })
-}*/
+}
 
+*/

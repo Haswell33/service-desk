@@ -18,9 +18,9 @@ from django.utils.encoding import force_bytes
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.urls.exceptions import NoReverseMatch
-from .models import Issue, TransitionAssociation
-from .forms import TicketCreateForm, TicketFilterViewForm, TicketUpdateAssigneeForm, TicketUpdateForm, TicketCreateForm2
-from .utils import get_env_type, get_initial_status, get_active_tenant, active_tenant_session, get_active_tenant_session, tenant_session, clear_tenant_session, change_active_tenant, get_tenant_cookie_name, get_active_tenant_tickets, get_board_columns_assocations, get_board_columns, filter_tickets, order_tickets, get_transitions, convert_query_dict_to_dict, set_ticket_status, set_ticket_assignee, create_ticket, update_ticket, set_ticket_suspend
+from .models import Issue, TransitionAssociation, Attachment
+from .forms import TicketCreateForm, TicketFilterViewForm, TicketUpdateAssigneeForm, TicketUpdateForm
+from .utils import get_env_type, get_initial_status, get_active_tenant, active_tenant_session, get_active_tenant_session, tenant_session, clear_tenant_session, change_active_tenant, get_tenant_cookie_name, get_active_tenant_tickets, get_board_columns_assocations, get_board_columns, filter_tickets, order_tickets, get_transitions, convert_query_dict_to_dict, set_ticket_status, set_ticket_assignee, create_ticket, update_ticket, set_ticket_suspend, add_attachments, delete_attachment, add_relations
 from .context_processors import context_tenant_session
 
 
@@ -98,17 +98,10 @@ class TicketDetailView(generic.detail.DetailView):  # Detail view for ticket
         context = super().get_context_data(**kwargs)
         context.update({
             'transitions': get_transitions(self.object),
-            'form_update_assignee': TicketUpdateAssigneeForm(instance=self.object),
+            'available_tickets_to_relate': get_active_tenant_tickets(self.request.user, True),
             'form_update': TicketUpdateForm(instance=self.object)
         })
         return context
-
-    '''def get_object(self):
-        obj = super().get_object()
-        # Record the last accessed date
-        obj.last_accessed = timezone.now()
-        obj.save()
-        return obj'''
 
 
 class TicketDetailUpdate(generic.UpdateView):
@@ -204,6 +197,83 @@ class TicketDetailUpdateSuspend(generic.UpdateView):
             messages.success(request, f'Ticket <strong>{ticket_updated}</strong> has been suspended')
         else:
             messages.success(request, f'Ticket <strong>{ticket_updated}</strong> has been unsuspended')
+        return HttpResponseRedirect(reverse('view_ticket', args=[ticket.slug]))
+
+
+class TicketDetailAddAttachment(generic.UpdateView):
+    model = Issue
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return super(TicketDetailAddAttachment, self).get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        ticket = self.get_object()
+        files = request.FILES.getlist('attachments')
+        if files:
+            add_attachments(files, ticket, request)
+            messages.success(request, f'Attachment/s has been uploaded to <strong>{ticket.key}</strong>')
+        else:
+            messages.info(request, f'No new files uploaded to <strong>{ticket.key}</strong>')
+        return HttpResponseRedirect(reverse('view_ticket', args=[ticket.slug]))
+
+
+class TicketDetailDeleteAttachment(generic.DeleteView):
+    model = Issue
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return super(TicketDetailDeleteAttachment, self).get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        ticket = self.get_object()
+        attachment_id = request.POST.get('attachment')
+        try:
+            attachment = Attachment.objects.get(id=attachment_id)
+            delete_is_valid = delete_attachment(ticket, attachment, request)
+            if delete_is_valid:
+                messages.success(request, f'Attachment <strong>{attachment.filename}</strong> has been deleted from <strong>{ticket.key}</strong>')
+            else:
+                messages.error(request, f'Attachment not exists in <strong>{ticket.key}</strong>')
+        except Attachment.DoesNotExist:
+            messages.error(request, f'Attachment with id <strong>{attachment_id}</strong> not exists')
+        return HttpResponseRedirect(reverse('view_ticket', args=[ticket.slug]))
+
+
+class TicketDetailAddRelation(generic.UpdateView):
+    model = Issue
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return super(TicketDetailAddRelation, self).get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        ticket = self.get_object()
+        print(request.POST)
+        relations = request.POST.getlist('relations')
+        if relations:
+            related_ticket = add_relations(relations, ticket, request)
+            messages.success(request, f'Attachment/s has been uploaded to <strong>{ticket.key}</strong>')
+        else:
+            messages.info(request, f'Not found any new relations to add to <strong>{ticket.key}</strong>')
+        return HttpResponseRedirect(reverse('view_ticket', args=[ticket.slug]))
+
+
+class TicketDetailDeleteRelation(generic.UpdateView):
+    model = Issue
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return super(TicketDetailDeleteRelation, self).get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        ticket = self.get_object()
+        files = request.FILES.getlist('attachments')
+        if files:
+            add_attachments(files, ticket, request)
+            messages.success(request, f'Attachment/s has been uploaded to <strong>{ticket.key}</strong>')
+        else:
+            messages.info(request, f'No new files uploaded to <strong>{ticket.key}</strong>')
         return HttpResponseRedirect(reverse('view_ticket', args=[ticket.slug]))
 
 

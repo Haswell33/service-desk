@@ -12,7 +12,7 @@
       </div>
     </div>
   <div id="content-page_create-ticket" class="content-page-block">
-    <form enctype="multipart/form-data" id="create-ticket_form" class="form" method="post" novalidate>
+    <form enctype="multipart/form-data" id="create-ticket_form" class="form" method="post">
       {% csrf_token %}
       <div class="form-field long-field required">
         <label for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
@@ -35,15 +35,18 @@
         <label for="{{ form.labels.id_for_label }}">{{ form.labels.label }}</label>
         {{ form.labels }}
       </div>
-      <div class="form-field medium-field">
+      <!--<div class="form-field medium-field">
         <label for="{{ form.attachments.id_for_label }}">{{ form.attachments.label }}</label>
         {{ form.attachments }}
+      </div>-->
+      <div class="form-field long-field">
+        <label for="id_attachments">Attach a file</label>
+        <input type="file" id="id_attachments" name="attachments" multiple/>
       </div>
       <div class="form-field long-field">
         <label for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
         {{ form.media }} {{ form.description }}
       </div>
-      <input type="file" name="attachments" multiple/>
       <div class="form-field long-field">
         <input type="submit" class="button" value="Create">
       </div>

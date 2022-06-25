@@ -1,7 +1,7 @@
 import os.path
-
-from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator, FileExtensionValidator
+from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator, FileExtensionValidator, ValidationError
 from django.contrib.auth.models import User, Group
+from django.dispatch import receiver
 from django.conf import settings
 from django.utils.html import mark_safe, format_html
 from django.utils import timezone
@@ -11,14 +11,18 @@ from tinymce.models import HTMLField
 from datetime import datetime
 import math
 
-
 def validate_file_extension(value):
-    import os
-    from django.core.exceptions import ValidationError
     ext = os.path.splitext(value.name)[1]  # [0] returns path+filename
     valid_extensions = ['.pdf', '.doc', '.docx', '.jpg', '.png', '.xlsx', '.xls', 'txt']
     if not ext.lower() in valid_extensions:
         raise ValidationError('Unsupported file extension.')
+
+
+def get_upload_path(instance, filename):  # to provide upload path in Attachment
+    upload_path = os.path.join(get_media_path(), 'attachments', instance.directory)
+    if not os.path.isdir(upload_path):
+        os.makedirs(upload_path)
+    return os.path.join(upload_path, filename)
 
 
 def get_media_path():
@@ -298,10 +302,6 @@ class Status(models.Model):
     name = models.CharField(
         max_length=50,
         unique=True)
-    #board_column = models.ManyToManyField(
-    #    BoardColumn,
-    #    through='BoardColumnAssociation',
-    #    through_fields=('status', 'column'))
     description = models.TextField(
         name='description',
         blank=True,
@@ -467,7 +467,7 @@ class Attachment(models.Model):
     id = models.BigAutoField(
         primary_key=True)
     file = models.ImageField(
-        upload_to=f'{get_media_path()}/attachments',
+        upload_to=get_upload_path,
         null=True,
         blank=True,
         max_length=5000)
@@ -477,6 +477,16 @@ class Attachment(models.Model):
     size = models.IntegerField(
         blank=True,
         editable=False)
+    uploaded = models.DateTimeField(
+        auto_now_add=True)
+    directory = models.CharField(
+        max_length=255,
+        blank=True)
+    user = models.ForeignKey(
+        User,
+        blank=True,
+        on_delete=models.CASCADE,
+        related_name='%(class)s_user')
 
     class Meta:
         db_table = 'attachment'
@@ -486,14 +496,15 @@ class Attachment(models.Model):
 
     def save(self, *args, **kwargs):
         self.filename = self.get_filename()
-        self.size = self.get_size()
+        self.user = get_current_user()
+        if not self.size:
+            self.size = self.get_size()
         super().save(*args, **kwargs)
 
-    def get_filename(self):
-        return str(self.file)
-
-    def get_size(self):
-        return self.file.size
+    @property
+    def uploaded_datetime(self):
+        return get_datetime(self.uploaded)
+    uploaded_datetime.fget.short_description = 'Uploaded'
 
     @property
     def display_size(self):
@@ -504,7 +515,14 @@ class Attachment(models.Model):
         p = math.pow(1024, i)
         display_size = round(self.size / p, 2)
         return f'{display_size} {size_names[i]}'
+
     display_size.fget.short_description = 'Size'
+
+    def get_filename(self):
+        return str(self.file).split('/')[-1]
+
+    def get_size(self):
+        return self.file.size
 
     def __str__(self):
         return self.filename
@@ -590,10 +608,16 @@ class Issue(models.Model):
     slug = models.SlugField(
         max_length=55,
         blank=True)
-    associations = models.ManyToManyField(
+    relations_out = models.ManyToManyField(
         'self',
+        verbose_name='Relations out',
         through='IssueAssociation',
         through_fields=('src_issue', 'dest_issue'))
+    relations_in = models.ManyToManyField(
+        'self',
+        verbose_name='Relations out',
+        through='IssueAssociation',
+        through_fields=('dest_issue', 'src_issue'))
     comments = models.ManyToManyField(
         Comment,
         through='CommentAssociation',
@@ -716,12 +740,15 @@ class Issue(models.Model):
         return get_datetime(self.updated)
     updated_datetime.fget.short_description = 'Updated'
 
-    #@property
-    #def get_labels(self):
-    #    return "\n".join([p.labels for p in self.labels.all()])
+    '''
     @property
     def get_labels(self):
         return [labels.name for labels in self.labels.all()]
+
+    @property
+    def get_attachments(self):
+        return [attachments.filename for attachments in self.attachments.all()]
+    '''
 
     def get_fields(self):
         return [(field.name, field.value_to_string(self)) for field in Issue._meta.fields]
@@ -774,7 +801,8 @@ class TenantSession(models.Model):
 class AuditLog(models.Model):
     id = models.BigAutoField(
         primary_key=True)
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(
+        auto_now_add=True)
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -935,3 +963,10 @@ class LabelAssociation(models.Model):
 
     def __str__(self):
         return f'{self.issue}-{self.label}'
+
+
+@receiver(models.signals.post_delete, sender=Attachment)
+def auto_delete_file_on_delete(sender, instance, **kwargs):  # Deletes file from filesystem when corresponding `Attachment` object is deleted.
+    if instance.file:
+        if os.path.isfile(instance.file.path):
+            os.remove(instance.file.path)

@@ -1,9 +1,10 @@
 from django.conf import settings
 from django.db.models import Q
-from .models import Tenant, TenantSession, IssueType, Issue, Status, Board, BoardColumn, BoardColumnAssociation, Transition, TransitionAssociation, AuditLog
+from .models import Tenant, TenantSession, IssueType, Issue, IssueAssociation, Status, Board, BoardColumn, BoardColumnAssociation, TransitionAssociation, AuditLog, Attachment, AttachmentAssociation
 from collections import namedtuple
 import json
 import logging
+from django.core.files.base import ContentFile
 import collections
 
 logger = logging.getLogger(__name__)
@@ -172,17 +173,57 @@ def get_transitions(object):
 
 def create_ticket(form, request):
     tenant = get_active_tenant(request.user)
+    files = request.FILES.getlist('attachments')
     new_ticket = form.save(commit=False)  # create instance, but do not save
-    print('files')
-    print(request.FILES)
     new_ticket.key = f'{tenant.key}-{tenant.count + 1}'
     new_ticket.tenant = tenant
     new_ticket.status = get_initial_status(get_env_type(new_ticket.type.id))
     new_ticket.save()  # create ticket
-    logger.info(add_audit_log(request, new_ticket, f'ticket "{new_ticket}" create'))
-    form.save_m2m()
+    if files:
+        new_ticket = add_attachments(files, new_ticket, request)
+    logger.info(add_audit_log(request, new_ticket, f'"{new_ticket}" create'))
     tenant.count += 1
     tenant.save()
+    form.save_m2m()
+
+
+def add_attachments(attachments, ticket, request):
+    for attachment in attachments:
+        new_attachment = Attachment(directory=ticket.slug)
+        new_attachment.file.save(attachment.name, ContentFile(attachment.read()))
+        logger.info(add_audit_log(request, new_attachment, f'create attachment "{new_attachment}"'))
+        ticket.attachments.add(new_attachment.id)
+        logger.info(add_audit_log(request, ticket, f'attachment "{new_attachment}" upload to {ticket}'))
+    return ticket
+
+
+def delete_attachment(ticket, attachment, request):
+    attachment_association = AttachmentAssociation.objects.filter(attachment=attachment.id, issue=ticket.id)
+    if attachment_association:
+        AttachmentAssociation.objects.filter(attachment=attachment.id, issue=ticket.id).delete()
+        logger.info(add_audit_log(request, ticket, f'delete attachment "{attachment}"'))
+        Attachment.objects.get(id=attachment.id).delete()
+        logger.info(add_audit_log(request, attachment, f'delete "{attachment}"'))
+        return True
+    else:
+        return False
+
+
+def add_relations(relations, ticket, request):
+    for relation in relations:
+        print(relation)
+        related_ticket = Issue.objects.get(id=relation)
+        print(related_ticket)
+        print(ticket.id)
+        print(ticket)
+        new_relation = IssueAssociation(src_issue=ticket, dest_issue=related_ticket)
+        new_relation.save()
+        # new_attachments.append(new_attachment.id)
+        logger.info(add_audit_log(request, new_relation, f'create relation "{new_relation}"'))
+        #related_ticket.add(new_relation.id)
+        #ticket.relations.add(new_relation.id)
+        logger.info(add_audit_log(request, ticket, f'relation "{new_relation}" add to {ticket}'))
+    return ticket
 
 
 def update_ticket(form, request):  # TO DO - change attr value
