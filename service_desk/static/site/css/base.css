@@ -84,7 +84,9 @@
 }
 
 #content-page ::-webkit-scrollbar-track {
-  background: var(--background);
+    background: var(--background);
+    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -986,7 +988,7 @@ footer a:visited {
 .description-view {
     border-radius: 5px;
     overflow-y: scroll;
-    padding: 0 10px 10px 10px;
+    padding: 5px 10px 10px 0;
     box-sizing: content-box;
 }
 
@@ -994,30 +996,52 @@ footer a:visited {
     margin-right: 10px;
 }
 
-.comment-view .ticket-view_field_content{
+.comment-view .ticket-field-content_aside:first-child {
     margin-top: 15px;
 }
 
-.comment-view .ticket-field-content_aside {
+.comment-view .ticket-field-content_aside,
+.history-view .ticket-field-content_aside {
     border: none;
     border-radius: 0;
     border-top: 1px solid var(--elem-light-border)
 }
 
-.comment-view_nav {
+.comment-view_nav,
+.history-view_nav {
     display: flex;
     align-items: center;
     gap: 0 10px;
 }
 
-.comment-view_nav img {
+.comment-view_nav img,
+.history-view_nav img {
     width: 23px;
     height: 23px;
 }
 
-.comment-view_nav span {
+.comment-view_nav span,
+.history-view_nav span {
     position: relative;
-    bottom: 2px;
+    bottom: 1px;
+}
+
+.comment-view_content,
+.history-view_content {
+    padding: 10px 0 10px 0;
+}
+
+.history-view_content {
+    font-family: Lato-bold, sans-serif
+}
+
+.history-view_content > p {
+    margin: 0;
+    display: inline;
+}
+
+.history-view .ticket-field-content_aside {
+    margin-bottom: 0
 }
 
 .maximize-height {
@@ -1030,15 +1054,11 @@ footer a:visited {
     min-height: 0;
 }
 
-#navbar-block_assignee-dialog,
-#navbar-block_attachment-add-dialog,
-#navbar-block_relation-add-dialog,
-#navbar-block_edit-dialog,
-#add-comment_dialog{
+.dialogs > div {
     position: fixed;
     padding: 30px 50px 50px 50px;
     background: var(--elem-light-primary);
-    z-index: 101;
+    z-index: 102;
     display: none;
 }
 
@@ -1117,6 +1137,7 @@ footer a:visited {
 .dialog {
     max-height: 625px;
     overflow-y: scroll;
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -1318,16 +1339,23 @@ footer a:visited {
     padding: 5px 8px 5px 8px;
     font-size: 26px;
 }
-
-.dialog-bg,
-.relation-dialog-bg,
-.attachment-dialog-bg {
+.dialog-bg {
     bottom: 0;
     left: 0;
     position: fixed;
     right: 0;
     top: var(--nav-height);
     z-index: 100;
+    background-color: var(--dialog-bg)
+}
+
+.dialog-bg-full {
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 101;
     background-color: var(--dialog-bg)
 }
 
@@ -1461,7 +1489,7 @@ i.up {
 
 .img-text_field img {
     padding-right: 5px;
-    padding-bottom: 2px;
+    padding-bottom: 2.5px;
 }
 
 .default-hover {
@@ -1522,4 +1550,3 @@ i.up {
 .code:before {
     background-image: url('../img/svg/file-code.svg');
 }
-

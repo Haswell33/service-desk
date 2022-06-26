@@ -19,8 +19,8 @@ from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.urls.exceptions import NoReverseMatch
 from .models import Ticket, TransitionAssociation, Attachment, Comment
-from .forms import TicketCreateForm, TicketFilterViewForm, TicketUpdateAssigneeForm, TicketUpdateForm, TicketAddCommentForm, TicketEditComment
-from .utils import get_env_type, get_initial_status, get_active_tenant, active_tenant_session, get_active_tenant_session, tenant_session, clear_tenant_session, change_active_tenant, get_tenant_cookie_name, get_active_tenant_tickets, get_board_columns_assocations, get_board_columns, filter_tickets, order_tickets, get_transitions, convert_query_dict_to_dict, set_ticket_status, set_ticket_assignee, create_ticket, update_ticket, set_ticket_suspend, add_attachment, delete_attachment, add_relation, delete_relation, get_allow_tickets_to_relate, add_comment, delete_comment
+from .forms import TicketCreateForm, TicketFilterViewForm, TicketUpdateAssigneeForm, TicketUpdateForm, TicketCommentForm
+from .utils import get_env_type, get_initial_status, get_active_tenant, active_tenant_session, get_active_tenant_session, tenant_session, clear_tenant_session, change_active_tenant, get_tenant_cookie_name, get_active_tenant_tickets, get_board_columns_assocations, get_board_columns, filter_tickets, order_tickets, get_transitions, convert_query_dict_to_dict, set_ticket_status, set_ticket_assignee, create_ticket, update_ticket, set_ticket_suspend, add_attachment, delete_attachment, add_relation, delete_relation, get_allow_tickets_to_relate, add_comment, delete_comment, edit_comment, get_audit_logs
 from .context_processors import context_tenant_session
 
 
@@ -98,11 +98,11 @@ class TicketDetailView(generic.detail.DetailView):  # Detail view for ticket
         context = super().get_context_data(**kwargs)
         context.update({
             'transitions': get_transitions(self.object),
+            'audit_logs': get_audit_logs(self.object),
             'available_tickets_to_relate': get_allow_tickets_to_relate(self.request.user, self.get_object()),
             'form_update': TicketUpdateForm(instance=self.object),
             'form_update_assignee': TicketUpdateAssigneeForm(instance=self.object),
-            'form_add_comment': TicketAddCommentForm(),
-            'form_edit_comment': TicketEditComment(instance=self.object)
+            'form_comment': TicketCommentForm()
         })
         return context
 
@@ -149,7 +149,6 @@ class TicketDetailUpdateStatus(generic.UpdateView):
         return context
 
     def get(self, request, *args, **kwargs):
-        # self.object = self.get_object()
         return super(TicketDetailUpdateStatus, self).get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
@@ -207,7 +206,6 @@ class TicketDetailAddAttachment(generic.UpdateView):
     model = Ticket
 
     def get(self, request, *args, **kwargs):
-        self.object = self.get_object()
         return super(TicketDetailAddAttachment, self).get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
@@ -226,7 +224,6 @@ class TicketDetailDeleteAttachment(generic.DeleteView):
     model = Ticket
 
     def get(self, request, *args, **kwargs):
-        self.object = self.get_object()
         return super(TicketDetailDeleteAttachment, self).get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
@@ -248,7 +245,6 @@ class TicketDetailAddRelation(generic.UpdateView):
     model = Ticket
 
     def get(self, request, *args, **kwargs):
-        # self.object = self.get_object()
         return super(TicketDetailAddRelation, self).get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
@@ -270,7 +266,6 @@ class TicketDetailDeleteRelation(generic.UpdateView):
     model = Ticket
 
     def get(self, request, *args, **kwargs):
-        # self.object = self.get_object()
         return super(TicketDetailDeleteRelation, self).get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
@@ -296,7 +291,6 @@ class TicketDetailAddComment(generic.UpdateView):
 
     def post(self, request, *args, **kwargs):
         ticket = self.get_object()
-        print(request.POST)
         comment = request.POST.get('content')
         if comment:
             result = add_comment(ticket, comment, request)
@@ -318,12 +312,33 @@ class TicketDetailDeleteComment(generic.UpdateView):
     def post(self, request, *args, **kwargs):
         ticket = self.get_object()
         comment_id = request.POST.get('comment')
-        print(request.POST)
         try:
             comment = Comment.objects.get(id=comment_id)
             result = delete_comment(ticket, comment, request)
             if result is True:
                 messages.success(request, f'Comment from <strong>{ticket}</strong> has been deleted')
+            else:
+                messages.error(request, result)
+        except Comment.DoesNotExist:
+            messages.error(request, f'Comment in <strong>{ticket}</strong> not exist')
+        return HttpResponseRedirect(reverse('view_ticket', args=[ticket.slug]))
+
+
+class TicketDetailEditComment(generic.UpdateView):
+    model = Ticket
+
+    def get(self, request, *args, **kwargs):
+        return super(TicketDetailEditComment, self).get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        ticket = self.get_object()
+        comment_id = request.POST.get('comment')
+        content = request.POST.get('content')
+        try:
+            comment = Comment.objects.get(id=comment_id)
+            result = edit_comment(ticket, comment, content, request)
+            if isinstance(result, Comment):
+                messages.success(request, f'Comment in <strong>{ticket.key}</strong> has been updated')
             else:
                 messages.error(request, result)
         except Comment.DoesNotExist:

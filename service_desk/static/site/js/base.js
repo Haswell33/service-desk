@@ -7,62 +7,18 @@ else
 $(document).on('click', function(event) {
     if($(event.target).is('#navbar-block_menu svg') || $(event.target).is('#navbar-block_menu path')){
         $('#navbar-block_menu > ul').toggle()
-        dialogBg()
+        $('.dialog-bg').css('display', 'block')
     }
     else if(!$(event.target).is('#navbar-block_menu > ul') && $('#navbar-block_menu > ul').is(':visible')){
         $('#navbar-block_menu > ul').hide()
-        dialogBg()
+        $('.dialog-bg').css('display', 'none')
     }
-
-    if($(event.target).is('#button_ticket-assignee')) {
-        $('#navbar-block_assignee-dialog').toggle()
-        dialogBg()
-    }
-    else if(!$(event.target).is('#navbar-block_assignee-dialog') && !$(event.target).is('#navbar-block_assignee-dialog *') && !$(event.target).is('.select2-dropdown *') && $('#navbar-block_assignee-dialog').is(':visible')) {
-        $('#navbar-block_assignee-dialog').hide()
-        dialogBg()
-    }
-
-    if($(event.target).is('#button_ticket-attachment-add') || $(event.target).is('#button_ticket-attachment-add svg')) {
-        $('#navbar-block_attachment-add-dialog').toggle()
-        dialogBg('.attachment-dialog-bg')
-    }
-    else if(!$(event.target).is('#navbar-block_attachment-add-dialog') && !$(event.target).is('#navbar-block_attachment-add-dialog *') && $('#navbar-block_attachment-add-dialog').is(':visible')) {
-        $('#navbar-block_attachment-add-dialog').hide()
-        dialogBg('.attachment-dialog-bg')
-    }
-
-    if($(event.target).is('#button_ticket-relation-add') || $(event.target).is('#button_ticket-relation-add svg')) {
-        $('#navbar-block_relation-add-dialog').toggle()
-        dialogBg('.relation-dialog-bg')
-    }
-    else if(!$(event.target).is('#navbar-block_relation-add-dialog') && !$(event.target).is('#navbar-block_relation-add-dialog *') && $('#navbar-block_relation-add-dialog').is(':visible')) {
-        $('#navbar-block_relation-add-dialog').hide()
-        dialogBg('.relation-dialog-bg')
-    }
-
-    if($(event.target).is('#button_ticket-edit')) {
-        $('#navbar-block_edit-dialog').toggle()
-        dialogBg()
-    }
-    else if(!$(event.target).is('#navbar-block_edit-dialog') && !$(event.target).is('#navbar-block_edit-dialog *') && !$(event.target).is('.select2-dropdown *') && !$(event.target).is('.select2-selection__choice__remove') && !$(event.target).is('.tox-dialog-wrap *') && $('#navbar-block_edit-dialog').is(':visible')) {
-        $('#navbar-block_edit-dialog').hide()
-        dialogBg()
-    }
-    if($(event.target).is('#add-comment_button')) {
-        $('#add-comment_dialog').toggle()
-        dialogBg()
-    }
-    else if(!$(event.target).is('#add-comment_dialog') && !$(event.target).is('#add-comment_dialog *') && !$(event.target).is('.select2-dropdown *') && !$(event.target).is('.select2-selection__choice__remove') && !$(event.target).is('.tox-dialog-wrap *') && $('#add-comment_dialog').is(':visible')) {
-        $('#add-comment_dialog').hide()
-        dialogBg()
-    }
-   // else if($(event.target).is('#content-header #icon-hint svg') || $(event.target).is('#navbar-account path')){
-//
-   // }
-   // else if(!$(event.target).is('#content-header #icon-hint .tooltip') && $('#content-header #icon-hint .tooltip').is(':visible')){
-//
-   // }
+    showDialog(event, '#edit-ticket_button', '#edit-ticket_dialog')
+    showDialog(event, '#edit-assignee_button', '#edit-assignee_dialog')
+    showDialog(event, '#add-relation_button', '#add-relation_dialog')
+    showDialog(event, '#add-attachment_button', '#add-attachment_dialog')
+    showDialog(event, '#add-comment_button', '#add-comment_dialog')
+    showDialog(event, '#edit-comment_button', '#edit-comment_dialog', true)
 })
 
 setTimeout(function(){
@@ -76,16 +32,20 @@ function bootstrapFilestyle(){
     console.log('boostrap-filestyle loaded')
 }
 
-function dialogBg(dialogClass) {
-    let dialogElem
-    if (dialogClass)
-        dialogElem= dialogClass
-    else
-        dialogElem = '.dialog-bg'
-    if ($(dialogElem).is(":visible"))
-        $(dialogElem).css('display', 'none')
-    else
-        $(dialogElem).css('display', 'block')
+function showDialog(event, button, dialog, initAttrs) {
+    let dialogBackdrop = '.dialog-bg-full'
+    if($(event.target).is(button) || $(event.target).is(button + ' > *')) {
+        if (initAttrs) {
+            tinyMCE.activeEditor.setContent($(event.target).attr('data-value'))
+            $(dialog + ' input[initial=script]').val($(event.target).attr('data-id'))
+        }
+        $(dialog).toggle()
+        $(dialogBackdrop).css('display', 'block')
+    }
+    else if($(event.target).is(dialogBackdrop) && $(dialog).is(':visible')) {
+        $(dialog).hide()
+        $(dialogBackdrop).css('display', 'none')
+    }
 }
 
 function sortTable(newOrderValue, currOrderValue){

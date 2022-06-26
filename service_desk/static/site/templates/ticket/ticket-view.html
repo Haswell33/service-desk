@@ -16,33 +16,9 @@
   <div class="content-page-block">
     <div id="ticket-view_navbar">
       <div class="ticket-view_navbar-block">
-        <button id="button_ticket-edit" data-type="action">Edit</button>
-        <div id="navbar-block_edit-dialog" class="dialog center">
-          <form action="{% url 'edit_ticket' object.slug %}" method="post">
-            {% csrf_token %}
-            <h2>Edit {{object.key}}</h2>
-            <div class="form-field long-field required">
-              <label for="{{ form_update.title.id_for_label }}">{{ form_update.title.label }}</label>
-              {{ form_update.title }}
-              <div class="description">{{ form_update.title.help_text }}</div>
-            </div>
-            <div class="form-field medium-field required">
-              <label for="{{ form_update.priority.id_for_label }}">{{ form_update.priority.label }}</label>
-              {{ form_update.priority }}
-            </div>
-            <div class="form-field medium-field">
-              <label for="{{ form_update.labels.id_for_label }}">{{ form_update.labels.label }}</label>
-              {{ form_update.labels }}
-            </div>
-            <div class="form-field long-field">
-              <label for="{{ form_update.description.id_for_label }}">{{ form_update.description.label }}</label>
-              {{ form_update.media }} {{ form_update.description }}
-            </div>
-            <div class="form-field long-field">
-              <input type="submit" class="button" value="Save">
-            </div>
-          </form>
-        </div>
+        <button id="edit-ticket_button" data-type="action">
+          Edit
+        </button>
       </div>
       <div class="ticket-view_navbar-block">
         <form action="{% url 'edit_ticket_status' object.slug %}" method="post">
@@ -55,17 +31,9 @@
         </form>
       </div>
       <div class="ticket-view_navbar-block">
-        <button id="button_ticket-assignee" data-type="action">Assign</button>
-        <div id="navbar-block_assignee-dialog" class="dialog center">
-          <form action="{% url 'edit_ticket_assignee' object.slug %}" method="post">
-            {% csrf_token %}
-            <div class="form-field short-field">
-              <label for="{{ form_update_assignee.assignee.id_for_label }}">{{ form_update_assignee.assignee.label }}</label>
-              {{ form_update_assignee.assignee }}
-            </div>
-            <input type="submit" value="Save">
-          </form>
-        </div>
+        <button id="edit-assignee_button" data-type="action">
+          Assign
+        </button>
       </div>
       <div class="ticket-view_navbar-block">
         <form action="{% url 'edit_ticket_suspend' object.slug %}" method="post">
@@ -221,24 +189,12 @@
                 No attachments
               </div>
             {% endif %}
-            <button id="button_ticket-attachment-add" data-type="action" class="button-icon">
+            <button id="add-attachment_button" data-type="action" class="button-icon">
               <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 16 16">
                 <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
               </svg>
               Upload file
             </button>
-            <div id="navbar-block_attachment-add-dialog" class="dialog center">
-              <form enctype="multipart/form-data" action="{% url 'edit_ticket_attachment_add' object.slug %}" method="post">
-                {% csrf_token %}
-                <h2>Upload attachment/s</h2>
-                <div class="form-field medium-field">
-                  <label for="id_attachments">Attach a file</label>
-                  <input type="file" id="id_attachments" name="attachments" multiple/>
-                </div>
-                <input type="submit" value="Upload">
-              </form>
-            </div>
-            <span class="attachment-dialog-bg" style="display: none"></span>
           </div>
         </div>
       </div>
@@ -338,28 +294,12 @@
                 No relations
               </div>
             {% endif %}
-            <button id="button_ticket-relation-add" data-type="action" class="button-icon">
+            <button id="add-relation_button" data-type="action" class="button-icon">
               <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 16 16">
                 <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
               </svg>
               Add relation
             </button>
-            <div id="navbar-block_relation-add-dialog" class="dialog center">
-              <form action="{% url 'edit_ticket_relation_add' object.slug %}" method="POST">
-                {% csrf_token %}
-                <h2>Add relation</h2>
-                <div class="form-field medium-field required">
-                  <label for="id_relations">Search for open tickets</label>
-                  <select id="id_relations" name="relations" multiple>
-                    {% for ticket in available_tickets_to_relate %}
-                      <option icon="{{ ticket.type.icon }}" value="{{ ticket.id }}">{{ ticket.key }} - {{ ticket.title }}</option>
-                    {% endfor %}
-                  </select>
-                </div>
-                <input type="submit" value="Save">
-              </form>
-            </div>
-            <span class="relation-dialog-bg" style="display: none"></span>
           </div>
         </div>
       </div>
@@ -378,10 +318,10 @@
                     <span title="{{ comment.created }}" class="description"> commented {% get_time_ago comment.created %}</span>
                   </div>
                   {% if user == comment.author or user.is_superuser %}
-                    <div title="Remove comment {{ relation }}">
+                    <div title="Delete comment">
                       <form action="{% url 'edit_ticket_comment_delete' object.slug  %}" method="post">
                         {% csrf_token %}
-                        <input type="hidden" name="comment" value="{{ comment }}">
+                        <input type="hidden" name="comment" value="{{ comment.id }}">
                         <button type="submit" class="no-button">
                           <svg xmlns="http://www.w3.org/2000/svg" class="icon dark default-hover" viewBox="0 0 16 16">
                             <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
@@ -390,18 +330,19 @@
                       </form>
                     </div>
                   {% endif %}
-                  <div class="break-flex">
+                  <div class="comment-view_content break-flex">
                     {{ comment.content|safe }}
                   </div>
                   {% if user == comment.author or user.is_superuser %}
-                    <div class="break-flex ">
-                      <form action="{% url 'edit_ticket_comment_delete' object.slug  %}" method="post">
-                        {% csrf_token %}
-                        <input type="hidden" name="comment" value="{{ comment }}">
-                        <button id="edit-comment_button" type="submit" class="no-button description default-hover">
-                          Edit
-                        </button>
-                      </form>
+                    <div class="break-flex">
+                      <button id="edit-comment_button" type="submit" class="no-button description default-hover" data-id="{{ comment.id }}" data-value="{{ comment.content }}">
+                        Edit
+                      </button>
+                    </div>
+                  {% endif %}
+                  {% if comment.updated %}
+                    <div class="break-flex description">
+                      <div title="{{ comment.updated }}" style="font-style: italic; padding-top: 5px">Updated {% get_time_ago comment.updated %}</div>
                     </div>
                   {% endif %}
                 </div>
@@ -416,21 +357,127 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 16 16">
               <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
             </svg>
-            Comment ticket
+            Add comment
           </button>
-          <div id="add-comment_dialog" class="dialog center">
-            <form action="{% url 'edit_ticket_comment_add' object.slug %}" method="POST">
-              {% csrf_token %}
-              <h2>Add comment</h2>
-              <div class="form-field long-field">
-                {{ form_add_comment.media }} {{ form_add_comment.content }}
+        </div>
+      </div>
+      <div class="ticket-view_field-group aside break-flex maximize-height">
+        <div class="ticket-view_field history-view">
+          <div class="ticket-view_field_label">
+            History
+          </div>
+          <div class="ticket-view_field_content">
+            {% if audit_logs|length > 0 %}
+              {% for audit_log in audit_logs %}
+                <div class="ticket-field-content_aside">
+                  <div class="history-view_nav ">
+                    <div class="img-text_field">
+                      <img src="{{ MEDIA_URL}}/{{ audit_log.user.icon }}" height="18" width="18" title="{{ audit_log.user }}" alt="{{ audit_log.user }}"/>
+                      {{ audit_log.user }}
+                    </div>
+                    <span title="{{ audit_log.datetime }}" class="description">{% get_time_ago audit_log.datetime %}</span>
+                  </div>
+                  <div class="break-flex" style="padding-top: 10px">
+                    {{ audit_log.message}}:
+                  </div>
+                  <div class="break-flex history-view_content">
+                    "{% get_max_length_string audit_log.new_value|safe 100 %}"
+                  </div>
+                </div>
+              {% endfor %}
+            {% else %}
+              <div class="ticket-block_info-left">
+                No changes have been made yet
               </div>
-              <input type="submit" value="Save">
-            </form>
+            {% endif %}
           </div>
         </div>
       </div>
-      <div class="ticket-view_field-group aside break-flex "></div>
+    </div>
+  </div>
+  <div class="dialogs">
+    <div id="edit-ticket_dialog" class="dialog center">
+      <form action="{% url 'edit_ticket' object.slug %}" method="post">
+        {% csrf_token %}
+        <h2>Edit {{object.key}}</h2>
+        <div class="form-field long-field required">
+          <label for="{{ form_update.title.id_for_label }}">{{ form_update.title.label }}</label>
+          {{ form_update.title }}
+          <div class="description">{{ form_update.title.help_text }}</div>
+        </div>
+        <div class="form-field medium-field required">
+          <label for="{{ form_update.priority.id_for_label }}">{{ form_update.priority.label }}</label>
+          {{ form_update.priority }}
+        </div>
+        <div class="form-field medium-field">
+          <label for="{{ form_update.labels.id_for_label }}">{{ form_update.labels.label }}</label>
+          {{ form_update.labels }}
+        </div>
+        <div class="form-field long-field">
+          <label for="{{ form_update.description.id_for_label }}">{{ form_update.description.label }}</label>
+          {{ form_update.media }} {{ form_update.description }}
+        </div>
+        <div class="form-field long-field">
+          <input type="submit" class="button" value="Save">
+        </div>
+      </form>
+    </div>
+    <div id="edit-assignee_dialog" class="dialog center">
+      <form action="{% url 'edit_ticket_assignee' object.slug %}" method="post">
+        {% csrf_token %}
+        <div class="form-field short-field">
+          <label for="{{ form_update_assignee.assignee.id_for_label }}">{{ form_update_assignee.assignee.label }}</label>
+          {{ form_update_assignee.assignee }}
+        </div>
+        <input type="submit" value="Save">
+      </form>
+    </div>
+    <div id="add-relation_dialog" class="dialog center">
+      <form action="{% url 'edit_ticket_relation_add' object.slug %}" method="POST">
+        {% csrf_token %}
+        <h2>Add relation</h2>
+        <div class="form-field medium-field required">
+          <label for="id_relations">Search for open tickets</label>
+          <select id="id_relations" name="relations" multiple>
+            {% for ticket in available_tickets_to_relate %}
+              <option icon="{{ ticket.type.icon }}" value="{{ ticket.id }}">{{ ticket.key }} - {{ ticket.title }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <input type="submit" value="Save">
+      </form>
+    </div>
+    <div id="add-attachment_dialog" class="dialog center">
+      <form enctype="multipart/form-data" action="{% url 'edit_ticket_attachment_add' object.slug %}" method="post">
+        {% csrf_token %}
+        <h2>Upload attachment/s</h2>
+        <div class="form-field medium-field">
+          <label for="id_attachments">Attach a file</label>
+          <input type="file" id="id_attachments" name="attachments" multiple/>
+        </div>
+        <input type="submit" value="Upload">
+      </form>
+    </div>
+    <div id="add-comment_dialog" class="dialog center">
+      <form action="{% url 'edit_ticket_comment_add' object.slug %}" method="POST">
+        {% csrf_token %}
+        <h2>Add comment</h2>
+        <div class="form-field long-field">
+          {{ form_comment.media }} {{ form_comment.content }}
+        </div>
+        <input type="submit" value="Save">
+      </form>
+    </div>
+    <div id="edit-comment_dialog" class="dialog center">
+      <form action="{% url 'edit_ticket_comment_edit' object.slug %}" method="POST">
+        <h2>Edit comment</h2>
+        {% csrf_token %}
+        <input type="hidden" initial="script" name="comment" value="">
+        <div class="form-field long-field">
+          {{ form_comment.media }} {{ form_comment.content }}
+        </div>
+        <input type="submit" value="Save">
+      </form>
     </div>
   </div>
   <script>

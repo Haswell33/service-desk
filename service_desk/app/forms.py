@@ -85,17 +85,10 @@ class TicketUpdateForm(forms.ModelForm):
             'labels': _('Label/s'),
             'description': _('Description'),
         }
-        help_texts = {
-            'title': _('Summarize the ticket'),
-        }
         widgets = {
             'priority': IconField,
             'labels': forms.SelectMultiple(attrs={'multiple': True}),
         }
-
-    #def __init__(self, *args, **kwargs):
-    #    self.title = kwargs.pop('title', None)
-    #    super(TicketUpdateForm, self).__init__(*args, **kwargs)
 
 
 class TicketUpdateAssigneeForm(forms.ModelForm):
@@ -110,22 +103,10 @@ class TicketUpdateAssigneeForm(forms.ModelForm):
         }
 
 
-class TicketAddCommentForm(forms.ModelForm):
+class TicketCommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['content']
-
-
-class TicketEditComment(forms.ModelForm):
-    class Meta:
-        model = Ticket
-        fields = ['assignee']
-        labels = {
-            'assignee': _('Set assignee'),
-        }
-        widgets = {
-            'assignee': IconField,
-        }
 
 
 class TicketFilterViewForm(forms.Form):

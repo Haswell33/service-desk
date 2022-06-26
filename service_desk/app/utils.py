@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db.models import Q
+from django.apps import apps
 from datetime import timezone
 from .models import Tenant, TenantSession, Type, Ticket, Comment, CommentAssociation, TicketAssociation, Status, Board, BoardColumn, BoardColumnAssociation, TransitionAssociation, AuditLog, Attachment, AttachmentAssociation
 from collections import namedtuple
@@ -9,6 +10,16 @@ from django.core.files.base import ContentFile
 import collections
 
 logger = logging.getLogger(__name__)
+
+
+class InstanceAuditLog:
+    __slots__ = ['user', 'new_value', 'datetime', 'message']
+
+    def __init__(self, user, new_value, datetime, message):
+        self.user = user
+        self.new_value = new_value
+        self.datetime = datetime
+        self.message = message
 
 
 def get_utc_to_local(utc_dt):
@@ -26,8 +37,8 @@ def get_client_ip_address(request):
 def add_audit_log(request, obj, content_obj, operation, attr, attr_value):
     audit_log = AuditLog(
         user=request.user,
-        object=obj.id,
-        object_value=obj._meta.model.__name__,
+        object=obj._meta.model.__name__,
+        object_value=obj.id,
         operation=operation,
         session=request.session.session_key,
         ip_address=get_client_ip_address(request),
@@ -44,18 +55,6 @@ def add_audit_log(request, obj, content_obj, operation, attr, attr_value):
         audit_log.message = f'{audit_log.message} '
     audit_log.save()
     return audit_log.message
-
-'''
-def add_audit_log(request, obj, message):
-    return AuditLog.objects.create(
-        user=request.user,
-        object=obj.id,
-        object_type=obj._meta.model.__name__,
-        session=request.session.session_key,
-        ip_address=get_client_ip_address(request),
-        url=request.path,
-        message=f'object {obj._meta.model.__name__} with instance id {obj.id} {message}').message
-'''
 
 
 def get_initial_status(env_type):
@@ -225,7 +224,7 @@ def create_ticket(form, request):
     if files:
         for file in files:
             add_attachment(file, new_ticket, request)
-    logger.info(add_audit_log(request, new_ticket, None, 'create', None, None))
+    logger.info(add_audit_log(request, new_ticket, None, 'create', new_ticket._meta.model.__name__, new_ticket.id))
     tenant.count += 1
     tenant.save()
     form.save_m2m()
@@ -256,11 +255,14 @@ def update_ticket_field(ticket, ticket_updated, attr, form_attr_value, form, req
     except ValueError:  # if ForeignKey field
         form_attr_value = form.fields.get(attr)._queryset.get(id=form_attr_value)
         setattr(ticket, attr, form_attr_value)
+        form_attr_value = form_attr_value.id
     except TypeError:  # if ManyToMany field
         form_attr_value = form.data.getlist(attr)
         ticket.getattr(attr).set(form_attr_value)
+        attr = ticket.getattr(attr).model._meta.object_name
+        form_attr_value = ','.join(form_attr_value)
     finally:
-        logger.info(add_audit_log(request, ticket_updated, None, 'edit', attr, form_attr_value))
+        logger.info(add_audit_log(request, ticket_updated, None, 'update', attr, form_attr_value))
         ticket_updated.save()
         return ticket_updated
 
@@ -330,12 +332,52 @@ def delete_comment(ticket, comment, request):
     if comment.author.id != request.user.id and not request.user.is_superuser:
         return f'Comment not added by you cannot be deleted'
     elif not comment_association:
-        return f'Attachment not exists in <strong>{ticket.key}</strong>'
+        return f'Comment not exists in <strong>{ticket.key}</strong>'
     else:
         comment_association.delete()
         Comment.objects.get(id=comment.id).delete()
         logger.info(add_audit_log(request, ticket, comment, 'delete', None, None))
         return True
+
+
+def edit_comment(ticket, comment, content, request):
+    comment_association = CommentAssociation.objects.filter(comment=comment.id, ticket=ticket.id)
+    if comment.author.id != request.user.id and not request.user.is_superuser:
+        return f'Comment not added by you cannot be updated'
+    elif not comment_association:
+        return f'Comment not exists in <strong>{ticket.key}</strong>'
+    else:
+        comment_updated = Comment.objects.get(id=comment.id)
+        comment_updated.content = content
+        comment_updated.save()
+        logger.info(add_audit_log(request, ticket, comment, 'update', None, None))
+        return comment_updated
+
+
+def get_audit_logs(instance):
+    audit_logs = AuditLog.objects.filter(object=instance._meta.model.__name__, object_value=instance.id)
+    audit_log_records = []
+    for audit_log in audit_logs:
+        try:
+            content_obj = apps.get_model('app', audit_log.content)
+            content_obj_value = content_obj.objects.get(id=audit_log.content_value)
+        except ValueError:
+            content_obj_value = content_obj.objects.filter(id__in=audit_log.content_value.split(',')).values_list('name', flat=True)
+            content_obj_value = (', '.join(content_obj_value.values_list('name', flat=True)))
+        except LookupError:
+            content_obj_value = audit_log.content_value
+        except content_obj.DoesNotExist:
+            continue
+        if audit_log.operation == 'create':
+            message = f'created {audit_log.content.lower()}'
+        elif audit_log.operation == 'update':
+            message = f'updated {audit_log.content.lower()} to'
+        elif audit_log.operation == 'add':
+            message = f'added {audit_log.content.lower()}'
+        else:
+            message = f'changed {audit_log.content.lower()}'
+        audit_log_records.append(InstanceAuditLog(audit_log.user, content_obj_value, audit_log.created, message))
+    return audit_log_records
 
 
 def set_ticket_status(transition_association, context_transition_associations, ticket, request):
@@ -344,7 +386,7 @@ def set_ticket_status(transition_association, context_transition_associations, t
             ticket.status = transition_association.transition.dest_status
             ticket.resolution = transition_association.transition.dest_status.resolution
             ticket.save()
-            logger.info(add_audit_log(request, ticket, ticket.status, 'edit', None, None))
+            logger.info(add_audit_log(request, ticket, ticket.status, 'update', None, None))
             return ticket
     return None
 
@@ -352,7 +394,7 @@ def set_ticket_status(transition_association, context_transition_associations, t
 def set_ticket_assignee(user, ticket, request):
     ticket.assignee = user
     ticket.save()
-    logger.info(add_audit_log(request, ticket, None, 'edit', 'assignee', ticket.assignee))
+    logger.info(add_audit_log(request, ticket, None, 'update', 'assignee', ticket.assignee))
     return ticket
 
 
@@ -361,7 +403,7 @@ def set_ticket_suspend(ticket, request):
         ticket.suspended = False
     else:
         ticket.suspended = True
-    logger.info(add_audit_log(request, ticket, None, 'edit', 'suspended', ticket.suspended))
+    logger.info(add_audit_log(request, ticket, None, 'update', 'suspended', ticket.suspended))
     ticket.save()
     return ticket
 

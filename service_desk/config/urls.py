@@ -103,13 +103,14 @@ urlpatterns = [
              template_name='ticket/ticket-view.html'),
          name='edit_ticket_relation_delete'),
     path('ticket/edit/comment/add/<slug:slug>/',
-         views.TicketDetailAddComment.as_view(
-             template_name='ticket/ticket-view.html'),
+         views.TicketDetailAddComment.as_view(),
          name='edit_ticket_comment_add'),
     path('ticket/edit/comment/delete/<slug:slug>/',
-         views.TicketDetailDeleteComment.as_view(
-             template_name='ticket/ticket-view.html'),
+         views.TicketDetailDeleteComment.as_view(),
          name='edit_ticket_comment_delete'),
+    path('ticket/edit/comment/edit/<slug:slug>/',
+         views.TicketDetailEditComment.as_view(),
+         name='edit_ticket_comment_edit'),
     path('ticket/filter/',
          views.TicketFilterListView.as_view(
              template_name='ticket/ticket-filter.html'),

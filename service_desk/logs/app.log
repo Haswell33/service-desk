@@ -700,3 +700,202 @@
 2022-06-26 04:39:58 INFO | admin 127.0.0.1 Ticket 19 delete Comment 6
 2022-06-26 04:40:03 INFO | admin 127.0.0.1 Ticket 19 delete Comment 8
 2022-06-26 04:40:06 INFO | admin 127.0.0.1 Ticket 19 delete Comment 7
+2022-06-26 04:47:29 INFO | dev-hsw 127.0.0.1 Ticket 19 edit description
+2022-06-26 04:47:35 INFO | dev-hsw 127.0.0.1 Ticket 19 edit description
+2022-06-26 04:47:41 INFO | dev-hsw 127.0.0.1 Ticket 19 edit description
+2022-06-26 04:47:55 INFO | dev-hsw 127.0.0.1 Ticket 19 edit description
+2022-06-26 04:48:02 INFO | dev-hsw 127.0.0.1 Ticket 19 edit description
+2022-06-26 04:49:37 INFO | dev-hsw 127.0.0.1 Ticket 19 add Comment 15
+2022-06-26 04:50:00 INFO | oper-hsw 127.0.0.1 Ticket 19 add Comment 16
+2022-06-26 15:40:23 INFO | admin 127.0.0.1 Ticket 22 add Attachment 23
+2022-06-26 15:40:23 INFO | admin 127.0.0.1 Ticket 22 add Attachment 24
+2022-06-26 15:40:23 INFO | admin 127.0.0.1 None 
+2022-06-26 15:42:22 INFO | admin 127.0.0.1 Ticket 22 add Attachment 26
+2022-06-26 15:42:22 INFO | admin 127.0.0.1 Ticket 22 add Attachment 27
+2022-06-26 15:42:22 INFO | admin 127.0.0.1 Ticket 22 add Attachment 28
+2022-06-26 15:42:54 INFO | admin 127.0.0.1 None 
+2022-06-26 15:42:57 INFO | admin 127.0.0.1 Ticket 23 edit assignee
+2022-06-26 15:42:58 INFO | admin 127.0.0.1 Ticket 23 edit suspended
+2022-06-26 15:42:59 INFO | admin 127.0.0.1 Ticket 23 edit suspended
+2022-06-26 15:43:00 INFO | admin 127.0.0.1 Ticket 23 edit Status 17
+2022-06-26 15:43:00 INFO | admin 127.0.0.1 Ticket 23 edit Status 21
+2022-06-26 15:43:03 INFO | admin 127.0.0.1 Ticket 23 edit assignee
+2022-06-26 15:43:07 INFO | admin 127.0.0.1 Ticket 23 edit title
+2022-06-26 15:43:07 INFO | admin 127.0.0.1 Ticket 23 edit priority
+2022-06-26 15:43:07 INFO | admin 127.0.0.1 Ticket 23 edit labels
+2022-06-26 15:43:28 INFO | admin 127.0.0.1 Ticket 23 add Ticket 19
+2022-06-26 15:43:35 INFO | admin 127.0.0.1 Ticket 23 delete Ticket 19
+2022-06-26 15:43:50 INFO | admin 127.0.0.1 Ticket 22 delete Attachment 25
+2022-06-26 15:43:50 INFO | admin 127.0.0.1 Ticket 22 delete Attachment 24
+2022-06-26 15:43:56 INFO | admin 127.0.0.1 Ticket 22 add Comment 17
+2022-06-26 15:44:03 INFO | admin 127.0.0.1 Ticket 22 add Comment 18
+2022-06-26 15:44:05 INFO | admin 127.0.0.1 Ticket 22 delete Comment 17
+2022-06-26 15:45:39 INFO | admin 127.0.0.1 Ticket 22 delete Comment 18
+2022-06-26 15:58:58 INFO | admin 127.0.0.1 Ticket 19 delete Comment 12
+2022-06-26 15:59:02 INFO | admin 127.0.0.1 Ticket 19 delete Comment 5
+2022-06-26 15:59:16 INFO | admin 127.0.0.1 Ticket 19 delete Comment 4
+2022-06-26 15:59:30 INFO | admin 127.0.0.1 Ticket 19 add Comment 19
+2022-06-26 16:00:09 INFO | admin 127.0.0.1 Ticket 14 edit Status 28
+2022-06-26 16:00:17 INFO | admin 127.0.0.1 Ticket 14 edit Status 29
+2022-06-26 16:00:25 INFO | admin 127.0.0.1 Ticket 15 edit Status 28
+2022-06-26 16:00:28 INFO | admin 127.0.0.1 Ticket 15 edit Status 19
+2022-06-26 16:02:01 INFO | customer-hsw 127.0.0.1 Ticket 19 add Comment 20
+2022-06-26 16:04:14 INFO | customer-hsw 127.0.0.1 Ticket 19 edit assignee
+2022-06-26 16:04:41 INFO | customer-hsw 127.0.0.1 Ticket 19 edit labels
+2022-06-26 16:08:33 INFO | customer-hsw 127.0.0.1 Ticket 19 delete Comment 20
+2022-06-26 16:08:41 INFO | customer-hsw 127.0.0.1 Ticket 19 add Comment 21
+2022-06-26 16:11:48 INFO | oper-hsw 127.0.0.1 Ticket 19 add Comment 22
+2022-06-26 17:46:01 INFO | admin 127.0.0.1 Ticket 19 delete Comment 13
+2022-06-26 18:27:06 INFO | admin 127.0.0.1 Ticket 19 delete Comment 15
+2022-06-26 18:33:14 INFO | admin 127.0.0.1 Ticket 19 edit description
+2022-06-26 18:33:14 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 18:45:49 INFO | admin 127.0.0.1 Ticket 19 edit Status 19
+2022-06-26 18:45:51 INFO | admin 127.0.0.1 Ticket 19 edit Status 15
+2022-06-26 18:45:53 INFO | admin 127.0.0.1 Ticket 19 edit Status 17
+2022-06-26 18:45:55 INFO | admin 127.0.0.1 Ticket 19 edit Status 23
+2022-06-26 20:10:05 INFO | admin 127.0.0.1 Ticket 19 add Comment 23
+2022-06-26 20:17:05 INFO | dev-hsw 127.0.0.1 Ticket 19 add Comment 24
+2022-06-26 20:37:24 INFO | admin 127.0.0.1 Ticket 19 update Comment 19
+2022-06-26 20:38:02 INFO | admin 127.0.0.1 Ticket 19 update Comment 14
+2022-06-26 20:38:26 INFO | admin 127.0.0.1 Ticket 19 update Comment 14
+2022-06-26 20:38:31 INFO | admin 127.0.0.1 Ticket 19 update Comment 16
+2022-06-26 20:43:20 INFO | admin 127.0.0.1 Ticket 19 update Comment 16
+2022-06-26 20:43:27 INFO | admin 127.0.0.1 Ticket 19 update Comment 23
+2022-06-26 21:13:48 INFO | admin 127.0.0.1 Ticket 19 update Comment 23
+2022-06-26 21:17:45 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:20:56 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:21:13 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:21:26 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:21:41 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:22:06 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:22:18 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:23:39 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:24:35 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:25:10 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:25:29 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:26:18 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:28:49 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:29:37 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:29:43 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:29:58 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:30:14 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:30:35 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:30:45 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:31:47 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:32:08 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:32:31 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:32:59 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:33:11 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:34:00 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:35:08 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:35:20 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:45:33 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:45:55 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:46:15 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:46:24 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:46:35 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:47:07 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:47:39 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:48:14 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:48:39 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:48:59 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:49:10 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:49:27 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:49:41 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:49:57 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:50:35 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:51:59 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:52:10 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:52:38 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:52:55 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:53:03 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:53:08 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 21:54:27 INFO | admin 127.0.0.1 Ticket 19 update labels
+2022-06-26 21:54:50 INFO | admin 127.0.0.1 Ticket 19 update labels
+2022-06-26 21:55:11 INFO | admin 127.0.0.1 Ticket 19 update priority
+2022-06-26 21:55:35 INFO | admin 127.0.0.1 Ticket 19 update labels
+2022-06-26 21:56:24 INFO | admin 127.0.0.1 Ticket 19 update priority
+2022-06-26 21:58:59 INFO | admin 127.0.0.1 Ticket 19 add Attachment 29
+2022-06-26 22:00:20 INFO | admin 127.0.0.1 Ticket 19 update labels
+2022-06-26 22:01:48 INFO | admin 127.0.0.1 Ticket 19 update priority
+2022-06-26 22:01:48 INFO | admin 127.0.0.1 Ticket 19 update labels
+2022-06-26 22:02:03 INFO | admin 127.0.0.1 Ticket 19 update labels
+2022-06-26 22:02:13 INFO | admin 127.0.0.1 Ticket 19 update labels
+2022-06-26 22:02:51 INFO | admin 127.0.0.1 Ticket 19 update labels
+2022-06-26 22:03:22 INFO | admin 127.0.0.1 Ticket 19 update labels
+2022-06-26 22:06:12 INFO | admin 127.0.0.1 Ticket 19 update labels
+2022-06-26 22:07:08 INFO | admin 127.0.0.1 Ticket 19 update labels
+2022-06-26 22:07:43 INFO | admin 127.0.0.1 Ticket 19 update Label
+2022-06-26 22:08:12 INFO | admin 127.0.0.1 Ticket 19 update Label
+2022-06-26 22:08:38 INFO | admin 127.0.0.1 Ticket 19 update Label
+2022-06-26 22:08:51 INFO | admin 127.0.0.1 Ticket 19 update Label
+2022-06-26 22:09:07 INFO | admin 127.0.0.1 Ticket 19 update Label
+2022-06-26 22:10:54 INFO | admin 127.0.0.1 Ticket 19 update Label
+2022-06-26 22:11:10 INFO | admin 127.0.0.1 Ticket 19 update Label
+2022-06-26 22:11:26 INFO | admin 127.0.0.1 Ticket 19 update Label
+2022-06-26 22:11:40 INFO | admin 127.0.0.1 Ticket 19 update Label
+2022-06-26 22:12:05 INFO | admin 127.0.0.1 Ticket 19 update Label
+2022-06-26 22:12:54 INFO | admin 127.0.0.1 Ticket 19 update Label
+2022-06-26 22:13:27 INFO | admin 127.0.0.1 Ticket 19 update Label
+2022-06-26 22:13:43 INFO | admin 127.0.0.1 Ticket 19 update Label
+2022-06-26 22:13:53 INFO | admin 127.0.0.1 Ticket 19 update Label
+2022-06-26 22:14:07 INFO | admin 127.0.0.1 Ticket 19 update Label
+2022-06-26 22:14:35 INFO | admin 127.0.0.1 Ticket 19 update Label
+2022-06-26 22:14:53 INFO | admin 127.0.0.1 Ticket 19 update Label
+2022-06-26 22:15:09 INFO | admin 127.0.0.1 Ticket 19 update Label
+2022-06-26 22:15:31 INFO | admin 127.0.0.1 Ticket 19 update Label
+2022-06-26 22:16:04 INFO | admin 127.0.0.1 Ticket 19 update Label
+2022-06-26 22:16:09 INFO | admin 127.0.0.1 Ticket 19 update Label
+2022-06-26 22:17:03 INFO | admin 127.0.0.1 Ticket 19 update Label
+2022-06-26 22:17:14 INFO | admin 127.0.0.1 Ticket 19 update Label
+2022-06-26 22:17:50 INFO | admin 127.0.0.1 Ticket 19 update Label
+2022-06-26 22:18:27 INFO | admin 127.0.0.1 Ticket 19 update Label
+2022-06-26 22:21:48 INFO | admin 127.0.0.1 Ticket 19 update Status 17
+2022-06-26 22:29:00 INFO | admin 127.0.0.1 Ticket 19 update title
+2022-06-26 22:31:40 INFO | admin 127.0.0.1 Ticket 19 add Attachment 30
+2022-06-26 22:31:40 INFO | admin 127.0.0.1 Ticket 19 add Attachment 31
+2022-06-26 22:31:40 INFO | admin 127.0.0.1 Ticket 19 add Attachment 32
+2022-06-26 22:32:08 INFO | admin 127.0.0.1 Ticket 19 update priority
+2022-06-26 22:33:32 INFO | admin 127.0.0.1 Ticket 19 update priority
+2022-06-26 22:33:56 INFO | admin 127.0.0.1 Ticket 19 update priority
+2022-06-26 22:34:38 INFO | admin 127.0.0.1 Ticket 19 update priority
+2022-06-26 22:34:51 INFO | admin 127.0.0.1 Ticket 19 update priority
+2022-06-26 22:35:11 INFO | admin 127.0.0.1 Ticket 19 update suspended
+2022-06-26 22:35:15 INFO | admin 127.0.0.1 Ticket 19 update suspended
+2022-06-26 22:35:22 INFO | admin 127.0.0.1 Ticket 19 update assignee
+2022-06-26 22:35:33 INFO | admin 127.0.0.1 Ticket 19 update Status 21
+2022-06-26 22:35:36 INFO | admin 127.0.0.1 Ticket 19 update Status 22
+2022-06-26 22:35:42 INFO | admin 127.0.0.1 Ticket 19 update title
+2022-06-26 22:35:42 INFO | admin 127.0.0.1 Ticket 19 update description
+2022-06-26 22:35:42 INFO | admin 127.0.0.1 Ticket 19 update priority
+2022-06-26 22:35:42 INFO | admin 127.0.0.1 Ticket 19 update Label
+2022-06-26 23:21:45 INFO | admin 127.0.0.1 Ticket 19 delete Comment 14
+2022-06-26 23:29:20 INFO | admin 127.0.0.1 Ticket 19 add Comment 25
+2022-06-26 23:32:06 INFO | admin 127.0.0.1 Ticket 19 delete Comment 19
+2022-06-26 23:35:10 INFO | customer-hsw 127.0.0.1 Ticket 22 update Status 19
+2022-06-26 23:35:15 INFO | customer-hsw 127.0.0.1 Ticket 22 update assignee
+2022-06-26 23:35:20 INFO | customer-hsw 127.0.0.1 Ticket 22 add Ticket 21
+2022-06-26 23:35:50 INFO | dev-hsw 127.0.0.1 Ticket 19 add Attachment 33
+2022-06-26 23:36:12 INFO | dev-hsw 127.0.0.1 None 
+2022-06-26 23:38:04 INFO | dev-hsw 127.0.0.1 Ticket 25 create HSW-21
+2022-06-26 23:39:19 INFO | dev-hsw 127.0.0.1 Ticket 26 create Ticket
+2022-06-26 23:39:37 INFO | dev-hsw 127.0.0.1 Ticket 27 create 27
+2022-06-26 23:39:59 INFO | dev-hsw 127.0.0.1 Ticket 28 create Ticket
+2022-06-26 23:40:41 INFO | dev-hsw 127.0.0.1 Ticket 29 create Ticket
+2022-06-26 23:40:57 INFO | dev-hsw 127.0.0.1 Ticket 29 update Status 19
+2022-06-26 23:42:38 INFO | dev-hsw 127.0.0.1 Ticket 29 add Comment 26
+2022-06-26 23:43:26 INFO | dev-hsw 127.0.0.1 Ticket 29 update assignee
+2022-06-26 23:43:37 INFO | dev-hsw 127.0.0.1 Ticket 29 add Attachment 34
+2022-06-26 23:44:01 INFO | dev-hsw 127.0.0.1 Ticket 29 update priority
+2022-06-26 23:44:13 INFO | dev-hsw 127.0.0.1 Ticket 29 update Label
+2022-06-26 23:44:20 INFO | dev-hsw 127.0.0.1 Ticket 29 update Label
+2022-06-26 23:44:30 INFO | dev-hsw 127.0.0.1 Ticket 29 update Label
+2022-06-26 23:47:24 INFO | dev-hsw 127.0.0.1 Ticket 29 update suspended
+2022-06-27 00:02:10 INFO | admin 127.0.0.1 Ticket 18 update suspended
+2022-06-27 00:02:14 INFO | admin 127.0.0.1 Ticket 18 update suspended
+2022-06-27 00:02:23 INFO | admin 127.0.0.1 Ticket 18 update priority
+2022-06-27 00:05:08 INFO | admin 127.0.0.1 Ticket 19 delete Attachment 19
+2022-06-27 00:05:21 INFO | admin 127.0.0.1 Ticket 19 add Attachment 35
+2022-06-27 00:07:47 INFO | admin 127.0.0.1 Ticket 19 update Status 15
+2022-06-27 00:08:55 INFO | admin 127.0.0.1 Ticket 19 add Comment 27
+2022-06-27 00:09:14 INFO | admin 127.0.0.1 Ticket 19 update Comment 25

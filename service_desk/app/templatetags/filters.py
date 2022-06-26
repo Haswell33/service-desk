@@ -1,6 +1,6 @@
 import timeago
 from django import template
-from datetime import datetime, timezone
+from datetime import datetime
 from django.conf import settings
 from ..utils import get_utc_to_local
 
@@ -43,11 +43,11 @@ def get_file_extension_class(filename):
 
 
 @register.simple_tag
-def get_max_length_string(filename, max_length):
-    if len(filename) >= max_length:
-        return f'{filename[:max_length]}...'
+def get_max_length_string(string, max_length):
+    if len(string) >= max_length:
+        return f'{string[:max_length]}...'
     else:
-        return filename
+        return string
 
 
 @register.simple_tag

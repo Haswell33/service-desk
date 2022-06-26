@@ -1,6 +1,6 @@
 import os.path
 from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator, FileExtensionValidator, ValidationError
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User, UserManager, Group
 from django.dispatch import receiver
 from django.conf import settings
 from django.utils.html import mark_safe, format_html
@@ -427,7 +427,12 @@ class Label(models.Model):
         ordering = ['id']
 
     def __str__(self):
+        return str(self.name)
+
+
+    def __repr__(self):
         return self.name
+
 
 
 class Comment(models.Model):
@@ -473,7 +478,10 @@ class Comment(models.Model):
     author_img_text.fget.short_description = 'Author'
 
     def __str__(self):
-        return str(self.id)
+        return self.content
+
+    def __repr__(self):
+        return self.content
 
 
 class Attachment(models.Model):
@@ -814,13 +822,15 @@ class AuditLog(models.Model):
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='%(class)s_user')
-    object = models.PositiveIntegerField()
-    object_value = models.CharField(
-        max_length=55)
+        related_name='%(class)s_user',
+        null=True)
+    object = models.CharField(
+        max_length=55,
+        null=True)
+    object_value = models.PositiveIntegerField(
+        null=True)
     operation = models.CharField(
         max_length=50,
-        blank=True,
         null=True)
     message = models.TextField(
         blank=True,
@@ -833,18 +843,22 @@ class AuditLog(models.Model):
         max_length=255,
         blank=True,
         null=True)
-    ip_address = models.GenericIPAddressField()
-    url = models.URLField()
+    ip_address = models.GenericIPAddressField(
+        null=True)
+    url = models.URLField(
+        null=True)
     session = models.CharField(
-        max_length=500)
+        max_length=500,
+        null=True)
     created = models.DateTimeField(
-        auto_now_add=True)
+        auto_now_add=True,
+        null=True)
 
     class Meta:
         db_table = 'audit_log'
         verbose_name = 'audit log'
         verbose_name_plural = 'audit logs'
-        ordering = ['id']
+        ordering = ['-created']
 
     def save(self, *args, **kwargs):
         if not self.id:
