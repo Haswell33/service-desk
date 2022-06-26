@@ -86,7 +86,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tinymce',
-    'django_tables2'
+    'django_tables2',
+    'django_extensions'
 ]
 
 MIDDLEWARE = [
@@ -198,7 +199,7 @@ LOGGING = {
             'backupCount': 10,
         },
         'template': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'class': 'logging.handlers.RotatingFileHandler',
             'formatter': 'default',
             'filename': f'{BASE_DIR}/logs/template.log',
@@ -247,7 +248,7 @@ LOGGING = {
         },
         'django.template': {
             'handlers': ['template'],
-            'level': 'DEBUG',
+            'level': 'INFO',
             'propagate': True,
         },
         'django.server': {

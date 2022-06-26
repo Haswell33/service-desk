@@ -18,9 +18,9 @@ from django.utils.encoding import force_bytes
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.urls.exceptions import NoReverseMatch
-from .models import Issue, TransitionAssociation, Attachment
-from .forms import TicketCreateForm, TicketFilterViewForm, TicketUpdateAssigneeForm, TicketUpdateForm
-from .utils import get_env_type, get_initial_status, get_active_tenant, active_tenant_session, get_active_tenant_session, tenant_session, clear_tenant_session, change_active_tenant, get_tenant_cookie_name, get_active_tenant_tickets, get_board_columns_assocations, get_board_columns, filter_tickets, order_tickets, get_transitions, convert_query_dict_to_dict, set_ticket_status, set_ticket_assignee, create_ticket, update_ticket, set_ticket_suspend, add_attachments, delete_attachment, add_relations
+from .models import Ticket, TransitionAssociation, Attachment, Comment
+from .forms import TicketCreateForm, TicketFilterViewForm, TicketUpdateAssigneeForm, TicketUpdateForm, TicketAddCommentForm, TicketEditComment
+from .utils import get_env_type, get_initial_status, get_active_tenant, active_tenant_session, get_active_tenant_session, tenant_session, clear_tenant_session, change_active_tenant, get_tenant_cookie_name, get_active_tenant_tickets, get_board_columns_assocations, get_board_columns, filter_tickets, order_tickets, get_transitions, convert_query_dict_to_dict, set_ticket_status, set_ticket_assignee, create_ticket, update_ticket, set_ticket_suspend, add_attachment, delete_attachment, add_relation, delete_relation, get_allow_tickets_to_relate, add_comment, delete_comment
 from .context_processors import context_tenant_session
 
 
@@ -59,7 +59,7 @@ user_logged_in.connect(after_login)
 
 
 class TicketCreateView(SuccessMessageMixin, generic.CreateView):
-    model = Issue
+    model = Ticket
     form_class = TicketCreateForm
     template_name = '/ticket/ticket-create.html'
 
@@ -92,20 +92,23 @@ class TicketCreateView(SuccessMessageMixin, generic.CreateView):
 
 
 class TicketDetailView(generic.detail.DetailView):  # Detail view for ticket
-    model = Issue
+    model = Ticket
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
             'transitions': get_transitions(self.object),
-            'available_tickets_to_relate': get_active_tenant_tickets(self.request.user, True),
-            'form_update': TicketUpdateForm(instance=self.object)
+            'available_tickets_to_relate': get_allow_tickets_to_relate(self.request.user, self.get_object()),
+            'form_update': TicketUpdateForm(instance=self.object),
+            'form_update_assignee': TicketUpdateAssigneeForm(instance=self.object),
+            'form_add_comment': TicketAddCommentForm(),
+            'form_edit_comment': TicketEditComment(instance=self.object)
         })
         return context
 
 
 class TicketDetailUpdate(generic.UpdateView):
-    model = Issue
+    model = Ticket
     fields = ['title', 'priority', 'description', 'labels']
 
     def form_invalid(self, form):
@@ -113,7 +116,7 @@ class TicketDetailUpdate(generic.UpdateView):
         return HttpResponse('invalid form')
 
     def get(self, request, *args, **kwargs):
-        self.object = self.get_object()
+        # self.object = self.get_object()
         return super(TicketDetailUpdate, self).get(request, *args, **kwargs)
 
     '''def form_valid(self, form):
@@ -135,7 +138,7 @@ class TicketDetailUpdate(generic.UpdateView):
 
 
 class TicketDetailUpdateStatus(generic.UpdateView):
-    model = Issue
+    model = Ticket
     fields = ['status']
 
     def get_context_data(self, **kwargs):
@@ -146,7 +149,7 @@ class TicketDetailUpdateStatus(generic.UpdateView):
         return context
 
     def get(self, request, *args, **kwargs):
-        self.object = self.get_object()
+        # self.object = self.get_object()
         return super(TicketDetailUpdateStatus, self).get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
@@ -163,10 +166,10 @@ class TicketDetailUpdateStatus(generic.UpdateView):
 
 
 class TicketDetailUpdateAssignee(generic.UpdateView):
-    model = Issue
+    model = Ticket
 
     def get(self, request, *args, **kwargs):
-        self.object = self.get_object()
+        # self.object = self.get_object()
         return super(TicketDetailUpdateAssignee, self).get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
@@ -184,10 +187,10 @@ class TicketDetailUpdateAssignee(generic.UpdateView):
 
 
 class TicketDetailUpdateSuspend(generic.UpdateView):
-    model = Issue
+    model = Ticket
 
     def get(self, request, *args, **kwargs):
-        self.object = self.get_object()
+        # self.object = self.get_object()
         return super(TicketDetailUpdateSuspend, self).get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
@@ -201,7 +204,7 @@ class TicketDetailUpdateSuspend(generic.UpdateView):
 
 
 class TicketDetailAddAttachment(generic.UpdateView):
-    model = Issue
+    model = Ticket
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -211,15 +214,16 @@ class TicketDetailAddAttachment(generic.UpdateView):
         ticket = self.get_object()
         files = request.FILES.getlist('attachments')
         if files:
-            add_attachments(files, ticket, request)
-            messages.success(request, f'Attachment/s has been uploaded to <strong>{ticket.key}</strong>')
+            for file in files:
+                attachment = add_attachment(file, ticket, request)
+                messages.success(request, f'Attachment <strong>{attachment}</strong> has been uploaded to <strong>{ticket.key}</strong>')
         else:
             messages.info(request, f'No new files uploaded to <strong>{ticket.key}</strong>')
         return HttpResponseRedirect(reverse('view_ticket', args=[ticket.slug]))
 
 
 class TicketDetailDeleteAttachment(generic.DeleteView):
-    model = Issue
+    model = Ticket
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -230,56 +234,105 @@ class TicketDetailDeleteAttachment(generic.DeleteView):
         attachment_id = request.POST.get('attachment')
         try:
             attachment = Attachment.objects.get(id=attachment_id)
-            delete_is_valid = delete_attachment(ticket, attachment, request)
-            if delete_is_valid:
+            result = delete_attachment(ticket, attachment, request)
+            if result is True:
                 messages.success(request, f'Attachment <strong>{attachment.filename}</strong> has been deleted from <strong>{ticket.key}</strong>')
             else:
-                messages.error(request, f'Attachment not exists in <strong>{ticket.key}</strong>')
+                messages.error(request, result)
         except Attachment.DoesNotExist:
-            messages.error(request, f'Attachment with id <strong>{attachment_id}</strong> not exists')
+            messages.error(request, f'Attachment with value <strong>{attachment_id}</strong> not exist')
         return HttpResponseRedirect(reverse('view_ticket', args=[ticket.slug]))
 
 
 class TicketDetailAddRelation(generic.UpdateView):
-    model = Issue
+    model = Ticket
 
     def get(self, request, *args, **kwargs):
-        self.object = self.get_object()
+        # self.object = self.get_object()
         return super(TicketDetailAddRelation, self).get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         ticket = self.get_object()
-        print(request.POST)
-        relations = request.POST.getlist('relations')
-        if relations:
-            related_ticket = add_relations(relations, ticket, request)
-            messages.success(request, f'Attachment/s has been uploaded to <strong>{ticket.key}</strong>')
+        tickets_to_relate = request.POST.getlist('relations')
+        if tickets_to_relate:
+            for ticket_to_relate in tickets_to_relate:
+                result = add_relation(ticket, ticket_to_relate, request)
+                if isinstance(result, Ticket):
+                    messages.success(request, f'Relation between <strong>{ticket.key}</strong> and <strong>{result}</strong> has been created')
+                else:
+                    messages.error(request, result)
         else:
-            messages.info(request, f'Not found any new relations to add to <strong>{ticket.key}</strong>')
+            messages.info(request, f'No ticket has been selected to create relation with <strong>{ticket.key}</strong>')
         return HttpResponseRedirect(reverse('view_ticket', args=[ticket.slug]))
 
 
 class TicketDetailDeleteRelation(generic.UpdateView):
-    model = Issue
+    model = Ticket
 
     def get(self, request, *args, **kwargs):
-        self.object = self.get_object()
+        # self.object = self.get_object()
         return super(TicketDetailDeleteRelation, self).get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         ticket = self.get_object()
-        files = request.FILES.getlist('attachments')
-        if files:
-            add_attachments(files, ticket, request)
-            messages.success(request, f'Attachment/s has been uploaded to <strong>{ticket.key}</strong>')
+        relation_id = request.POST.get('relation')
+        try:
+            relation = Ticket.objects.get(id=relation_id)
+            result = delete_relation(ticket, relation, request)
+            if result is True:
+                messages.success(request, f'Relation between <strong>{ticket}</strong> and <strong>{relation}</strong> has been deleted')
+            else:
+                messages.error(request, result)
+        except Ticket.DoesNotExist:
+            messages.error(request, f'Relation with value <strong>{relation_id}</strong> not exist')
+        return HttpResponseRedirect(reverse('view_ticket', args=[ticket.slug]))
+
+
+class TicketDetailAddComment(generic.UpdateView):
+    model = Ticket
+
+    def get(self, request, *args, **kwargs):
+        return super(TicketDetailAddComment, self).get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        ticket = self.get_object()
+        print(request.POST)
+        comment = request.POST.get('content')
+        if comment:
+            result = add_comment(ticket, comment, request)
+            if isinstance(result, Comment):
+                messages.success(request, f'Comment in <strong>{ticket.key}</strong> has been added')
+            else:
+                messages.error(request, result)
         else:
-            messages.info(request, f'No new files uploaded to <strong>{ticket.key}</strong>')
+            messages.info(request, f'Comment not exist in <strong>{ticket.key}</strong>')
+        return HttpResponseRedirect(reverse('view_ticket', args=[ticket.slug]))
+
+
+class TicketDetailDeleteComment(generic.UpdateView):
+    model = Ticket
+
+    def get(self, request, *args, **kwargs):
+        return super(TicketDetailDeleteComment, self).get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        ticket = self.get_object()
+        comment_id = request.POST.get('comment')
+        print(request.POST)
+        try:
+            comment = Comment.objects.get(id=comment_id)
+            result = delete_comment(ticket, comment, request)
+            if result is True:
+                messages.success(request, f'Comment from <strong>{ticket}</strong> has been deleted')
+            else:
+                messages.error(request, result)
+        except Comment.DoesNotExist:
+            messages.error(request, f'Comment in <strong>{ticket}</strong> not exist')
         return HttpResponseRedirect(reverse('view_ticket', args=[ticket.slug]))
 
 
 class TicketBoardListView(generic.ListView):
-    model = Issue
-    paginate_by = 50
+    model = Ticket
     context_object_name = 'tickets'
     template_name = 'home.html'
 
@@ -301,7 +354,7 @@ class TicketBoardListView(generic.ListView):
 
 
 class TicketFilterListView(generic.ListView):
-    model = Issue
+    model = Ticket
     paginate_by = 50
     context_object_name = 'tickets'
     template_name = 'ticket/ticket-filter.html'

@@ -11,6 +11,10 @@ from tinymce.models import HTMLField
 from datetime import datetime
 import math
 
+#def TicketAssociation():
+#    pass
+
+
 def validate_file_extension(value):
     ext = os.path.splitext(value.name)[1]  # [0] returns path+filename
     valid_extensions = ['.pdf', '.doc', '.docx', '.jpg', '.png', '.xlsx', '.xls', 'txt']
@@ -117,7 +121,7 @@ class Tenant(models.Model):
         max_length=255)
     count = models.PositiveIntegerField(
         default=0,
-        help_text='Number of issues',
+        help_text='Number of tickets',
         editable=False)
     sla = models.ForeignKey(
         SLAScheme,
@@ -230,7 +234,7 @@ class Priority(models.Model):
         return self.name
 
 
-class IssueType(models.Model):
+class Type(models.Model):
     id = models.BigAutoField(
         primary_key=True)
     name = models.CharField(
@@ -247,13 +251,13 @@ class IssueType(models.Model):
         blank=True,
         null=True)
     icon = models.ImageField(
-        upload_to=f'{get_media_path()}/img/issue_type',
+        upload_to=f'{get_media_path()}/img/type',
         validators=[FileExtensionValidator],
         blank=True,
         max_length=500)
 
     class Meta:
-        db_table = 'issue_type'
+        db_table = 'type'
         verbose_name = 'type'
         verbose_name_plural = 'types'
         ordering = ['id']
@@ -378,7 +382,7 @@ class Transition(models.Model):
         null=True,
         related_name='%(class)s_dest_status')
     types = models.ManyToManyField(
-        IssueType,
+        Type,
         through='TransitionAssociation',
         through_fields=('transition', 'type'))
 
@@ -429,7 +433,8 @@ class Label(models.Model):
 class Comment(models.Model):
     id = models.BigAutoField(
         primary_key=True)
-    content = models.TextField()
+    content = HTMLField(
+        verbose_name='Content')
     author = models.ForeignKey(
         User,
         on_delete=models.DO_NOTHING,
@@ -449,18 +454,26 @@ class Comment(models.Model):
         db_table = 'comment'
         verbose_name = 'comment'
         verbose_name_plural = 'comments'
-        ordering = ['id']
+        ordering = ['-created']
 
     def save(self, *args, **kwargs):
-        timezone.now()
         if not self.id:
             self.created = datetime.now()
             self.author = get_current_user()
-        self.updated = datetime.now()
+        if self.id:
+            self.updated = datetime.now()
         super().save(*args, **kwargs)
 
+    @property
+    def author_img_text(self):
+        try:
+            return get_img_text_field(self.author.icon, self.author, 18, 18)
+        except AttributeError:
+            return self.author
+    author_img_text.fget.short_description = 'Author'
+
     def __str__(self):
-        return self.id
+        return str(self.id)
 
 
 class Attachment(models.Model):
@@ -515,7 +528,6 @@ class Attachment(models.Model):
         p = math.pow(1024, i)
         display_size = round(self.size / p, 2)
         return f'{display_size} {size_names[i]}'
-
     display_size.fget.short_description = 'Size'
 
     def get_filename(self):
@@ -528,7 +540,7 @@ class Attachment(models.Model):
         return self.filename
 
 
-class Issue(models.Model):
+class Ticket(models.Model):
     id = models.BigAutoField(
         primary_key=True)
     key = models.CharField(
@@ -537,13 +549,13 @@ class Issue(models.Model):
         editable=False)
     title = models.CharField(
         max_length=255,
-        help_text='Summarize the issue',
+        help_text='Summarize the ticket',
         verbose_name='Title')
     description = HTMLField(
         verbose_name='Description',
         blank=True,
         null=True,
-        help_text='Describe the issue')
+        help_text='Describe the ticket')
     tenant = models.ForeignKey(
         Tenant,
         on_delete=models.CASCADE,
@@ -570,7 +582,7 @@ class Issue(models.Model):
         related_name='%(class)s_resolution',
         verbose_name='Resolution')
     type = models.ForeignKey(
-        IssueType,
+        Type,
         on_delete=models.CASCADE,
         default=settings.DEFAULT_ISSUE_TYPE_ID,
         related_name='%(class)s_type',
@@ -597,13 +609,13 @@ class Issue(models.Model):
         verbose_name='Suspended')
     created = models.DateTimeField(
         editable=False,
-        help_text='Date when issue has been created',
+        help_text='Date when ticket has been created',
         verbose_name='Created date')
     updated = models.DateTimeField(
         blank=True,
         null=True,
         editable=False,
-        help_text='Date when issue has been recently changed',
+        help_text='Date when ticket has been recently changed',
         verbose_name='Updated date')
     slug = models.SlugField(
         max_length=55,
@@ -611,34 +623,34 @@ class Issue(models.Model):
     relations_out = models.ManyToManyField(
         'self',
         verbose_name='Relations out',
-        through='IssueAssociation',
-        through_fields=('src_issue', 'dest_issue'))
+        through='TicketAssociation',
+        through_fields=('src_ticket', 'dest_ticket'))
     relations_in = models.ManyToManyField(
         'self',
         verbose_name='Relations out',
-        through='IssueAssociation',
-        through_fields=('dest_issue', 'src_issue'))
+        through='TicketAssociation',
+        through_fields=('dest_ticket', 'src_ticket'))
     comments = models.ManyToManyField(
         Comment,
         through='CommentAssociation',
         blank=True,
-        through_fields=('issue', 'comment'),
+        through_fields=('ticket', 'comment'),
         verbose_name='Comments')
     labels = models.ManyToManyField(
         Label,
         through='LabelAssociation',
         blank=True,
-        through_fields=('issue', 'label'),
+        through_fields=('ticket', 'label'),
         verbose_name='Labels')
     attachments = models.ManyToManyField(
         Attachment,
         through='AttachmentAssociation',
         blank=True,
-        through_fields=('issue', 'attachment'),
+        through_fields=('ticket', 'attachment'),
         verbose_name='Attachments')
 
     class Meta:
-        db_table = 'issue'
+        db_table = 'ticket'
         verbose_name = 'ticket'
         verbose_name_plural = 'tickets'
         ordering = ['-updated']
@@ -650,9 +662,7 @@ class Issue(models.Model):
             self.slug = self.key.lower()
         self.updated = timezone.now()
         # send_notifications()
-        if len(self.title) > 200:
-            self.title = f'{self.title[:180]}...'
-        super(Issue, self).save(*args, **kwargs)
+        super(Ticket, self).save(*args, **kwargs)
 
     def _escalate(self):
         self.escalated = True
@@ -751,7 +761,7 @@ class Issue(models.Model):
     '''
 
     def get_fields(self):
-        return [(field.name, field.value_to_string(self)) for field in Issue._meta.fields]
+        return [(field.name, field.value_to_string(self)) for field in Ticket._meta.fields]
 
     def get_resolution(self):
         if self.resolution is None:
@@ -801,20 +811,34 @@ class TenantSession(models.Model):
 class AuditLog(models.Model):
     id = models.BigAutoField(
         primary_key=True)
-    created = models.DateTimeField(
-        auto_now_add=True)
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         related_name='%(class)s_user')
     object = models.PositiveIntegerField()
-    object_type = models.CharField(
-        max_length=50)
-    session = models.CharField(
-        max_length=500)
+    object_value = models.CharField(
+        max_length=55)
+    operation = models.CharField(
+        max_length=50,
+        blank=True,
+        null=True)
+    message = models.TextField(
+        blank=True,
+        null=True)
+    content = models.CharField(
+        max_length=50,
+        blank=True,
+        null=True)
+    content_value = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True)
     ip_address = models.GenericIPAddressField()
     url = models.URLField()
-    message = models.TextField()
+    session = models.CharField(
+        max_length=500)
+    created = models.DateTimeField(
+        auto_now_add=True)
 
     class Meta:
         db_table = 'audit_log'
@@ -826,7 +850,7 @@ class AuditLog(models.Model):
         if not self.id:
             # self.created = timezone.now()
             self.user = get_current_user()
-            self.message = f'{self.user} {self.ip_address} | {self.message}'
+        self.message = f'{self.user} {self.ip_address} {self.message}'
         super(AuditLog, self).save(*args, **kwargs)
 
 
@@ -862,7 +886,7 @@ class BoardColumnAssociation(models.Model):
 
 class TransitionAssociation(models.Model):
     type = models.ForeignKey(
-        IssueType,
+        Type,
         on_delete=models.CASCADE,
         related_name='%(class)s_type',
         blank=True,
@@ -895,23 +919,23 @@ class TransitionAssociation(models.Model):
     full_transition.fget.short_description = 'Transition'
 
 
-class IssueAssociation(models.Model):
-    src_issue = models.ForeignKey(
-        Issue,
+class TicketAssociation(models.Model):
+    src_ticket = models.ForeignKey(
+        Ticket,
         on_delete=models.DO_NOTHING,
-        related_name='%(class)s_src_issue')
-    dest_issue = models.ForeignKey(
-        Issue,
+        related_name='%(class)s_src_ticket')
+    dest_ticket = models.ForeignKey(
+        Ticket,
         on_delete=models.DO_NOTHING,
-        related_name='%(class)s_dest_issue')
+        related_name='%(class)s_dest_ticket')
 
     class Meta:
-        db_table = 'issue_association'
+        db_table = 'ticket_association'
         verbose_name = 'link'
         verbose_name_plural = 'links'
 
     def __str__(self):
-        return f'{self.src_issue}-{self.dest_issue}'
+        return f'{self.src_ticket}-{self.dest_ticket}'
 
 
 class CommentAssociation(models.Model):
@@ -919,16 +943,16 @@ class CommentAssociation(models.Model):
         Comment,
         on_delete=models.CASCADE,
         related_name='%(class)s_comment')
-    issue = models.ForeignKey(
-        Issue,
+    ticket = models.ForeignKey(
+        Ticket,
         on_delete=models.CASCADE,
-        related_name='%(class)s_issue')
+        related_name='%(class)s_ticket')
 
     class Meta:
         db_table = 'comment_association'
 
     def __str__(self):
-        return f'{self.issue}-{self.comment}'
+        return f'{self.ticket}-{self.comment}'
 
 
 class AttachmentAssociation(models.Model):
@@ -936,16 +960,16 @@ class AttachmentAssociation(models.Model):
         Attachment,
         on_delete=models.CASCADE,
         related_name='%(class)s_attachment')
-    issue = models.ForeignKey(
-        Issue,
+    ticket = models.ForeignKey(
+        Ticket,
         on_delete=models.CASCADE,
-        related_name='%(class)s_issue')
+        related_name='%(class)s_ticket')
 
     class Meta:
         db_table = 'attachment_association'
 
     def __str__(self):
-        return f'{self.issue}-{self.attachment}'
+        return f'{self.ticket}-{self.attachment}'
 
 
 class LabelAssociation(models.Model):
@@ -953,16 +977,16 @@ class LabelAssociation(models.Model):
         Label,
         on_delete=models.CASCADE,
         related_name='%(class)s_label')
-    issue = models.ForeignKey(
-        Issue,
+    ticket = models.ForeignKey(
+        Ticket,
         on_delete=models.CASCADE,
-        related_name='%(class)s_issue')
+        related_name='%(class)s_ticket')
 
     class Meta:
         db_table = 'label_association'
 
     def __str__(self):
-        return f'{self.issue}-{self.label}'
+        return f'{self.ticket}-{self.label}'
 
 
 @receiver(models.signals.post_delete, sender=Attachment)

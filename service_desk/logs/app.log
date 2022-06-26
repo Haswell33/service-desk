@@ -382,3 +382,321 @@
 2022-06-25 06:02:33 INFO | admin 127.0.0.1 | object Issue with instance id 117 relation "HSW-73-HSW-76" add to HSW-73
 2022-06-25 06:04:34 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 15 create relation "HSW-73-HSW-77"
 2022-06-25 06:04:34 INFO | admin 127.0.0.1 | object Issue with instance id 117 relation "HSW-73-HSW-77" add to HSW-73
+2022-06-25 06:35:58 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 16 create relation "HSW-73-HSW-27"
+2022-06-25 06:35:58 INFO | admin 127.0.0.1 | object Issue with instance id 117 relation "HSW-73-HSW-27" add to HSW-73
+2022-06-25 06:37:56 INFO | admin 127.0.0.1 | object Issue with instance id 121 field update "status" to "On 1LS"
+2022-06-25 06:39:55 INFO | admin 127.0.0.1 | object Issue with instance id 121 field update "status" to "On reporter"
+2022-06-25 07:00:51 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 17 create relation "HSW-73-HSW-58"
+2022-06-25 07:00:51 INFO | admin 127.0.0.1 | object Issue with instance id 117 relation "HSW-73-HSW-58" add to HSW-73
+2022-06-25 07:00:51 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 18 create relation "HSW-73-HSW-12"
+2022-06-25 07:00:51 INFO | admin 127.0.0.1 | object Issue with instance id 117 relation "HSW-73-HSW-12" add to HSW-73
+2022-06-25 07:21:41 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 19 create relation "HSW-27-HSW-73"
+2022-06-25 07:21:41 INFO | admin 127.0.0.1 | object Issue with instance id 48 relation "HSW-27-HSW-73" add to HSW-27
+2022-06-25 17:11:52 INFO | admin 127.0.0.1 | object Issue with instance id 117 delete attachment "file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fi_6QkfNMD.svg"
+2022-06-25 17:11:52 INFO | admin 127.0.0.1 | object Attachment with instance id 90 delete "file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fi_6QkfNMD.svg"
+2022-06-25 17:12:23 INFO | admin 127.0.0.1 | object Issue with instance id 117 field update "suspended" to "True"
+2022-06-25 17:13:45 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 20 create relation "HSW-27-HSW-39"
+2022-06-25 17:13:45 INFO | admin 127.0.0.1 | object Issue with instance id 48 relation "HSW-27-HSW-39" add to HSW-27
+2022-06-25 17:43:40 INFO | admin 127.0.0.1 | object Attachment with instance id 100 create attachment "zawi.java"
+2022-06-25 17:43:40 INFO | admin 127.0.0.1 | object Issue with instance id 117 attachment "zawi.java" upload to HSW-73
+2022-06-25 18:03:23 INFO | admin 127.0.0.1 | object Attachment with instance id 101 create attachment "panda_1.png"
+2022-06-25 18:03:23 INFO | admin 127.0.0.1 | object Issue with instance id 111 attachment "panda_1.png" upload to HSW-68
+2022-06-25 18:03:23 INFO | admin 127.0.0.1 | object Attachment with instance id 102 create attachment "x.svg"
+2022-06-25 18:03:23 INFO | admin 127.0.0.1 | object Issue with instance id 111 attachment "x.svg" upload to HSW-68
+2022-06-25 18:03:23 INFO | admin 127.0.0.1 | object Attachment with instance id 103 create attachment "file-earmark-code-fill.svg"
+2022-06-25 18:03:23 INFO | admin 127.0.0.1 | object Issue with instance id 111 attachment "file-earmark-code-fill.svg" upload to HSW-68
+2022-06-25 18:03:23 INFO | admin 127.0.0.1 | object Attachment with instance id 104 create attachment "sheet_Fz8Fal9_2.xlsx"
+2022-06-25 18:03:23 INFO | admin 127.0.0.1 | object Issue with instance id 111 attachment "sheet_Fz8Fal9_2.xlsx" upload to HSW-68
+2022-06-25 18:03:25 INFO | admin 127.0.0.1 | object Issue with instance id 111 delete attachment "sheet_Fz8Fal9_2.xlsx"
+2022-06-25 18:03:25 INFO | admin 127.0.0.1 | object Attachment with instance id 104 delete "sheet_Fz8Fal9_2.xlsx"
+2022-06-25 18:03:28 INFO | admin 127.0.0.1 | object Issue with instance id 111 delete attachment "file-earmark-code-fill.svg"
+2022-06-25 18:03:28 INFO | admin 127.0.0.1 | object Attachment with instance id 103 delete "file-earmark-code-fill.svg"
+2022-06-25 18:47:25 INFO | admin 127.0.0.1 | object Issue with instance id 117 delete attachment "file-earmark-code-fill.svg"
+2022-06-25 18:47:25 INFO | admin 127.0.0.1 | object Attachment with instance id 91 delete "file-earmark-code-fill.svg"
+2022-06-25 18:47:36 INFO | admin 127.0.0.1 | object Attachment with instance id 105 create attachment "panda_1.png"
+2022-06-25 18:47:36 INFO | admin 127.0.0.1 | object Issue with instance id 120 attachment "panda_1.png" upload to HSW-76
+2022-06-25 18:47:42 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 21 create relation "HSW-76-HSW-68"
+2022-06-25 18:47:42 INFO | admin 127.0.0.1 | object Issue with instance id 120 relation "HSW-76-HSW-68" add to HSW-76
+2022-06-25 19:20:40 INFO | admin 127.0.0.1 | object Attachment with instance id 106 create attachment "file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fi.svg"
+2022-06-25 19:20:40 INFO | admin 127.0.0.1 | object Issue with instance id 121 attachment "file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fi.svg" upload to HSW-77
+2022-06-25 19:25:38 INFO | admin 127.0.0.1 | object Issue with instance id 31 field update "description" to ""
+2022-06-25 19:27:10 INFO | admin 127.0.0.1 | object Attachment with instance id 107 create attachment "I8J1N1_Dominik_Mucha_ORR_CW2.docx"
+2022-06-25 19:27:10 INFO | admin 127.0.0.1 | object Issue with instance id 31 attachment "I8J1N1_Dominik_Mucha_ORR_CW2.docx" upload to HSW-12
+2022-06-25 19:27:27 INFO | admin 127.0.0.1 | object Attachment with instance id 108 create attachment "01_HIVE.pdf"
+2022-06-25 19:27:27 INFO | admin 127.0.0.1 | object Issue with instance id 31 attachment "01_HIVE.pdf" upload to HSW-12
+2022-06-25 19:34:18 INFO | admin 127.0.0.1 | object Issue with instance id 117 field update "suspended" to "False"
+2022-06-25 19:34:38 INFO | admin 127.0.0.1 | object Issue with instance id 117 delete attachment "file-earmark-play-fill.svg"
+2022-06-25 19:34:38 INFO | admin 127.0.0.1 | object Attachment with instance id 93 delete "file-earmark-play-fill.svg"
+2022-06-25 19:37:48 INFO | admin 127.0.0.1 | object Issue with instance id 117 field update "assignee" to "dev-hsw"
+2022-06-25 19:37:52 INFO | admin 127.0.0.1 | object Issue with instance id 117 field update "assignee" to "None"
+2022-06-25 19:38:45 INFO | admin 127.0.0.1 | object Issue with instance id 117 field update "assignee" to "oper-hsw"
+2022-06-25 19:39:22 INFO | admin 127.0.0.1 | object Issue with instance id 117 field update "status" to "Resolved"
+2022-06-25 19:39:24 INFO | admin 127.0.0.1 | object Issue with instance id 117 field update "status" to "Closed"
+2022-06-25 19:39:34 INFO | admin 127.0.0.1 | object Issue with instance id 117 field update "assignee" to "operator-tst"
+2022-06-25 19:39:37 INFO | admin 127.0.0.1 | object Issue with instance id 117 field update "status" to "New"
+2022-06-25 19:39:39 INFO | admin 127.0.0.1 | object Issue with instance id 117 field update "status" to "On 1LS"
+2022-06-25 19:39:41 INFO | admin 127.0.0.1 | object Issue with instance id 117 field update "status" to "On 2LS"
+2022-06-25 19:39:42 INFO | admin 127.0.0.1 | object Issue with instance id 117 field update "status" to "On 1LS"
+2022-06-25 19:39:43 INFO | admin 127.0.0.1 | object Issue with instance id 117 field update "status" to "Resolved"
+2022-06-25 19:39:44 INFO | admin 127.0.0.1 | object Issue with instance id 117 field update "status" to "Closed"
+2022-06-25 19:42:21 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 22 create relation "HSW-73-HSW-45"
+2022-06-25 19:42:21 INFO | admin 127.0.0.1 | object Issue with instance id 117 relation "HSW-73-HSW-45" add to HSW-73
+2022-06-25 19:43:22 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 23 create relation "HSW-73-HSW-51"
+2022-06-25 19:43:22 INFO | admin 127.0.0.1 | object Issue with instance id 117 relation "HSW-73-HSW-51" add to HSW-73
+2022-06-25 20:34:08 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 24 create relation "HSW-45-HSW-77"
+2022-06-25 20:34:08 INFO | admin 127.0.0.1 | object Issue with instance id 84 relation "HSW-45-HSW-77" add to HSW-45
+2022-06-25 20:34:20 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 25 create relation "HSW-45-HSW-12"
+2022-06-25 20:34:20 INFO | admin 127.0.0.1 | object Issue with instance id 84 relation "HSW-45-HSW-12" add to HSW-45
+2022-06-25 20:34:41 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 26 create relation "HSW-45-HSW-52"
+2022-06-25 20:34:41 INFO | admin 127.0.0.1 | object Issue with instance id 84 relation "HSW-45-HSW-52" add to HSW-45
+2022-06-25 20:36:10 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 27 create relation "HSW-75-HSW-77"
+2022-06-25 20:36:10 INFO | admin 127.0.0.1 | object Issue with instance id 119 relation "HSW-75-HSW-77" add to HSW-75
+2022-06-25 20:36:48 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 28 create relation "HSW-75-HSW-75"
+2022-06-25 20:36:48 INFO | admin 127.0.0.1 | object Issue with instance id 119 relation "HSW-75-HSW-75" add to HSW-75
+2022-06-25 20:37:10 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 29 create relation "HSW-75-HSW-76"
+2022-06-25 20:37:10 INFO | admin 127.0.0.1 | object Issue with instance id 119 relation "HSW-75-HSW-76" add to HSW-75
+2022-06-25 20:37:38 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 30 create relation "HSW-75-HSW-68"
+2022-06-25 20:37:38 INFO | admin 127.0.0.1 | object Issue with instance id 119 relation "HSW-75-HSW-68" add to HSW-75
+2022-06-25 20:38:01 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 31 create relation "HSW-75-HSW-70"
+2022-06-25 20:38:01 INFO | admin 127.0.0.1 | object Issue with instance id 119 relation "HSW-75-HSW-70" add to HSW-75
+2022-06-25 20:47:45 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 32 create relation "HSW-45-HSW-76"
+2022-06-25 20:47:45 INFO | admin 127.0.0.1 | object Issue with instance id 84 relation "HSW-45-HSW-76" add to HSW-45
+2022-06-25 20:48:17 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 33 create relation "HSW-45-HSW-74"
+2022-06-25 20:48:17 INFO | admin 127.0.0.1 | object Issue with instance id 84 relation "HSW-45-HSW-74" add to HSW-45
+2022-06-25 20:50:52 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 34 create relation "HSW-45-HSW-75"
+2022-06-25 20:50:52 INFO | admin 127.0.0.1 | object Issue with instance id 84 relation "HSW-45-HSW-75" add to HSW-45
+2022-06-25 20:51:08 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 35 create relation "HSW-45-HSW-50"
+2022-06-25 20:51:08 INFO | admin 127.0.0.1 | object Issue with instance id 84 relation "HSW-45-HSW-50" add to HSW-45
+2022-06-25 20:52:35 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 36 create relation "HSW-45-HSW-70"
+2022-06-25 20:52:35 INFO | admin 127.0.0.1 | object Issue with instance id 84 relation "HSW-45-HSW-70" add to HSW-45
+2022-06-25 20:53:11 INFO | admin 127.0.0.1 | object Issue with instance id 84 field update "suspended" to "False"
+2022-06-25 20:53:18 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 37 create relation "HSW-45-HSW-68"
+2022-06-25 20:53:18 INFO | admin 127.0.0.1 | object Issue with instance id 84 relation "HSW-45-HSW-68" add to HSW-45
+2022-06-25 20:54:45 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 38 create relation "HSW-45-HSW-67"
+2022-06-25 20:54:45 INFO | admin 127.0.0.1 | object Issue with instance id 84 relation "HSW-45-HSW-67" add to HSW-45
+2022-06-25 20:55:07 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 39 create relation "HSW-45-HSW-65"
+2022-06-25 20:55:07 INFO | admin 127.0.0.1 | object Issue with instance id 84 relation "HSW-45-HSW-65" add to HSW-45
+2022-06-25 20:55:07 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 40 create relation "HSW-45-HSW-63"
+2022-06-25 20:55:07 INFO | admin 127.0.0.1 | object Issue with instance id 84 relation "HSW-45-HSW-63" add to HSW-45
+2022-06-25 20:55:18 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 41 create relation "HSW-45-HSW-42"
+2022-06-25 20:55:18 INFO | admin 127.0.0.1 | object Issue with instance id 84 relation "HSW-45-HSW-42" add to HSW-45
+2022-06-25 20:55:30 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 42 create relation "HSW-45-HSW-64"
+2022-06-25 20:55:30 INFO | admin 127.0.0.1 | object Issue with instance id 84 relation "HSW-45-HSW-64" add to HSW-45
+2022-06-25 20:55:40 INFO | admin 127.0.0.1 | object Issue with instance id 84 field update "suspended" to "True"
+2022-06-25 20:55:44 INFO | admin 127.0.0.1 | object Issue with instance id 84 field update "suspended" to "False"
+2022-06-25 20:55:48 INFO | admin 127.0.0.1 | object Issue with instance id 84 field update "suspended" to "True"
+2022-06-25 20:55:52 INFO | admin 127.0.0.1 | object Issue with instance id 84 field update "suspended" to "False"
+2022-06-25 20:56:01 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 43 create relation "HSW-45-HSW-61"
+2022-06-25 20:56:01 INFO | admin 127.0.0.1 | object Issue with instance id 84 relation "HSW-45-HSW-61" add to HSW-45
+2022-06-25 20:56:47 INFO | admin 127.0.0.1 | object Issue with instance id 84 field update "title" to "many relations"
+2022-06-25 20:56:47 INFO | admin 127.0.0.1 | object Issue with instance id 84 field update "priority" to "Low"
+2022-06-25 20:56:47 INFO | admin 127.0.0.1 | object Issue with instance id 84 field update "labels" to "['4']"
+2022-06-25 20:56:57 INFO | admin 127.0.0.1 | object Issue with instance id 100 field update "status" to "On 1LS"
+2022-06-25 20:59:57 INFO | admin 127.0.0.1 | object Attachment with instance id 109 create attachment "panda_1.png"
+2022-06-25 20:59:57 INFO | admin 127.0.0.1 | object Issue with instance id 84 attachment "panda_1.png" upload to HSW-45
+2022-06-25 20:59:57 INFO | admin 127.0.0.1 | object Attachment with instance id 110 create attachment "x.svg"
+2022-06-25 20:59:57 INFO | admin 127.0.0.1 | object Issue with instance id 84 attachment "x.svg" upload to HSW-45
+2022-06-25 20:59:57 INFO | admin 127.0.0.1 | object Attachment with instance id 111 create attachment "file-earmark-code-fill.svg"
+2022-06-25 20:59:57 INFO | admin 127.0.0.1 | object Issue with instance id 84 attachment "file-earmark-code-fill.svg" upload to HSW-45
+2022-06-25 21:00:15 INFO | admin 127.0.0.1 | object Issue with instance id 84 delete attachment "panda_1.png"
+2022-06-25 21:00:15 INFO | admin 127.0.0.1 | object Attachment with instance id 109 delete "panda_1.png"
+2022-06-25 21:00:17 INFO | admin 127.0.0.1 | object Issue with instance id 84 delete attachment "x.svg"
+2022-06-25 21:00:17 INFO | admin 127.0.0.1 | object Attachment with instance id 110 delete "x.svg"
+2022-06-25 21:00:18 INFO | admin 127.0.0.1 | object Issue with instance id 84 delete attachment "file-earmark-code-fill.svg"
+2022-06-25 21:00:18 INFO | admin 127.0.0.1 | object Attachment with instance id 111 delete "file-earmark-code-fill.svg"
+2022-06-25 21:00:25 INFO | admin 127.0.0.1 | object Attachment with instance id 112 create attachment "file-earmark-play-fill.svg"
+2022-06-25 21:00:25 INFO | admin 127.0.0.1 | object Issue with instance id 84 attachment "file-earmark-play-fill.svg" upload to HSW-45
+2022-06-25 21:00:25 INFO | admin 127.0.0.1 | object Attachment with instance id 113 create attachment "file-earmark-music-fill.svg"
+2022-06-25 21:00:25 INFO | admin 127.0.0.1 | object Issue with instance id 84 attachment "file-earmark-music-fill.svg" upload to HSW-45
+2022-06-25 21:00:25 INFO | admin 127.0.0.1 | object Attachment with instance id 114 create attachment "panda_1.png"
+2022-06-25 21:00:25 INFO | admin 127.0.0.1 | object Issue with instance id 84 attachment "panda_1.png" upload to HSW-45
+2022-06-25 21:00:25 INFO | admin 127.0.0.1 | object Attachment with instance id 115 create attachment "8-07-1_h4KYZDo_1.zip"
+2022-06-25 21:00:25 INFO | admin 127.0.0.1 | object Issue with instance id 84 attachment "8-07-1_h4KYZDo_1.zip" upload to HSW-45
+2022-06-25 21:00:41 INFO | admin 127.0.0.1 | object Issue with instance id 84 delete attachment "8-07-1_h4KYZDo_1.zip"
+2022-06-25 21:00:41 INFO | admin 127.0.0.1 | object Attachment with instance id 115 delete "8-07-1_h4KYZDo_1.zip"
+2022-06-25 21:00:45 INFO | admin 127.0.0.1 | object Issue with instance id 84 delete attachment "file-earmark-music-fill.svg"
+2022-06-25 21:00:45 INFO | admin 127.0.0.1 | object Attachment with instance id 113 delete "file-earmark-music-fill.svg"
+2022-06-25 21:00:49 INFO | admin 127.0.0.1 | object Issue with instance id 84 delete attachment "panda_1.png"
+2022-06-25 21:00:49 INFO | admin 127.0.0.1 | object Attachment with instance id 114 delete "panda_1.png"
+2022-06-25 21:00:56 INFO | admin 127.0.0.1 | object Attachment with instance id 116 create attachment "file-earmark-code-fill.svg"
+2022-06-25 21:00:56 INFO | admin 127.0.0.1 | object Issue with instance id 84 attachment "file-earmark-code-fill.svg" upload to HSW-45
+2022-06-25 21:00:56 INFO | admin 127.0.0.1 | object Attachment with instance id 117 create attachment "sheet_Fz8Fal9_2.xlsx"
+2022-06-25 21:00:56 INFO | admin 127.0.0.1 | object Issue with instance id 84 attachment "sheet_Fz8Fal9_2.xlsx" upload to HSW-45
+2022-06-25 21:00:56 INFO | admin 127.0.0.1 | object Attachment with instance id 118 create attachment "file-earmark-play-fill_VfHgQsB.svg"
+2022-06-25 21:00:56 INFO | admin 127.0.0.1 | object Issue with instance id 84 attachment "file-earmark-play-fill_VfHgQsB.svg" upload to HSW-45
+2022-06-25 21:02:09 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 44 create relation "HSW-45-HSW-62"
+2022-06-25 21:02:09 INFO | admin 127.0.0.1 | object Issue with instance id 84 relation "HSW-45-HSW-62" add to HSW-45
+2022-06-25 21:02:09 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 45 create relation "HSW-45-HSW-60"
+2022-06-25 21:02:09 INFO | admin 127.0.0.1 | object Issue with instance id 84 relation "HSW-45-HSW-60" add to HSW-45
+2022-06-25 21:02:37 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 46 create relation "HSW-45-HSW-57"
+2022-06-25 21:02:37 INFO | admin 127.0.0.1 | object Issue with instance id 84 relation "HSW-45-HSW-57" add to HSW-45
+2022-06-25 21:02:37 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 47 create relation "HSW-45-HSW-15"
+2022-06-25 21:02:37 INFO | admin 127.0.0.1 | object Issue with instance id 84 relation "HSW-45-HSW-15" add to HSW-45
+2022-06-25 21:03:58 INFO | admin 127.0.0.1 | object Issue with instance id 84 delete attachment "file-earmark-code-fill.svg"
+2022-06-25 21:03:58 INFO | admin 127.0.0.1 | object Attachment with instance id 116 delete "file-earmark-code-fill.svg"
+2022-06-25 21:04:02 INFO | admin 127.0.0.1 | object Issue with instance id 84 delete attachment "file-earmark-play-fill.svg"
+2022-06-25 21:04:02 INFO | admin 127.0.0.1 | object Attachment with instance id 112 delete "file-earmark-play-fill.svg"
+2022-06-25 21:06:08 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 48 create relation "HSW-45-HSW-66"
+2022-06-25 21:06:08 INFO | admin 127.0.0.1 | object Issue with instance id 84 relation "HSW-45-HSW-66" add to HSW-45
+2022-06-25 21:09:08 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 49 create relation "HSW-45-HSW-58"
+2022-06-25 21:09:08 INFO | admin 127.0.0.1 | object Issue with instance id 84 relation "HSW-45-HSW-58" add to HSW-45
+2022-06-25 21:10:52 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 50 create relation "HSW-75-HSW-12"
+2022-06-25 21:10:52 INFO | admin 127.0.0.1 | object Issue with instance id 119 relation "HSW-75-HSW-12" add to HSW-75
+2022-06-25 21:14:13 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 51 create relation "HSW-45-HSW-45"
+2022-06-25 21:14:13 INFO | admin 127.0.0.1 | object Issue with instance id 84 relation "HSW-45-HSW-45" add to HSW-45
+2022-06-25 21:16:27 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 52 create relation "HSW-61-HSW-61"
+2022-06-25 21:16:27 INFO | admin 127.0.0.1 | object Issue with instance id 100 relation "HSW-61-HSW-61" add to HSW-61
+2022-06-25 21:38:28 INFO | dev-hsw 127.0.0.1 | object TenantSession with instance id 301 field update "active" to "True"
+2022-06-25 21:38:43 INFO | dev-hsw 127.0.0.1 | object Attachment with instance id 119 create attachment "x_koMvzTd.svg"
+2022-06-25 21:38:43 INFO | dev-hsw 127.0.0.1 | object Issue with instance id 117 attachment "x_koMvzTd.svg" upload to HSW-73
+2022-06-25 21:50:45 INFO | dev-hsw 127.0.0.1 | object Issue with instance id 117 delete attachment "x_koMvzTd.svg"
+2022-06-25 21:50:45 INFO | dev-hsw 127.0.0.1 | object Attachment with instance id 119 delete "x_koMvzTd.svg"
+2022-06-25 21:50:53 INFO | dev-hsw 127.0.0.1 | object Attachment with instance id 120 create attachment "x_eicESlJ.svg"
+2022-06-25 21:50:53 INFO | dev-hsw 127.0.0.1 | object Issue with instance id 117 attachment "x_eicESlJ.svg" upload to HSW-73
+2022-06-25 21:51:35 INFO | dev-hsw 127.0.0.1 | object Issue with instance id 117 delete attachment "x_eicESlJ.svg"
+2022-06-25 21:51:35 INFO | dev-hsw 127.0.0.1 | object Attachment with instance id 120 delete "x_eicESlJ.svg"
+2022-06-25 21:51:42 INFO | dev-hsw 127.0.0.1 | object Attachment with instance id 121 create attachment "file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fi_hE17mFm.svg"
+2022-06-25 21:51:42 INFO | dev-hsw 127.0.0.1 | object Issue with instance id 117 attachment "file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fi_hE17mFm.svg" upload to HSW-73
+2022-06-25 21:53:30 INFO | dev-hsw 127.0.0.1 | object IssueAssociation with instance id 53 create relation "HSW-73-HSW-76"
+2022-06-25 21:53:30 INFO | dev-hsw 127.0.0.1 | object Issue with instance id 117 relation "HSW-73-HSW-76" add to HSW-73
+2022-06-25 21:53:53 INFO | dev-hsw 127.0.0.1 | object IssueAssociation with instance id 54 create relation "HSW-73-HSW-68"
+2022-06-25 21:53:53 INFO | dev-hsw 127.0.0.1 | object Issue with instance id 117 relation "HSW-73-HSW-68" add to HSW-73
+2022-06-25 21:54:34 INFO | admin 127.0.0.1 | object TenantSession with instance id 303 field update "active" to "True"
+2022-06-25 21:54:51 INFO | admin 127.0.0.1 | object Issue with instance id 84 delete attachment "file-earmark-play-fill_VfHgQsB.svg"
+2022-06-25 21:54:51 INFO | admin 127.0.0.1 | object Attachment with instance id 118 delete "file-earmark-play-fill_VfHgQsB.svg"
+2022-06-25 21:55:29 INFO | admin 127.0.0.1 | object Issue with instance id 117 delete attachment "file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fi_hE17mFm.svg"
+2022-06-25 21:55:29 INFO | admin 127.0.0.1 | object Attachment with instance id 121 delete "file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fi_hE17mFm.svg"
+2022-06-25 21:56:32 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 55 create relation "HSW-73-HSW-74"
+2022-06-25 21:56:32 INFO | admin 127.0.0.1 | object Issue with instance id 117 relation "HSW-73-HSW-74" add to HSW-73
+2022-06-25 21:57:37 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 56 create relation "HSW-73-HSW-70"
+2022-06-25 21:57:37 INFO | admin 127.0.0.1 | object Issue with instance id 117 relation "HSW-73-HSW-70" add to HSW-73
+2022-06-25 22:03:03 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 57 create relation "HSW-73-HSW-67"
+2022-06-25 22:03:03 INFO | admin 127.0.0.1 | object Issue with instance id 117 relation "HSW-73-HSW-67" add to HSW-73
+2022-06-25 22:03:21 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 58 create relation "HSW-73-HSW-75"
+2022-06-25 22:03:21 INFO | admin 127.0.0.1 | object Issue with instance id 117 relation "HSW-73-HSW-75" add to HSW-73
+2022-06-25 22:31:58 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 59 create relation "HSW-77-HSW-45"
+2022-06-25 22:31:58 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 60 create relation "HSW-77-HSW-12"
+2022-06-25 22:31:58 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 61 create relation "HSW-77-HSW-76"
+2022-06-25 22:31:58 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 62 create relation "HSW-77-HSW-74"
+2022-06-25 22:32:35 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 63 create relation "HSW-68-HSW-45"
+2022-06-25 22:32:35 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 64 create relation "HSW-68-HSW-12"
+2022-06-25 22:32:35 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 65 create relation "HSW-68-HSW-77"
+2022-06-25 22:34:53 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 66 create relation "HSW-68-HSW-58"
+2022-06-25 22:36:37 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 67 create relation "HSW-58-HSW-36"
+2022-06-25 22:37:33 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 68 create relation "HSW-36-HSW-12"
+2022-06-25 22:39:07 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 69 create relation "HSW-12-HSW-9"
+2022-06-25 22:40:10 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 70 create relation "HSW-12-HSW-77"
+2022-06-25 22:41:43 INFO | admin 127.0.0.1 | object IssueAssociation with instance id 71 create relation "HSW-58-HSW-12"
+2022-06-25 22:42:00 INFO | admin 127.0.0.1 | object Attachment with instance id 122 create attachment "20211202_235429.mp4"
+2022-06-25 22:42:00 INFO | admin 127.0.0.1 | object Issue with instance id 97 attachment "20211202_235429.mp4" upload to HSW-58
+2022-06-25 23:07:34 INFO | admin 127.0.0.1 | object Issue with instance id 122 "HSW-78" create
+2022-06-26 00:08:11 INFO | admin 127.0.0.1 | object TenantSession with instance id 1 field update "active" to "True"
+2022-06-26 00:08:28 INFO | admin 127.0.0.1 | object Attachment with instance id 1 create attachment "x_koMvzTd.svg"
+2022-06-26 00:08:28 INFO | admin 127.0.0.1 | object Ticket with instance id 1 attachment "x_koMvzTd.svg" upload to HSW-79
+2022-06-26 00:15:50 INFO | admin 127.0.0.1 | object Attachment with instance id 2 create attachment "panda_1.png"
+2022-06-26 00:15:50 INFO | admin 127.0.0.1 | object Ticket with instance id 2 attachment "panda_1.png" upload to HSW-2
+2022-06-26 00:15:50 INFO | admin 127.0.0.1 | object Attachment with instance id 2 "panda_1.png" create
+2022-06-26 00:15:55 INFO | admin 127.0.0.1 | object TicketAssociation with instance id 1 create relation "HSW-2-HSW-1"
+2022-06-26 00:17:44 INFO | admin 127.0.0.1 | object Attachment with instance id 3 create attachment "sheet_Fz8Fal9_2.xlsx"
+2022-06-26 00:17:44 INFO | admin 127.0.0.1 | object Ticket with instance id 3 attachment "sheet_Fz8Fal9_2.xlsx" upload to HSW-3
+2022-06-26 00:18:59 INFO | admin 127.0.0.1 | object Attachment with instance id 4 create attachment "x_koMvzTd.svg"
+2022-06-26 00:18:59 INFO | admin 127.0.0.1 | object Ticket with instance id 6 attachment "x_koMvzTd.svg" upload to HSW-4
+2022-06-26 00:20:34 INFO | admin 127.0.0.1 | object Attachment with instance id 5 create attachment "x_koMvzTd.svg"
+2022-06-26 00:20:34 INFO | admin 127.0.0.1 | object Ticket with instance id 7 attachment "x_koMvzTd.svg" upload to HSW-5
+2022-06-26 00:20:34 INFO | admin 127.0.0.1 | object Attachment with instance id 6 create attachment "panda_1.png"
+2022-06-26 00:20:34 INFO | admin 127.0.0.1 | object Ticket with instance id 7 attachment "panda_1.png" upload to HSW-5
+2022-06-26 00:20:34 INFO | admin 127.0.0.1 | object Attachment with instance id 7 create attachment "x.svg"
+2022-06-26 00:20:34 INFO | admin 127.0.0.1 | object Ticket with instance id 7 attachment "x.svg" upload to HSW-5
+2022-06-26 00:20:34 INFO | admin 127.0.0.1 | object Attachment with instance id 8 create attachment "file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fi.svg"
+2022-06-26 00:20:34 INFO | admin 127.0.0.1 | object Ticket with instance id 7 attachment "file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fill_ytD2xS1file-earmark-code-fi.svg" upload to HSW-5
+2022-06-26 00:20:34 INFO | admin 127.0.0.1 | object Ticket with instance id 7 "HSW-5" create
+2022-06-26 00:20:52 INFO | admin 127.0.0.1 | object Attachment with instance id 9 create attachment "panda_1.png"
+2022-06-26 00:20:52 INFO | admin 127.0.0.1 | object Ticket with instance id 8 attachment "panda_1.png" upload to HSW-6
+2022-06-26 00:20:52 INFO | admin 127.0.0.1 | object Attachment with instance id 10 create attachment "Generator_umów_Copy.xlsx"
+2022-06-26 00:20:52 INFO | admin 127.0.0.1 | object Ticket with instance id 8 attachment "Generator_umów_Copy.xlsx" upload to HSW-6
+2022-06-26 00:20:52 INFO | admin 127.0.0.1 | object Attachment with instance id 11 create attachment "umowa_b2b_WZORZEC_1.docx"
+2022-06-26 00:20:52 INFO | admin 127.0.0.1 | object Ticket with instance id 8 attachment "umowa_b2b_WZORZEC_1.docx" upload to HSW-6
+2022-06-26 00:20:52 INFO | admin 127.0.0.1 | object Attachment with instance id 12 create attachment "umowa_b2b_WZORZEC.docx"
+2022-06-26 00:20:52 INFO | admin 127.0.0.1 | object Ticket with instance id 8 attachment "umowa_b2b_WZORZEC.docx" upload to HSW-6
+2022-06-26 00:20:52 INFO | admin 127.0.0.1 | object Ticket with instance id 8 "HSW-6" create
+2022-06-26 00:21:01 INFO | admin 127.0.0.1 | object TicketAssociation with instance id 2 create relation "HSW-6-HSW-3"
+2022-06-26 00:21:17 INFO | admin 127.0.0.1 | object Ticket with instance id 8 field update "description" to "<p>description</p>"
+2022-06-26 00:21:17 INFO | admin 127.0.0.1 | object Ticket with instance id 8 field update "labels" to "['4', '5']"
+2022-06-26 01:13:37 INFO | admin 127.0.0.1 | object Ticket with instance id 8 field update "assignee" to "customer-tst"
+2022-06-26 01:39:21 INFO | admin 127.0.0.1 | object Comment with instance id 3 add comment "<p>siemka</p>"
+2022-06-26 02:03:46 INFO | admin 127.0.0.1 | Ticket 19 create
+2022-06-26 02:35:44 INFO | admin 127.0.0.1 | Ticket 19 edit 17 Status
+2022-06-26 02:36:53 INFO | admin 127.0.0.1 | Ticket 19 edit 23 Status
+2022-06-26 02:38:18 INFO | admin 127.0.0.1 Ticket 19 edit 23 Status
+2022-06-26 02:39:02 INFO | admin 127.0.0.1 Ticket 19 edit 17 Status
+2022-06-26 02:39:37 INFO | admin 127.0.0.1 Ticket 19 edit 20 Status
+2022-06-26 02:41:32 INFO | admin 127.0.0.1 Ticket 19 edit 15 Status
+2022-06-26 02:41:49 INFO | Ticket 19 edit 17 Status
+2022-06-26 02:42:04 INFO | Ticket 19 edit 23 Status
+2022-06-26 02:43:12 INFO | admin 127.0.0.1 NoneTicket 19 edit 17 Status
+2022-06-26 02:44:33 INFO | admin 127.0.0.1 Ticket 19 edit 21 Status
+2022-06-26 02:45:29 INFO | Ticket 19 edit 22 Status
+2022-06-26 02:46:26 INFO | admin 127.0.0.1 Ticket 19 edit 15 Status
+2022-06-26 02:46:40 INFO | admin 127.0.0.1 Ticket 19 add 15 Attachment
+2022-06-26 02:46:52 INFO | admin 127.0.0.1 Ticket 19 add 14 Ticket
+2022-06-26 02:48:11 INFO | admin 127.0.0.1 Ticket 19 edit 5 User user
+2022-06-26 02:48:42 INFO | admin 127.0.0.1 Ticket 19 delete 14 Ticket
+2022-06-26 02:48:50 INFO | admin 127.0.0.1 Ticket 19 delete 15 Attachment
+2022-06-26 02:49:52 INFO | admin 127.0.0.1 Ticket 19 edit User 6  assignee
+2022-06-26 02:50:02 INFO | admin 127.0.0.1 Ticket 19 edit User 7 assignee
+2022-06-26 02:50:55 INFO | admin 127.0.0.1 Ticket 19 edit suspended
+2022-06-26 02:50:56 INFO | admin 127.0.0.1 Ticket 19 edit suspended
+2022-06-26 02:51:29 INFO | admin 127.0.0.1 Ticket 19 edit unsuspended
+2022-06-26 02:51:29 INFO | admin 127.0.0.1 Ticket 19 edit suspended
+2022-06-26 02:54:36 INFO | admin 127.0.0.1 Ticket 19 edit title
+2022-06-26 02:57:41 INFO | admin 127.0.0.1 Ticket 19 edit comments
+2022-06-26 02:57:54 INFO | admin 127.0.0.1 Ticket 19 edit title
+2022-06-26 02:57:54 INFO | admin 127.0.0.1 Ticket 19 edit comments
+2022-06-26 02:58:02 INFO | admin 127.0.0.1 Ticket 19 edit comments
+2022-06-26 02:58:02 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 03:00:24 INFO | admin 127.0.0.1 Ticket 19 edit User 7 assignee
+2022-06-26 03:00:28 INFO | admin 127.0.0.1 Ticket 19 edit User 7 assignee
+2022-06-26 03:04:18 INFO | admin 127.0.0.1 Ticket 19 edit title
+2022-06-26 03:06:45 INFO | admin 127.0.0.1 Ticket 19 edit Status 19
+2022-06-26 03:06:47 INFO | admin 127.0.0.1 Ticket 19 edit Status 15
+2022-06-26 03:06:53 INFO | admin 127.0.0.1 Ticket 19 edit suspended
+2022-06-26 03:06:57 INFO | admin 127.0.0.1 Ticket 19 edit suspended
+2022-06-26 03:07:02 INFO | admin 127.0.0.1 Ticket 19 edit priority
+2022-06-26 03:07:06 INFO | admin 127.0.0.1 Ticket 19 edit priority
+2022-06-26 03:07:11 INFO | admin 127.0.0.1 Ticket 19 edit labels
+2022-06-26 03:07:25 INFO | admin 127.0.0.1 Ticket 19 edit title
+2022-06-26 03:07:25 INFO | admin 127.0.0.1 Ticket 19 edit description
+2022-06-26 03:07:36 INFO | admin 127.0.0.1 Ticket 19 add Attachment 16
+2022-06-26 03:07:36 INFO | admin 127.0.0.1 Ticket 19 add Attachment 17
+2022-06-26 03:08:04 INFO | admin 127.0.0.1 Ticket 19 add Ticket 14
+2022-06-26 03:08:30 INFO | admin 127.0.0.1 Ticket 19 edit User 5 assignee
+2022-06-26 03:13:19 INFO | admin 127.0.0.1 None 
+2022-06-26 03:13:27 INFO | admin 127.0.0.1 Ticket 20 edit assignee
+2022-06-26 03:13:36 INFO | admin 127.0.0.1 Ticket 20 edit Status 19
+2022-06-26 03:14:07 INFO | admin 127.0.0.1 Ticket 20 edit assignee
+2022-06-26 03:14:08 INFO | admin 127.0.0.1 Ticket 20 edit suspended
+2022-06-26 03:14:08 INFO | admin 127.0.0.1 Ticket 20 edit suspended
+2022-06-26 03:14:12 INFO | admin 127.0.0.1 Ticket 20 add Attachment 18
+2022-06-26 03:14:15 INFO | admin 127.0.0.1 Ticket 20 add Ticket 17
+2022-06-26 03:14:15 INFO | admin 127.0.0.1 Ticket 20 add Ticket 15
+2022-06-26 03:14:30 INFO | admin 127.0.0.1 Ticket 20 edit title
+2022-06-26 03:14:30 INFO | admin 127.0.0.1 Ticket 20 edit description
+2022-06-26 03:14:30 INFO | admin 127.0.0.1 Ticket 20 edit priority
+2022-06-26 03:14:30 INFO | admin 127.0.0.1 Ticket 20 edit labels
+2022-06-26 03:19:52 INFO | admin 127.0.0.1 None 
+2022-06-26 03:31:22 INFO | admin 127.0.0.1 Ticket 19 add Comment 6
+2022-06-26 03:34:34 INFO | admin 127.0.0.1 Ticket 19 add Comment 7
+2022-06-26 03:56:18 INFO | admin 127.0.0.1 Ticket 19 add Comment 8
+2022-06-26 03:56:50 INFO | admin 127.0.0.1 Ticket 12 add Comment 9
+2022-06-26 03:59:28 INFO | admin 127.0.0.1 Ticket 12 add Comment 10
+2022-06-26 04:15:45 INFO | admin 127.0.0.1 Ticket 14 add Comment 11
+2022-06-26 04:21:36 INFO | admin 127.0.0.1 Ticket 19 add Comment 12
+2022-06-26 04:25:57 INFO | admin 127.0.0.1 Ticket 19 add Comment 13
+2022-06-26 04:26:19 INFO | admin 127.0.0.1 Ticket 19 add Comment 14
+2022-06-26 04:27:09 INFO | admin 127.0.0.1 Ticket 19 add Attachment 19
+2022-06-26 04:27:09 INFO | admin 127.0.0.1 Ticket 19 add Attachment 20
+2022-06-26 04:27:09 INFO | admin 127.0.0.1 Ticket 19 add Attachment 21
+2022-06-26 04:27:09 INFO | admin 127.0.0.1 Ticket 19 add Attachment 22
+2022-06-26 04:39:58 INFO | admin 127.0.0.1 Ticket 19 delete Comment 6
+2022-06-26 04:40:03 INFO | admin 127.0.0.1 Ticket 19 delete Comment 8
+2022-06-26 04:40:06 INFO | admin 127.0.0.1 Ticket 19 delete Comment 7

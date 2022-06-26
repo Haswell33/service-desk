@@ -126,7 +126,7 @@
           {% endif %}
             <td>{{ ticket.type.icon_img }}</td>
             <td>
-              <a class="ticket_link" href="{% url 'view_ticket' ticket.slug %}">
+              <a class="default-hover" href="{% url 'view_ticket' ticket.slug %}" style="padding: 4px;">
                 {{ ticket.key }}
               </a>
             </td>

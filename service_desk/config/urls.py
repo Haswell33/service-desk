@@ -70,38 +70,46 @@ urlpatterns = [
          views.TicketDetailView.as_view(
              template_name='ticket/ticket-view.html'),
          name='view_ticket'),
-    path('ticket/update/<slug:slug>',
+    path('ticket/edit/<slug:slug>',
          views.TicketDetailUpdate.as_view(
              template_name='ticket/ticket-view.html'),
-         name='update_ticket'),
-    path('ticket/update/status/<slug:slug>',
+         name='edit_ticket'),
+    path('ticket/edit/status/<slug:slug>',
          views.TicketDetailUpdateStatus.as_view(
              template_name='ticket/ticket-view.html'),
-         name='update_ticket_status'),
-    path('ticket/update/assignee/<slug:slug>',
+         name='edit_ticket_status'),
+    path('ticket/edit/assignee/<slug:slug>',
          views.TicketDetailUpdateAssignee.as_view(
              template_name='ticket/ticket-view.html'),
-         name='update_ticket_assignee'),
-    path('ticket/update/suspended/<slug:slug>',
+         name='edit_ticket_assignee'),
+    path('ticket/edit/suspended/<slug:slug>',
          views.TicketDetailUpdateSuspend.as_view(
              template_name='ticket/ticket-view.html'),
-         name='update_ticket_suspend'),
-    path('ticket/update/attachment/add/<slug:slug>/',
+         name='edit_ticket_suspend'),
+    path('ticket/edit/attachment/add/<slug:slug>/',
          views.TicketDetailAddAttachment.as_view(
              template_name='ticket/ticket-view.html'),
-         name='update_ticket_attachment_add'),
-    path('ticket/update/attachment/delete/<slug:slug>/',
+         name='edit_ticket_attachment_add'),
+    path('ticket/edit/attachment/delete/<slug:slug>/',
          views.TicketDetailDeleteAttachment.as_view(
             template_name='ticket/ticket-view.html'),
-         name='update_ticket_attachment_delete'),
-    path('ticket/update/relation/add/<slug:slug>/',
+         name='edit_ticket_attachment_delete'),
+    path('ticket/edit/relation/add/<slug:slug>/',
          views.TicketDetailAddRelation.as_view(
              template_name='ticket/ticket-view.html'),
-         name='update_ticket_relation_add'),
-    path('ticket/update/relation/delete/<slug:slug>/',
+         name='edit_ticket_relation_add'),
+    path('ticket/edit/relation/delete/<slug:slug>/',
          views.TicketDetailDeleteRelation.as_view(
              template_name='ticket/ticket-view.html'),
-         name='update_ticket_relation_delete'),
+         name='edit_ticket_relation_delete'),
+    path('ticket/edit/comment/add/<slug:slug>/',
+         views.TicketDetailAddComment.as_view(
+             template_name='ticket/ticket-view.html'),
+         name='edit_ticket_comment_add'),
+    path('ticket/edit/comment/delete/<slug:slug>/',
+         views.TicketDetailDeleteComment.as_view(
+             template_name='ticket/ticket-view.html'),
+         name='edit_ticket_comment_delete'),
     path('ticket/filter/',
          views.TicketFilterListView.as_view(
              template_name='ticket/ticket-filter.html'),

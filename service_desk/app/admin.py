@@ -3,7 +3,7 @@ from django.conf import settings
 from django.contrib.admin import AdminSite
 from django.contrib.auth.models import Group, User
 from django.contrib.auth.admin import GroupAdmin, UserAdmin
-from .models import Issue, Tenant, Comment, Priority, Status, Resolution, Transition, Attachment, AttachmentAssociation,TransitionAssociation, IssueType, Label, LabelAssociation, SLAScheme, Board, BoardColumn, BoardColumnAssociation
+from .models import Ticket, Tenant, Comment, Priority, Status, Resolution, Transition, Attachment, AttachmentAssociation,TransitionAssociation, Type, Label, LabelAssociation, SLAScheme, Board, BoardColumn, BoardColumnAssociation
 from django.utils.html import mark_safe, format_html
 from django import template
 
@@ -141,8 +141,8 @@ class ResolutionAdminModel(admin.ModelAdmin):
     search_fields = ['name']
 
 
-@admin.register(IssueType)
-class IssueTypeAdminModel(admin.ModelAdmin):
+@admin.register(Type)
+class TypeAdminModel(admin.ModelAdmin):
     list_display = ('name', 'icon_img', 'env_type')
     search_fields = ['name', 'env_type']
 
@@ -156,8 +156,8 @@ class LabelAssociationInline(admin.TabularInline):
     model = LabelAssociation
 
 
-@admin.register(Issue)
-class IssueAdminModel(admin.ModelAdmin):
+@admin.register(Ticket)
+class TicketAdminModel(admin.ModelAdmin):
     list_display = ('key', 'type_img', 'title', 'priority_img', 'status_color', 'resolution', 'reporter_img_text', 'assignee_img_text', 'escalated', 'suspended', 'tenant', 'get_labels', 'created_datetime', 'updated_datetime')
     search_fields = ['key', 'title', 'tenant__name', 'priority__name', 'status__name', 'resolution__name', 'type__name', 'reporter__username', 'assignee__username']
     list_filter = ('type', 'reporter', 'assignee', 'tenant', 'priority')
@@ -190,5 +190,3 @@ admin.site.register(Group, GroupAdminModel)
 admin.site.unregister(User)
 admin.site.register(User, UserAdminModel)
 AdminSite.index_title = 'Administration'
-
-admin.site.register(AttachmentAssociation)

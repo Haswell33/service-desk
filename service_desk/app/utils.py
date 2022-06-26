@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db.models import Q
-from .models import Tenant, TenantSession, IssueType, Issue, IssueAssociation, Status, Board, BoardColumn, BoardColumnAssociation, TransitionAssociation, AuditLog, Attachment, AttachmentAssociation
+from datetime import timezone
+from .models import Tenant, TenantSession, Type, Ticket, Comment, CommentAssociation, TicketAssociation, Status, Board, BoardColumn, BoardColumnAssociation, TransitionAssociation, AuditLog, Attachment, AttachmentAssociation
 from collections import namedtuple
 import json
 import logging
@@ -8,6 +9,10 @@ from django.core.files.base import ContentFile
 import collections
 
 logger = logging.getLogger(__name__)
+
+
+def get_utc_to_local(utc_dt):
+    return utc_dt.replace(tzinfo=timezone.utc).astimezone(tz=None)
 
 
 def get_client_ip_address(request):
@@ -18,6 +23,29 @@ def get_client_ip_address(request):
         return request.META.get('REMOTE_ADDR')
 
 
+def add_audit_log(request, obj, content_obj, operation, attr, attr_value):
+    audit_log = AuditLog(
+        user=request.user,
+        object=obj.id,
+        object_value=obj._meta.model.__name__,
+        operation=operation,
+        session=request.session.session_key,
+        ip_address=get_client_ip_address(request),
+        url=request.path)
+    if content_obj:
+        audit_log.content = content_obj._meta.model.__name__
+        audit_log.content_value = content_obj.id
+        audit_log.message = f'{obj._meta.model.__name__} {obj.id} {operation} {content_obj._meta.model.__name__} {content_obj.id}'
+    elif attr is not None:
+        audit_log.content = attr
+        audit_log.content_value = attr_value
+        audit_log.message = f'{obj._meta.model.__name__} {obj.id} {operation} {attr}'
+    else:
+        audit_log.message = f'{audit_log.message} '
+    audit_log.save()
+    return audit_log.message
+
+'''
 def add_audit_log(request, obj, message):
     return AuditLog.objects.create(
         user=request.user,
@@ -27,6 +55,7 @@ def add_audit_log(request, obj, message):
         ip_address=get_client_ip_address(request),
         url=request.path,
         message=f'object {obj._meta.model.__name__} with instance id {obj.id} {message}').message
+'''
 
 
 def get_initial_status(env_type):
@@ -107,7 +136,6 @@ def set_active_tenant(tenant, request):  # change tenant state to active based o
         tenant_session = TenantSession.objects.get(tenant=tenant, user=request.user)
         tenant_session.active = True
         tenant_session.save()
-        logger.info(add_audit_log(request, tenant_session, f'field update "active" to "{tenant_session.active}"'))
 
     tenant_cookie = get_tenant_cookie_name(request.user)
     if request.COOKIES.get(tenant_cookie) is None and not TenantSession.objects.filter(active=True, user=request.user):
@@ -134,10 +162,25 @@ def get_tenant_cookie_name(user):
 
 def get_active_tenant_tickets(user, only_open):
     active_tenant = get_active_tenant(user)
-    if only_open:  # returns tickets where resolution is null
-        return Issue.objects.filter(tenant=active_tenant.id, resolution__isnull=True)
+    if only_open:  # return tickets where resolution is null
+        return Ticket.objects.filter(tenant=active_tenant.id, resolution__isnull=True)
     else:
-        return Issue.objects.filter(tenant=active_tenant.id)
+        return Ticket.objects.filter(tenant=active_tenant.id)
+
+
+def get_allow_tickets_to_relate(user, instance):  # exclude already related tickets from select list
+    related_tickets = get_related_tickets(instance)
+    active_tickets = get_active_tenant_tickets(user, True).exclude(id=instance.id)
+    return active_tickets.exclude(id__in=related_tickets)
+
+
+def get_related_tickets(instance):
+    related_tickets = []
+    for ticket_id in TicketAssociation.objects.filter(src_ticket=instance).values_list('dest_ticket'):  # instance -> other ticket
+        related_tickets.append(int(ticket_id[0]))
+    for ticket_id in TicketAssociation.objects.filter(dest_ticket=instance).values_list('src_ticket'):  # instance <- other ticket
+        related_tickets.append(int(ticket_id[0]))
+    return related_tickets
 
 
 def filter_tickets(tickets, filters):
@@ -180,56 +223,18 @@ def create_ticket(form, request):
     new_ticket.status = get_initial_status(get_env_type(new_ticket.type.id))
     new_ticket.save()  # create ticket
     if files:
-        new_ticket = add_attachments(files, new_ticket, request)
-    logger.info(add_audit_log(request, new_ticket, f'"{new_ticket}" create'))
+        for file in files:
+            add_attachment(file, new_ticket, request)
+    logger.info(add_audit_log(request, new_ticket, None, 'create', None, None))
     tenant.count += 1
     tenant.save()
     form.save_m2m()
 
 
-def add_attachments(attachments, ticket, request):
-    for attachment in attachments:
-        new_attachment = Attachment(directory=ticket.slug)
-        new_attachment.file.save(attachment.name, ContentFile(attachment.read()))
-        logger.info(add_audit_log(request, new_attachment, f'create attachment "{new_attachment}"'))
-        ticket.attachments.add(new_attachment.id)
-        logger.info(add_audit_log(request, ticket, f'attachment "{new_attachment}" upload to {ticket}'))
-    return ticket
-
-
-def delete_attachment(ticket, attachment, request):
-    attachment_association = AttachmentAssociation.objects.filter(attachment=attachment.id, issue=ticket.id)
-    if attachment_association:
-        AttachmentAssociation.objects.filter(attachment=attachment.id, issue=ticket.id).delete()
-        logger.info(add_audit_log(request, ticket, f'delete attachment "{attachment}"'))
-        Attachment.objects.get(id=attachment.id).delete()
-        logger.info(add_audit_log(request, attachment, f'delete "{attachment}"'))
-        return True
-    else:
-        return False
-
-
-def add_relations(relations, ticket, request):
-    for relation in relations:
-        print(relation)
-        related_ticket = Issue.objects.get(id=relation)
-        print(related_ticket)
-        print(ticket.id)
-        print(ticket)
-        new_relation = IssueAssociation(src_issue=ticket, dest_issue=related_ticket)
-        new_relation.save()
-        # new_attachments.append(new_attachment.id)
-        logger.info(add_audit_log(request, new_relation, f'create relation "{new_relation}"'))
-        #related_ticket.add(new_relation.id)
-        #ticket.relations.add(new_relation.id)
-        logger.info(add_audit_log(request, ticket, f'relation "{new_relation}" add to {ticket}'))
-    return ticket
-
-
-def update_ticket(form, request):  # TO DO - change attr value
+def update_ticket(form, request):
     instance_updated = None
-    fields = form.initial
-    instance = form.instance  # ticket
+    fields = form.initial  # data provided in form
+    instance = form.instance  # ticket data
     for attr in fields:
         attr_value = fields[attr]
         form_attr_value = form.data.get(attr)
@@ -243,21 +248,94 @@ def update_ticket(form, request):  # TO DO - change attr value
     return instance_updated
 
 
-def update_ticket_field(instance, instance_updated, attr, form_attr_value, form, request):
-    if instance_updated is None:
-        instance_updated = instance
+def update_ticket_field(ticket, ticket_updated, attr, form_attr_value, form, request):
+    if ticket_updated is None:
+        ticket_updated = ticket
     try:  # if common field
-        setattr(instance, attr, form_attr_value)
+        setattr(ticket, attr, form_attr_value)
     except ValueError:  # if ForeignKey field
         form_attr_value = form.fields.get(attr)._queryset.get(id=form_attr_value)
-        setattr(instance, attr, form_attr_value)
+        setattr(ticket, attr, form_attr_value)
     except TypeError:  # if ManyToMany field
         form_attr_value = form.data.getlist(attr)
-        instance.getattr(attr).set(form_attr_value)
+        ticket.getattr(attr).set(form_attr_value)
     finally:
-        instance_updated.save()
-        logger.info(add_audit_log(request, instance_updated, f'field update "{attr}" to "{form_attr_value}"'))
-        return instance_updated
+        logger.info(add_audit_log(request, ticket_updated, None, 'edit', attr, form_attr_value))
+        ticket_updated.save()
+        return ticket_updated
+
+
+def add_attachment(attachment, ticket, request):
+    new_attachment = Attachment(directory=ticket.slug)
+    new_attachment.file.save(attachment.name, ContentFile(attachment.read()))
+    ticket.attachments.add(new_attachment.id)
+    logger.info(add_audit_log(request, ticket, new_attachment, 'add', None, None))
+    return new_attachment
+
+
+def delete_attachment(ticket, attachment, request):
+    attachment_association = AttachmentAssociation.objects.filter(attachment=attachment.id, ticket=ticket.id)
+    if attachment.user.id != request.user.id and not request.user.is_superuser:
+        return f'Attachment not uploaded by you cannot be deleted'
+    elif not attachment_association:
+        return f'Attachment not exists in <strong>{ticket.key}</strong>'
+    else:
+        attachment_association.delete()
+        Attachment.objects.get(id=attachment.id).delete()
+        logger.info(add_audit_log(request, ticket, attachment, 'delete', None, None))
+        return True
+
+
+def add_relation(ticket, ticket_to_relate, request):
+    tickets_allowed_to_relate = []
+    for allow_ticket_to_relate in get_allow_tickets_to_relate(request.user, ticket).values_list('id'):
+        tickets_allowed_to_relate.append(str(allow_ticket_to_relate[0]))
+    if str(ticket.id) == ticket_to_relate:
+        return f'Ticket cannot have relation with itself'
+    elif ticket_to_relate not in tickets_allowed_to_relate:
+        return f'Ticket <strong>{ticket}</strong> cannot be related with selected ticket'
+    try:
+        related_ticket = Ticket.objects.get(id=ticket_to_relate)
+    except Ticket.DoesNotExist:
+        return f'Ticket with id <strong>{ticket_to_relate}<strong> does not exist'
+    new_relation = TicketAssociation(src_ticket=ticket, dest_ticket=related_ticket)
+    new_relation.save()
+    logger.info(add_audit_log(request, ticket, related_ticket, 'add', None, None))
+    return related_ticket
+
+
+def delete_relation(ticket, related_ticket, request):
+    try:
+        relation = TicketAssociation.objects.get(src_ticket=ticket, dest_ticket=related_ticket)
+    except TicketAssociation.DoesNotExist:
+        relation = TicketAssociation.objects.get(src_ticket=related_ticket, dest_ticket=ticket)
+    if not relation:
+        return f'Relation not exist in <strong>{ticket.key}</strong>'
+    else:
+        logger.info(add_audit_log(request, ticket, related_ticket, 'delete', None, None))
+        relation.delete()
+        return True
+
+
+def add_comment(ticket, comment, request):
+    new_comment = Comment(content=comment)
+    new_comment.save()
+    ticket.comments.add(new_comment)
+    logger.info(add_audit_log(request, ticket, new_comment, 'add', None, None))
+    return new_comment
+
+
+def delete_comment(ticket, comment, request):
+    comment_association = CommentAssociation.objects.filter(comment=comment.id, ticket=ticket.id)
+    if comment.author.id != request.user.id and not request.user.is_superuser:
+        return f'Comment not added by you cannot be deleted'
+    elif not comment_association:
+        return f'Attachment not exists in <strong>{ticket.key}</strong>'
+    else:
+        comment_association.delete()
+        Comment.objects.get(id=comment.id).delete()
+        logger.info(add_audit_log(request, ticket, comment, 'delete', None, None))
+        return True
 
 
 def set_ticket_status(transition_association, context_transition_associations, ticket, request):
@@ -266,7 +344,7 @@ def set_ticket_status(transition_association, context_transition_associations, t
             ticket.status = transition_association.transition.dest_status
             ticket.resolution = transition_association.transition.dest_status.resolution
             ticket.save()
-            logger.info(add_audit_log(request, ticket, f'field update "{ticket.status._meta.verbose_name}" to "{ticket.status}"'))
+            logger.info(add_audit_log(request, ticket, ticket.status, 'edit', None, None))
             return ticket
     return None
 
@@ -274,7 +352,7 @@ def set_ticket_status(transition_association, context_transition_associations, t
 def set_ticket_assignee(user, ticket, request):
     ticket.assignee = user
     ticket.save()
-    logger.info(add_audit_log(request, ticket, f'field update "assignee" to "{ticket.assignee}"'))
+    logger.info(add_audit_log(request, ticket, None, 'edit', 'assignee', ticket.assignee))
     return ticket
 
 
@@ -283,8 +361,8 @@ def set_ticket_suspend(ticket, request):
         ticket.suspended = False
     else:
         ticket.suspended = True
+    logger.info(add_audit_log(request, ticket, None, 'edit', 'suspended', ticket.suspended))
     ticket.save()
-    logger.info(add_audit_log(request, ticket, f'field update "suspended" to "{ticket.suspended}"'))
     return ticket
 
 
@@ -306,6 +384,6 @@ def convert_query_dict_to_dict(query_dict):
 
 def multiple_choice_field(form, attr): return form.fields.get(attr).widget.attrs.get('multiple')
 def multiple_choice_field_equal(list1, list2): return collections.Counter(list1) == collections.Counter(list2)
-def get_env_type(issue_type_id): return IssueType.objects.get(id=issue_type_id).env_type
+def get_env_type(type_id): return Type.objects.get(id=type_id).env_type
 def json_to_obj(data): return json.loads(data, object_hook=_object_hook)
 def _object_hook(converted_dict): return namedtuple('X', converted_dict.keys())(*converted_dict.values())

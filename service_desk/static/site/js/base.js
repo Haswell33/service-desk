@@ -3,6 +3,7 @@ if (typeof jQuery === "undefined")
 else
     console.log('jQuery loaded')
 
+
 $(document).on('click', function(event) {
     if($(event.target).is('#navbar-block_menu svg') || $(event.target).is('#navbar-block_menu path')){
         $('#navbar-block_menu > ul').toggle()
@@ -48,6 +49,14 @@ $(document).on('click', function(event) {
         $('#navbar-block_edit-dialog').hide()
         dialogBg()
     }
+    if($(event.target).is('#add-comment_button')) {
+        $('#add-comment_dialog').toggle()
+        dialogBg()
+    }
+    else if(!$(event.target).is('#add-comment_dialog') && !$(event.target).is('#add-comment_dialog *') && !$(event.target).is('.select2-dropdown *') && !$(event.target).is('.select2-selection__choice__remove') && !$(event.target).is('.tox-dialog-wrap *') && $('#add-comment_dialog').is(':visible')) {
+        $('#add-comment_dialog').hide()
+        dialogBg()
+    }
    // else if($(event.target).is('#content-header #icon-hint svg') || $(event.target).is('#navbar-account path')){
 //
    // }
@@ -79,9 +88,15 @@ function dialogBg(dialogClass) {
         $(dialogElem).css('display', 'block')
 }
 
-
-function customCheckbox(){
-    //$('input[type=checkbox]').after($('<span class="checkbox-icon"></span>'))
+function sortTable(newOrderValue, currOrderValue){
+    let url = window.location.href
+    let paramValue
+    if (newOrderValue === currOrderValue)
+        paramValue = '-' + newOrderValue // desc
+    else
+        paramValue = newOrderValue // asc
+    url = replaceUrlParam(url, 'ordering', paramValue)
+    window.location.href = url
 }
 
 function replaceUrlParam(url, paramName, paramValue) {
@@ -92,17 +107,6 @@ function replaceUrlParam(url, paramName, paramValue) {
         return url.replace(pattern, '$1' + paramValue + '$2')
     url = url.replace(/[?#]$/, '')
     return url + (url.indexOf('?')>0 ? '&' : '?') + paramName + '=' + paramValue
-}
-
-function sortTable(newOrderValue, currOrderValue){
-    let url = window.location.href
-    let paramValue
-    if (newOrderValue === currOrderValue)
-        paramValue = '-' + newOrderValue // desc
-    else
-        paramValue = newOrderValue // asc
-    url = replaceUrlParam(url, 'ordering', paramValue)
-    window.location.href = url
 }
 
 function themeColor(userIsAuth, userIsAdmin, userType){

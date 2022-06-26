@@ -1,4 +1,4 @@
-from .models import Issue, IssueType, Label, User, Status, Resolution, Priority
+from .models import Ticket, Type, Label, User, Status, Resolution, Priority, Comment
 from django.forms import ClearableFileInput, FileInput, FileField, MultiValueField
 from django.utils.translation import gettext_lazy as _
 from django.forms import ValidationError
@@ -32,7 +32,7 @@ class ModelIconChoiceField(forms.ModelChoiceField):
 
 class TicketCreateForm(forms.ModelForm):
     class Meta:
-        model = Issue
+        model = Ticket
         fields = ['title', 'type', 'priority', 'assignee', 'reporter', 'labels', 'description', ] # 'attachments'
         labels = {
             'title': _('Title'),
@@ -77,7 +77,7 @@ class TicketCreateForm(forms.ModelForm):
 
 class TicketUpdateForm(forms.ModelForm):
     class Meta:
-        model = Issue
+        model = Ticket
         fields = ['title', 'priority', 'labels', 'description']
         labels = {
             'title': _('Title'),
@@ -90,11 +90,7 @@ class TicketUpdateForm(forms.ModelForm):
         }
         widgets = {
             'priority': IconField,
-            'labels': forms.SelectMultiple(attrs={'multiple': True})
-        }
-        limit_choices_to = {
-            'priority': 5,
-            'labels': 4,
+            'labels': forms.SelectMultiple(attrs={'multiple': True}),
         }
 
     #def __init__(self, *args, **kwargs):
@@ -104,7 +100,25 @@ class TicketUpdateForm(forms.ModelForm):
 
 class TicketUpdateAssigneeForm(forms.ModelForm):
     class Meta:
-        model = Issue
+        model = Ticket
+        fields = ['assignee']
+        labels = {
+            'assignee': _('Set assignee'),
+        }
+        widgets = {
+            'assignee': IconField,
+        }
+
+
+class TicketAddCommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']
+
+
+class TicketEditComment(forms.ModelForm):
+    class Meta:
+        model = Ticket
         fields = ['assignee']
         labels = {
             'assignee': _('Set assignee'),
@@ -133,46 +147,10 @@ class TicketFilterViewForm(forms.Form):
         queryset=Label.objects.all(),
         required=False)
     type = forms.ModelMultipleChoiceField(
-        queryset=IssueType.objects.all(),
+        queryset=Type.objects.all(),
         required=False,
         widget=IconField(attrs={'multiple': 'true', 'icon': 'dupa'}))
     priority = forms.ModelMultipleChoiceField(
         queryset=Priority.objects.all(),
         required=False,
         widget=IconField(attrs={'multiple': 'true'}))
-
-
-
-
-
-
-
-
-
-
-
-
-
-class TicketCreateForm2(forms.Form):
-    title = forms.CharField()
-    type = forms.ModelMultipleChoiceField(
-        queryset=IssueType.objects.all(),
-        required=True,
-        widget=IconField(attrs={'multiple': 'true'}))
-    priority = forms.ModelMultipleChoiceField(
-        queryset=Priority.objects.all(),
-        required=True,
-        widget=IconField(attrs={'multiple': 'true'}))
-    assignee = forms.ModelChoiceField(
-        queryset=User.objects.all(),
-        required=False,
-        widget=IconField)
-    labels = forms.ModelMultipleChoiceField(
-        queryset=Label.objects.all(),
-        required=False)
-    attachments = forms.ClearableFileInput(
-        attrs={'multiple': True})
-    description = forms.CharField(
-        required=False,
-        help_text='Describe the issue',
-        widget=TinyMCE)
