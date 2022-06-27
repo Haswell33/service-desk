@@ -1068,3 +1068,7 @@
 2022-06-27 08:15:38 INFO | admin 127.0.0.1 Ticket 41 update Status 28
 2022-06-27 08:15:40 INFO | admin 127.0.0.1 Ticket 41 update Status 29
 2022-06-27 08:15:44 INFO | admin 127.0.0.1 Ticket 41 update Status 1
+2022-06-27 08:18:51 INFO | admin 127.0.0.1 Ticket 43 update Status 23
+2022-06-27 08:20:03 INFO | admin 127.0.0.1 Ticket 38 update suspended
+2022-06-27 15:28:53 INFO | customer-hsw 127.0.0.1 Ticket 44 create Ticket
+2022-06-27 15:28:53 INFO | customer-hsw 127.0.0.1 Ticket 44 add Attachment 47

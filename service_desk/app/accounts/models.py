@@ -26,11 +26,11 @@ class ServiceDeskUser(AbstractBaseUser, PermissionsMixin):
         max_length=500)
     password = models.CharField(
         max_length=500)
-    is_staff = models.BooleanField(
+    staff = models.BooleanField(
         default=False)
-    is_admin = models.BooleanField(
+    admin = models.BooleanField(
         default=True)
-    is_active = models.BooleanField(
+    active = models.BooleanField(
         default=True)
     created = models.DateTimeField(
         default=timezone.now)

@@ -667,10 +667,11 @@ footer a:visited {
     display: flex;
     align-items: flex-start;
     flex-wrap: wrap;
+    gap: 5px;
+    justify-content: flex-start;
 }
 
-.filter-view_form > select,
-.filter-view_form > span {
+.filter-view_form > select {
     margin: 0 5px 0 5px;
 }
 

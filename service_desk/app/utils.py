@@ -208,15 +208,13 @@ def get_tenant_cookie_name(user):
 
 def get_active_tenant_tickets(user, only_open):  # filtered by correct user_type
     active_tenant_session = get_active_tenant_session(user)
+    tickets = Ticket.objects.filter(tenant=active_tenant_session.tenant)
     if only_open:  # return tickets where resolution is null
-        tickets = Ticket.objects.filter(tenant=active_tenant_session.tenant, resolution__isnull=True)
-    else:
-        tickets = Ticket.objects.filter(tenant=active_tenant_session.tenant)
-    user_type = active_tenant_session.user_type
-    if user_type == settings.CUST_TYPE and not user.is_superuser:
+        tickets = tickets.filter(tenant=active_tenant_session.tenant, resolution__isnull=True)
+    if user_is_customer(user) and not user.is_superuser:
         return filter_tickets(tickets, {'type__env_type': settings.SD_ENV_TYPE})
-    elif user_type == settings.DEV_TYPE:
-        return filter_tickets(tickets, {'type__env_type': settings.SOFT_ENV_TYPE})
+    # elif user_is_developer(user) and not user.is_superuser:
+    #    return filter_tickets(tickets, {'type__env_type': settings.SOFT_ENV_TYPE})
     return tickets
 
 
@@ -267,6 +265,8 @@ def get_transition_options(ticket, user):
         return None
     elif user_is_operator(user) and ticket.is_software_type and not user.is_superuser:
         return None
+    elif user_is_developer(user) and ticket.is_service_desk_type and not user.is_superuser:
+        return None
     else:
         return TransitionAssociation.objects.filter((Q(transition__src_status=ticket.status) | Q(transition__src_status__isnull=True)) & Q(type=ticket.type))
 
@@ -279,10 +279,10 @@ def create_ticket(form, request):
     new_ticket.tenant = tenant
     new_ticket.status = get_initial_status(new_ticket.type.env_type)
     new_ticket.save()  # create ticket
+    logger.info(add_audit_log(request, new_ticket, None, 'create', new_ticket._meta.model.__name__, new_ticket.id))
     if files:
         for file in files:
             add_attachment(file, new_ticket, request)
-    logger.info(add_audit_log(request, new_ticket, None, 'create', new_ticket._meta.model.__name__, new_ticket.id))
     tenant.count += 1
     tenant.save()
     form.save_m2m()

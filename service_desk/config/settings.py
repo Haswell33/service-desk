@@ -27,6 +27,7 @@ ORDER_BY_FIELDS = [
     ('resolution', 'Resolution'),
     ('reporter', 'Reporter'),
     ('assignee', 'Assignee'),
+    ('labels', 'Labels'),
     ('updated', 'Updated'),
     ('created', 'Created')
 ]
