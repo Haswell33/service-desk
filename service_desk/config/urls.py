@@ -68,6 +68,9 @@ urlpatterns = [
          views.TicketDetailView.as_view(
              template_name='ticket/ticket-view.html'),
          name='view_ticket'),
+    path('ticket/clone/<slug:slug>',
+         views.TicketDetailClone.as_view(),
+         name='clone_ticket'),
     path('ticket/edit/<slug:slug>',
          views.TicketDetailEdit.as_view(),
          name='edit_ticket'),

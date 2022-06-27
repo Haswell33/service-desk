@@ -15,12 +15,13 @@ $(document).on('click', function(event) {
     }
     showDialog(event, '#edit-ticket_button', '#edit-ticket_dialog')
     showDialog(event, '#edit-assignee_button', '#edit-assignee_dialog')
+    showDialog(event, '#clone-ticket_button', '#clone-ticket_dialog')
     showDialog(event, '#add-relation_button', '#add-relation_dialog')
     showDialog(event, '#add-attachment_button', '#add-attachment_dialog')
     showDialog(event, '#add-comment_button', '#add-comment_dialog')
     showDialog(event, '#edit-comment_button', '#edit-comment_dialog', true)
 })
-
+n
 setTimeout(function(){
     $('.errornote').fadeOut()
     $('.messagelist').fadeOut()

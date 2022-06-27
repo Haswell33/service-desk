@@ -89,10 +89,9 @@ def get_available_statuses(user):
 
 
 def get_initial_type(user):
-    tenant_session = get_active_tenant_session(user)
-    if tenant_session.user_type == settings.CUST_TYPE:
+    if user_is_customer(user):
         return 2  # Service Request
-    elif tenant_session.user_type == settings.OPER_TYPE or tenant_session.user_type == settings.DEV_TYPE:
+    elif user_is_operator(user) or user_is_developer(user):
         return 1  # Task
 
 
@@ -107,11 +106,11 @@ def get_initial_status(env_type):
 
 def get_board_columns(user):
     active_tenant_session = get_active_tenant_session(user)
-    if active_tenant_session.user_type == settings.CUST_TYPE:
+    if user_is_customer(user):
         board = Board.objects.get(id=active_tenant_session.tenant.customers_board.id)
-    elif active_tenant_session.user_type == settings.OPER_TYPE:
+    elif user_is_operator(user):
         board = Board.objects.get(id=active_tenant_session.tenant.operators_board.id)
-    elif active_tenant_session.user_type == settings.DEV_TYPE:
+    elif user_is_developer(user):
         board = Board.objects.get(id=active_tenant_session.tenant.developers_board.id)
     return BoardColumn.objects.filter(board=board)
 
@@ -135,6 +134,15 @@ def get_tenant_by_group_type(group_type, group_id):
         return None
 
 
+def change_active_tenant(tenant_id, user):
+    active_tenant_session = get_active_tenant_session(user)
+    active_tenant_session.active = False
+    active_tenant_session.save()
+    curr_tenant_session = TenantSession.objects.get(tenant=tenant_id, user=user.id)
+    curr_tenant_session.active = True
+    curr_tenant_session.save()
+
+
 def tenant_session(user):  # checks if any tenant session exists for specific user
     try:
         TenantSession.objects.filter(user=user)
@@ -143,7 +151,7 @@ def tenant_session(user):  # checks if any tenant session exists for specific us
         return False
 
 
-def active_tenant_session(user):  # checks if any active tenant session exists for specific user
+def is_active_tenant_session(user):  # checks if any active tenant session exists for specific user
     try:
         get_active_tenant_session(user)
         return True
@@ -255,9 +263,12 @@ def order_tickets(tickets, ordering):
 
 
 def get_transition_options(ticket, user):
-    allowed_transition = TransitionAssociation.objects.filter((Q(transition__src_status=ticket.status) | Q(transition__src_status__isnull=True)) & Q(type=ticket.type))
-    #if ticket.type.env_type == settings.SD_ENV_TYPE
-    return 'DUPA'
+    if user_is_customer(user) and ticket.is_service_desk_type and not user.is_superuser:
+        return None
+    elif user_is_operator(user) and ticket.is_software_type and not user.is_superuser:
+        return None
+    else:
+        return TransitionAssociation.objects.filter((Q(transition__src_status=ticket.status) | Q(transition__src_status__isnull=True)) & Q(type=ticket.type))
 
 
 def create_ticket(form, request):
@@ -266,7 +277,7 @@ def create_ticket(form, request):
     new_ticket = form.save(commit=False)  # create instance, but do not save
     new_ticket.key = f'{tenant.key}-{tenant.count + 1}'
     new_ticket.tenant = tenant
-    new_ticket.status = get_initial_status(get_env_type(new_ticket.type.id))
+    new_ticket.status = get_initial_status(new_ticket.type.env_type)
     new_ticket.save()  # create ticket
     if files:
         for file in files:
@@ -430,6 +441,8 @@ def get_audit_logs(instance):
 
 
 def set_ticket_status(transition_association, context_transition_associations, ticket, request):
+    if ticket.suspended:
+        return f'You cannot change status, because <strong>{ticket}</strong> is suspended'
     for context_transition_association in context_transition_associations:
         if context_transition_association.id == transition_association.id and ticket.type == transition_association.type:
             ticket.status = transition_association.transition.dest_status
@@ -463,15 +476,6 @@ def set_ticket_suspend(ticket, request):
     return ticket
 
 
-def change_active_tenant(tenant_id, user):
-    active_tenant_session = get_active_tenant_session(user)
-    active_tenant_session.active = False
-    active_tenant_session.save()
-    curr_tenant_session = TenantSession.objects.get(tenant=tenant_id, user=user.id)
-    curr_tenant_session.active = True
-    curr_tenant_session.save()
-
-
 def convert_query_dict_to_dict(query_dict):
     new_dict = dict()
     for key, value in dict(query_dict).items():  # QueryDict -> common python dict
@@ -503,13 +507,31 @@ def user_is_developer(user):
         return False
 
 
+def permission_to_suspend(ticket, user):
+    if user_is_operator(user) and ticket.is_service_desk_type or user_is_developer(user) and ticket.is_software_type or user.is_superuser:
+        return True
+    else:
+        return False
+
+
+def permission_to_assign(ticket, user):
+    if user_is_operator(user) or user_is_developer(user) and ticket.is_software_type or user.is_superuser:
+        return True
+    else:
+        return False
+
+
+def permission_to_clone(ticket, user):
+    if user_is_operator(user) or user.is_superuser:
+        return True
+    else:
+        return False
+
+
 def has_access_to_ticket(user, ticket):  # to correct
     if ticket in get_active_tenant_tickets(user, False) or user.is_superuser:
         return True
     else:
-        #if check_all_tenants:
-#
-        #else:
         return False
 
 

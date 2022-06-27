@@ -66,7 +66,8 @@ class TicketCreateForm(forms.ModelForm):
         else:
             self.fields['assignee'] = forms.ModelChoiceField(
                 queryset=get_user_field_options_by_active_tenant(self.request.user),
-                widget=IconField)
+                widget=IconField,
+                required=False)
 
 
 class TicketEditForm(forms.ModelForm):
@@ -111,6 +112,18 @@ class TicketCommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['content']
+
+
+class TicketCloneForm(forms.ModelForm):
+    class Meta:
+        model = Ticket
+        fields = ['type']
+        labels = {
+            'type': _('Select type of cloned ticket'),
+        }
+        widgets = {
+            'type': IconField,
+        }
 
 
 class TicketFilterViewForm(forms.Form):

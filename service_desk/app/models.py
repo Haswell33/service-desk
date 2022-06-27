@@ -682,8 +682,15 @@ class Ticket(models.Model):
         return self.suspended
 
     @property
-    def is_resolved(self):
-        if self.resolution:
+    def is_service_desk_type(self):
+        if self.type.env_type == settings.SD_ENV_TYPE:
+            return True
+        else:
+            return False
+
+    @property
+    def is_software_type(self):
+        if self.type.env_type == settings.SOFT_ENV_TYPE:
             return True
         else:
             return False
@@ -750,16 +757,6 @@ class Ticket(models.Model):
     def updated_datetime(self):
         return get_datetime(self.updated)
     updated_datetime.fget.short_description = 'Updated'
-
-    '''
-    @property
-    def get_labels(self):
-        return [labels.name for labels in self.labels.all()]
-
-    @property
-    def get_attachments(self):
-        return [attachments.filename for attachments in self.attachments.all()]
-    '''
 
     def get_fields(self):
         return [(field.name, field.value_to_string(self)) for field in Ticket._meta.fields]

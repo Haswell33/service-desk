@@ -73,6 +73,7 @@ function filterViewFields(mediaUrl) {
 
 function ticketViewFields(mediaUrl) {
     renderField('#id_assignee', mediaUrl, 'Select assignee person', true, true, false, 0)
+    renderField('#id_type', mediaUrl, 'Select type', true, false, false, -1)
     renderField('#id_priority', mediaUrl, 'Select a priority', true, false, false, -1)
     renderField('#id_labels', mediaUrl, 'Categorize a ticket', false, true, true, 0)
     renderField('#id_relations', mediaUrl, 'Search open tickets', true, false, true, 2)

@@ -1049,6 +1049,18 @@ footer a:visited {
     min-height: 0!important;
 }
 
+.status-view_suspended {
+    cursor: not-allowed!important;
+    background-color: rgba(124,124,124,0.26)!important;
+}
+
+.status-view_suspended:hover {
+    color: var(--elem-dark-primary)!important;
+    border-color: var(--elem-dark-primary)!important;
+    background-color: rgba(124,124,124,0.26)!important;
+}
+
+
 .full-height {
     max-height: none;
     min-height: 0;

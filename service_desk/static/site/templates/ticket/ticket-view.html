@@ -20,31 +20,50 @@
           Edit
         </button>
       </div>
-      <div class="ticket-view_navbar-block">
-        <form action="{% url 'edit_ticket_status' object.slug %}" method="post">
-          {% csrf_token %}
-          {% for transition in transitions %}
-            <button type="submit" name="transition" value="{{ transition.id }}" data-type="action" title='Change status to "{{ transition.transition.dest_status }}"'>
-              {{ transition.transition.name }}
-            </button>
-          {% endfor %}
-        </form>
-      </div>
-      <div class="ticket-view_navbar-block">
-        <button id="edit-assignee_button" data-type="action">
-          Assign
-        </button>
-      </div>
-      <div class="ticket-view_navbar-block">
-        <form action="{% url 'edit_ticket_suspend' object.slug %}" method="post">
-          {% csrf_token %}
-          {% if object.suspended %}
-            <button data-type="action">Unsuspend</button>
-          {% else %}
-            <button data-type="action">Suspend</button>
-          {% endif %}
-        </form>
-      </div>
+      {% if transitions.all.count > 0 %}
+        <div class="ticket-view_navbar-block">
+          <form action="{% url 'edit_ticket_status' object.slug %}" method="post">
+            {% csrf_token %}
+            {% for transition in transitions %}
+              {% if not ticket.suspended %}
+                <button type="submit" name="transition" value="{{ transition.id }}" data-type="action" title='Change status to "{{ transition.transition.dest_status }}"'>
+                    {{ transition.transition.name }}
+                </button>
+              {% else %}
+                <button type="submit" name="transition" data-type="action" title="Unsuspend ticket to change status" class="status-view_suspended" disabled>
+                  {{ transition.transition.name }}
+                </button>
+              {% endif %}
+            {% endfor %}
+          </form>
+        </div>
+      {% endif %}
+      {% if allow_to_assign %}
+        <div class="ticket-view_navbar-block">
+          <button id="edit-assignee_button" data-type="action">
+            Assign
+          </button>
+        </div>
+      {% endif %}
+      {% if allow_to_suspend %}
+        <div class="ticket-view_navbar-block">
+          <form action="{% url 'edit_ticket_suspend' object.slug %}" method="post">
+            {% csrf_token %}
+            {% if object.suspended %}
+              <button data-type="action">Unsuspend</button>
+            {% else %}
+              <button data-type="action">Suspend</button>
+            {% endif %}
+          </form>
+        </div>
+      {% endif %}
+      {% if allow_to_clone %}
+        <div class="ticket-view_navbar-block">
+          <button id="clone-ticket_button" data-type="action">
+            Clone
+          </button>
+        </div>
+      {% endif %}
     </div>
     <div class="separator-horizontal-thin"></div>
     <div id="ticket-view_content">
@@ -430,6 +449,17 @@
           {{ form_update_assignee.assignee }}
         </div>
         <input type="submit" value="Save">
+      </form>
+    </div>
+    <div id="clone-ticket_dialog" class="dialog center">
+      <form action="{% url 'clone_ticket' object.slug %}" method="post">
+        {% csrf_token %}
+        <h2>Clone ticket</h2>
+        <div class="form-field short-field">
+          <label for="{{ form_clone_ticket.type.id_for_label }}">{{ form_clone_ticket.type.label }}</label>
+          {{ form_clone_ticket.type }}
+        </div>
+        <input type="submit" value="Clone">
       </form>
     </div>
     <div id="add-relation_dialog" class="dialog center">

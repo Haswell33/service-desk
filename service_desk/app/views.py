@@ -20,8 +20,8 @@ from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.urls.exceptions import NoReverseMatch
 from .models import Ticket, TransitionAssociation, Attachment, Comment, Status
-from .forms import TicketCreateForm, TicketFilterViewForm, TicketEditAssigneeForm, TicketEditForm, TicketCommentForm
-from .utils import get_env_type, get_initial_status, get_active_tenant, active_tenant_session, get_active_tenant_session, tenant_session, clear_tenant_session, change_active_tenant, get_tenant_cookie_name, get_active_tenant_tickets, get_board_columns_assocations, get_board_columns, filter_tickets, order_tickets, get_transition_options, convert_query_dict_to_dict, set_ticket_status, set_ticket_assignee, create_ticket, update_ticket, set_ticket_suspend, add_attachment, delete_attachment, add_relation, delete_relation, get_allow_tickets_to_relate, add_comment, delete_comment, edit_comment, get_audit_logs, has_access_to_ticket
+from .forms import TicketCreateForm, TicketFilterViewForm, TicketEditAssigneeForm, TicketEditForm, TicketCommentForm, TicketCloneForm
+from .utils import get_env_type, get_active_tenant, is_active_tenant_session, get_active_tenant_session, tenant_session, clear_tenant_session, change_active_tenant, get_tenant_cookie_name, get_active_tenant_tickets, get_board_columns_assocations, get_board_columns, filter_tickets, order_tickets, get_transition_options, convert_query_dict_to_dict, set_ticket_status, set_ticket_assignee, create_ticket, update_ticket, set_ticket_suspend, add_attachment, delete_attachment, add_relation, delete_relation, get_allow_tickets_to_relate, add_comment, delete_comment, edit_comment, get_audit_logs, has_access_to_ticket, permission_to_suspend, permission_to_assign, permission_to_clone
 from .context_processors import context_tenant_session
 
 
@@ -30,7 +30,7 @@ def validate_get_request(self, request, view_name, *args, **kwargs):
         return login_page(request.path)
     elif request.COOKIES.get(get_tenant_cookie_name(request.user)) is None:
         return redirect('tenant_update')
-    if not active_tenant_session(request.user):  # check if any record in tenant_session is stored with active state
+    if not is_active_tenant_session(request.user):  # check if any record in tenant_session is stored with active state
         context_tenant_session(request)  # assign active tenant/s based on membership to groups
     response = super(view_name, self).get(request, *args, **kwargs)
     response.status_code = 200
@@ -117,12 +117,16 @@ class TicketDetailView(FormMixin, generic.detail.DetailView):  # Detail view for
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
-            'transitions': get_transition_options(self.object),
+            'transitions': get_transition_options(self.object, self.request.user),
             'audit_logs': get_audit_logs(self.object),
             'available_tickets_to_relate': get_allow_tickets_to_relate(self.request.user, self.get_object()),
             'form_update': TicketEditForm(instance=self.object),
             'form_update_assignee': self.get_form(),
-            'form_comment': TicketCommentForm()
+            'form_comment': TicketCommentForm(),
+            'form_clone_ticket': TicketCloneForm(),
+            'allow_to_suspend': permission_to_suspend(self.object, self.request.user),
+            'allow_to_assign': permission_to_assign(self.object, self.request.user),
+            'allow_to_clone': permission_to_clone(self.object, self.request.user)
         })
         return context
 
@@ -163,7 +167,7 @@ class TicketDetailEditStatus(generic.UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
-            'transitions': get_transitions(self.object)  # transition associations
+            'transitions': get_transition_options(self.object, self.request.user)  # transition associations
         })
         return context
 
@@ -197,7 +201,7 @@ class TicketDetailEditAssignee(generic.UpdateView):
 
     def post(self, request, *args, **kwargs):
         ticket = self.get_object()
-        if not has_access_to_ticket(request.user, ticket):
+        if not has_access_to_ticket(request.user, ticket) or not permission_to_assign(ticket, self.request.user):
             return code_403(request)
         user_id = request.POST.get('assignee')
         try:
@@ -226,7 +230,7 @@ class TicketDetailEditSuspend(generic.UpdateView):
 
     def post(self, request, *args, **kwargs):
         ticket = self.get_object()
-        if not has_access_to_ticket(request.user, ticket):
+        if not has_access_to_ticket(request.user, ticket) or not permission_to_assign(ticket, self.request.user):
             return code_403(request)
         ticket_updated = set_ticket_suspend(ticket, request)
         if ticket_updated.suspended is True:
@@ -391,6 +395,28 @@ class TicketDetailEditComment(generic.UpdateView):
                 messages.error(request, result)
         except Comment.DoesNotExist:
             messages.error(request, f'Comment in <strong>{ticket}</strong> not exist')
+        return HttpResponseRedirect(reverse('view_ticket', args=[ticket.slug]))
+
+
+class TicketDetailClone(generic.UpdateView):
+    model = Ticket
+
+    def get(self, request, *args, **kwargs):
+        return code_405(request)
+
+    def post(self, request, *args, **kwargs):
+        ticket = self.get_object()
+        if not has_access_to_ticket(request.user, ticket) or not permission_to_clone(ticket, self.request.user):
+            return code_403(request)
+        comment = request.POST.get('content')
+        if comment:
+            result = add_comment(ticket, comment, request)
+            if isinstance(result, Comment):
+                messages.success(request, f'Comment in <strong>{ticket.key}</strong> has been added')
+            else:
+                messages.error(request, result)
+        else:
+            messages.info(request, f'Comment not exist in <strong>{ticket.key}</strong>')
         return HttpResponseRedirect(reverse('view_ticket', args=[ticket.slug]))
 
 
@@ -559,7 +585,7 @@ def tenant_update(request):
         tenant_id = request.POST.get('tenant_id')
         change_active_tenant(tenant_id, request.user)
     else:
-        if not active_tenant_session(request.user):
+        if not is_active_tenant_session(request.user):
             context_tenant_session(request)
         tenant_session = get_active_tenant_session(request.user)
         tenant_id = tenant_session.tenant.id
