@@ -666,6 +666,7 @@ footer a:visited {
 .filter-view_form {
     display: flex;
     align-items: flex-start;
+    flex-wrap: wrap;
 }
 
 .filter-view_form > select,
