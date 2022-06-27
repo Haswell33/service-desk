@@ -1,6 +1,6 @@
 import os.path
-from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator, FileExtensionValidator, ValidationError
-from django.contrib.auth.models import User, UserManager, Group
+from django.core.validators import MaxValueValidator, MinValueValidator, FileExtensionValidator, ValidationError
+from django.contrib.auth.models import User, Group
 from django.dispatch import receiver
 from django.conf import settings
 from django.utils.html import mark_safe, format_html
@@ -11,13 +11,10 @@ from tinymce.models import HTMLField
 from datetime import datetime
 import math
 
-#def TicketAssociation():
-#    pass
-
 
 def validate_file_extension(value):
     ext = os.path.splitext(value.name)[1]  # [0] returns path+filename
-    valid_extensions = ['.pdf', '.doc', '.docx', '.jpg', '.png', '.xlsx', '.xls', 'txt']
+    valid_extensions = settings.ALLOW_FILE_EXTENSIONS
     if not ext.lower() in valid_extensions:
         raise ValidationError('Unsupported file extension.')
 
@@ -430,11 +427,6 @@ class Label(models.Model):
         return str(self.name)
 
 
-    def __repr__(self):
-        return self.name
-
-
-
 class Comment(models.Model):
     id = models.BigAutoField(
         primary_key=True)
@@ -487,11 +479,12 @@ class Comment(models.Model):
 class Attachment(models.Model):
     id = models.BigAutoField(
         primary_key=True)
-    file = models.ImageField(
+    file = models.FileField(
         upload_to=get_upload_path,
         null=True,
         blank=True,
-        max_length=5000)
+        max_length=1000,
+        validators=[validate_file_extension])
     filename = models.CharField(
         max_length=255,
         blank=True)

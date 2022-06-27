@@ -11,6 +11,7 @@ handler400 = 'app.views.bad_request'
 handler401 = 'app.views.unauthorized'
 handler403 = 'app.views.permission_denied'
 handler404 = 'app.views.page_not_found'
+handler405 = 'app.views.method_not_allowed'
 handler500 = 'app.views.internal_server_error'
 urlpatterns = [
     #path('',
@@ -63,52 +64,41 @@ urlpatterns = [
          views.TicketCreateView.as_view(
              template_name='ticket/ticket-create.html'),
          name='create_ticket'),
-    #path('ticket/submit',
-    #     views.submit_ticket,
-    #     name='submit_ticket'),
     path('ticket/view/<slug:slug>',
          views.TicketDetailView.as_view(
              template_name='ticket/ticket-view.html'),
          name='view_ticket'),
     path('ticket/edit/<slug:slug>',
-         views.TicketDetailUpdate.as_view(
-             template_name='ticket/ticket-view.html'),
+         views.TicketDetailEdit.as_view(),
          name='edit_ticket'),
-    path('ticket/edit/status/<slug:slug>',
-         views.TicketDetailUpdateStatus.as_view(
-             template_name='ticket/ticket-view.html'),
+    path('ticket/edit/<slug:slug>/status',
+         views.TicketDetailEditStatus.as_view(),
          name='edit_ticket_status'),
-    path('ticket/edit/assignee/<slug:slug>',
-         views.TicketDetailUpdateAssignee.as_view(
-             template_name='ticket/ticket-view.html'),
+    path('ticket/edit/<slug:slug>/assignee',
+         views.TicketDetailEditAssignee.as_view(),
          name='edit_ticket_assignee'),
-    path('ticket/edit/suspended/<slug:slug>',
-         views.TicketDetailUpdateSuspend.as_view(
-             template_name='ticket/ticket-view.html'),
+    path('ticket/edit/<slug:slug>/suspended',
+         views.TicketDetailEditSuspend.as_view(),
          name='edit_ticket_suspend'),
-    path('ticket/edit/attachment/add/<slug:slug>/',
-         views.TicketDetailAddAttachment.as_view(
-             template_name='ticket/ticket-view.html'),
+    path('ticket/edit/<slug:slug>/attachment/add',
+         views.TicketDetailAddAttachment.as_view(),
          name='edit_ticket_attachment_add'),
-    path('ticket/edit/attachment/delete/<slug:slug>/',
-         views.TicketDetailDeleteAttachment.as_view(
-            template_name='ticket/ticket-view.html'),
+    path('ticket/edit/<slug:slug>/attachment/delete',
+         views.TicketDetailDeleteAttachment.as_view(),
          name='edit_ticket_attachment_delete'),
-    path('ticket/edit/relation/add/<slug:slug>/',
-         views.TicketDetailAddRelation.as_view(
-             template_name='ticket/ticket-view.html'),
+    path('ticket/edit/<slug:slug>/relation/add',
+         views.TicketDetailAddRelation.as_view(),
          name='edit_ticket_relation_add'),
-    path('ticket/edit/relation/delete/<slug:slug>/',
-         views.TicketDetailDeleteRelation.as_view(
-             template_name='ticket/ticket-view.html'),
+    path('ticket/edit/<slug:slug>/relation/delete',
+         views.TicketDetailDeleteRelation.as_view(),
          name='edit_ticket_relation_delete'),
-    path('ticket/edit/comment/add/<slug:slug>/',
+    path('ticket/edit/<slug:slug>/comment/add',
          views.TicketDetailAddComment.as_view(),
          name='edit_ticket_comment_add'),
-    path('ticket/edit/comment/delete/<slug:slug>/',
+    path('ticket/edit/<slug:slug>/comment/delete',
          views.TicketDetailDeleteComment.as_view(),
          name='edit_ticket_comment_delete'),
-    path('ticket/edit/comment/edit/<slug:slug>/',
+    path('ticket/edit/<slug:slug>/comment/edit',
          views.TicketDetailEditComment.as_view(),
          name='edit_ticket_comment_edit'),
     path('ticket/filter/',

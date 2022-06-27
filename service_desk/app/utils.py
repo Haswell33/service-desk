@@ -2,7 +2,8 @@ from django.conf import settings
 from django.db.models import Q
 from django.apps import apps
 from datetime import timezone
-from .models import Tenant, TenantSession, Type, Ticket, Comment, CommentAssociation, TicketAssociation, Status, Board, BoardColumn, BoardColumnAssociation, TransitionAssociation, AuditLog, Attachment, AttachmentAssociation
+from django.contrib import messages
+from .models import Tenant, TenantSession, Type, Ticket, Comment, CommentAssociation, User, TicketAssociation, Status, Board, BoardColumn, BoardColumnAssociation, TransitionAssociation, AuditLog, Attachment, AttachmentAssociation
 from collections import namedtuple
 import json
 import logging
@@ -55,6 +56,44 @@ def add_audit_log(request, obj, content_obj, operation, attr, attr_value):
         audit_log.message = f'{audit_log.message} '
     audit_log.save()
     return audit_log.message
+
+
+def get_type_options(user):
+    if user_is_operator(user) or user.is_superuser:
+        return Type.objects.all()
+    elif user_is_customer(user):
+        return Type.objects.filter(env_type=settings.SD_ENV_TYPE)
+    elif user_is_developer(user):
+        return Type.objects.filter(env_type=settings.SOFT_ENV_TYPE)
+
+
+def get_user_field_options_by_active_tenant(user):
+    active_tenant_session = get_active_tenant_session(user)
+    tenant = active_tenant_session.tenant
+    allowed_users = User.objects.filter(groups__name__in=[tenant.customers_group, tenant.operators_group, tenant.developers_group])
+    return allowed_users
+
+
+def get_user_field_options_by_ticket(ticket):
+    tenant = ticket.tenant
+    allowed_users = User.objects.filter(groups__name__in=[tenant.customers_group, tenant.operators_group, tenant.developers_group])
+    return allowed_users
+
+
+def get_available_statuses(user):
+    active_tenant_tickets = get_active_tenant_tickets(user, False)
+    available_statuses = []
+    for status in active_tenant_tickets.order_by('status__name').distinct('status__name').values_list('status'):
+        available_statuses.append(str(status[0]))
+    return Status.objects.filter(id__in=available_statuses)
+
+
+def get_initial_type(user):
+    tenant_session = get_active_tenant_session(user)
+    if tenant_session.user_type == settings.CUST_TYPE:
+        return 2  # Service Request
+    elif tenant_session.user_type == settings.OPER_TYPE or tenant_session.user_type == settings.DEV_TYPE:
+        return 1  # Task
 
 
 def get_initial_status(env_type):
@@ -159,12 +198,18 @@ def get_tenant_cookie_name(user):
     return f'active_tenant_id_{str(user.id)}'
 
 
-def get_active_tenant_tickets(user, only_open):
-    active_tenant = get_active_tenant(user)
+def get_active_tenant_tickets(user, only_open):  # filtered by correct user_type
+    active_tenant_session = get_active_tenant_session(user)
     if only_open:  # return tickets where resolution is null
-        return Ticket.objects.filter(tenant=active_tenant.id, resolution__isnull=True)
+        tickets = Ticket.objects.filter(tenant=active_tenant_session.tenant, resolution__isnull=True)
     else:
-        return Ticket.objects.filter(tenant=active_tenant.id)
+        tickets = Ticket.objects.filter(tenant=active_tenant_session.tenant)
+    user_type = active_tenant_session.user_type
+    if user_type == settings.CUST_TYPE and not user.is_superuser:
+        return filter_tickets(tickets, {'type__env_type': settings.SD_ENV_TYPE})
+    elif user_type == settings.DEV_TYPE:
+        return filter_tickets(tickets, {'type__env_type': settings.SOFT_ENV_TYPE})
+    return tickets
 
 
 def get_allow_tickets_to_relate(user, instance):  # exclude already related tickets from select list
@@ -209,8 +254,10 @@ def order_tickets(tickets, ordering):
     return tickets
 
 
-def get_transitions(object):
-    return TransitionAssociation.objects.filter((Q(transition__src_status=object.status) | Q(transition__src_status__isnull=True)) & Q(type=object.type))
+def get_transition_options(ticket, user):
+    allowed_transition = TransitionAssociation.objects.filter((Q(transition__src_status=ticket.status) | Q(transition__src_status__isnull=True)) & Q(type=ticket.type))
+    #if ticket.type.env_type == settings.SD_ENV_TYPE
+    return 'DUPA'
 
 
 def create_ticket(form, request):
@@ -370,6 +417,8 @@ def get_audit_logs(instance):
             continue
         if audit_log.operation == 'create':
             message = f'created {audit_log.content.lower()}'
+        elif audit_log.operation == 'delete':
+            message = f'deleted related {audit_log.content.lower()}'
         elif audit_log.operation == 'update':
             message = f'updated {audit_log.content.lower()} to'
         elif audit_log.operation == 'add':
@@ -387,15 +436,21 @@ def set_ticket_status(transition_association, context_transition_associations, t
             ticket.resolution = transition_association.transition.dest_status.resolution
             ticket.save()
             logger.info(add_audit_log(request, ticket, ticket.status, 'update', None, None))
-            return ticket
-    return None
+            return ticket.status
+    return f'Transition is not available in <strong>{ticket}</strong>'
 
 
 def set_ticket_assignee(user, ticket, request):
-    ticket.assignee = user
-    ticket.save()
-    logger.info(add_audit_log(request, ticket, None, 'update', 'assignee', ticket.assignee))
-    return ticket
+    if user not in get_user_field_options_by_ticket(ticket) and user is not None:
+        return f'Selected user cannot be assigned to <strong>{ticket}</strong>'
+    else:
+        ticket.assignee = user
+        ticket.save()
+        logger.info(add_audit_log(request, ticket, None, 'update', 'assignee', ticket.assignee))
+        if ticket.assignee is None:
+            return f'Ticket <strong>{ticket}</strong> has been unassigned'
+        else:
+            return ticket.assignee
 
 
 def set_ticket_suspend(ticket, request):
@@ -422,6 +477,40 @@ def convert_query_dict_to_dict(query_dict):
     for key, value in dict(query_dict).items():  # QueryDict -> common python dict
         new_dict[key] = value
     return new_dict
+
+
+def user_is_customer(user):
+    active_tenant_session = get_active_tenant_session(user)
+    if active_tenant_session.user_type == settings.CUST_TYPE:
+        return True
+    else:
+        return False
+
+
+def user_is_operator(user):
+    active_tenant_session = get_active_tenant_session(user)
+    if active_tenant_session.user_type == settings.OPER_TYPE:
+        return True
+    else:
+        return False
+
+
+def user_is_developer(user):
+    active_tenant_session = get_active_tenant_session(user)
+    if active_tenant_session.user_type == settings.DEV_TYPE:
+        return True
+    else:
+        return False
+
+
+def has_access_to_ticket(user, ticket):  # to correct
+    if ticket in get_active_tenant_tickets(user, False) or user.is_superuser:
+        return True
+    else:
+        #if check_all_tenants:
+#
+        #else:
+        return False
 
 
 def multiple_choice_field(form, attr): return form.fields.get(attr).widget.attrs.get('multiple')

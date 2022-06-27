@@ -552,3 +552,4 @@
 2022-06-26 15:42:03 DEBUG | ALTER TABLE "audit_log" ALTER COLUMN "object" TYPE varchar(55) USING "object"::varchar(55); (params [])
 2022-06-26 15:42:04 DEBUG | ALTER TABLE "audit_log" ALTER COLUMN "object_value" TYPE integer USING "object_value"::integer; (params [])
 2022-06-26 15:42:04 DEBUG | ALTER TABLE "audit_log" ADD CONSTRAINT "audit_log_object_value_b193e569_check" CHECK ("object_value" >= 0); (params ())
+2022-06-27 00:34:29 DEBUG | ALTER TABLE "attachment" ALTER COLUMN "file" TYPE varchar(1000); (params [])

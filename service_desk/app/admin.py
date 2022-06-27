@@ -116,7 +116,7 @@ class TransitionAssociationInline(admin.TabularInline):
 class TransitionAdminModel(admin.ModelAdmin):
     list_display = ('name', 'full_transition', 'get_types')
     search_fields = ['name', 'src_status', 'dest_status']
-    list_filter = ('name', 'src_status', 'dest_status', 'types')
+    list_filter = ('types', 'src_status', 'dest_status')
     inlines = [TransitionAssociationInline]
 
     def get_types(self, instance):
@@ -134,6 +134,7 @@ class TransitionAssociationAdminModel(admin.ModelAdmin):
     search_fields = ['type', 'transition']
     list_filter = ('type', 'transition')
 '''
+
 
 @admin.register(Resolution)
 class ResolutionAdminModel(admin.ModelAdmin):

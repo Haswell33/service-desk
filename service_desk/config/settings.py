@@ -30,18 +30,15 @@ ORDER_BY_FIELDS = [
     ('updated', 'Updated'),
     ('created', 'Created')
 ]
-ALLOW_EXTENSION_UPLOAD_LIST = [
-    'pdf', 'txt', 'doc', 'docx', 'odt', 'rtf', 'html', 'pptx',  # documents
-    'csv', 'xlsx', 'ods', 'tsv',  # sheets
-    'jpg', 'jpeg', 'png', 'svg', 'webp', 'ico', 'bmp', 'tiff', 'jfif' # img
-    'mp3',  # music
-    'mp4', 'mkv', 'avi', 'webm', 'gif', 'gifv'  # video
-    'zip', 'rar', '7zip', 'tar', 'gz',  # zip
-    'java', 'py', 'c', 'cpp', 'js', 'gs', 'groovy', 'sh'  # code ,
-
-
+ALLOW_FILE_EXTENSIONS = [
+    '.pdf', '.txt', '.doc', '.docx', '.odt', '.rtf', '.html', '.pptx',  # documents
+    '.csv', '.xlsx', '.ods', '.tsv',  # sheets
+    '.jpg', '.jpeg', '.png', '.svg', '.webp', '.ico', '.bmp', '.tiff', '.jfif'  # img
+    '.mp3',  # music
+    '.mp4', '.mkv', '.avi', '.webm', '.gif', '.gifv'  # video
+    '.zip', '.rar', '.7zip', '.tar', '.gz',  # zip
+    'java', '.py', '.c', '.cpp', '.js', '.gs', '.groovy', '.sh'  # code ,
 ]
-
 FILE_EXTENSIONS = {
     'pdf': ['pdf'],
     'doc': ['txt', 'doc', 'docx', 'odt', 'rtf', 'html', 'pptx'],

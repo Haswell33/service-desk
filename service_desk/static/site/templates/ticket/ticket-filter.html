@@ -141,6 +141,15 @@
           </tr>
         {% endfor %}
       </table>
+      <div class="description" style="padding-top: 5px;">
+        {% if tickets.count == 0 %}
+          No tickets
+        {% elif tickets.count == 1 %}
+          Found 1 ticket
+        {% else %}
+          Found {{ tickets.count }} tickets
+        {% endif %}
+      </div>
     </div>
     <script>
       $(document).ready(function(){renderFields('filter-view', '{{ MEDIA_URL }}')})

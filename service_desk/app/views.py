@@ -9,6 +9,7 @@ from django.contrib.auth.signals import user_logged_out, user_logged_in
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm, PasswordResetForm
 from django.contrib.messages.views import SuccessMessageMixin
+from django.views.generic.edit import FormMixin
 from django.db.models.query_utils import Q
 from django.views import generic
 from django.utils.translation import gettext as _
@@ -18,9 +19,9 @@ from django.utils.encoding import force_bytes
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.urls.exceptions import NoReverseMatch
-from .models import Ticket, TransitionAssociation, Attachment, Comment
-from .forms import TicketCreateForm, TicketFilterViewForm, TicketUpdateAssigneeForm, TicketUpdateForm, TicketCommentForm
-from .utils import get_env_type, get_initial_status, get_active_tenant, active_tenant_session, get_active_tenant_session, tenant_session, clear_tenant_session, change_active_tenant, get_tenant_cookie_name, get_active_tenant_tickets, get_board_columns_assocations, get_board_columns, filter_tickets, order_tickets, get_transitions, convert_query_dict_to_dict, set_ticket_status, set_ticket_assignee, create_ticket, update_ticket, set_ticket_suspend, add_attachment, delete_attachment, add_relation, delete_relation, get_allow_tickets_to_relate, add_comment, delete_comment, edit_comment, get_audit_logs
+from .models import Ticket, TransitionAssociation, Attachment, Comment, Status
+from .forms import TicketCreateForm, TicketFilterViewForm, TicketEditAssigneeForm, TicketEditForm, TicketCommentForm
+from .utils import get_env_type, get_initial_status, get_active_tenant, active_tenant_session, get_active_tenant_session, tenant_session, clear_tenant_session, change_active_tenant, get_tenant_cookie_name, get_active_tenant_tickets, get_board_columns_assocations, get_board_columns, filter_tickets, order_tickets, get_transition_options, convert_query_dict_to_dict, set_ticket_status, set_ticket_assignee, create_ticket, update_ticket, set_ticket_suspend, add_attachment, delete_attachment, add_relation, delete_relation, get_allow_tickets_to_relate, add_comment, delete_comment, edit_comment, get_audit_logs, has_access_to_ticket
 from .context_processors import context_tenant_session
 
 
@@ -34,6 +35,14 @@ def validate_get_request(self, request, view_name, *args, **kwargs):
     response = super(view_name, self).get(request, *args, **kwargs)
     response.status_code = 200
     return response
+
+
+def code_403(request):
+    return render(request, 'errors/403.html', {}, status=403)
+
+
+def code_405(request):
+    return render(request, 'errors/405.html', {}, status=405)
 
 
 def login_page(path):
@@ -65,13 +74,15 @@ class TicketCreateView(SuccessMessageMixin, generic.CreateView):
 
     def get_initial(self):
         initial = super(TicketCreateView, self).get_initial()
-        tenant_session = get_active_tenant_session(self.request.user)
-        if tenant_session.user_type == settings.CUST_TYPE:
-            initial['type'] = 2  # Service Request
-        elif tenant_session.user_type == settings.OPER_TYPE or tenant_session.user_type == settings.DEV_TYPE:
-            initial['type'] = 1  # Task
         initial['reporter'] = self.request.user
         return initial
+
+    def get_form_kwargs(self):
+        kwargs = super(TicketCreateView, self).get_form_kwargs()
+        kwargs.update({
+            'request': self.request
+        })
+        return kwargs
 
     def get_success_url(self, **kwargs):
         return reverse_lazy('view_ticket', args=(self.object.slug,))
@@ -91,23 +102,39 @@ class TicketCreateView(SuccessMessageMixin, generic.CreateView):
         return validate_get_request(self, request, TicketCreateView, *args, **kwargs)
 
 
-class TicketDetailView(generic.detail.DetailView):  # Detail view for ticket
+class TicketDetailView(FormMixin, generic.detail.DetailView):  # Detail view for ticket
     model = Ticket
+    form_class = TicketEditAssigneeForm
+
+    def get_form_kwargs(self):
+        kwargs = super(TicketDetailView, self).get_form_kwargs()
+        kwargs.update({
+            'request': self.request,
+            'instance': self.object
+        })
+        return kwargs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
-            'transitions': get_transitions(self.object),
+            'transitions': get_transition_options(self.object),
             'audit_logs': get_audit_logs(self.object),
             'available_tickets_to_relate': get_allow_tickets_to_relate(self.request.user, self.get_object()),
-            'form_update': TicketUpdateForm(instance=self.object),
-            'form_update_assignee': TicketUpdateAssigneeForm(instance=self.object),
+            'form_update': TicketEditForm(instance=self.object),
+            'form_update_assignee': self.get_form(),
             'form_comment': TicketCommentForm()
         })
         return context
 
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return login_page(request.path)
+        elif not has_access_to_ticket(request.user, self.get_object()):
+            return code_403(request)
+        return validate_get_request(self, request, TicketDetailView, *args, **kwargs)
 
-class TicketDetailUpdate(generic.UpdateView):
+
+class TicketDetailEdit(generic.UpdateView):
     model = Ticket
     fields = ['title', 'priority', 'description', 'labels']
 
@@ -116,19 +143,11 @@ class TicketDetailUpdate(generic.UpdateView):
         return HttpResponse('invalid form')
 
     def get(self, request, *args, **kwargs):
-        # self.object = self.get_object()
-        return super(TicketDetailUpdate, self).get(request, *args, **kwargs)
-
-    '''def form_valid(self, form):
-        print('dupa')
-        new_ticket = form.save(commit=False)  # create instance, but do not save
-        new_ticket.save()  # create ticket
-        form.save_m2m()
-        return super().form_valid(form)'''
+        return code_405(request)
 
     def post(self, request, *args, **kwargs):
         ticket = self.get_object()
-        form = TicketUpdateForm(request.POST or None, instance=ticket)
+        form = TicketEditForm(request.POST or None, instance=ticket)
         ticket_updated = update_ticket(form, request)
         if ticket_updated:
             messages.success(request, f'Ticket <strong>{ticket_updated.key}</strong> has been updated')
@@ -137,7 +156,7 @@ class TicketDetailUpdate(generic.UpdateView):
         return HttpResponseRedirect(reverse('view_ticket', args=[ticket.slug]))
 
 
-class TicketDetailUpdateStatus(generic.UpdateView):
+class TicketDetailEditStatus(generic.UpdateView):
     model = Ticket
     fields = ['status']
 
@@ -149,51 +168,66 @@ class TicketDetailUpdateStatus(generic.UpdateView):
         return context
 
     def get(self, request, *args, **kwargs):
-        return super(TicketDetailUpdateStatus, self).get(request, *args, **kwargs)
+        return code_405(request)
 
     def post(self, request, *args, **kwargs):
-        context = super().post(request, *args, **kwargs)
-        transition_association = TransitionAssociation.objects.get(id=request.POST.get('transition'))
         ticket = self.get_object()
+        if not has_access_to_ticket(request.user, ticket):
+            return code_403(request)
+        super().post(request, *args, **kwargs)
         context_transition_associations = self.get_context_data().get('transitions')
-        ticket_updated = set_ticket_status(transition_association, context_transition_associations, ticket, request)
         try:
-            messages.success(request, f'Status of <strong>{ticket_updated.key}</strong> has been changed to <strong>{ticket_updated.status}</strong>')
-        except AttributeError:
-            messages.error(request, f'Status in <strong>{ticket.key}</strong> cannot be changed!')
+            transition_association = TransitionAssociation.objects.get(id=request.POST.get('transition'))
+            result = set_ticket_status(transition_association, context_transition_associations, ticket, request)
+            if isinstance(result, Status):
+                messages.success(request, f'Status of <strong>{ticket.key}</strong> has been changed to <strong>{result}</strong>')
+            else:
+                messages.error(request, result)
+        except TransitionAssociation.DoesNotExist:
+            messages.error(request, f'Transition in <strong>{ticket}</strong> not exist')
         return HttpResponseRedirect(reverse('view_ticket', args=[ticket.slug]))
 
 
-class TicketDetailUpdateAssignee(generic.UpdateView):
+class TicketDetailEditAssignee(generic.UpdateView):
     model = Ticket
+    fields = ['assignee']
 
     def get(self, request, *args, **kwargs):
-        # self.object = self.get_object()
-        return super(TicketDetailUpdateAssignee, self).get(request, *args, **kwargs)
+        return code_405(request)
 
     def post(self, request, *args, **kwargs):
         ticket = self.get_object()
+        if not has_access_to_ticket(request.user, ticket):
+            return code_403(request)
+        user_id = request.POST.get('assignee')
         try:
-            user = User.objects.get(id=request.POST.get('assignee'))
-        except ValueError:
-            user = None
-        ticket_updated = set_ticket_assignee(user, ticket, request)
-        if user is None:
-            messages.success(request, f'Ticket has been unassigned')
-        else:
-            messages.success(request, f'Ticket has been assigned to <strong>{ticket_updated.assignee}</strong>')
+            if user_id is None or user_id == '':
+                user = None
+            else:
+                user = User.objects.get(id=request.POST.get('assignee'))
+            result = set_ticket_assignee(user, ticket, request)
+            if isinstance(result, User):
+                messages.success(request, f'Ticket has been assigned to <strong>{result}</strong>')
+            elif user is None:
+                messages.success(request, result)
+            else:
+                messages.error(request, result)
+        except User.DoesNotExist:
+            messages.error(request, f'Selected user not exist')
         return HttpResponseRedirect(reverse('view_ticket', args=[ticket.slug]))
 
 
-class TicketDetailUpdateSuspend(generic.UpdateView):
+class TicketDetailEditSuspend(generic.UpdateView):
     model = Ticket
+    fields = ['suspended']
 
     def get(self, request, *args, **kwargs):
-        # self.object = self.get_object()
-        return super(TicketDetailUpdateSuspend, self).get(request, *args, **kwargs)
+        return code_405(request)
 
     def post(self, request, *args, **kwargs):
         ticket = self.get_object()
+        if not has_access_to_ticket(request.user, ticket):
+            return code_403(request)
         ticket_updated = set_ticket_suspend(ticket, request)
         if ticket_updated.suspended is True:
             messages.success(request, f'Ticket <strong>{ticket_updated}</strong> has been suspended')
@@ -206,10 +240,12 @@ class TicketDetailAddAttachment(generic.UpdateView):
     model = Ticket
 
     def get(self, request, *args, **kwargs):
-        return super(TicketDetailAddAttachment, self).get(request, *args, **kwargs)
+        return code_405(request)
 
     def post(self, request, *args, **kwargs):
         ticket = self.get_object()
+        if not has_access_to_ticket(request.user, ticket):
+            return code_403(request)
         files = request.FILES.getlist('attachments')
         if files:
             for file in files:
@@ -224,10 +260,12 @@ class TicketDetailDeleteAttachment(generic.DeleteView):
     model = Ticket
 
     def get(self, request, *args, **kwargs):
-        return super(TicketDetailDeleteAttachment, self).get(request, *args, **kwargs)
+        return code_405(request)
 
     def post(self, request, *args, **kwargs):
         ticket = self.get_object()
+        if not has_access_to_ticket(request.user, ticket):
+            return code_403(request)
         attachment_id = request.POST.get('attachment')
         try:
             attachment = Attachment.objects.get(id=attachment_id)
@@ -245,10 +283,12 @@ class TicketDetailAddRelation(generic.UpdateView):
     model = Ticket
 
     def get(self, request, *args, **kwargs):
-        return super(TicketDetailAddRelation, self).get(request, *args, **kwargs)
+        return code_405(request)
 
     def post(self, request, *args, **kwargs):
         ticket = self.get_object()
+        if not has_access_to_ticket(request.user, ticket):
+            return code_403(request)
         tickets_to_relate = request.POST.getlist('relations')
         if tickets_to_relate:
             for ticket_to_relate in tickets_to_relate:
@@ -266,10 +306,12 @@ class TicketDetailDeleteRelation(generic.UpdateView):
     model = Ticket
 
     def get(self, request, *args, **kwargs):
-        return super(TicketDetailDeleteRelation, self).get(request, *args, **kwargs)
+        return code_405(request)
 
     def post(self, request, *args, **kwargs):
         ticket = self.get_object()
+        if not has_access_to_ticket(request.user, ticket):
+            return code_403(request)
         relation_id = request.POST.get('relation')
         try:
             relation = Ticket.objects.get(id=relation_id)
@@ -287,10 +329,12 @@ class TicketDetailAddComment(generic.UpdateView):
     model = Ticket
 
     def get(self, request, *args, **kwargs):
-        return super(TicketDetailAddComment, self).get(request, *args, **kwargs)
+        return code_405(request)
 
     def post(self, request, *args, **kwargs):
         ticket = self.get_object()
+        if not has_access_to_ticket(request.user, ticket):
+            return code_403(request)
         comment = request.POST.get('content')
         if comment:
             result = add_comment(ticket, comment, request)
@@ -307,10 +351,12 @@ class TicketDetailDeleteComment(generic.UpdateView):
     model = Ticket
 
     def get(self, request, *args, **kwargs):
-        return super(TicketDetailDeleteComment, self).get(request, *args, **kwargs)
+        return code_405(request)
 
     def post(self, request, *args, **kwargs):
         ticket = self.get_object()
+        if not has_access_to_ticket(request.user, ticket):
+            return code_403(request)
         comment_id = request.POST.get('comment')
         try:
             comment = Comment.objects.get(id=comment_id)
@@ -328,10 +374,12 @@ class TicketDetailEditComment(generic.UpdateView):
     model = Ticket
 
     def get(self, request, *args, **kwargs):
-        return super(TicketDetailEditComment, self).get(request, *args, **kwargs)
+        return code_405(request)
 
     def post(self, request, *args, **kwargs):
         ticket = self.get_object()
+        if not has_access_to_ticket(request.user, ticket):
+            return code_403(request)
         comment_id = request.POST.get('comment')
         content = request.POST.get('content')
         try:
@@ -368,12 +416,19 @@ class TicketBoardListView(generic.ListView):
         return validate_get_request(self, request, TicketBoardListView, *args, **kwargs)
 
 
-class TicketFilterListView(generic.ListView):
+class TicketFilterListView(FormMixin, generic.ListView):
     model = Ticket
-    paginate_by = 50
     context_object_name = 'tickets'
+    form_class = TicketFilterViewForm
     template_name = 'ticket/ticket-filter.html'
     ordering = ['key']
+
+    def get_form_kwargs(self):
+        kwargs = super(TicketFilterListView, self).get_form_kwargs()
+        kwargs.update({
+            'request': self.request
+        })
+        return kwargs
 
     def get_queryset(self):
         filters = {
@@ -394,7 +449,7 @@ class TicketFilterListView(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super(TicketFilterListView, self).get_context_data(**kwargs)
         context.update({
-            'form': TicketFilterViewForm(),
+            'form': self.get_form(),
             'fields': settings.ORDER_BY_FIELDS,
             'curr_ordering': self.request.GET.get('ordering'),
             'curr_selected': convert_query_dict_to_dict(self.request.GET)
@@ -486,6 +541,10 @@ def permission_denied(request, exception=None, template_name='error/403.html'):
 
 def page_not_found(request, exception=None, template_name='errors/404.html'):
     return render(request, template_name, {}, status=404)
+
+
+def method_not_allowed(request, exception=None, template_name='errors/405.html'):
+    return render(request, template_name, {}, status=405)
 
 
 def internal_server_error(request, exception=None, template_name='error/500.html'):

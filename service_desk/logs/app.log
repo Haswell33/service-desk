@@ -899,3 +899,154 @@
 2022-06-27 00:07:47 INFO | admin 127.0.0.1 Ticket 19 update Status 15
 2022-06-27 00:08:55 INFO | admin 127.0.0.1 Ticket 19 add Comment 27
 2022-06-27 00:09:14 INFO | admin 127.0.0.1 Ticket 19 update Comment 25
+2022-06-27 00:10:56 INFO | admin 127.0.0.1 Ticket 19 update Comment 23
+2022-06-27 00:21:06 INFO | admin 127.0.0.1 Ticket 30 add Attachment 36
+2022-06-27 00:21:06 INFO | admin 127.0.0.1 Ticket 30 create Ticket
+2022-06-27 00:21:26 INFO | admin 127.0.0.1 Ticket 31 add Attachment 37
+2022-06-27 00:21:26 INFO | admin 127.0.0.1 Ticket 31 create Ticket
+2022-06-27 00:21:41 INFO | admin 127.0.0.1 Ticket 32 add Attachment 38
+2022-06-27 00:21:41 INFO | admin 127.0.0.1 Ticket 32 create Ticket
+2022-06-27 00:23:42 INFO | admin 127.0.0.1 Ticket 33 add Attachment 39
+2022-06-27 00:23:42 INFO | admin 127.0.0.1 Ticket 33 create Ticket
+2022-06-27 00:23:48 INFO | admin 127.0.0.1 Ticket 33 delete Attachment 39
+2022-06-27 00:25:02 INFO | admin 127.0.0.1 Ticket 34 add Attachment 40
+2022-06-27 00:25:02 INFO | admin 127.0.0.1 Ticket 34 create Ticket
+2022-06-27 00:25:21 INFO | admin 127.0.0.1 Ticket 34 delete Attachment 40
+2022-06-27 00:26:37 INFO | admin 127.0.0.1 Ticket 34 update Status 19
+2022-06-27 00:26:38 INFO | admin 127.0.0.1 Ticket 34 update Status 15
+2022-06-27 00:26:41 INFO | admin 127.0.0.1 Ticket 34 update Status 19
+2022-06-27 00:26:42 INFO | admin 127.0.0.1 Ticket 34 update Status 15
+2022-06-27 00:29:22 INFO | admin 127.0.0.1 Ticket 34 update assignee
+2022-06-27 00:29:27 INFO | admin 127.0.0.1 Ticket 34 update assignee
+2022-06-27 00:29:28 INFO | admin 127.0.0.1 Ticket 34 update Status 17
+2022-06-27 00:29:30 INFO | admin 127.0.0.1 Ticket 34 update Status 21
+2022-06-27 00:29:31 INFO | admin 127.0.0.1 Ticket 34 update suspended
+2022-06-27 00:29:32 INFO | admin 127.0.0.1 Ticket 34 update suspended
+2022-06-27 00:29:34 INFO | admin 127.0.0.1 Ticket 34 update priority
+2022-06-27 00:30:46 INFO | admin 127.0.0.1 Ticket 34 update priority
+2022-06-27 00:31:01 INFO | admin 127.0.0.1 Ticket 34 update priority
+2022-06-27 00:32:26 INFO | admin 127.0.0.1 Ticket 35 add Attachment 41
+2022-06-27 00:32:26 INFO | admin 127.0.0.1 Ticket 35 create Ticket
+2022-06-27 00:34:39 INFO | admin 127.0.0.1 Ticket 35 add Attachment 42
+2022-06-27 00:34:47 INFO | admin 127.0.0.1 Ticket 36 add Attachment 43
+2022-06-27 00:34:47 INFO | admin 127.0.0.1 Ticket 36 create Ticket
+2022-06-27 00:34:48 INFO | admin 127.0.0.1 Ticket 36 delete Attachment 43
+2022-06-27 00:35:23 INFO | admin 127.0.0.1 Ticket 36 update Status 19
+2022-06-27 00:36:09 INFO | admin 127.0.0.1 Ticket 36 update Status 15
+2022-06-27 00:36:12 INFO | admin 127.0.0.1 Ticket 36 update title
+2022-06-27 00:36:12 INFO | admin 127.0.0.1 Ticket 36 update priority
+2022-06-27 00:36:14 INFO | admin 127.0.0.1 Ticket 36 update assignee
+2022-06-27 00:36:15 INFO | admin 127.0.0.1 Ticket 36 update suspended
+2022-06-27 00:36:15 INFO | admin 127.0.0.1 Ticket 36 update suspended
+2022-06-27 00:36:19 INFO | admin 127.0.0.1 Ticket 36 add Attachment 44
+2022-06-27 00:36:21 INFO | admin 127.0.0.1 Ticket 36 add Ticket 34
+2022-06-27 00:36:23 INFO | admin 127.0.0.1 Ticket 36 add Comment 28
+2022-06-27 00:36:26 INFO | admin 127.0.0.1 Ticket 36 delete Comment 28
+2022-06-27 00:36:27 INFO | admin 127.0.0.1 Ticket 36 delete Attachment 44
+2022-06-27 00:36:28 INFO | admin 127.0.0.1 Ticket 36 delete Ticket 34
+2022-06-27 00:37:57 INFO | admin 127.0.0.1 Ticket 36 update assignee
+2022-06-27 01:29:04 INFO | customer-hsw 127.0.0.1 Ticket 37 create Ticket
+2022-06-27 01:36:38 INFO | dev-hsw 127.0.0.1 Ticket 26 update Status 16
+2022-06-27 01:36:52 INFO | dev-hsw 127.0.0.1 Ticket 23 update Status 22
+2022-06-27 01:37:10 INFO | dev-hsw 127.0.0.1 Ticket 8 update Status 16
+2022-06-27 01:41:39 INFO | admin 127.0.0.1 Ticket 36 update Status 17
+2022-06-27 01:41:41 INFO | admin 127.0.0.1 Ticket 36 update Status 23
+2022-06-27 01:41:44 INFO | admin 127.0.0.1 Ticket 35 update Status 28
+2022-06-27 01:41:48 INFO | admin 127.0.0.1 Ticket 33 update Status 17
+2022-06-27 01:41:51 INFO | admin 127.0.0.1 Ticket 31 update Status 17
+2022-06-27 01:41:52 INFO | admin 127.0.0.1 Ticket 31 update Status 18
+2022-06-27 01:42:00 INFO | admin 127.0.0.1 Ticket 30 update Status 17
+2022-06-27 01:42:02 INFO | admin 127.0.0.1 Ticket 30 update Status 23
+2022-06-27 01:42:07 INFO | admin 127.0.0.1 Ticket 18 update Status 17
+2022-06-27 01:42:09 INFO | admin 127.0.0.1 Ticket 18 update Status 18
+2022-06-27 01:42:16 INFO | admin 127.0.0.1 Ticket 19 update Status 19
+2022-06-27 01:42:20 INFO | admin 127.0.0.1 Ticket 19 update Status 15
+2022-06-27 01:42:22 INFO | admin 127.0.0.1 Ticket 19 update Status 17
+2022-06-27 01:42:24 INFO | admin 127.0.0.1 Ticket 19 update Status 21
+2022-06-27 02:12:32 INFO | admin 127.0.0.1 Ticket 38 add Attachment 45
+2022-06-27 02:12:32 INFO | admin 127.0.0.1 Ticket 38 create Ticket
+2022-06-27 02:12:35 INFO | admin 127.0.0.1 Ticket 38 update Status 19
+2022-06-27 02:12:36 INFO | admin 127.0.0.1 Ticket 38 update Status 26
+2022-06-27 02:12:37 INFO | admin 127.0.0.1 Ticket 38 update Status 16
+2022-06-27 02:12:39 INFO | admin 127.0.0.1 Ticket 38 update Status 27
+2022-06-27 02:12:41 INFO | admin 127.0.0.1 Ticket 38 update Status 16
+2022-06-27 02:12:43 INFO | admin 127.0.0.1 Ticket 38 update Status 27
+2022-06-27 02:12:46 INFO | admin 127.0.0.1 Ticket 38 update Status 21
+2022-06-27 02:13:08 INFO | admin 127.0.0.1 Ticket 39 create Ticket
+2022-06-27 02:13:11 INFO | admin 127.0.0.1 Ticket 39 update Status 17
+2022-06-27 02:13:13 INFO | admin 127.0.0.1 Ticket 39 update Status 18
+2022-06-27 02:13:14 INFO | admin 127.0.0.1 Ticket 39 update Status 17
+2022-06-27 02:13:18 INFO | admin 127.0.0.1 Ticket 39 update Status 23
+2022-06-27 02:13:20 INFO | admin 127.0.0.1 Ticket 39 update Status 17
+2022-06-27 02:13:28 INFO | admin 127.0.0.1 Ticket 38 update Status 22
+2022-06-27 02:13:30 INFO | admin 127.0.0.1 Ticket 38 update Status 26
+2022-06-27 02:13:31 INFO | admin 127.0.0.1 Ticket 38 update Status 16
+2022-06-27 02:13:32 INFO | admin 127.0.0.1 Ticket 38 update Status 27
+2022-06-27 02:28:33 INFO | admin 127.0.0.1 Ticket 14 update Status 18
+2022-06-27 02:28:35 INFO | admin 127.0.0.1 Ticket 14 update Status 1
+2022-06-27 02:28:37 INFO | admin 127.0.0.1 Ticket 14 update Status 20
+2022-06-27 02:28:38 INFO | admin 127.0.0.1 Ticket 14 update Status 15
+2022-06-27 02:28:39 INFO | admin 127.0.0.1 Ticket 14 update Status 28
+2022-06-27 02:28:44 INFO | admin 127.0.0.1 Ticket 14 update Status 29
+2022-06-27 02:28:46 INFO | admin 127.0.0.1 Ticket 14 update Status 18
+2022-06-27 02:28:47 INFO | admin 127.0.0.1 Ticket 14 update Status 21
+2022-06-27 02:28:48 INFO | admin 127.0.0.1 Ticket 14 update Status 22
+2022-06-27 02:28:51 INFO | admin 127.0.0.1 Ticket 14 update Status 15
+2022-06-27 02:28:52 INFO | admin 127.0.0.1 Ticket 14 update Status 28
+2022-06-27 02:28:54 INFO | admin 127.0.0.1 Ticket 14 update Status 19
+2022-06-27 02:28:55 INFO | admin 127.0.0.1 Ticket 14 update Status 15
+2022-06-27 02:28:56 INFO | admin 127.0.0.1 Ticket 14 update Status 28
+2022-06-27 02:28:58 INFO | admin 127.0.0.1 Ticket 14 update Status 19
+2022-06-27 02:28:59 INFO | admin 127.0.0.1 Ticket 14 update Status 15
+2022-06-27 02:29:00 INFO | admin 127.0.0.1 Ticket 14 update Status 28
+2022-06-27 02:29:01 INFO | admin 127.0.0.1 Ticket 14 update Status 29
+2022-06-27 02:29:02 INFO | admin 127.0.0.1 Ticket 14 update Status 1
+2022-06-27 02:29:10 INFO | admin 127.0.0.1 Ticket 14 update assignee
+2022-06-27 03:36:11 INFO | admin 127.0.0.1 Ticket 37 update assignee
+2022-06-27 03:36:15 INFO | admin 127.0.0.1 Ticket 37 update assignee
+2022-06-27 03:36:18 INFO | admin 127.0.0.1 Ticket 37 update assignee
+2022-06-27 03:45:50 INFO | admin 127.0.0.1 Ticket 37 update assignee
+2022-06-27 03:46:24 INFO | admin 127.0.0.1 Ticket 37 update assignee
+2022-06-27 03:46:27 INFO | admin 127.0.0.1 Ticket 37 update assignee
+2022-06-27 03:47:05 INFO | admin 127.0.0.1 Ticket 37 update assignee
+2022-06-27 03:47:09 INFO | admin 127.0.0.1 Ticket 37 update assignee
+2022-06-27 03:47:47 INFO | admin 127.0.0.1 Ticket 37 update assignee
+2022-06-27 03:47:51 INFO | admin 127.0.0.1 Ticket 37 update assignee
+2022-06-27 03:48:48 INFO | admin 127.0.0.1 Ticket 37 update assignee
+2022-06-27 03:48:51 INFO | admin 127.0.0.1 Ticket 37 update assignee
+2022-06-27 03:49:09 INFO | admin 127.0.0.1 Ticket 37 update assignee
+2022-06-27 03:49:12 INFO | admin 127.0.0.1 Ticket 37 update assignee
+2022-06-27 04:21:23 INFO | admin 127.0.0.1 Ticket 37 update assignee
+2022-06-27 04:21:27 INFO | admin 127.0.0.1 Ticket 37 update assignee
+2022-06-27 04:22:32 INFO | admin 127.0.0.1 Ticket 37 update assignee
+2022-06-27 04:22:35 INFO | admin 127.0.0.1 Ticket 37 update assignee
+2022-06-27 04:22:37 INFO | admin 127.0.0.1 Ticket 37 update assignee
+2022-06-27 04:33:51 INFO | admin 127.0.0.1 Ticket 37 add Attachment 46
+2022-06-27 04:34:05 INFO | admin 127.0.0.1 Ticket 37 delete Attachment 46
+2022-06-27 04:34:08 INFO | admin 127.0.0.1 Ticket 37 add Ticket 30
+2022-06-27 04:34:13 INFO | admin 127.0.0.1 Ticket 37 update Status 17
+2022-06-27 04:35:13 INFO | admin 127.0.0.1 Ticket 32 update Status 19
+2022-06-27 04:35:14 INFO | admin 127.0.0.1 Ticket 32 update Status 15
+2022-06-27 04:37:51 INFO | admin 127.0.0.1 Ticket 32 update assignee
+2022-06-27 04:37:54 INFO | admin 127.0.0.1 Ticket 32 update assignee
+2022-06-27 04:37:57 INFO | admin 127.0.0.1 Ticket 32 update assignee
+2022-06-27 04:38:00 INFO | admin 127.0.0.1 Ticket 32 delete Attachment 38
+2022-06-27 04:38:03 INFO | admin 127.0.0.1 Ticket 32 add Comment 29
+2022-06-27 04:38:06 INFO | admin 127.0.0.1 Ticket 32 delete Comment 29
+2022-06-27 04:38:17 INFO | admin 127.0.0.1 Ticket 32 update title
+2022-06-27 04:38:17 INFO | admin 127.0.0.1 Ticket 32 update priority
+2022-06-27 04:38:17 INFO | admin 127.0.0.1 Ticket 32 update Label
+2022-06-27 06:12:08 INFO | admin 127.0.0.1 Ticket 32 update assignee
+2022-06-27 06:12:14 INFO | admin 127.0.0.1 Ticket 32 update Status 17
+2022-06-27 06:12:34 INFO | admin 127.0.0.1 Ticket 32 update Status 21
+2022-06-27 06:12:35 INFO | admin 127.0.0.1 Ticket 32 update Status 22
+2022-06-27 06:12:36 INFO | admin 127.0.0.1 Ticket 32 update Status 15
+2022-06-27 06:12:38 INFO | admin 127.0.0.1 Ticket 32 update Status 17
+2022-06-27 06:21:07 INFO | admin 127.0.0.1 Ticket 32 update Status 21
+2022-06-27 06:21:09 INFO | admin 127.0.0.1 Ticket 32 update Status 22
+2022-06-27 06:21:10 INFO | admin 127.0.0.1 Ticket 32 update Status 15
+2022-06-27 06:21:12 INFO | admin 127.0.0.1 Ticket 32 update Status 17
+2022-06-27 06:22:26 INFO | admin 127.0.0.1 Ticket 32 update Status 18
+2022-06-27 06:22:28 INFO | admin 127.0.0.1 Ticket 32 update Status 17
+2022-06-27 06:22:29 INFO | admin 127.0.0.1 Ticket 32 update Status 18
+2022-06-27 06:22:31 INFO | admin 127.0.0.1 Ticket 32 update Status 17

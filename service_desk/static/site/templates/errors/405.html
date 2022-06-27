@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+<head>
+    <title>{% block title %} {{ block.super }} | Page Not Found{% endblock %}</title>
+</head>
+
+<body>
+  {% block content_page %}
+  <h1>Method not allowed - 405</h1>
+  {% endblock %}
+</body>

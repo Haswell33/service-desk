@@ -1,8 +1,5 @@
 from .utils import get_tenant_by_group_type, add_tenant_session, tenant_session_exists, set_active_tenant, get_all_user_tenant_sessions, get_active_tenant_session
 from django.conf import settings
-from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import render, reverse
-from django.http import HttpResponseRedirect, HttpResponse
 
 
 def context_tenant_session(request):
