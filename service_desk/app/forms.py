@@ -1,6 +1,5 @@
 from django.utils.translation import gettext_lazy as _
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm, UsernameField
 from .models import Ticket, Type, Label, User, Status, Resolution, Priority, Comment
 from .utils import type_manager, tenant_manager, status_manager
 
@@ -19,12 +18,6 @@ class EmptyDefault(forms.Select):
         if value == '':
             option['attrs']['style'] = 'display: none'
         return option
-
-
-class ModelIconChoiceField(forms.ModelChoiceField):
-    def __init__(self, my_attr, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.my_attr = my_attr
 
 
 class TicketCreateForm(forms.ModelForm):
@@ -147,7 +140,7 @@ class TicketFilterViewForm(forms.Form):
     type = forms.ModelMultipleChoiceField(
         queryset=Type.objects.all(),
         required=False,
-        widget=IconField(attrs={'multiple': 'true', 'icon': 'dupa'}))
+        widget=IconField(attrs={'multiple': 'true'}))
     priority = forms.ModelMultipleChoiceField(
         queryset=Priority.objects.all(),
         required=False,
@@ -172,22 +165,3 @@ class TicketFilterViewForm(forms.Form):
         self.fields['status'] = forms.ModelChoiceField(
             queryset=status_manager.get_available_status_list(self.request.user),
             required=False)
-
-
-class LoginForm(AuthenticationForm):
-    def __init__(self, *args, **kwargs):
-        super(LoginForm, self).__init__(*args, **kwargs)
-
-    resolution = forms.ModelMultipleChoiceField(
-        queryset=Resolution.objects.all(),
-        required=False)
-    username = UsernameField(widget=forms.TextInput(
-        attrs={
-            'class': 'form-control',
-            'placeholder': '', 'id': 'hello'}))
-    password = forms.CharField(widget=forms.PasswordInput(
-        attrs={
-            'class': 'form-control',
-            'placeholder': '',
-            'id': 'hi',
-        }))
