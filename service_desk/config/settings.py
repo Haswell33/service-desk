@@ -18,19 +18,6 @@ ENV_TYPES = [
     ('service-desk', 'Service Desk'),
     ('software', 'Software')
 ]
-ORDER_BY_FIELDS = [
-    ('type', 'Type'),
-    ('key', 'Key'),
-    ('title', 'Title'),
-    ('priority', 'Priority'),
-    ('status', 'Status'),
-    ('resolution', 'Resolution'),
-    ('reporter', 'Reporter'),
-    ('assignee', 'Assignee'),
-    ('labels', 'Labels'),
-    ('updated', 'Updated'),
-    ('created', 'Created')
-]
 ALLOW_FILE_EXTENSIONS = [
     '.pdf', '.txt', '.doc', '.docx', '.odt', '.rtf', '.html', '.pptx',  # documents
     '.csv', '.xlsx', '.ods', '.tsv',  # sheets

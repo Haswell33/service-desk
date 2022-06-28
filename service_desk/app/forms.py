@@ -1,5 +1,6 @@
 from django.utils.translation import gettext_lazy as _
 from django import forms
+from django.contrib.auth.forms import AuthenticationForm, UsernameField
 from .models import Ticket, Type, Label, User, Status, Resolution, Priority, Comment
 from .utils import type_manager, tenant_manager, status_manager
 
@@ -171,3 +172,22 @@ class TicketFilterViewForm(forms.Form):
         self.fields['status'] = forms.ModelChoiceField(
             queryset=status_manager.get_available_status_list(self.request.user),
             required=False)
+
+
+class LoginForm(AuthenticationForm):
+    def __init__(self, *args, **kwargs):
+        super(LoginForm, self).__init__(*args, **kwargs)
+
+    resolution = forms.ModelMultipleChoiceField(
+        queryset=Resolution.objects.all(),
+        required=False)
+    username = UsernameField(widget=forms.TextInput(
+        attrs={
+            'class': 'form-control',
+            'placeholder': '', 'id': 'hello'}))
+    password = forms.CharField(widget=forms.PasswordInput(
+        attrs={
+            'class': 'form-control',
+            'placeholder': '',
+            'id': 'hi',
+        }))

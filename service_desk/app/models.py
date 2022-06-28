@@ -893,6 +893,12 @@ class Ticket(models.Model):
     def get_audit_logs(self):
         return AuditLog.objects.filter(object=self._meta.model.__name__, object_value=self.id)
 
+    @staticmethod
+    def get_ordering_fields():
+        return [('type', 'Type'), ('key', 'Key'), ('title', 'Title'), ('priority', 'Priority'),
+                ('status', 'Status'), ('resolution', 'Resolution'), ('reporter', 'Reporter'),
+                ('assignee', 'Assignee'), ('labels', 'Labels'), ('updated', 'Updated'), ('created', 'Created')]
+
     def get_absolute_url(self):
         pass
 

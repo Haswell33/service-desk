@@ -3,10 +3,11 @@ from django.shortcuts import render, reverse, redirect
 from django.conf import settings
 from django.core.mail import send_mail, BadHeaderError
 from django.contrib import messages
-from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth import update_session_auth_hash, authenticate, login as auth_login
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.signals import user_logged_out, user_logged_in
-from django.contrib.auth.forms import PasswordChangeForm, PasswordResetForm
+from django.contrib.auth import views as auth_views
+from django.contrib.auth.forms import PasswordChangeForm, PasswordResetForm, AuthenticationForm
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic.edit import FormMixin
 from django.db.models.query_utils import Q
@@ -17,8 +18,8 @@ from django.utils.encoding import force_bytes
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.urls.exceptions import NoReverseMatch
-from .models import Ticket, TransitionAssociation, Attachment, Comment, Status
-from .forms import TicketCreateForm, TicketFilterViewForm, TicketEditAssigneeForm, TicketEditForm, TicketCommentForm, TicketCloneForm, User
+from .models import Ticket, TransitionAssociation, Attachment, Comment, Status, User
+from .forms import TicketCreateForm, TicketFilterViewForm, TicketEditAssigneeForm, TicketEditForm, TicketCommentForm, TicketCloneForm, LoginForm
 from .utils import tenant_manager, board_manager, ticket_manager, utils
 from .context_processors import context_tenant_session
 
@@ -76,7 +77,7 @@ user_logged_in.connect(after_login)
 class TicketCreateView(SuccessMessageMixin, generic.CreateView):
     model = Ticket
     form_class = TicketCreateForm
-    template_name = '/ticket/ticket-create.html'
+    template_name = 'ticket/ticket-create.html'
 
     def get_initial(self):
         initial = super(TicketCreateView, self).get_initial()
@@ -111,6 +112,7 @@ class TicketCreateView(SuccessMessageMixin, generic.CreateView):
 class TicketDetailView(FormMixin, generic.detail.DetailView):  # Detail view for ticket
     model = Ticket
     form_class = TicketEditAssigneeForm
+    template_name = 'ticket/ticket-view.html'
 
     def get_form_kwargs(self):
         kwargs = super(TicketDetailView, self).get_form_kwargs()
@@ -444,8 +446,7 @@ class TicketBoardListView(generic.ListView):
         context = super(TicketBoardListView, self).get_context_data(**kwargs)
         context.update({
             'board_columns_associations': board_manager.get_board_columns_associations(board_manager.get_board_columns(self.request.user)),
-            'users': User.objects.all(),
-            'fields': settings.ORDER_BY_FIELDS
+            'users': User.objects.all()
         })
         return context
 
@@ -485,9 +486,10 @@ class TicketFilterListView(FormMixin, generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super(TicketFilterListView, self).get_context_data(**kwargs)
+        model = self.model
         context.update({
             'form': self.get_form(),
-            'fields': settings.ORDER_BY_FIELDS,
+            'fields': model.get_ordering_fields(),
             'curr_ordering': self.request.GET.get('ordering'),
             'curr_selected': utils.convert_query_dict_to_dict(self.request.GET)
         })
@@ -498,6 +500,36 @@ class TicketFilterListView(FormMixin, generic.ListView):
 
     def get(self, request, *args, **kwargs):
         return validate_get_request(self, request, TicketFilterListView, tenant_check=True, *args, **kwargs)
+
+
+class LoginView(auth_views.LoginView):
+    template_name = 'login.html'
+    authentication_form = AuthenticationForm
+    redirect_authenticated_user = True
+
+    def form_valid(self, form):
+        user = User.objects.get(username=form.get_user().username)
+        if user.active:
+            auth_login(self.request, form.get_user())
+        return HttpResponseRedirect(self.get_success_url())
+
+    def form_invalid(self, form):
+        messages.error(self.request, 'Incorrect username or password.')
+        return HttpResponseRedirect(reverse('login'))
+
+
+class PasswordChangeView(auth_views.PasswordChangeView):
+    template_name = 'password/password-change.html'
+    success_url = reverse_lazy('password_change_success')
+    form_class = PasswordChangeForm
+
+    def form_valid(self, form):
+        user = form.save()
+        update_session_auth_hash(self.request, user)  # Important!
+        messages.success(self.request, 'Your password was successfully updated!')
+        return HttpResponseRedirect('password_change_success')
+
+    # def form_invalid(self, form):
 
 
 def password_change(request, template_name='password/password-change.html'):
@@ -609,3 +641,26 @@ def tenant_update(request, tenant_check=False):
         response = redirect('home')
         response.set_cookie(key=tenant_manager.get_tenant_cookie_name(request.user), value=tenant_id)
         return response
+
+
+
+'''
+def login(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request.POST)
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username,password=password)
+        if user:
+            if user.is_active:
+                login(request,user)
+                return redirect(reverse('your_success_url'))
+        else:
+            messages.error(request,'username or password not correct')
+            return redirect(reverse('your_login_url'))
+        
+                
+    else:
+        form = AuthenticationForm()
+    return render(request,'your_template_name.html',{'form':form})
+'''
