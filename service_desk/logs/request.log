@@ -28005,3 +28005,21 @@ Traceback (most recent call last):
   File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 880, in create_ticket
     new_ticket.key = f'{tenant.key}-{tenant.count + 1}'
 AttributeError: 'TenantSession' object has no attribute 'key'
+2022-06-28 05:02:46 ERROR admin POST 500 Internal Server Error: /ticket/edit/hsw-25/attachment/delete
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 283, in post
+    result = ticket.delete_attachment(attachment, request.user)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 941, in delete_attachment
+    self.save()
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 693, in save
+    self.updated = timezone.now()
+AttributeError: type object 'datetime.timezone' has no attribute 'now'
+2022-06-28 05:02:46 WARNING admin GET 404 Not Found: /favicon.ico

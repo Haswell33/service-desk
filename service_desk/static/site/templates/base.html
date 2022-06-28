@@ -149,7 +149,7 @@
     bootstrapFilestyle()
     let userIsAdmin = ('{{user.is_superuser}}' === 'True')
     let userIsAuth = ('{{user.is_authenticated}}' === 'True')
-    let userType = '{{ active_tenant_session.user_type }}'
-    themeColor(userIsAuth, userIsAdmin, userType)
+    let role = '{{ active_tenant_session.role }}'
+    themeColor(userIsAuth, userIsAdmin, role)
   })
 </script>

@@ -1118,3 +1118,6 @@
 2022-06-28 04:52:36 INFO | admin 127.0.0.1 Ticket 45 create Ticket
 2022-06-28 04:52:46 INFO | admin 127.0.0.1 Ticket 46 create Ticket
 2022-06-28 04:52:46 INFO | admin 127.0.0.1 Ticket 46 add Attachment 54
+2022-06-28 05:02:43 INFO | admin 127.0.0.1 Ticket 29 delete Comment 26
+2022-06-28 05:03:36 INFO | admin 127.0.0.1 Ticket 29 update suspended
+2022-06-28 05:03:39 INFO | admin 127.0.0.1 Ticket 29 update suspended

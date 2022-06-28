@@ -21,7 +21,7 @@ $(document).on('click', function(event) {
     showDialog(event, '#add-comment_button', '#add-comment_dialog')
     showDialog(event, '#edit-comment_button', '#edit-comment_dialog', true)
 })
-n
+
 setTimeout(function(){
     $('.errornote').fadeOut()
     $('.messagelist').fadeOut()
@@ -70,26 +70,26 @@ function replaceUrlParam(url, paramName, paramValue) {
     return url + (url.indexOf('?')>0 ? '&' : '?') + paramName + '=' + paramValue
 }
 
-function themeColor(userIsAuth, userIsAdmin, userType){
+function themeColor(userIsAuth, userIsAdmin, role){
     if (userIsAuth && userIsAdmin){
       $(':root').css({
         '--theme': '#6554C0', //purple
         '--theme-hover': 'rgba(101, 84, 192, 0.6)'
       })
     }
-    else if (userIsAuth && userType === 'customer') {
+    else if (userIsAuth && role === 'customer') {
       $(':root').css({
         '--theme': '#4267B2', //blue
         '--theme-hover': 'rgba(66, 103, 178, 0.6)'
       })
     }
-    else if (userIsAuth && userType === 'operator') {
+    else if (userIsAuth && role === 'operator') {
       $(':root').css({
         '--theme': '#36B37E', // green
         '--theme-hover': 'rgba(54, 179, 126, 0.6)'
       })
     }
-    else if (userIsAuth && userType === 'developer'){
+    else if (userIsAuth && role === 'developer'){
       $(':root').css({
         '--theme': '#c57117', //orange
         '--theme-hover': 'rgba(197, 113, 23, 0.6)'

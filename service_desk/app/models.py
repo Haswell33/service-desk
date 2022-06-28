@@ -6,9 +6,10 @@ from django.db.models import Q
 from django.db import models
 from django.dispatch import receiver
 from django.apps import apps
+from django.utils import timezone
 from crum import get_current_user, get_current_request
 from tinymce.models import HTMLField
-from datetime import datetime, timezone
+from datetime import datetime
 from .utils import ticket_manager, utils
 from logging import getLogger
 import os
