@@ -19,7 +19,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.urls.exceptions import NoReverseMatch
 from .models import Ticket, TransitionAssociation, Attachment, Comment, Status, User
-from .forms import TicketCreateForm, TicketFilterViewForm, TicketEditAssigneeForm, TicketEditForm, TicketCommentForm, TicketCloneForm, LoginForm
+from .forms import TicketCreateForm, TicketFilterViewForm, TicketEditAssigneeForm, TicketEditForm, TicketCommentForm, TicketCloneForm
 from .utils import tenant_manager, board_manager, ticket_manager, utils
 from .context_processors import context_tenant_session
 
