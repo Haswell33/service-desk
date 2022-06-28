@@ -1,4 +1,4 @@
-from .utils import get_tenant_by_group_type, add_tenant_session, tenant_session_exists, set_active_tenant, get_all_user_tenant_sessions, get_active_tenant_session
+from .utils import tenant_manager
 from django.conf import settings
 
 
@@ -7,11 +7,11 @@ def context_tenant_session(request):
         return request
     else:
         for group in request.user.groups.all():
-            if group.type == settings.CUST_TYPE or group.type == settings.OPER_TYPE or group.type == settings.DEV_TYPE:
-                tenant = get_tenant_by_group_type(group.type, group)
-                if tenant and not tenant_session_exists(tenant, request.user):
-                    add_tenant_session(tenant, request.user, group.type)  # add record to database with information about available tenant
-                    set_active_tenant(tenant, request)  # check if in django sessions is already activated any tenant
+            if group.role == settings.CUST_TYPE or group.role == settings.OPER_TYPE or group.role == settings.DEV_TYPE:
+                tenant = tenant_manager.get_tenant_by_role(group.role, group)
+                if tenant and not tenant.session_exists(request.user):
+                    tenant.add_session(group.role, request.user)  # add record to database with information about available tenant
+                    tenant.set_active_session(request)  # check if in django sessions is already activated any tenant
         return request
 
 
@@ -27,6 +27,8 @@ def get_media(request):
 
 def get_tenants(request):
     if request.user.is_authenticated:
-        return {'tenant_sessions': get_all_user_tenant_sessions(request.user), 'active_tenant_session': get_active_tenant_session(request.user)}
+        return {
+            'tenant_sessions': tenant_manager.get_all_user_tenant_sessions(request.user),
+            'active_tenant_session': tenant_manager.get_active_tenant_session(request.user)}
     return request
 

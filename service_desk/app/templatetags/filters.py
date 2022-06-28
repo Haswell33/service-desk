@@ -2,7 +2,7 @@ import timeago
 from django import template
 from datetime import datetime
 from django.conf import settings
-from ..utils import get_utc_to_local
+from ..utils import utils
 
 register = template.Library()
 
@@ -53,7 +53,7 @@ def get_max_length_string(string, max_length):
 @register.simple_tag
 def get_time_ago(date):
     now = datetime.now()
-    date = get_utc_to_local(date)
+    date = utils.get_utc_to_local(date)
     date_converted = date.strftime('%Y-%m-%d %H:%M:%S')
     return timeago.format(date_converted, now, 'en')
 

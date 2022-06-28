@@ -1,9 +1,7 @@
-from django.forms import ClearableFileInput, FileInput, FileField, MultiValueField
 from django.utils.translation import gettext_lazy as _
 from django import forms
-from tinymce.widgets import TinyMCE
-from .models import Ticket, Type, Label, User, Status, Resolution, Priority, Comment
-from .utils import get_initial_type, get_type_options, get_user_field_options_by_active_tenant, get_user_field_options_by_ticket, user_is_customer, get_available_statuses
+from .models import Ticket, Type, Label, User, Status, Resolution, Priority, Comment, user_is_customer
+from .utils import type_manager, tenant_manager, status_manager
 
 
 class IconField(forms.Select):
@@ -57,15 +55,15 @@ class TicketCreateForm(forms.ModelForm):
         self.request = kwargs.pop('request')
         super(TicketCreateForm, self).__init__(*args, **kwargs)
         self.fields['type'] = forms.ModelChoiceField(
-            queryset=get_type_options(self.request.user),
-            initial=get_initial_type(self.request.user),
+            queryset=type_manager.get_type_options(self.request.user),
+            initial=type_manager.get_initial_type(self.request.user),
             required=True,
             widget=IconField)
         if user_is_customer(self.request.user):
             self.fields.pop('assignee')
         else:
             self.fields['assignee'] = forms.ModelChoiceField(
-                queryset=get_user_field_options_by_active_tenant(self.request.user),
+                queryset=tenant_manager.get_active_tenant_session().get_user_field_options(),
                 widget=IconField,
                 required=False)
 
@@ -99,11 +97,11 @@ class TicketEditAssigneeForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request')
-        instance = kwargs.pop('instance')
+        ticket = kwargs.pop('ticket')
         super(TicketEditAssigneeForm, self).__init__(*args, **kwargs)
         self.fields['assignee'] = forms.ModelChoiceField(
-            queryset=get_user_field_options_by_ticket(instance),
-            initial=instance.assignee,
+            queryset=ticket.get_user_field_options(),
+            initial=ticket.assignee,
             required=False,
             widget=IconField)
 
@@ -156,7 +154,7 @@ class TicketFilterViewForm(forms.Form):
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request')
         super(TicketFilterViewForm, self).__init__(*args, **kwargs)
-        user_field_options = get_user_field_options_by_active_tenant(self.request.user)
+        user_field_options = tenant_manager.get_active_tenant_session(self.request.user).get_user_field_options()
         self.fields['reporter'] = forms.ModelChoiceField(
             queryset=user_field_options,
             required=False,
@@ -166,9 +164,9 @@ class TicketFilterViewForm(forms.Form):
             required=False,
             widget=IconField)
         self.fields['type'] = forms.ModelChoiceField(
-            queryset=get_type_options(self.request.user),
+            queryset=type_manager.get_type_options(self.request.user),
             required=False,
             widget=IconField)
         self.fields['status'] = forms.ModelChoiceField(
-            queryset=get_available_statuses(self.request.user),
+            queryset=status_manager.get_available_status_list(self.request.user),
             required=False)

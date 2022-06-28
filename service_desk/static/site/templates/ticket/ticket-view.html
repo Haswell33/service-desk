@@ -164,7 +164,7 @@
             {% get_verbose_name object 'created' %}
           </div>
           <div class="ticket-view_field_content ticket-user">
-            {{ object.created_datetime }}
+            {{ object.created_local }}
           </div>
         </div>
         <div class="ticket-view_field">
@@ -172,7 +172,7 @@
             {% get_verbose_name object 'updated' %}
           </div>
           <div class="ticket-view_field_content ticket-user">
-            {{ object.updated_datetime }}
+            {{ object.updated_local }}
           </div>
         </div>
       </div>

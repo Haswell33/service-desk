@@ -26470,3 +26470,1538 @@ NameError: name 'permission_to_clone' is not defined
 2022-06-27 08:03:05 WARNING dev-hsw GET 403 Forbidden: /ticket/view/hsw-37
 2022-06-27 08:03:14 WARNING dev-hsw GET 403 Forbidden: /ticket/view/hsw-37
 2022-06-27 08:03:48 WARNING dev-hsw GET 403 Forbidden: /ticket/view/tst-1
+2022-06-27 17:43:07 ERROR customer-hsw GET 500 Internal Server Error: /ticket/view/hsw-36
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 138, in get
+    return validate_get_request(self, request, TicketDetailView, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 35, in validate_get_request
+    response = super(view_name, self).get(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\detail.py", line 107, in get
+    context = self.get_context_data(object=self.object)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 121, in get_context_data
+    'audit_logs': get_audit_logs(self.object),
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\utils.py", line 450, in get_audit_logs
+    audit_log_records.append(InstanceAuditLog(audit_log.user, content_obj_value, audit_log.created, message))
+UnboundLocalError: local variable 'content_obj_value' referenced before assignment
+2022-06-27 17:43:08 WARNING customer-hsw GET 404 Not Found: /favicon.ico
+2022-06-27 17:45:48 ERROR oper-hsw GET 500 Internal Server Error: /ticket/view/hsw-8
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 138, in get
+    return validate_get_request(self, request, TicketDetailView, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 35, in validate_get_request
+    response = super(view_name, self).get(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\detail.py", line 107, in get
+    context = self.get_context_data(object=self.object)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 121, in get_context_data
+    'audit_logs': get_audit_logs(self.object),
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\utils.py", line 438, in get_audit_logs
+    elif audit_log.operation == 'delete' and not message:
+UnboundLocalError: local variable 'message' referenced before assignment
+2022-06-27 17:45:48 WARNING oper-hsw GET 404 Not Found: /favicon.ico
+2022-06-28 02:32:48 ERROR dev-hsw GET 500 Internal Server Error: /
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 448, in get
+    return validate_get_request(self, request, TicketBoardListView, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 30, in validate_get_request
+    elif request.COOKIES.get(get_tenant_cookie_name(request.user)) is None:
+NameError: name 'get_tenant_cookie_name' is not defined
+2022-06-28 02:32:48 WARNING dev-hsw GET 404 Not Found: /favicon.ico
+2022-06-28 04:00:01 ERROR dev-hsw GET 500 Internal Server Error: /ticket/view/hsw-37
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 139, in get
+    ticket = self.object
+AttributeError: 'TicketDetailView' object has no attribute 'object'
+2022-06-28 04:00:15 ERROR dev-hsw GET 500 Internal Server Error: /ticket/view/hsw-37
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 139, in get
+    ticket = self.get_object()
+AttributeError: 'TicketDetailView' object has no attribute 'object'
+2022-06-28 04:00:16 ERROR dev-hsw GET 500 Internal Server Error: /ticket/view/hsw-37
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 142, in get
+    elif not ticket.permission_to_open(request.user):
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 1026, in permission_to_open
+    if self in TenantSession.get_active().get_tickets() or user.is_superuser:
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 1079, in get_active
+    return TenantSession.objects.get(active=True, user=user)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 435, in get
+    raise self.model.DoesNotExist(
+app.models.TenantSession.DoesNotExist: TenantSession matching query does not exist.
+2022-06-28 04:00:31 ERROR dev-hsw GET 500 Internal Server Error: /
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 450, in get
+    return validate_get_request(self, request, TicketBoardListView, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 35, in validate_get_request
+    response = super(view_name, self).get(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\list.py", line 142, in get
+    self.object_list = self.get_queryset()
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 437, in get_queryset
+    tickets = tenant_manager.get_active_tenant_tickets(self.request.user, True)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\utils\tenant_manager.py", line 55, in get_active_tenant_tickets
+    return active_tenant_session.get_tickets(user, only_open)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 1089, in get_tickets
+    if user_is_customer(user) and not user.is_superuser:
+TypeError: 'property' object is not callable
+2022-06-28 04:01:04 ERROR dev-hsw GET 500 Internal Server Error: /
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 450, in get
+    return validate_get_request(self, request, TicketBoardListView, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 35, in validate_get_request
+    response = super(view_name, self).get(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\list.py", line 142, in get
+    self.object_list = self.get_queryset()
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 437, in get_queryset
+    tickets = tenant_manager.get_active_tenant_tickets(self.request.user, True)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\utils\tenant_manager.py", line 55, in get_active_tenant_tickets
+    return active_tenant_session.get_tickets(user, only_open)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 1089, in get_tickets
+    if user_is_customer(user) and not user.is_superuser:
+TypeError: 'property' object is not callable
+2022-06-28 04:01:05 ERROR dev-hsw GET 500 Internal Server Error: /
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 450, in get
+    return validate_get_request(self, request, TicketBoardListView, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 35, in validate_get_request
+    response = super(view_name, self).get(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\list.py", line 142, in get
+    self.object_list = self.get_queryset()
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 437, in get_queryset
+    tickets = tenant_manager.get_active_tenant_tickets(self.request.user, True)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\utils\tenant_manager.py", line 55, in get_active_tenant_tickets
+    return active_tenant_session.get_tickets(user, only_open)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 1089, in get_tickets
+    if user_is_customer(user) and not user.is_superuser:
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 1305, in user_is_customer
+    if active_tenant_session.role == settings.CUST_TYPE:
+AttributeError: 'TenantSession' object has no attribute 'role'
+2022-06-28 04:01:05 WARNING dev-hsw GET 404 Not Found: /favicon.ico
+2022-06-28 04:01:05 WARNING dev-hsw GET 404 Not Found: /favicon.ico
+2022-06-28 04:04:33 ERROR dev-hsw GET 500 Internal Server Error: /
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 204, in _get_response
+    response = response.render()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 105, in render
+    self.content = self.rendered_content
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 83, in rendered_content
+    return template.render(context, self._request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 168, in render
+    with context.bind_template(self):
+  File "D:\Apps\Python\Python-3.9.5\lib\contextlib.py", line 117, in __enter__
+    return next(self.gen)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\context.py", line 244, in bind_template
+    updates.update(processor(self.request))
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\context_processors.py", line 13, in context_tenant_session
+    tenant.add_session(request.user, group.role)  # add record to database with information about available tenant
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 185, in add_session
+    TenantSession.objects.create(tenant=self, role=role, user=user)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 451, in create
+    obj = self.model(**kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 485, in __init__
+    _setattr(self, field.name, rel_obj)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\fields\related_descriptors.py", line 215, in __set__
+    raise ValueError(
+ValueError: Cannot assign "'developer'": "TenantSession.user" must be a "User" instance.
+2022-06-28 04:04:33 WARNING dev-hsw GET 404 Not Found: /favicon.ico
+2022-06-28 04:05:00 ERROR dev-hsw GET 500 Internal Server Error: /
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 204, in _get_response
+    response = response.render()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 105, in render
+    self.content = self.rendered_content
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 83, in rendered_content
+    return template.render(context, self._request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 168, in render
+    with context.bind_template(self):
+  File "D:\Apps\Python\Python-3.9.5\lib\contextlib.py", line 117, in __enter__
+    return next(self.gen)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\context.py", line 244, in bind_template
+    updates.update(processor(self.request))
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\context_processors.py", line 13, in context_tenant_session
+    tenant.add_session(request.user, group.role)  # add record to database with information about available tenant
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 185, in add_session
+    TenantSession.objects.create(tenant=self, role=role, user=user.id)
+AttributeError: 'str' object has no attribute 'id'
+2022-06-28 04:05:00 WARNING dev-hsw GET 404 Not Found: /favicon.ico
+2022-06-28 04:05:28 ERROR dev-hsw GET 500 Internal Server Error: /
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 204, in _get_response
+    response = response.render()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 105, in render
+    self.content = self.rendered_content
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 83, in rendered_content
+    return template.render(context, self._request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 168, in render
+    with context.bind_template(self):
+  File "D:\Apps\Python\Python-3.9.5\lib\contextlib.py", line 117, in __enter__
+    return next(self.gen)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\context.py", line 244, in bind_template
+    updates.update(processor(self.request))
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\context_processors.py", line 13, in context_tenant_session
+    tenant.add_session(request.user, group.role)  # add record to database with information about available tenant
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 187, in add_session
+    TenantSession.objects.create(tenant=self, role=role, user=user.id)
+AttributeError: 'str' object has no attribute 'id'
+2022-06-28 04:05:28 WARNING dev-hsw GET 404 Not Found: /favicon.ico
+2022-06-28 04:06:49 ERROR dev-hsw GET 500 Internal Server Error: /
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 204, in _get_response
+    response = response.render()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 105, in render
+    self.content = self.rendered_content
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 83, in rendered_content
+    return template.render(context, self._request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 168, in render
+    with context.bind_template(self):
+  File "D:\Apps\Python\Python-3.9.5\lib\contextlib.py", line 117, in __enter__
+    return next(self.gen)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\context.py", line 244, in bind_template
+    updates.update(processor(self.request))
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\context_processors.py", line 13, in context_tenant_session
+    tenant.add_session(user=request.user, role=group.role)  # add record to database with information about available tenant
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 187, in add_session
+    TenantSession.objects.create(tenant=self, role=role, user=user.id)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 451, in create
+    obj = self.model(**kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 485, in __init__
+    _setattr(self, field.name, rel_obj)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\fields\related_descriptors.py", line 215, in __set__
+    raise ValueError(
+ValueError: Cannot assign "4": "TenantSession.user" must be a "User" instance.
+2022-06-28 04:06:49 WARNING dev-hsw GET 404 Not Found: /favicon.ico
+2022-06-28 04:06:52 ERROR dev-hsw GET 500 Internal Server Error: /
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 204, in _get_response
+    response = response.render()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 105, in render
+    self.content = self.rendered_content
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 83, in rendered_content
+    return template.render(context, self._request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 168, in render
+    with context.bind_template(self):
+  File "D:\Apps\Python\Python-3.9.5\lib\contextlib.py", line 117, in __enter__
+    return next(self.gen)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\context.py", line 244, in bind_template
+    updates.update(processor(self.request))
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\context_processors.py", line 13, in context_tenant_session
+    tenant.add_session(user=request.user, role=group.role)  # add record to database with information about available tenant
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 187, in add_session
+    TenantSession.objects.create(tenant=self, role=role, user=user.id)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 451, in create
+    obj = self.model(**kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 485, in __init__
+    _setattr(self, field.name, rel_obj)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\fields\related_descriptors.py", line 215, in __set__
+    raise ValueError(
+ValueError: Cannot assign "4": "TenantSession.user" must be a "User" instance.
+2022-06-28 04:06:52 WARNING dev-hsw GET 404 Not Found: /favicon.ico
+2022-06-28 04:07:07 ERROR dev-hsw GET 500 Internal Server Error: /
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 204, in _get_response
+    response = response.render()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 105, in render
+    self.content = self.rendered_content
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 83, in rendered_content
+    return template.render(context, self._request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 168, in render
+    with context.bind_template(self):
+  File "D:\Apps\Python\Python-3.9.5\lib\contextlib.py", line 117, in __enter__
+    return next(self.gen)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\context.py", line 244, in bind_template
+    updates.update(processor(self.request))
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\context_processors.py", line 13, in context_tenant_session
+    tenant.add_session(user=request.user, role=group.role)  # add record to database with information about available tenant
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 187, in add_session
+    TenantSession.objects.create(tenant=self, role=role, user=user)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 451, in create
+    obj = self.model(**kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 485, in __init__
+    _setattr(self, field.name, rel_obj)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\fields\related_descriptors.py", line 215, in __set__
+    raise ValueError(
+ValueError: Cannot assign "4": "TenantSession.user" must be a "User" instance.
+2022-06-28 04:07:07 WARNING dev-hsw GET 404 Not Found: /favicon.ico
+2022-06-28 04:07:07 ERROR dev-hsw GET 500 Internal Server Error: /
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 204, in _get_response
+    response = response.render()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 105, in render
+    self.content = self.rendered_content
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 83, in rendered_content
+    return template.render(context, self._request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 168, in render
+    with context.bind_template(self):
+  File "D:\Apps\Python\Python-3.9.5\lib\contextlib.py", line 117, in __enter__
+    return next(self.gen)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\context.py", line 244, in bind_template
+    updates.update(processor(self.request))
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\context_processors.py", line 14, in context_tenant_session
+    tenant.set_active_session(request)  # check if in django sessions is already activated any tenant
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 199, in set_active_session
+    _set_active_tenant(self, user)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 191, in _set_active_tenant
+    tenant_session = TenantSession.objects.get(tenant=instance, user=user)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 439, in get
+    raise self.model.MultipleObjectsReturned(
+app.models.TenantSession.MultipleObjectsReturned: get() returned more than one TenantSession -- it returned 2!
+2022-06-28 04:07:53 ERROR dev-hsw GET 500 Internal Server Error: /
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 204, in _get_response
+    response = response.render()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 105, in render
+    self.content = self.rendered_content
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 83, in rendered_content
+    return template.render(context, self._request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 168, in render
+    with context.bind_template(self):
+  File "D:\Apps\Python\Python-3.9.5\lib\contextlib.py", line 117, in __enter__
+    return next(self.gen)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\context.py", line 244, in bind_template
+    updates.update(processor(self.request))
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\context_processors.py", line 14, in context_tenant_session
+    tenant.set_active_session(request)  # check if in django sessions is already activated any tenant
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 199, in set_active_session
+    _set_active_tenant(self, user)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 191, in _set_active_tenant
+    tenant_session = TenantSession.objects.get(tenant=instance, user=user)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 439, in get
+    raise self.model.MultipleObjectsReturned(
+app.models.TenantSession.MultipleObjectsReturned: get() returned more than one TenantSession -- it returned 2!
+2022-06-28 04:07:53 WARNING dev-hsw GET 404 Not Found: /favicon.ico
+2022-06-28 04:10:28 ERROR admin GET 500 Internal Server Error: /
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 204, in _get_response
+    response = response.render()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 105, in render
+    self.content = self.rendered_content
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 83, in rendered_content
+    return template.render(context, self._request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 168, in render
+    with context.bind_template(self):
+  File "D:\Apps\Python\Python-3.9.5\lib\contextlib.py", line 117, in __enter__
+    return next(self.gen)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\context.py", line 244, in bind_template
+    updates.update(processor(self.request))
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\context_processors.py", line 14, in context_tenant_session
+    tenant.set_active_session(request)  # check if in django sessions is already activated any tenant
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 199, in set_active_session
+    _set_active_tenant(self, user)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 191, in _set_active_tenant
+    tenant_session = TenantSession.objects.get(tenant=instance, user=user)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 439, in get
+    raise self.model.MultipleObjectsReturned(
+app.models.TenantSession.MultipleObjectsReturned: get() returned more than one TenantSession -- it returned 2!
+2022-06-28 04:19:48 ERROR admin GET 500 Internal Server Error: /
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 204, in _get_response
+    response = response.render()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 105, in render
+    self.content = self.rendered_content
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 83, in rendered_content
+    return template.render(context, self._request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 168, in render
+    with context.bind_template(self):
+  File "D:\Apps\Python\Python-3.9.5\lib\contextlib.py", line 117, in __enter__
+    return next(self.gen)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\context.py", line 244, in bind_template
+    updates.update(processor(self.request))
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\context_processors.py", line 14, in context_tenant_session
+    tenant.set_active_session(request)  # check if in django sessions is already activated any tenant
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 199, in set_active_session
+    _set_active_tenant(self, user)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 191, in _set_active_tenant
+    tenant_session = TenantSession.objects.get(tenant=instance, user=user)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 439, in get
+    raise self.model.MultipleObjectsReturned(
+app.models.TenantSession.MultipleObjectsReturned: get() returned more than one TenantSession -- it returned 2!
+2022-06-28 04:20:20 ERROR admin GET 500 Internal Server Error: /
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 204, in _get_response
+    response = response.render()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 105, in render
+    self.content = self.rendered_content
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 83, in rendered_content
+    return template.render(context, self._request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 168, in render
+    with context.bind_template(self):
+  File "D:\Apps\Python\Python-3.9.5\lib\contextlib.py", line 117, in __enter__
+    return next(self.gen)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\context.py", line 244, in bind_template
+    updates.update(processor(self.request))
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\context_processors.py", line 14, in context_tenant_session
+    tenant.set_active_session(request)  # check if in django sessions is already activated any tenant
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 201, in set_active_session
+    _set_active_tenant(self, user)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 191, in _set_active_tenant
+    tenant_session = TenantSession.objects.get(tenant=instance, user=user)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 439, in get
+    raise self.model.MultipleObjectsReturned(
+app.models.TenantSession.MultipleObjectsReturned: get() returned more than one TenantSession -- it returned 3!
+2022-06-28 04:20:20 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:20:46 ERROR admin GET 500 Internal Server Error: /
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 204, in _get_response
+    response = response.render()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 105, in render
+    self.content = self.rendered_content
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 83, in rendered_content
+    return template.render(context, self._request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 168, in render
+    with context.bind_template(self):
+  File "D:\Apps\Python\Python-3.9.5\lib\contextlib.py", line 117, in __enter__
+    return next(self.gen)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\context.py", line 244, in bind_template
+    updates.update(processor(self.request))
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\context_processors.py", line 14, in context_tenant_session
+    tenant.set_active_session(request)  # check if in django sessions is already activated any tenant
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 201, in set_active_session
+    _set_active_tenant(self, user)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 191, in _set_active_tenant
+    tenant_session = TenantSession.objects.get(tenant=instance, user=user)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 439, in get
+    raise self.model.MultipleObjectsReturned(
+app.models.TenantSession.MultipleObjectsReturned: get() returned more than one TenantSession -- it returned 4!
+2022-06-28 04:20:46 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:21:22 ERROR admin GET 500 Internal Server Error: /
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 204, in _get_response
+    response = response.render()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 105, in render
+    self.content = self.rendered_content
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 83, in rendered_content
+    return template.render(context, self._request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 168, in render
+    with context.bind_template(self):
+  File "D:\Apps\Python\Python-3.9.5\lib\contextlib.py", line 117, in __enter__
+    return next(self.gen)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\context.py", line 244, in bind_template
+    updates.update(processor(self.request))
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\context_processors.py", line 14, in context_tenant_session
+    tenant.add_session(user=request.user, role=group.role)  # add record to database with information about available tenant
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 201, in set_active_session
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 191, in _set_active_tenant
+    tenant_session = TenantSession.objects.get(tenant=instance, user=user)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 439, in get
+    raise self.model.MultipleObjectsReturned(
+app.models.TenantSession.MultipleObjectsReturned: get() returned more than one TenantSession -- it returned 5!
+2022-06-28 04:21:22 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:21:23 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:21:26 ERROR admin GET 500 Internal Server Error: /
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 204, in _get_response
+    response = response.render()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 105, in render
+    self.content = self.rendered_content
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 83, in rendered_content
+    return template.render(context, self._request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 168, in render
+    with context.bind_template(self):
+  File "D:\Apps\Python\Python-3.9.5\lib\contextlib.py", line 117, in __enter__
+    return next(self.gen)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\context.py", line 244, in bind_template
+    updates.update(processor(self.request))
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\context_processors.py", line 15, in context_tenant_session
+    tenant.set_active_session(request)  # check if in django sessions is already activated any tenant
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 200, in set_active_session
+    _set_active_tenant(self, user)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 191, in _set_active_tenant
+    tenant_session = TenantSession.objects.get(tenant=instance, user=user)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 439, in get
+    raise self.model.MultipleObjectsReturned(
+app.models.TenantSession.MultipleObjectsReturned: get() returned more than one TenantSession -- it returned 6!
+2022-06-28 04:21:26 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:26:33 ERROR admin GET 500 Internal Server Error: /tenant/update
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 597, in tenant_update
+    context_tenant_session(request)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\context_processors.py", line 13, in context_tenant_session
+    if tenant and not tenant.session_exists():
+TypeError: session_exists() missing 1 required positional argument: 'user'
+2022-06-28 04:26:33 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:26:58 ERROR admin GET 500 Internal Server Error: /tenant/update
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 597, in tenant_update
+    context_tenant_session(request)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\context_processors.py", line 13, in context_tenant_session
+    if tenant and not tenant.session_exists(request.user):
+TypeError: session_exists() missing 1 required positional argument: 'user'
+2022-06-28 04:26:58 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:26:59 ERROR admin GET 500 Internal Server Error: /tenant/update
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 597, in tenant_update
+    context_tenant_session(request)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\context_processors.py", line 14, in context_tenant_session
+    tenant.add_session(request.user, group.role)  # add record to database with information about available tenant
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 187, in add_session
+    TenantSession.objects.create(tenant=self, role=role, user=user)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 451, in create
+    obj = self.model(**kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 485, in __init__
+    _setattr(self, field.name, rel_obj)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\fields\related_descriptors.py", line 215, in __set__
+    raise ValueError(
+ValueError: Cannot assign "'customer'": "TenantSession.user" must be a "User" instance.
+2022-06-28 04:27:00 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:28:26 ERROR admin GET 500 Internal Server Error: /tenant/update
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 597, in tenant_update
+    context_tenant_session(request)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\context_processors.py", line 14, in context_tenant_session
+    tenant.add_session(request.user, group.role)  # add record to database with information about available tenant
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 187, in add_session
+    TenantSession.objects.create(tenant=self, role=role, user=user)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 451, in create
+    obj = self.model(**kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 485, in __init__
+    _setattr(self, field.name, rel_obj)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\fields\related_descriptors.py", line 215, in __set__
+    raise ValueError(
+ValueError: Cannot assign "'customer'": "TenantSession.user" must be a "User" instance.
+2022-06-28 04:28:26 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:28:26 ERROR admin GET 500 Internal Server Error: /tenant/update
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 597, in tenant_update
+    context_tenant_session(request)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\context_processors.py", line 14, in context_tenant_session
+    tenant.add_session(request.user, group.role)  # add record to database with information about available tenant
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 187, in add_session
+    TenantSession.objects.create(tenant=self, role=role, user=user)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 451, in create
+    obj = self.model(**kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 485, in __init__
+    _setattr(self, field.name, rel_obj)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\fields\related_descriptors.py", line 215, in __set__
+    raise ValueError(
+ValueError: Cannot assign "'customer'": "TenantSession.user" must be a "User" instance.
+2022-06-28 04:28:26 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:28:27 ERROR admin GET 500 Internal Server Error: /tenant/update
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 597, in tenant_update
+    context_tenant_session(request)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\context_processors.py", line 14, in context_tenant_session
+    tenant.add_session(request.user, group.role)  # add record to database with information about available tenant
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 187, in add_session
+    TenantSession.objects.create(tenant=self, role=role, user=user)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 451, in create
+    obj = self.model(**kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 485, in __init__
+    _setattr(self, field.name, rel_obj)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\fields\related_descriptors.py", line 215, in __set__
+    raise ValueError(
+ValueError: Cannot assign "'customer'": "TenantSession.user" must be a "User" instance.
+2022-06-28 04:28:27 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:28:28 ERROR admin GET 500 Internal Server Error: /tenant/update
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 597, in tenant_update
+    context_tenant_session(request)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\context_processors.py", line 14, in context_tenant_session
+    tenant.add_session(request.user, group.role)  # add record to database with information about available tenant
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 187, in add_session
+    TenantSession.objects.create(tenant=self, role=role, user=user)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 451, in create
+    obj = self.model(**kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 485, in __init__
+    _setattr(self, field.name, rel_obj)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\fields\related_descriptors.py", line 215, in __set__
+    raise ValueError(
+ValueError: Cannot assign "'customer'": "TenantSession.user" must be a "User" instance.
+2022-06-28 04:28:28 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:28:28 ERROR admin GET 500 Internal Server Error: /tenant/update
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 597, in tenant_update
+    context_tenant_session(request)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\context_processors.py", line 14, in context_tenant_session
+    tenant.add_session(request.user, group.role)  # add record to database with information about available tenant
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 187, in add_session
+    TenantSession.objects.create(tenant=self, role=role, user=user)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 451, in create
+    obj = self.model(**kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 485, in __init__
+    _setattr(self, field.name, rel_obj)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\fields\related_descriptors.py", line 215, in __set__
+    raise ValueError(
+ValueError: Cannot assign "'customer'": "TenantSession.user" must be a "User" instance.
+2022-06-28 04:28:28 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:28:53 ERROR admin GET 500 Internal Server Error: /tenant/update
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 597, in tenant_update
+    context_tenant_session(request)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\context_processors.py", line 14, in context_tenant_session
+    tenant.add_session(request.user, group.role)  # add record to database with information about available tenant
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 187, in add_session
+    TenantSession.objects.create(tenant=self, role=role, user=user)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 451, in create
+    obj = self.model(**kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 485, in __init__
+    _setattr(self, field.name, rel_obj)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\fields\related_descriptors.py", line 215, in __set__
+    raise ValueError(
+ValueError: Cannot assign "'customer'": "TenantSession.user" must be a "User" instance.
+2022-06-28 04:28:53 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:28:54 ERROR admin GET 500 Internal Server Error: /tenant/update
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 597, in tenant_update
+    context_tenant_session(request)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\context_processors.py", line 14, in context_tenant_session
+    tenant.add_session(request.user, group.role)  # add record to database with information about available tenant
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 187, in add_session
+    TenantSession.objects.create(tenant=self, role=role, user=user)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 451, in create
+    obj = self.model(**kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 485, in __init__
+    _setattr(self, field.name, rel_obj)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\fields\related_descriptors.py", line 215, in __set__
+    raise ValueError(
+ValueError: Cannot assign "'customer'": "TenantSession.user" must be a "User" instance.
+2022-06-28 04:28:54 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:28:55 ERROR admin GET 500 Internal Server Error: /tenant/update
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 597, in tenant_update
+    context_tenant_session(request)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\context_processors.py", line 14, in context_tenant_session
+    tenant.add_session(request.user, group.role)  # add record to database with information about available tenant
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 187, in add_session
+    TenantSession.objects.create(tenant=self, role=role, user=user)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 451, in create
+    obj = self.model(**kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 485, in __init__
+    _setattr(self, field.name, rel_obj)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\fields\related_descriptors.py", line 215, in __set__
+    raise ValueError(
+ValueError: Cannot assign "'customer'": "TenantSession.user" must be a "User" instance.
+2022-06-28 04:28:55 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:28:55 ERROR admin GET 500 Internal Server Error: /tenant/update
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 597, in tenant_update
+    context_tenant_session(request)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\context_processors.py", line 14, in context_tenant_session
+    tenant.add_session(request.user, group.role)  # add record to database with information about available tenant
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 187, in add_session
+    TenantSession.objects.create(tenant=self, role=role, user=user)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 451, in create
+    obj = self.model(**kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 485, in __init__
+    _setattr(self, field.name, rel_obj)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\fields\related_descriptors.py", line 215, in __set__
+    raise ValueError(
+ValueError: Cannot assign "'customer'": "TenantSession.user" must be a "User" instance.
+2022-06-28 04:28:55 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:28:56 ERROR admin GET 500 Internal Server Error: /tenant/update
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 597, in tenant_update
+    context_tenant_session(request)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\context_processors.py", line 14, in context_tenant_session
+    tenant.add_session(request.user, group.role)  # add record to database with information about available tenant
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 187, in add_session
+    TenantSession.objects.create(tenant=self, role=role, user=user)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 451, in create
+    obj = self.model(**kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 485, in __init__
+    _setattr(self, field.name, rel_obj)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\fields\related_descriptors.py", line 215, in __set__
+    raise ValueError(
+ValueError: Cannot assign "'customer'": "TenantSession.user" must be a "User" instance.
+2022-06-28 04:28:56 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:28:56 ERROR admin GET 500 Internal Server Error: /tenant/update
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 597, in tenant_update
+    context_tenant_session(request)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\context_processors.py", line 14, in context_tenant_session
+    tenant.add_session(request.user, group.role)  # add record to database with information about available tenant
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 187, in add_session
+    TenantSession.objects.create(tenant=self, role=role, user=user)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 451, in create
+    obj = self.model(**kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 485, in __init__
+    _setattr(self, field.name, rel_obj)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\fields\related_descriptors.py", line 215, in __set__
+    raise ValueError(
+ValueError: Cannot assign "'customer'": "TenantSession.user" must be a "User" instance.
+2022-06-28 04:28:56 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:28:57 ERROR admin GET 500 Internal Server Error: /tenant/update
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 597, in tenant_update
+    context_tenant_session(request)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\context_processors.py", line 14, in context_tenant_session
+    tenant.add_session(request.user, group.role)  # add record to database with information about available tenant
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 187, in add_session
+    TenantSession.objects.create(tenant=self, role=role, user=user)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 451, in create
+    obj = self.model(**kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 485, in __init__
+    _setattr(self, field.name, rel_obj)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\fields\related_descriptors.py", line 215, in __set__
+    raise ValueError(
+ValueError: Cannot assign "'customer'": "TenantSession.user" must be a "User" instance.
+2022-06-28 04:28:57 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:29:55 ERROR admin POST 500 Internal Server Error: /tenant/update
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 602, in tenant_update
+    response.set_cookie(key=tenant_manager.get_tenant_cookie_name(request.user), value=tenant_id)
+UnboundLocalError: local variable 'tenant_id' referenced before assignment
+2022-06-28 04:30:01 ERROR admin POST 500 Internal Server Error: /tenant/update
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 602, in tenant_update
+    response.set_cookie(key=tenant_manager.get_tenant_cookie_name(request.user), value=tenant_id)
+UnboundLocalError: local variable 'tenant_id' referenced before assignment
+2022-06-28 04:30:05 ERROR admin POST 500 Internal Server Error: /tenant/update
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 602, in tenant_update
+    response.set_cookie(key=tenant_manager.get_tenant_cookie_name(request.user), value=tenant_id)
+UnboundLocalError: local variable 'tenant_id' referenced before assignment
+2022-06-28 04:30:10 ERROR admin POST 500 Internal Server Error: /tenant/update
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 602, in tenant_update
+    response.set_cookie(key=tenant_manager.get_tenant_cookie_name(request.user), value=tenant_id)
+UnboundLocalError: local variable 'tenant_id' referenced before assignment
+2022-06-28 04:30:15 ERROR admin POST 500 Internal Server Error: /tenant/update
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 602, in tenant_update
+    response.set_cookie(key=tenant_manager.get_tenant_cookie_name(request.user), value=tenant_id)
+UnboundLocalError: local variable 'tenant_id' referenced before assignment
+2022-06-28 04:30:18 ERROR admin POST 500 Internal Server Error: /tenant/update
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 602, in tenant_update
+    response.set_cookie(key=tenant_manager.get_tenant_cookie_name(request.user), value=tenant_id)
+UnboundLocalError: local variable 'tenant_id' referenced before assignment
+2022-06-28 04:31:08 ERROR admin POST 500 Internal Server Error: /tenant/update
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 602, in tenant_update
+    response.set_cookie(key=tenant_manager.get_tenant_cookie_name(request.user), value=tenant_id)
+UnboundLocalError: local variable 'tenant_id' referenced before assignment
+2022-06-28 04:31:11 ERROR admin GET 500 Internal Server Error: /ticket/view/hsw-30
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 142, in get
+    elif not ticket.permission_to_open(request.user):
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 1025, in permission_to_open
+    if self in TenantSession.get_active().get_tickets() or user.is_superuser:
+TypeError: get_active() missing 1 required positional argument: 'user'
+2022-06-28 04:31:11 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:32:01 ERROR admin GET 500 Internal Server Error: /ticket/view/hsw-30
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 142, in get
+    elif not ticket.permission_to_open(request.user):
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 1025, in permission_to_open
+    if self in TenantSession.get_active(user).get_tickets() or user.is_superuser:
+TypeError: get_active() missing 1 required positional argument: 'user'
+2022-06-28 04:32:01 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:32:03 ERROR admin GET 500 Internal Server Error: /ticket/view/hsw-30
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 142, in get
+    elif not ticket.permission_to_open(request.user):
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 1025, in permission_to_open
+    if self in TenantSession.get_active(user).get_tickets() or user.is_superuser:
+TypeError: get_tickets() missing 1 required positional argument: 'user'
+2022-06-28 04:32:03 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:32:23 ERROR admin GET 500 Internal Server Error: /ticket/view/hsw-30
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 142, in get
+    elif not ticket.permission_to_open(request.user):
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 1025, in permission_to_open
+    if self in TenantSession.get_active(user).get_tickets() or user.is_superuser:
+TypeError: get_tickets() missing 1 required positional argument: 'user'
+2022-06-28 04:32:23 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:32:23 ERROR admin GET 500 Internal Server Error: /ticket/view/hsw-30
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 142, in get
+    elif not ticket.permission_to_open(request.user):
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 1025, in permission_to_open
+    if self in TenantSession.get_active(user).get_tickets() or user.is_superuser:
+TypeError: get_tickets() missing 1 required positional argument: 'user'
+2022-06-28 04:32:23 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:32:24 ERROR admin GET 500 Internal Server Error: /ticket/view/hsw-30
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 142, in get
+    elif not ticket.permission_to_open(request.user):
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 1025, in permission_to_open
+    if self in TenantSession.get_active(user).get_tickets() or user.is_superuser:
+TypeError: get_tickets() missing 1 required positional argument: 'user'
+2022-06-28 04:32:24 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:32:44 ERROR admin GET 500 Internal Server Error: /ticket/view/hsw-30
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 142, in get
+    elif not ticket.permission_to_open(request.user):
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 1025, in permission_to_open
+    if self in TenantSession.get_active(user).get_tickets() or user.is_superuser:
+TypeError: get_tickets() missing 1 required positional argument: 'user'
+2022-06-28 04:32:44 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:32:45 ERROR admin GET 500 Internal Server Error: /ticket/view/hsw-30
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 142, in get
+    elif not ticket.permission_to_open(request.user):
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 1025, in permission_to_open
+    if self in TenantSession.get_active(user).get_tickets() or user.is_superuser:
+TypeError: get_tickets() missing 1 required positional argument: 'user'
+2022-06-28 04:32:45 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:32:45 ERROR admin GET 500 Internal Server Error: /ticket/view/hsw-30
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 142, in get
+    elif not ticket.permission_to_open(request.user):
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 1025, in permission_to_open
+    if self in TenantSession.get_active(user).get_tickets() or user.is_superuser:
+TypeError: get_tickets() missing 1 required positional argument: 'user'
+2022-06-28 04:32:45 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:33:09 ERROR admin POST 500 Internal Server Error: /tenant/update
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 602, in tenant_update
+    response.set_cookie(key=tenant_manager.get_tenant_cookie_name(request.user), value=tenant_id)
+UnboundLocalError: local variable 'tenant_id' referenced before assignment
+2022-06-28 04:34:06 ERROR admin GET 500 Internal Server Error: /ticket/view/hsw-8
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 142, in get
+    elif not ticket.permission_to_open(request.user):
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 1025, in permission_to_open
+    if self in TenantSession.get_active(user).get_tickets() or user.is_superuser:
+TypeError: get_tickets() missing 1 required positional argument: 'user'
+2022-06-28 04:34:07 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:34:35 ERROR admin GET 500 Internal Server Error: /ticket/view/hsw-8
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 144, in get
+    return validate_get_request(self, request, TicketDetailView, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 35, in validate_get_request
+    response = super(view_name, self).get(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\detail.py", line 107, in get
+    context = self.get_context_data(object=self.object)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 126, in get_context_data
+    'available_tickets_to_relate': ticket.get_relation_options(),
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 818, in get_relation_options
+    active_tickets = TenantSession.get_active().get_tickets(True).exclude(id=self.id)
+TypeError: get_active() missing 1 required positional argument: 'user'
+2022-06-28 04:34:35 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:34:37 ERROR admin GET 500 Internal Server Error: /ticket/view/hsw-8
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 144, in get
+    return validate_get_request(self, request, TicketDetailView, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 35, in validate_get_request
+    response = super(view_name, self).get(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\detail.py", line 107, in get
+    context = self.get_context_data(object=self.object)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 126, in get_context_data
+    'available_tickets_to_relate': ticket.get_relation_options(),
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 818, in get_relation_options
+    active_tickets = TenantSession.get_active().get_tickets(True).exclude(id=self.id)
+TypeError: get_active() missing 1 required positional argument: 'user'
+2022-06-28 04:34:37 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:35:23 ERROR admin GET 500 Internal Server Error: /ticket/view/hsw-8
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 144, in get
+    return code_403(request)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 35, in validate_get_request
+    response = super(view_name, self).get(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\detail.py", line 107, in get
+    context = self.get_context_data(object=self.object)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 126, in get_context_data
+    'transitions': ticket.get_transition_options(user),
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 818, in get_relation_options
+    active_tickets = TenantSession.get_active(user).get_tickets(True).exclude(id=self.id)
+TypeError: get_active() missing 1 required positional argument: 'user'
+2022-06-28 04:35:23 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:35:24 ERROR admin GET 500 Internal Server Error: /ticket/view/hsw-8
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 145, in get
+    return validate_get_request(self, request, TicketDetailView, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 35, in validate_get_request
+    response = super(view_name, self).get(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\detail.py", line 107, in get
+    context = self.get_context_data(object=self.object)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 127, in get_context_data
+    'available_tickets_to_relate': ticket.get_relation_options(user),
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 818, in get_relation_options
+    active_tickets = TenantSession.get_active(user).get_tickets(True).exclude(id=self.id)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 1088, in get_tickets
+    if user_is_customer(user) and not user.is_superuser:
+AttributeError: 'bool' object has no attribute 'is_superuser'
+2022-06-28 04:35:24 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:37:07 ERROR admin GET 500 Internal Server Error: /ticket/view/hsw-8
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 145, in get
+    return validate_get_request(self, request, TicketDetailView, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 35, in validate_get_request
+    response = super(view_name, self).get(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\detail.py", line 107, in get
+    context = self.get_context_data(object=self.object)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 127, in get_context_data
+    'available_tickets_to_relate': ticket.get_relation_options(user),
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 818, in get_relation_options
+    active_tickets = TenantSession.get_active(user).get_tickets(only_open=True).exclude(id=self.id)
+TypeError: get_tickets() missing 1 required positional argument: 'user'
+2022-06-28 04:37:07 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:37:24 ERROR admin POST 500 Internal Server Error: /ticket/edit/hsw-8/comment/add
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 352, in post
+    result = ticket.add_comment(comment_content)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 982, in add_comment
+    logger.info(add_audit_log(self, new_comment, 'add', None, None))
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 1328, in add_audit_log
+    user=request.user,
+AttributeError: 'NoneType' object has no attribute 'user'
+2022-06-28 04:37:24 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:37:52 ERROR admin POST 500 Internal Server Error: /ticket/edit/hsw-8/comment/add
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 352, in post
+    result = ticket.add_comment(comment_content)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 982, in add_comment
+    logger.info(add_audit_log(self, new_comment, 'add', None, None))
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 1327, in add_audit_log
+    print(request.__dict__)
+AttributeError: 'NoneType' object has no attribute '__dict__'
+2022-06-28 04:37:52 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:37:59 ERROR admin POST 500 Internal Server Error: /ticket/edit/hsw-8/comment/add
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 352, in post
+    result = ticket.add_comment(comment_content)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 982, in add_comment
+    logger.info(add_audit_log(self, new_comment, 'add', None, None))
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 1329, in add_audit_log
+    user=request.user,
+AttributeError: 'NoneType' object has no attribute 'user'
+2022-06-28 04:37:59 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:39:43 ERROR admin POST 500 Internal Server Error: /ticket/edit/hsw-8/comment/add
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 352, in post
+    result = ticket.add_comment(comment_content)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 982, in add_comment
+    logger.info(add_audit_log(self, new_comment, 'add', None, None))
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 1329, in add_audit_log
+    user=request.user,
+AttributeError: 'NoneType' object has no attribute 'user'
+2022-06-28 04:39:43 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:40:28 ERROR admin POST 500 Internal Server Error: /ticket/edit/hsw-8/relation/add
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 307, in post
+    result = ticket.add_relation(ticket_to_relate)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 944, in add_relation
+    for allow_ticket_to_relate in self.get_relation_options().values_list('id'):
+TypeError: get_relation_options() missing 1 required positional argument: 'user'
+2022-06-28 04:40:28 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:41:14 ERROR admin POST 500 Internal Server Error: /ticket/edit/hsw-8/relation/add
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 307, in post
+    result = ticket.add_relation(ticket_to_relate, self.request.user)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 957, in add_relation
+    ticket_to_relate.save()
+AttributeError: 'str' object has no attribute 'save'
+2022-06-28 04:41:14 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:41:21 ERROR admin POST 500 Internal Server Error: /ticket/edit/hsw-8/relation/add
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 307, in post
+    result = ticket.add_relation(ticket_to_relate, self.request.user)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 957, in add_relation
+    ticket_to_relate.save()
+AttributeError: 'str' object has no attribute 'save'
+2022-06-28 04:41:21 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:42:09 ERROR admin POST 500 Internal Server Error: /ticket/edit/hsw-8
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 162, in post
+    ticket_updated = ticket.update_ticket(form, request)
+TypeError: update_ticket() takes 1 positional argument but 2 were given
+2022-06-28 04:42:09 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:43:06 ERROR admin POST 500 Internal Server Error: /ticket/edit/hsw-8/status
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 116, in get_success_url
+    url = self.object.get_absolute_url()
+AttributeError: 'Ticket' object has no attribute 'get_absolute_url'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 189, in post
+    super().post(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 194, in post
+    return super().post(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 142, in post
+    return self.form_valid(form)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 126, in form_valid
+    return super().form_valid(form)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 57, in form_valid
+    return HttpResponseRedirect(self.get_success_url())
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 118, in get_success_url
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: No URL to redirect to.  Either provide a url or define a get_absolute_url method on the Model.
+2022-06-28 04:43:07 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:50:10 ERROR admin POST 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 142, in post
+    return self.form_valid(form)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 98, in form_valid
+    self.object.create_ticket(form, self.request.user, self.request.FILES.getlist('attachments'))
+AttributeError: 'NoneType' object has no attribute 'create_ticket'
+2022-06-28 04:50:10 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:50:31 ERROR admin POST 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 142, in post
+    return self.form_valid(form)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 98, in form_valid
+    ticket = self.get_object()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\detail.py", line 45, in get_object
+    raise AttributeError(
+AttributeError: Generic detail view TicketCreateView must be called with either an object pk or a slug in the URLconf.
+2022-06-28 04:50:31 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:50:47 ERROR admin POST 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 142, in post
+    return self.form_valid(form)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 98, in form_valid
+    ticket = self.get_object()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\detail.py", line 45, in get_object
+    raise AttributeError(
+AttributeError: Generic detail view TicketCreateView must be called with either an object pk or a slug in the URLconf.
+2022-06-28 04:50:47 WARNING admin GET 404 Not Found: /favicon.ico
+2022-06-28 04:52:03 ERROR admin POST 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 142, in post
+    return self.form_valid(form)
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\views.py", line 97, in form_valid
+    Ticket.create_ticket(form, self.request.user, self.request.FILES.getlist('attachments'))
+  File "F:\Programs\Repository\Python\Private\service-desk\service_desk\app\models.py", line 880, in create_ticket
+    new_ticket.key = f'{tenant.key}-{tenant.count + 1}'
+AttributeError: 'TenantSession' object has no attribute 'key'

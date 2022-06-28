@@ -3,19 +3,19 @@ from django.conf import settings
 from django.contrib.admin import AdminSite
 from django.contrib.auth.models import Group, User
 from django.contrib.auth.admin import GroupAdmin, UserAdmin
-from .models import Ticket, Tenant, Comment, Priority, Status, Resolution, Transition, Attachment, AttachmentAssociation,TransitionAssociation, Type, Label, LabelAssociation, SLAScheme, Board, BoardColumn, BoardColumnAssociation
-from django.utils.html import mark_safe, format_html
+from .models import Ticket, Tenant, Comment, Priority, Status, Resolution, Transition, Attachment, AttachmentAssociation, TransitionAssociation, Type, Label, LabelAssociation, SLAScheme, Board, BoardColumn, BoardColumnAssociation
+from django.utils.html import mark_safe
 from django import template
 
 register = template.Library()
 
 
 class GroupAdminModel(GroupAdmin):
-    list_display = ('name', 'type')
-    search_fields = ['name', 'type']
+    list_display = ('name', 'role')
+    search_fields = ['name', 'role']
     fieldsets = (
         (None, {
-            'fields': ('name', 'type')
+            'fields': ('name', 'role')
         }),
         ('Permissions', {
             'fields': ('permissions',)
@@ -159,7 +159,7 @@ class LabelAssociationInline(admin.TabularInline):
 
 @admin.register(Ticket)
 class TicketAdminModel(admin.ModelAdmin):
-    list_display = ('key', 'type_img', 'title', 'priority_img', 'status_color', 'resolution', 'reporter_img_text', 'assignee_img_text', 'escalated', 'suspended', 'tenant', 'get_labels', 'created_datetime', 'updated_datetime')
+    list_display = ('key', 'type_img', 'title', 'priority_img', 'status_color', 'resolution', 'reporter_img_text', 'assignee_img_text', 'escalated', 'suspended', 'tenant', 'get_labels', 'created_local', 'updated_local')
     search_fields = ['key', 'title', 'tenant__name', 'priority__name', 'status__name', 'resolution__name', 'type__name', 'reporter__username', 'assignee__username']
     list_filter = ('type', 'reporter', 'assignee', 'tenant', 'priority')
     fieldsets = (

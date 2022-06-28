@@ -16,6 +16,10 @@
     line-height: 1.2!important
 }
 
+.select2-dropdown {
+    z-index: 102!important;
+}
+
 .select2-selection {
     background: none!important;
     height: 35px!important;
