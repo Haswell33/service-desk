@@ -1,8 +1,9 @@
 from django.core.validators import MaxValueValidator, MinValueValidator, FileExtensionValidator, ValidationError
 from django.core.files.base import ContentFile
 from django.conf import settings
-from django.contrib.auth.models import User, Group
-from django.db.models import Q
+from django.contrib.auth.models import Group, User
+#from .accounts.models import ServiceDeskUser as User
+from django.db.models import Q, Manager
 from django.db import models
 from django.dispatch import receiver
 from django.apps import apps
@@ -38,12 +39,14 @@ Group.add_to_class(
         blank=True,
         db_column='role'))
 
+
 User.add_to_class(
     'icon', models.ImageField(
         upload_to=f'{utils.get_media_path()}/img/user',
         validators=[FileExtensionValidator],
         default=f'img/user/default-avatar.png',
         max_length=500))
+
 
 
 class Board(models.Model):
@@ -58,6 +61,8 @@ class Board(models.Model):
         verbose_name='Environment type',
         null=True,
         blank=True)
+
+    objects = Manager()
 
     class Meta:
         db_table = 'board'
@@ -149,6 +154,8 @@ class Tenant(models.Model):
         validators=[FileExtensionValidator],
         blank=True,
         max_length=500)
+
+    objects = Manager()
 
     class Meta:
         db_table = 'tenant'
@@ -1069,6 +1076,8 @@ class TenantSession(models.Model):
     role = models.CharField(
         max_length=25,
         choices=settings.GROUP_TYPES)
+
+    objects = models.Manager()
 
     class Meta:
         db_table = 'tenant_session'

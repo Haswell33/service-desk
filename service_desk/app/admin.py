@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.conf import settings
 from django.contrib.admin import AdminSite
 from django.contrib.auth.models import Group, User
+from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.admin import GroupAdmin, UserAdmin
 from .models import Ticket, Tenant, Comment, Priority, Status, Resolution, Transition, Attachment, AttachmentAssociation, TransitionAssociation, Type, Label, LabelAssociation, SLAScheme, Board, BoardColumn, BoardColumnAssociation
 from django.utils.html import mark_safe
@@ -186,8 +187,8 @@ class TicketAdminModel(admin.ModelAdmin):
     #get_labels.fget.short_description = 'Address display'
 
 
-admin.site.unregister(Group)
-admin.site.register(Group, GroupAdminModel)
-admin.site.unregister(User)
-admin.site.register(User, UserAdminModel)
+#admin.site.unregister(Group)
+#admin.site.register(Group, GroupAdminModel)
+#admin.site.unregister(User)
+#admin.site.register(User, UserAdminModel)
 AdminSite.index_title = 'Administration'

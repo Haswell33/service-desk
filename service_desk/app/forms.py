@@ -1,6 +1,8 @@
 from django.utils.translation import gettext_lazy as _
 from django import forms
-from .models import Ticket, Type, Label, User, Status, Resolution, Priority, Comment, user_is_customer
+from django.contrib.auth.models import User
+#from .accounts.models import ServiceDeskUser as User
+from .models import Ticket, Type, Label, Status, Resolution, Priority, Comment, user_is_customer
 from .utils import type_manager, tenant_manager, status_manager
 
 

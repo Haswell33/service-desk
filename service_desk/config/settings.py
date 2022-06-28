@@ -1,5 +1,5 @@
 from pathlib import Path
-
+import app.accounts
 CUST_TYPE = 'customer'
 OPER_TYPE = 'operator'
 DEV_TYPE = 'developer'
@@ -75,7 +75,7 @@ TIME_ZONE = 'Europe/Zagreb'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'  # Default primary key field type https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
+#AUTH_USER_MODEL = 'accounts.ServiceDeskUser'
 INSTALLED_APPS = [
     'app',
     'django.contrib.admin',
@@ -85,7 +85,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tinymce',
-    'django_extensions'
+    'django_extensions',
+    #'app.accounts'
 ]
 
 MIDDLEWARE = [
