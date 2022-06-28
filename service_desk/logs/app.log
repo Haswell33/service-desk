@@ -1257,3 +1257,9 @@
 2022-06-28 20:19:56 INFO | admin (127.0.0.1) added related ticket: "HSW-82"
 2022-06-28 22:38:17 INFO | admin (127.0.0.1) added comment: "<p>test</p>"
 2022-06-28 22:38:23 INFO | admin (127.0.0.1) created ticket: "HSW-86"
+2022-06-28 22:49:37 INFO | admin [127.0.0.1] updated title to: "pytanie9" to Ticket with id 5
+2022-06-28 22:49:37 INFO | admin [127.0.0.1] updated priority to: "Important" to Ticket with id 5
+2022-06-28 22:49:37 INFO | admin [127.0.0.1] updated labels to: "Software, Payment, Firewall, System 1" to Ticket with id 5
+2022-06-28 22:50:35 INFO | [127.0.0.1] admin updated assignee to: "John Doe" in Ticket with id 5
+2022-06-28 22:50:36 INFO | [127.0.0.1] admin updated status to: "On 1LS" in Ticket with id 5
+2022-06-28 22:50:38 INFO | [127.0.0.1] admin updated priority to: "Critical" in Ticket with id 5

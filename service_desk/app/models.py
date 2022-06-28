@@ -1228,7 +1228,7 @@ class AuditLog(models.Model):  # TO DO - remove message column (convert to funct
         super(AuditLog, self).save(*args, **kwargs)
 
     def get_message(self):
-        return f'{self.user.username} ({self.ip_address}) {self.get_message_operation()} "{self.content_value}"'
+        return f'[{self.ip_address}] {self.user.username} {self.get_message_operation()} "{self.content_value}" in {self.object} with id {self.object_value}'
 
     def get_message_operation(self):
         if self.object == self.content and self.operation != 'create':
