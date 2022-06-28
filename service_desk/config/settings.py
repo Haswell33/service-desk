@@ -1,5 +1,5 @@
 from pathlib import Path
-import app.accounts
+
 CUST_TYPE = 'customer'
 OPER_TYPE = 'operator'
 DEV_TYPE = 'developer'
@@ -9,7 +9,7 @@ DEFAULT_ISSUE_TYPE_ID = 1
 DEFAULT_PRIORITY_ID = 3
 SD_INITIAL_STATUS = 15
 SOFT_INITIAL_STATUS = 26
-GROUP_TYPES = [
+ROLES = [
     ('customer', 'Customer'),
     ('operator', 'Operator'),
     ('developer', 'Developer')
@@ -56,8 +56,8 @@ SECRET_KEY = 'django-insecure-z(g7^uxx3*)@ctru=wvchu5tezwzd3s@0m01rozf=-szc8%_!@
 ALLOWED_HOSTS = ['192.168.0.100', '192.168.0.101', '127.0.0.1']
 ROOT_URLCONF = 'config.urls'
 WSGI_APPLICATION = 'config.wsgi.application'
-#STATIC_URL = '/static/'  # Static files (CSS, JavaScript, Images) https://docs.djangoproject.com/en/3.2/howto/static-files/
-#STATIC_ROOT = f'{BASE_DIR}'
+# STATIC_URL = '/static/'  # Static files (CSS, JavaScript, Images) https://docs.djangoproject.com/en/3.2/howto/static-files/
+# STATIC_ROOT = f'{BASE_DIR}'
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = '/media/'
@@ -75,7 +75,7 @@ TIME_ZONE = 'Europe/Zagreb'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'  # Default primary key field type https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-#AUTH_USER_MODEL = 'accounts.ServiceDeskUser'
+AUTH_USER_MODEL = 'app.User'
 INSTALLED_APPS = [
     'app',
     'django.contrib.admin',
@@ -86,7 +86,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'tinymce',
     'django_extensions',
-    #'app.accounts'
 ]
 
 MIDDLEWARE = [

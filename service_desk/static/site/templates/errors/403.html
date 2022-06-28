@@ -1,11 +1,9 @@
-{% extends 'base.html' %}
+{% extends 'errors/base.html' %}
 
 <head>
-    <title>{% block title %} {{ block.super }} | Permission denied{% endblock %}</title>
+    <title>{% block title %} {{ block.super }} | Access denied{% endblock %}</title>
 </head>
 
-<body>
-  {% block content_page %}
-  <h1>Permission denied - 403</h1>
-  {% endblock %}
-</body>
+{% block content_page %}
+  <h1>Access denied - 403</h1>
+{% endblock %}

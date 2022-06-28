@@ -20,6 +20,9 @@ urlpatterns = [
     path('tenant/update',
          views.tenant_update,
          name='tenant_update'),
+    path('tenant/update/?P<str:tenant_check>/',
+         views.tenant_update,
+         name='tenant_update'),
     path('login/',
          auth_views.LoginView.as_view(
              template_name='login.html',

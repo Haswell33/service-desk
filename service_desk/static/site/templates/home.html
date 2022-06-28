@@ -101,17 +101,17 @@
                   <div class="ticket-block_row" row="1">
                     <a href="{% url 'view_ticket' ticket.slug %}">
                       <div class="ticket-link">
-                        {{ ticket.type.icon_img }}
+                        {{ ticket.type.get_icon }}
                         <p class="ticket-key">{{ ticket.key }}</p>
                       </div>
                     </a>
                     <div class="ticket-block_row-block">
-                      {{ ticket.status.status_color }}
+                      {{ ticket.status.get_colored }}
                     </div>
                   </div>
                   <div class="ticket-block_row" row="2">
                     <div class="ticket-block_row-block">
-                      {{ ticket.priority.icon_img }}
+                      {{ ticket.priority.get_icon }}
                     </div>
                     <div class="ticket-block_row-block">
                       <p class="ticket-title">{{ ticket.title }}</p>
@@ -119,14 +119,10 @@
                   </div>
                   <div class="ticket-block_row" row="3">
                     <div class="ticket-block_row-block">
-                      {{ ticket.reporter_img }}
+                      {{ ticket.reporter.get_icon }}
                     </div>
                     <div class="ticket-block_row-block">
-                      {% if ticket.assignee_img %}
-                        {{ ticket.assignee_img }}
-                      {% else %}
-                        <p class="ticket-block_info">No assignee</p>
-                      {% endif %}
+                        {% call_method ticket 'get_assignee' True %}
                     </div>
                   </div>
                 </div>

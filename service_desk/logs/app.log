@@ -1121,3 +1121,137 @@
 2022-06-28 05:02:43 INFO | admin 127.0.0.1 Ticket 29 delete Comment 26
 2022-06-28 05:03:36 INFO | admin 127.0.0.1 Ticket 29 update suspended
 2022-06-28 05:03:39 INFO | admin 127.0.0.1 Ticket 29 update suspended
+2022-06-28 09:10:07 INFO | admin 127.0.0.1 Ticket 1 create Ticket
+2022-06-28 09:10:12 INFO | admin 127.0.0.1 Ticket 1 update Status 19
+2022-06-28 09:10:13 INFO | admin 127.0.0.1 Ticket 1 update suspended
+2022-06-28 16:17:23 INFO | John Doe 127.0.0.1 Ticket 1 add Comment 1
+2022-06-28 16:17:31 INFO | John Doe 127.0.0.1 Ticket 1 add Attachment 1
+2022-06-28 16:18:36 INFO | John Doe 127.0.0.1 Ticket 2 create Ticket
+2022-06-28 16:18:41 INFO | John Doe 127.0.0.1 Ticket 2 update suspended
+2022-06-28 16:24:35 INFO | Jan Kowalski 127.0.0.1 Ticket 3 create Ticket
+2022-06-28 16:27:51 INFO | Karol Siedlaczek 127.0.0.1 Ticket 3 add Comment 2
+2022-06-28 16:27:59 INFO | Karol Siedlaczek 127.0.0.1 Ticket 3 update Status 17
+2022-06-28 16:31:46 INFO | Karol Siedlaczek 127.0.0.1 Ticket 3 add Comment 3
+2022-06-28 17:13:51 INFO | Karol Siedlaczek 127.0.0.1 Ticket 3 update assignee
+2022-06-28 17:15:18 INFO | Karol Siedlaczek 127.0.0.1 Ticket 3 update Status 21
+2022-06-28 17:15:19 INFO | Karol Siedlaczek 127.0.0.1 Ticket 3 update Status 22
+2022-06-28 17:15:29 INFO | Karol Siedlaczek 127.0.0.1 Ticket 3 update Status 15
+2022-06-28 17:17:11 INFO | Karol Siedlaczek 127.0.0.1 Ticket 3 update Status 19
+2022-06-28 17:19:13 INFO | Karol Siedlaczek 127.0.0.1 Ticket 3 update assignee
+2022-06-28 17:20:45 INFO | Karol Siedlaczek 127.0.0.1 Ticket 3 update assignee
+2022-06-28 17:20:53 INFO | Karol Siedlaczek 127.0.0.1 Ticket 3 update assignee
+2022-06-28 17:21:22 INFO | Karol Siedlaczek 127.0.0.1 Ticket 3 update assignee
+2022-06-28 18:05:35 INFO | Karol Siedlaczek 127.0.0.1 Ticket 3 update assignee
+2022-06-28 18:05:41 INFO | Karol Siedlaczek 127.0.0.1 Ticket 3 update priority
+2022-06-28 18:05:43 INFO | Karol Siedlaczek 127.0.0.1 Ticket 3 update priority
+2022-06-28 18:05:54 INFO | Karol Siedlaczek 127.0.0.1 Ticket 3 delete Comment 2
+2022-06-28 18:07:20 INFO | Karol Siedlaczek 127.0.0.1 Ticket 3 add Attachment 2
+2022-06-28 18:07:24 INFO | Karol Siedlaczek 127.0.0.1 Ticket 3 delete Attachment 2
+2022-06-28 18:07:48 INFO | Karol Siedlaczek 127.0.0.1 Ticket 3 add Attachment 3
+2022-06-28 18:09:29 INFO | Karol Siedlaczek 127.0.0.1 Ticket 2 update suspended
+2022-06-28 18:09:39 INFO | Karol Siedlaczek 127.0.0.1 Ticket 4 create Ticket
+2022-06-28 18:12:31 INFO | Karol Siedlaczek 127.0.0.1 Ticket 1 update suspended
+2022-06-28 18:12:33 INFO | Karol Siedlaczek 127.0.0.1 Ticket 1 update suspended
+2022-06-28 18:12:37 INFO | Karol Siedlaczek 127.0.0.1 Ticket 1 update assignee
+2022-06-28 18:12:44 INFO | Karol Siedlaczek 127.0.0.1 Ticket 2 update Status 16
+2022-06-28 18:12:47 INFO | Karol Siedlaczek 127.0.0.1 Ticket 4 update Status 17
+2022-06-28 18:20:32 INFO | Ronald Smith 127.0.0.1 Ticket 2 add Ticket 4
+2022-06-28 18:21:47 INFO | John Doe 127.0.0.1 Ticket 2 update Status 27
+2022-06-28 18:21:56 INFO | John Doe 127.0.0.1 Ticket 2 update Status 16
+2022-06-28 18:25:36 INFO | Jan Kowalski 127.0.0.1 Ticket 5 create Ticket
+2022-06-28 18:25:36 INFO | Jan Kowalski 127.0.0.1 Ticket 5 add Attachment 4
+2022-06-28 18:27:57 INFO | Ronald Smith 127.0.0.1 Ticket 1 update priority
+2022-06-28 18:36:02 INFO | Karol Siedlaczek 127.0.0.1 Ticket 2 add Comment 4
+2022-06-28 18:36:17 INFO | Karol Siedlaczek 127.0.0.1 Ticket 2 add Comment 5
+2022-06-28 18:42:13 INFO | Karol Siedlaczek 127.0.0.1 Ticket 2 update assignee
+2022-06-28 18:51:29 INFO | Karol Siedlaczek 127.0.0.1 Ticket 2 add Comment 6
+2022-06-28 18:51:31 INFO | Karol Siedlaczek 127.0.0.1 Ticket 2 add Comment 7
+2022-06-28 18:59:45 INFO | Karol Siedlaczek 127.0.0.1 Ticket 2 update Comment 7
+2022-06-28 19:01:59 INFO | Karol Siedlaczek 127.0.0.1 Ticket 2 delete Comment 6
+2022-06-28 19:03:30 INFO | Karol Siedlaczek 127.0.0.1 Ticket 2 update priority
+2022-06-28 19:03:38 INFO | Karol Siedlaczek 127.0.0.1 Ticket 2 update priority
+2022-06-28 19:04:04 INFO | Karol Siedlaczek 127.0.0.1 Ticket 2 update Status 27
+2022-06-28 19:32:55 INFO | created ticket: "HSW-83"
+2022-06-28 19:33:24 INFO | created ticket: "HSW-84"
+2022-06-28 19:33:24 INFO | added attachment "x.svg"
+2022-06-28 19:33:38 INFO | updated suspended to: "True"
+2022-06-28 19:33:44 INFO | updated suspended to: "False"
+2022-06-28 19:33:45 INFO | updated status to: "In progress"
+2022-06-28 19:33:48 INFO | updated assignee to: "John Doe"
+2022-06-28 19:33:51 INFO | updated label to: "3,4"
+2022-06-28 19:34:03 INFO | updated title to: "test11"
+2022-06-28 19:34:03 INFO | updated priority to: "2"
+2022-06-28 19:35:02 INFO | updated labels to: "1,3,4"
+2022-06-28 19:35:53 INFO | updated labels to: "['1', '4']"
+2022-06-28 19:37:30 INFO | updated priority to: "Normal"
+2022-06-28 19:38:09 INFO | updated labels to: "['1', '3', '4']"
+2022-06-28 19:38:45 INFO | updated labels to: "['1', '3', '4', '5']"
+2022-06-28 19:38:55 INFO | updated labels to: "['1', '3', '4']"
+2022-06-28 19:39:10 INFO | updated labels to: "['1', '3', '4', '6']"
+2022-06-28 19:39:41 INFO | updated labels to: "['1', '3', '4', '5', '6']"
+2022-06-28 19:40:11 INFO | updated labels to: "['1', '3', '4', '5']"
+2022-06-28 19:40:22 INFO | updated labels to: "['1', '3', '4', '5', '6']"
+2022-06-28 19:40:34 INFO | updated labels to: "['1', '3', '4', '5']"
+2022-06-28 19:40:41 INFO | updated labels to: "['1', '3', '5']"
+2022-06-28 19:41:12 INFO | updated labels to: "['1', '5']"
+2022-06-28 19:41:31 INFO | updated labels to: "['1', '3', '5']"
+2022-06-28 19:41:44 INFO | updated labels to: "['1', '3', '5', '6']"
+2022-06-28 19:42:07 INFO | updated labels to: "['1', '2', '3', '5', '6']"
+2022-06-28 19:42:28 INFO | updated labels to: "['1', '2', '3', '4', '5', '6']"
+2022-06-28 19:42:47 INFO | updated labels to: "['1', '2', '4', '5', '6']"
+2022-06-28 19:43:21 INFO | updated labels to: "['1', '2', '4', '5']"
+2022-06-28 19:44:08 INFO | updated labels to: ""
+2022-06-28 19:44:42 INFO | updated labels to: ""
+2022-06-28 19:45:09 INFO | updated labels to: ""
+2022-06-28 19:45:19 INFO | updated labels to: ""
+2022-06-28 19:46:35 INFO | updated labels to: ""
+2022-06-28 19:47:18 INFO | updated labels to: ""
+2022-06-28 19:49:14 INFO | updated labels to: ""
+2022-06-28 19:50:56 INFO | updated labels to: ""
+2022-06-28 19:52:02 INFO | updated labels to: "['2', '3', '5']"
+2022-06-28 19:52:18 INFO | updated labels to: "['2', '3', '4', '5']"
+2022-06-28 19:52:30 INFO | updated labels to: "Payment,Firewall,Network,System 1,System 2"
+2022-06-28 19:52:48 INFO | updated labels to: "Software,Payment,Firewall,Network,System 1,System 2"
+2022-06-28 19:53:07 INFO | updated labels to: "Software,Network,System 1,System 2"
+2022-06-28 19:53:16 INFO | updated labels to: "Software, Network, System 1"
+2022-06-28 19:55:29 INFO | created ticket: "HSW-85"
+2022-06-28 20:02:30 INFO | added attachment: "file-earmark-code-fill.svg"
+2022-06-28 20:02:36 INFO | deleted attachment: "file-earmark-code-fill.svg"
+2022-06-28 20:02:42 INFO | added ticket: "HSW-80"
+2022-06-28 20:03:18 INFO | deleted ticket: "HSW-80"
+2022-06-28 20:05:51 INFO | added comment: "<p>adfdfssdf</p>"
+2022-06-28 20:05:54 INFO | deleted comment: "<p>adfdfssdf</p>"
+2022-06-28 20:06:02 INFO | updated title to: "test1231231"
+2022-06-28 20:06:02 INFO | updated priority to: "Important"
+2022-06-28 20:06:02 INFO | updated labels to: "Firewall, Network"
+2022-06-28 20:06:05 INFO | updated labels to: "Firewall, Network, System 1"
+2022-06-28 20:06:13 INFO | added attachment: "file-earmark-music-fill.svg"
+2022-06-28 20:06:15 INFO | deleted attachment: "file-earmark-music-fill.svg"
+2022-06-28 20:06:17 INFO | added related ticket: "HSW-82"
+2022-06-28 20:06:24 INFO | deleted related ticket: "HSW-82"
+2022-06-28 20:06:28 INFO | added related ticket: "HSW-82"
+2022-06-28 20:06:30 INFO | deleted related ticket: "HSW-82"
+2022-06-28 20:06:33 INFO | added related ticket: "HSW-81"
+2022-06-28 20:08:22 INFO | admin 127.0.0.1 updated labels to: "Payment, Firewall, Network, System 1"
+2022-06-28 20:10:18 INFO | admin (127.0.0.1) updated assignee to: "James Smith"
+2022-06-28 20:10:25 INFO | admin (127.0.0.1) updated status to: "In progress"
+2022-06-28 20:10:34 INFO | admin (127.0.0.1) updated suspended to: "True"
+2022-06-28 20:10:40 INFO | admin (127.0.0.1) updated priority to: "Normal"
+2022-06-28 20:10:43 INFO | admin (127.0.0.1) updated labels to: "Software, Firewall, Network, System 1"
+2022-06-28 20:11:07 INFO | admin (127.0.0.1) added attachment: "przelew.pdf"
+2022-06-28 20:11:18 INFO | admin (127.0.0.1) added related ticket: "HSW-82"
+2022-06-28 20:12:12 INFO | admin (127.0.0.1) deleted related ticket: "HSW-85"
+2022-06-28 20:12:14 INFO | admin (127.0.0.1) deleted related ticket: "HSW-80"
+2022-06-28 20:12:17 INFO | admin (127.0.0.1) added related ticket: "HSW-85"
+2022-06-28 20:12:17 INFO | admin (127.0.0.1) added related ticket: "HSW-81"
+2022-06-28 20:12:44 INFO | jan.kowalski (127.0.0.1) added related ticket: "HSW-81"
+2022-06-28 20:12:44 INFO | jan.kowalski (127.0.0.1) added related ticket: "HSW-79"
+2022-06-28 20:12:57 INFO | jan.kowalski (127.0.0.1) added related ticket: "HSW-82"
+2022-06-28 20:12:57 INFO | jan.kowalski (127.0.0.1) added related ticket: "HSW-81"
+2022-06-28 20:17:47 INFO | admin (127.0.0.1) updated assignee to: "James Smith"
+2022-06-28 20:17:48 INFO | admin (127.0.0.1) updated status to: "Rejected"
+2022-06-28 20:17:49 INFO | admin (127.0.0.1) updated status to: "Backlog"
+2022-06-28 20:17:51 INFO | admin (127.0.0.1) updated status to: "In progress"
+2022-06-28 20:17:52 INFO | admin (127.0.0.1) updated status to: "Cancelled"
+2022-06-28 20:19:56 INFO | admin (127.0.0.1) added related ticket: "HSW-84"
+2022-06-28 20:19:56 INFO | admin (127.0.0.1) added related ticket: "HSW-82"

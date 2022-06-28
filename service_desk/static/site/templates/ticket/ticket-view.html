@@ -8,7 +8,7 @@
   {% block content_page %}
   <div id="content-page_header" class="separated">
     <div class="content-page_header-block">
-      <div class="content-page_header-block_type">{{ object.type.icon_img }}</div>
+      <div class="content-page_header-block_type">{{ object.type.get_icon }}</div>
       <h2>{{ object.key }}</h2>
     </div>
   </div>
@@ -84,7 +84,7 @@
             {% get_verbose_name object 'type' %}
           </div>
           <div class="ticket-view_field_content">
-            {{ object.type.icon_img_text }}
+            {{ object.type.get_icon_text }}
           </div>
         </div>
         <div class="ticket-view_field">
@@ -92,7 +92,7 @@
             {% get_verbose_name object 'status' %}
           </div>
           <div class="ticket-view_field_content">
-            {{ object.status.status_color }}
+            {{ object.status.get_colored }}
           </div>
         </div>
         <div class="ticket-view_field">
@@ -118,7 +118,7 @@
             {% get_verbose_name object 'reporter' %}
           </div>
           <div class="ticket-view_field_content user-view">
-            {{ object.reporter_img_text }}
+            {{ object.reporter.get_icon_text }}
           </div>
         </div>
         <div class="ticket-view_field">
@@ -126,7 +126,7 @@
             {% get_verbose_name object 'priority' %}
           </div>
           <div class="ticket-view_field_content">
-            {{ object.priority.icon_img_text }}
+            {{ object.priority.get_icon_text }}
           </div>
         </div>
         <div class="ticket-view_field">
@@ -134,7 +134,7 @@
             {% get_verbose_name object 'assignee' %}
           </div>
           <div class="ticket-view_field_content user-view">
-            {{ object.assignee_img_text }}
+            {{ object.get_assignee }}
           </div>
         </div>
         <div class="ticket-view_field">
@@ -164,7 +164,7 @@
             {% get_verbose_name object 'created' %}
           </div>
           <div class="ticket-view_field_content ticket-user">
-            {{ object.created_local }}
+            {% get_datetime_local object.created %}
           </div>
         </div>
         <div class="ticket-view_field">
@@ -172,7 +172,7 @@
             {% get_verbose_name object 'updated' %}
           </div>
           <div class="ticket-view_field_content ticket-user">
-            {{ object.updated_local }}
+            {% get_datetime_local object.updated %}
           </div>
         </div>
       </div>
@@ -186,7 +186,7 @@
               {% for attachment in object.attachments.all %}
                 <div class="ticket-field-content_aside">
                   <a class="file {% get_file_extension_class attachment.filename %} default-hover" href="{{ MEDIA_URL }}{{ attachment.file }}" download="{{ attachment.filename }}" title="Click to download {{ attachment.filename }}">{% get_max_length_string attachment.filename 40 %}</a>
-                  {% if user == attachment.user or user.is_superuser %}
+                  {% if user == attachment.user or user.is_admin %}
                     <div class="attachment-view_delete" title="Delete {{ attachment.filename }}">
                       <form action="{% url 'edit_ticket_attachment_delete' object.slug  %}" method="post">
                         {% csrf_token %}
@@ -246,24 +246,26 @@
                   <div class="ticket-block_row " row="1" style="border-bottom: none; padding: 0">
                     <a href="{% url 'view_ticket' relation.slug %}" title="{{ relation.title }}">
                       <div class="ticket-link">
-                        {{ relation.type.icon_img }}
+                        {{ relation.type.get_icon }}
                         <p class="ticket-key">{{ relation.key }}</p>
                       </div>
                     </a>
                       <div class="ticket-block_row-block">
-                        {{ relation.status.status_color }}
+                        {{ relation.status.get_colored }}
                       </div>
                   </div>
                   <div title="Delete {{ relation }}">
-                    <form action="{% url 'edit_ticket_relation_delete' object.slug  %}" method="post">
-                      {% csrf_token %}
-                      <input type="hidden" name="relation" value="{{ relation.id }}">
-                      <button type="submit" class="no-button">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon dark default-hover" viewBox="0 0 16 16">
-                          <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                        </svg>
-                      </button>
-                    </form>
+                    {% if user == relation.author or user.is_admin %}
+                      <form action="{% url 'edit_ticket_relation_delete' object.slug  %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="relation" value="{{ relation.id }}">
+                        <button type="submit" class="no-button">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="icon dark default-hover" viewBox="0 0 16 16">
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                          </svg>
+                        </button>
+                      </form>
+                    {% endif %}
                   </div>
                   <div class="description break-flex" title="{{ relation.title }}">
                     {% get_max_length_string relation.title 55 %}
@@ -280,24 +282,26 @@
                   <div class="ticket-block_row" row="1" style="border-bottom: none; padding: 0">
                     <a href="{% url 'view_ticket' relation.slug %}" title="{{ relation.title }}">
                       <div class="ticket-link">
-                        {{ relation.type.icon_img }}
+                        {{ relation.type.get_icon }}
                         <p class="ticket-key">{{ relation.key }}</p>
                       </div>
                     </a>
                       <div class="ticket-block_row-block">
-                        {{ relation.status.status_color }}
+                        {{ relation.status.get_colored }}
                       </div>
                   </div>
                   <div title="Remove relation {{ relation }}">
-                    <form action="{% url 'edit_ticket_relation_delete' object.slug  %}" method="post">
-                      {% csrf_token %}
-                      <input type="hidden" name="relation" value="{{ relation.id }}">
-                      <button type="submit" class="no-button">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon dark default-hover" viewBox="0 0 16 16">
-                          <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                        </svg>
-                      </button>
-                    </form>
+                    {% if user == relation.author or user.is_admin %}
+                      <form action="{% url 'edit_ticket_relation_delete' object.slug  %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="relation" value="{{ relation.id }}">
+                        <button type="submit" class="no-button">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="icon dark default-hover" viewBox="0 0 16 16">
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                          </svg>
+                        </button>
+                      </form>
+                    {% endif %}
                   </div>
                   <div class="description break-flex" title="{{ relation.title }}">
                     {% get_max_length_string relation.title 55 %}
@@ -336,7 +340,7 @@
                     {{ comment.author_img_text }}
                     <span title="{{ comment.created }}" class="description"> commented {% get_time_ago comment.created %}</span>
                   </div>
-                  {% if user == comment.author or user.is_superuser %}
+                  {% if user == comment.author or user.is_admin %}
                     <div title="Delete comment">
                       <form action="{% url 'edit_ticket_comment_delete' object.slug  %}" method="post">
                         {% csrf_token %}
@@ -352,7 +356,7 @@
                   <div class="comment-view_content break-flex">
                     {{ comment.content|safe }}
                   </div>
-                  {% if user == comment.author or user.is_superuser %}
+                  {% if user == comment.author or user.is_admin %}
                     <div class="break-flex">
                       <button id="edit-comment_button" type="submit" class="no-button description default-hover" data-id="{{ comment.id }}" data-value="{{ comment.content }}">
                         Edit
@@ -394,13 +398,13 @@
                       <img src="{{ MEDIA_URL}}/{{ audit_log.user.icon }}" height="18" width="18" title="{{ audit_log.user }}" alt="{{ audit_log.user }}"/>
                       {{ audit_log.user }}
                     </div>
-                    <span title="{{ audit_log.datetime }}" class="description">{% get_time_ago audit_log.datetime %}</span>
+                    <span title="{{ audit_log.created }}" class="description">{% get_time_ago audit_log.created %}</span>
                   </div>
                   <div class="break-flex" style="padding-top: 10px">
-                    {{ audit_log.message}}:
+                    {{ audit_log.get_message_operation }}
                   </div>
                   <div class="break-flex history-view_content">
-                    "{% get_max_length_string audit_log.new_value|safe 100 %}"
+                    "{% get_max_length_string audit_log.content_value|safe 100 %}"
                   </div>
                 </div>
               {% endfor %}

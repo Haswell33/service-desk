@@ -18,15 +18,18 @@
     --error-color: #721c24;
     --error-border: #f5c6cb;
     --error-link: #491217;
+
     --warning-background: #fff3cd;
     --warning-color: #856404;
     --warning-border: #ffeeba;
     --warning-link: #533f03;
+
     --info-background: #cce5ff;
     --info-color: #004085;
     --info-border: #b8daff;
     --info-link: #002752;
-    --success-background: #d4edda;
+
+    --success-background: #e1efe4;
     --success-color: #155724;
     --success-border: #c3e6cb;
     --success-link: #0b2e13;
@@ -838,7 +841,7 @@ footer a:visited {
 }
 
 #ticket-table tr:not(.table-header):hover {
-    background-color: var(--elem-light-hover)
+    background-color: #d7d7d7;
 }
 
 .table-header_title {
@@ -1006,7 +1009,12 @@ footer a:visited {
 .history-view .ticket-field-content_aside {
     border: none;
     border-radius: 0;
-    border-top: 1px solid var(--elem-light-border)
+    border-bottom: 1px solid var(--elem-light-border)
+}
+
+.comment-view .ticket-field-content_aside:last-child,
+.history-view .ticket-field-content_aside:last-child {
+    border: none
 }
 
 .comment-view_nav,
@@ -1068,13 +1076,6 @@ footer a:visited {
     min-height: 0;
 }
 
-.dialogs > div {
-    position: fixed;
-    padding: 30px 50px 50px 50px;
-    background: var(--elem-light-primary);
-    z-index: 102;
-    display: none;
-}
 
 /* Messages, Communicates, Error, Success, Warning */
 
@@ -1148,6 +1149,14 @@ footer a:visited {
     transform: translate(-50%, -55%);
 }
 
+.dialogs > div {
+    position: fixed;
+    padding: 30px 50px 50px 50px;
+    background: var(--elem-light-primary);
+    z-index: 102;
+    display: none;
+}
+
 .dialog {
     max-height: 625px;
     overflow-y: scroll;
@@ -1156,6 +1165,15 @@ footer a:visited {
     flex-direction: column;
     justify-content: center;
     border-radius: 5px;
+}
+
+.dialog_error {
+    transform: translate(-50%, -250%)
+}
+
+.overflow-hidden {
+    overflow-x: hidden!important;
+    overflow-y: hidden!important;
 }
 
 .dialog input[type=submit] {
@@ -1379,6 +1397,10 @@ footer a:visited {
 
 .assigned {
     background-color: #e8e8e8;
+}
+
+.resolved {
+    background-color: #d4eeda;
 }
 
 .ticket-link {

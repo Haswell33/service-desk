@@ -11,7 +11,7 @@ def context_tenant_session(request):
                 tenant = tenant_manager.get_tenant_by_role(group.role, group)
                 if tenant and not tenant.session_exists(request.user):
                     tenant.add_session(group.role, request.user)  # add record to database with information about available tenant
-                    tenant.set_active_session(request)  # check if in django sessions is already activated any tenant
+                    tenant.set_active_session(request)  # check if in sessions is already activated any tenant
         return request
 
 
@@ -28,7 +28,7 @@ def get_media(request):
 def get_tenants(request):
     if request.user.is_authenticated:
         return {
-            'tenant_sessions': tenant_manager.get_all_user_tenant_sessions(request.user),
+            'tenant_sessions': tenant_manager.get_all_tenant_sessions(request.user),
             'active_tenant_session': tenant_manager.get_active_tenant_session(request.user)}
     return request
 

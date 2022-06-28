@@ -1,11 +1,9 @@
-{% extends 'base.html' %}
+{% extends 'errors/base.html' %}
 
 <head>
-    <title>{% block title %} {{ block.super }} | Page Not Found{% endblock %}</title>
+    <title>{% block title %} {{ block.super }} | Page not found{% endblock %}</title>
 </head>
 
-<body>
-  {% block content_page %}
+{% block content_page %}
   <h1>Page not found - 404</h1>
-  {% endblock %}
-</body>
+{% endblock %}

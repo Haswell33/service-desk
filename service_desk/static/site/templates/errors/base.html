@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+<body>
+    {% block content %}
+      <div class="dialog overflow-hidden center dialog_error">
+        {% block content_page %}
+        {% endblock %}
+      </div>
+    {% endblock %}
+</body>

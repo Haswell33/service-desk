@@ -7,18 +7,7 @@ import math
 import json
 import logging
 
-
 logger = logging.getLogger(__name__)
-
-
-class InstanceAuditLog:
-    __slots__ = ['user', 'new_value', 'datetime', 'message']
-
-    def __init__(self, user, new_value, datetime, message):
-        self.user = user
-        self.new_value = new_value
-        self.datetime = datetime
-        self.message = message
 
 
 def delete_file(obj):

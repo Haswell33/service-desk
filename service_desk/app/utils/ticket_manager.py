@@ -25,21 +25,7 @@ def filter_tickets(tickets, filters):
 
 
 def order_tickets(tickets, ordering):
-    tickets = tickets.order_by(ordering)
-    return tickets
-
-
-def get_audit_log_message(operation, content):
-    if operation == 'create':
-        return f'created {content.lower()}'
-    elif operation == 'delete':
-        return f'deleted relation with {content.lower()}'
-    elif operation == 'update':
-        return f'updated {content.lower()} to'
-    elif operation == 'add':
-        return f'added {content.lower()}'
-    else:
-        return f'changed {content.lower()}'
+    return tickets.order_by(ordering)
 
 
 def fields_equal(form, attr, ticket_value, form_value):

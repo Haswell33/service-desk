@@ -16,18 +16,18 @@ def in_list(value, list_data):
 
 
 @register.simple_tag
-def get_verbose_name(object, field_name):
-    return object._meta.get_field(field_name).verbose_name
+def get_verbose_name(obj, field_name):
+    return obj._meta.get_field(field_name).verbose_name
 
 
 @register.simple_tag
-def get_name(object, field_name):
-    return object._meta.get_field(field_name).name
+def get_name(obj, field_name):
+    return obj._meta.get_field(field_name).name
 
 
 @register.simple_tag
-def get_help_text(object, field_name):
-    return object._meta.get_field(field_name).help_text
+def get_help_text(obj, field_name):
+    return obj._meta.get_field(field_name).help_text
 
 
 @register.simple_tag
@@ -57,3 +57,13 @@ def get_time_ago(date):
     date_converted = date.strftime('%Y-%m-%d %H:%M:%S')
     return timeago.format(date_converted, now, 'en')
 
+
+@register.simple_tag()
+def get_datetime_local(date):
+    return utils.get_datetime(date)
+
+
+@register.simple_tag()
+def call_method(obj, method_name, *args):
+    method = getattr(obj, method_name)
+    return method(*args)

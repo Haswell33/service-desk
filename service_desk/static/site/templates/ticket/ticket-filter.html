@@ -119,23 +119,25 @@
             {% endfor %}
         </tr>
         {% for ticket in tickets %}
-          {% if ticket.suspended %}
+          {% if ticket.resolution %}
+            <tr class="resolved">
+          {% elif ticket.suspended %}
             <tr class="suspended">
           {% else %}
             <tr>
           {% endif %}
-            <td>{{ ticket.type.icon_img }}</td>
+            <td>{{ ticket.type.get_icon }}</td>
             <td>
               <a class="default-hover" href="{% url 'view_ticket' ticket.slug %}" style="padding: 4px;">
                 {{ ticket.key }}
               </a>
             </td>
             <td>{{ ticket.title }}</td>
-            <td>{{ ticket.priority.icon_img }}</td>
-            <td>{{ ticket.status.status_color }}</td>
+            <td>{{ ticket.priority.get_icon }}</td>
+            <td>{{ ticket.status.get_colored }}</td>
             <td>{{ ticket.get_resolution }}</td>
-            <td>{{ ticket.reporter_img_text }}</td>
-            <td>{{ ticket.assignee_img_text }}</td>
+            <td>{{ ticket.reporter.get_icon_text }}</td>
+            <td>{{ ticket.get_assignee }}</td>
             <td>
               {% if ticket.labels.count > 0 %}
                 {% for label in ticket.labels.all %}
@@ -149,8 +151,8 @@
                 </div>
               {% endif %}
             </td>
-            <td>{{ ticket.created_local }}</td>
-            <td>{{ ticket.updated_local }}</td>
+            <td>{% get_datetime_local ticket.created %}</td>
+            <td>{% get_datetime_local ticket.updated %}</td>
           </tr>
         {% endfor %}
       </table>

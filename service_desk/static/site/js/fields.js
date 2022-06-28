@@ -42,8 +42,9 @@ function adminFields(mediaUrl) {
     renderField('#id_board', mediaUrl, 'Select a assigned board', false, false, false, 0)
     renderField('#id_column', mediaUrl, 'Select a column where status will be displayed', false, false, false, 0)
     renderField('select[name=action]', mediaUrl, 'Select a bulk action for selected rows', false, true, false, -1)
-    renderField('#id_user_permissions', mediaUrl, 'Select an user permissions', false, true, true, 0)
+    renderField('#id_permissions', mediaUrl, 'Select an user permissions', false, true, true, 0)
     renderField('#id_groups', mediaUrl, 'Select an groups', false, true, true, 0)
+    renderField('#id_role', mediaUrl, 'Select role of user in group', false, false, false, -1)
 }
 
 function createTicketFields(mediaUrl) {

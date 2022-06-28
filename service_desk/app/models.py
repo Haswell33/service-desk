@@ -1,17 +1,17 @@
 from django.core.validators import MaxValueValidator, MinValueValidator, FileExtensionValidator, ValidationError
 from django.core.files.base import ContentFile
 from django.conf import settings
-from django.contrib.auth.models import Group, User
-#from .accounts.models import ServiceDeskUser as User
+from django.contrib.auth.models import Group, AbstractBaseUser, PermissionsMixin
 from django.db.models import Q, Manager
 from django.db import models
 from django.dispatch import receiver
-from django.apps import apps
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 from crum import get_current_user, get_current_request
 from tinymce.models import HTMLField
 from datetime import datetime
 from .utils import ticket_manager, utils
+from .managers import UserManager
 from logging import getLogger
 import os
 
@@ -35,18 +35,116 @@ def validate_file_extension(value):
 Group.add_to_class(
     'role', models.CharField(
         max_length=25,
-        choices=settings.GROUP_TYPES,
+        choices=settings.ROLES,
         blank=True,
         db_column='role'))
 
 
-User.add_to_class(
-    'icon', models.ImageField(
+class User(AbstractBaseUser):
+    username = models.CharField(
+        max_length=25,
+        unique=True)
+    first_name = models.CharField(
+        max_length=15)
+    last_name = models.CharField(
+        max_length=15)
+    email = models.EmailField(
+        _('email address'))
+    icon = models.ImageField(
         upload_to=f'{utils.get_media_path()}/img/user',
-        validators=[FileExtensionValidator],
-        default=f'img/user/default-avatar.png',
-        max_length=500))
+        default=f'img/user/dog.png',
+        max_length=500)
+    password = models.CharField(
+        max_length=500)
+    manager = models.BooleanField(
+        default=False)
+    admin = models.BooleanField(
+        default=False)
+    active = models.BooleanField(
+        default=True)
+    created = models.DateTimeField(
+        default=timezone.now)
+    last_login = models.DateTimeField(
+        blank=True,
+        null=True)
+    groups = models.ManyToManyField(
+        related_query_name='user',
+        related_name='user_set',
+        to='auth.Group',
+        blank=True)
+    permissions = models.ManyToManyField(
+        related_query_name='user',
+        related_name='user_set',
+        to='auth.Permission',
+        blank=True)
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['email', 'first_name', 'last_name', 'admin', 'manager']
 
+    objects = UserManager()
+
+    class Meta:
+        db_table = 'user'
+        verbose_name = 'user'
+        verbose_name_plural = 'users'
+
+    def get_display_name(self):
+        return f'{str(self.first_name).capitalize()} {str(self.last_name).capitalize()}'
+
+    def get_icon(self):
+        return utils.get_img_field(self.icon, self.get_display_name(), 20, 20)
+    get_icon.short_description = 'Icon'
+
+    def get_icon_text(self):
+        try:
+            return utils.get_img_text_field(self.icon, self, 18, 18)
+        except AttributeError:
+            return self
+    get_icon_text.short_description = 'User'
+
+    @property
+    def is_staff(self):
+        return self.manager
+
+    @property
+    def is_superuser(self):
+        return self.admin
+
+    @property
+    def is_admin(self):
+        return self.admin
+
+    @property
+    def is_customer(self):
+        if TenantSession.get_active(self).role == settings.CUST_TYPE:
+            return True
+        else:
+            return False
+
+    @property
+    def is_operator(self):
+        if TenantSession.get_active(self).role == settings.OPER_TYPE:
+            return True
+        else:
+            return False
+
+    @property
+    def is_developer(self):
+        if TenantSession.get_active(self).role == settings.DEV_TYPE:
+            return True
+        else:
+            return False
+
+    def has_perm(self, perm, obj=None):
+        return self.admin
+
+    def has_module_perms(self, app_label):
+        return self.admin
+
+    def __str__(self):
+        if self.first_name and self.last_name:
+            return self.get_display_name()
+        else:
+            return self.username
 
 
 class Board(models.Model):
@@ -87,6 +185,8 @@ class SLAScheme(models.Model):
         help_text='Time to resolve in minutes before escalation')
     hour_range = models.CharField(
         max_length=5)
+
+    objects = models.Manager()
 
     class Meta:
         db_table = 'sla_scheme'
@@ -173,10 +273,9 @@ class Tenant(models.Model):
             self.count = 0
         super().save(*args, **kwargs)
 
-    @property
-    def icon_img(self):
+    def get_icon(self):
         return utils.get_img_field(self.icon, self.name, 20, 20)
-    icon_img.fget.short_description = 'Icon'
+    get_icon.short_description = 'Icon'
 
     def session_exists(self, user):  # check if specific tenant session assigned to provided user exists in database
         if TenantSession.objects.filter(tenant=self, user=user):
@@ -229,24 +328,24 @@ class Priority(models.Model):
         blank=True,
         max_length=500)
 
+    objects = models.Manager()
+
     class Meta:
         db_table = 'priority'
         verbose_name = 'priority'
         verbose_name_plural = 'priorities'
         ordering = ['-step']
 
-    @property
-    def icon_img(self):
+    def get_icon(self):
         return utils.get_img_field(self.icon, self.name, 20, 20)
-    icon_img.fget.short_description = 'Icon'
+    get_icon.short_description = 'Icon'
 
-    @property
-    def icon_img_text(self):
+    def get_icon_text(self):
         try:
             return utils.get_img_text_field(self.icon, self.name, 18, 18)
         except AttributeError:
             return self.name
-    icon_img_text.fget.short_description = 'Priority'
+    get_icon_text.short_description = 'Priority'
 
     def __str__(self):
         return self.name
@@ -274,32 +373,32 @@ class Type(models.Model):
         blank=True,
         max_length=500)
 
+    objects = models.Manager()
+
     class Meta:
         db_table = 'type'
         verbose_name = 'type'
         verbose_name_plural = 'types'
         ordering = ['id']
 
-    @property
-    def icon_img(self):
+    def get_icon(self):
         return utils.get_img_field(self.icon, self.name, 20, 20)
-    icon_img.fget.short_description = 'Icon'
+    get_icon.short_description = 'Icon'
 
-    @property
-    def icon_img_text(self):
+    def get_icon_text(self):
         try:
             return utils.get_img_text_field(self.icon, self.name, 18, 18)
         except AttributeError:
             return self.name
-    icon_img_text.fget.short_description = 'Type'
+    get_icon_text.short_description = 'Type'
 
     @staticmethod
     def get_options(user):
-        if user_is_operator(user) or user.is_superuser:
+        if user.is_operator or user.is_admin:
             return Type.objects.all()
-        elif user_is_customer(user):
+        elif user.is_customer:
             return Type.objects.filter(env_type=settings.SD_ENV_TYPE)
-        elif user_is_developer(user):
+        elif user.is_developer:
             return Type.objects.filter(env_type=settings.SOFT_ENV_TYPE)
 
     def __str__(self):
@@ -316,6 +415,8 @@ class Resolution(models.Model):
         name='description',
         blank=True,
         null=True)
+
+    objects = models.Manager()
 
     class Meta:
         db_table = 'resolution'
@@ -351,6 +452,8 @@ class Status(models.Model):
         through='Transition',
         through_fields=('src_status', 'dest_status'))
 
+    objects = models.Manager()
+
     class Meta:
         db_table = 'status'
         verbose_name = 'status'
@@ -362,10 +465,9 @@ class Status(models.Model):
         return utils.get_color_box(self.color, '18', '18')
     color_hex.fget.short_description = 'Color'
 
-    @property
-    def status_color(self):
+    def get_colored(self):
         return utils.get_status_color(self.color, self.name)
-    status_color.fget.short_description = 'Status'
+    get_colored.short_description = 'Status'
 
     @staticmethod
     def get_available_status_list(user):
@@ -392,6 +494,8 @@ class BoardColumn(models.Model):
         through='BoardColumnAssociation',
         through_fields=('column', 'status'))
 
+    objects = models.Manager()
+
     class Meta:
         db_table = 'board_column'
         verbose_name = 'board column'
@@ -401,11 +505,11 @@ class BoardColumn(models.Model):
     @staticmethod
     def get_board_columns(user):
         active_tenant_session = TenantSession.get_active(user)
-        if user_is_customer(user):
+        if user.is_customer:
             board = Board.objects.get(id=active_tenant_session.tenant.customers_board.id)
-        elif user_is_operator(user):
+        elif user.is_operator:
             board = Board.objects.get(id=active_tenant_session.tenant.operators_board.id)
-        elif user_is_developer(user):
+        elif user.is_developer:
             board = Board.objects.get(id=active_tenant_session.tenant.developers_board.id)
         return BoardColumn.objects.filter(board=board)
 
@@ -432,6 +536,8 @@ class Transition(models.Model):
         through='TransitionAssociation',
         through_fields=('transition', 'type'))
 
+    objects = models.Manager()
+
     class Meta:
         db_table = 'transition'
         verbose_name = 'transition'
@@ -440,7 +546,7 @@ class Transition(models.Model):
 
     @property
     def full_transition(self):
-        return utils.get_transition_block(self.src_status.color, self.src_status_name, self.dest_status.color, self.dest_status.name)
+        return utils.get_transition_block(self.src_status.color, self.src_status.name, self.dest_status.color, self.dest_status.name)
     full_transition.fget.short_description = 'Transition'
 
     def __str__(self):
@@ -457,6 +563,8 @@ class Label(models.Model):
         name='description',
         blank=True,
         null=True)
+
+    objects = models.Manager()
 
     class Meta:
         db_table = 'label'
@@ -487,6 +595,8 @@ class Comment(models.Model):
         blank=True,
         null=True,
         help_text='Date when comment has been recently changed')
+
+    objects = models.Manager()
 
     class Meta:
         db_table = 'comment'
@@ -542,6 +652,8 @@ class Attachment(models.Model):
         blank=True,
         on_delete=models.CASCADE,
         related_name='%(class)s_user')
+
+    objects = models.Manager()
 
     class Meta:
         db_table = 'attachment'
@@ -688,6 +800,8 @@ class Ticket(models.Model):
         through_fields=('ticket', 'attachment'),
         verbose_name='Attachments')
 
+    objects = models.Manager()
+
     class Meta:
         db_table = 'ticket'
         verbose_name = 'ticket'
@@ -716,68 +830,18 @@ class Ticket(models.Model):
         else:
             return False
 
-    @property
-    def type_img(self):
-        return utils.get_img_field(self.type.icon, self.type.name, 18, 18)
-    type_img.fget.short_description = 'Type'
-
-    @property
-    def priority_img(self):
-        return utils.get_img_field(self.priority.icon, self.priority.name, 18, 18)
-    priority_img.fget.short_description = 'Priority'
-
-    @property
-    def assignee_img_text(self):
+    def get_assignee(self, only_icon=False):
         try:
             if self.assignee is None:
                 return utils.get_no_value_info('Unassigned')
             else:
-                return utils.get_img_text_field(self.assignee.icon, self.assignee, 18, 18)
+                if only_icon:
+                    return utils.get_img_field(self.assignee.icon, self.assignee, 20, 20)
+                else:
+                    return utils.get_img_text_field(self.assignee.icon, self.assignee, 18, 18)
         except AttributeError:
             return self.assignee
-    assignee_img_text.fget.short_description = 'Assignee'
-
-    @property
-    def assignee_img(self):
-        try:
-            if self.assignee is None:
-                return utils.get_no_value_info('Unassigned')
-            else:
-                return utils.get_img_field(self.assignee.icon, self.assignee, 20, 20)
-        except AttributeError:
-            return self.assignee
-    assignee_img.fget.short_description = 'Assignee'
-
-    @property
-    def reporter_img_text(self):
-        try:
-            return utils.get_img_text_field(self.reporter.icon, self.reporter, 18, 18)
-        except AttributeError:
-            return self.reporter
-    reporter_img_text.fget.short_description = 'Reporter'
-
-    @property
-    def reporter_img(self):
-        try:
-            return utils.get_img_field(self.reporter.icon, self.reporter, 20, 20)
-        except AttributeError:
-            return self.reporter
-    reporter_img.fget.short_description = 'Reporter'
-
-    @property
-    def status_color(self):
-        return utils.get_status_color(self.status.color, self.status.name)
-    status_color.fget.short_description = 'Status'
-
-    @property
-    def created_local(self):
-        return utils.get_datetime(self.created)
-    created_local.fget.short_description = 'Created'
-
-    @property
-    def updated_local(self):
-        return utils.get_datetime(self.updated)
-    updated_local.fget.short_description = 'Updated'
+    get_assignee.short_description = 'Assignee'
 
     def get_fields(self):
         return [(field.name, field.value_to_string(self)) for field in Ticket._meta.fields]
@@ -808,16 +872,16 @@ class Ticket(models.Model):
             return Status.objects.get(id=settings.SD_INITIAL_STATUS)
 
     def get_transition_options(self, user):
-        if user_is_customer(user) and self.is_service_desk_type and not user.is_superuser:
+        if user.is_customer and self.is_service_desk_type and not user.is_admin:
             return None
-        elif user_is_operator(user) and self.is_software_type and not user.is_superuser:
+        elif user.is_operator and self.is_software_type and not user.is_admin:
             return None
-        elif user_is_developer(user) and self.is_service_desk_type and not user.is_superuser:
+        elif user.is_developer and self.is_service_desk_type and not user.is_admin:
             return None
         else:
             return TransitionAssociation.objects.filter((Q(transition__src_status=self.status) | Q(transition__src_status__isnull=True)) & Q(type=self.type))
 
-    def get_relation_options(self, user):  # exclude already related tickets from select list
+    def get_relation_options(self, user):  # exclude already related tickets from select list and source ticket
         ticket_list_to_relate = []
         for ticket_id in TicketAssociation.objects.filter(src_ticket=self).values_list('dest_ticket'):  # instance -> other ticket
             ticket_list_to_relate.append(int(ticket_id[0]))
@@ -827,23 +891,7 @@ class Ticket(models.Model):
         return active_tickets.exclude(id__in=ticket_list_to_relate)
 
     def get_audit_logs(self):
-        audit_logs = AuditLog.objects.filter(object=self._meta.model.__name__, object_value=self.id)
-        audit_log_records = []
-        for audit_log in audit_logs:
-            try:
-                content_obj = apps.get_model('app', audit_log.content)
-                content_obj_value = content_obj.objects.get(id=audit_log.content_value)
-            except ValueError:
-                content_obj_value = content_obj.objects.filter(id__in=audit_log.content_value.split(',')).values_list(
-                    'name', flat=True)
-                content_obj_value = (', '.join(content_obj_value.values_list('name', flat=True)))
-            except LookupError:
-                content_obj_value = audit_log.content_value
-            except content_obj.DoesNotExist:
-                continue
-            message = ticket_manager.get_audit_log_message(audit_log.operation, audit_log.content)
-            audit_log_records.append(utils.InstanceAuditLog(audit_log.user, content_obj_value, audit_log.created, message))
-        return audit_log_records
+        return AuditLog.objects.filter(object=self._meta.model.__name__, object_value=self.id)
 
     def get_absolute_url(self):
         pass
@@ -854,7 +902,7 @@ class Ticket(models.Model):
         else:
             self.assignee = user
             self.save()
-            logger.info(add_audit_log(self, None, 'update', 'assignee', self.assignee))
+            logger.info(add_audit_log(self, 'assignee', self.assignee, 'update'))
             if self.assignee is None:
                 return f'Ticket <strong>{self}</strong> has been unassigned'
             else:
@@ -865,7 +913,7 @@ class Ticket(models.Model):
             self.suspended = False
         else:
             self.suspended = True
-        logger.info(add_audit_log(self, None, 'update', 'suspended', self.suspended))
+        logger.info(add_audit_log(self, 'suspended', self.suspended, 'update'))
         self.save()
         return self
 
@@ -877,7 +925,7 @@ class Ticket(models.Model):
                 self.status = transition_association.transition.dest_status
                 self.resolution = transition_association.transition.dest_status.resolution
                 self.save()
-                logger.info(add_audit_log(self, self.status, 'update', None, None))
+                logger.info(add_audit_log(self, self.status._meta.model.__name__, self.status, 'update'))
                 return self.status
         return f'Transition is not available in <strong>{self}</strong>'
 
@@ -889,7 +937,7 @@ class Ticket(models.Model):
         new_ticket.tenant = tenant
         new_ticket.status = new_ticket.get_initial_status()
         new_ticket.save()  # create ticket
-        logger.info(add_audit_log(new_ticket, None, 'create', new_ticket._meta.model.__name__, new_ticket.id))
+        logger.info(add_audit_log(new_ticket, new_ticket._meta.model.__name__, new_ticket, 'create'))
         if files:
             for file in files:
                 new_ticket.add_attachment(file)
@@ -910,22 +958,20 @@ class Ticket(models.Model):
                 ticket_updated = ticket.update_field(ticket_updated, attr, form_attr_value, form)
         return ticket_updated
 
-    def update_field(self, ticket_updated, attr, form_attr_value, form):
+    def update_field(self, ticket_updated, field, field_value, form):
         if ticket_updated is None:
             ticket_updated = self
         try:  # if common field
-            setattr(self, attr, form_attr_value)
+            setattr(self, field, field_value)
         except ValueError:  # if ForeignKey field
-            form_attr_value = form.fields.get(attr)._queryset.get(id=form_attr_value)
-            setattr(self, attr, form_attr_value)
-            form_attr_value = form_attr_value.id
+            field_value = form.fields.get(field)._queryset.get(id=field_value)
+            setattr(self, field, field_value)
         except TypeError:  # if ManyToMany field
-            form_attr_value = form.data.getlist(attr)
-            self.getattr(attr).set(form_attr_value)
-            attr = self.getattr(attr).model._meta.object_name
-            form_attr_value = ','.join(form_attr_value)
+            field_value = form.data.getlist(field)
+            self.getattr(field).set(field_value)
+            field_value = ', '.join([x.name for x in self.getattr(field).all()])
         finally:
-            logger.info(add_audit_log(ticket_updated, None, 'update', attr, form_attr_value))
+            logger.info(add_audit_log(ticket_updated, field, field_value, 'update'))
             ticket_updated.save()
             return ticket_updated
 
@@ -934,12 +980,12 @@ class Ticket(models.Model):
         new_attachment.file.save(attachment.name, ContentFile(attachment.read()))
         self.attachments.add(new_attachment.id)
         self.save()
-        logger.info(add_audit_log(self, new_attachment, 'add', None, None))
+        logger.info(add_audit_log(self, new_attachment._meta.model.__name__, new_attachment, 'add'))
         return new_attachment
 
     def delete_attachment(self, attachment, user):
         attachment_association = AttachmentAssociation.objects.filter(attachment=attachment.id, ticket=self.id)
-        if attachment.user.id != user.id and not user.is_superuser:
+        if attachment.user.id != user.id and not user.is_admin:
             return f'Attachment not uploaded by you cannot be deleted'
         elif not attachment_association:
             return f'Attachment not exists in <strong>{self}</strong>'
@@ -947,7 +993,7 @@ class Ticket(models.Model):
             attachment_association.delete()
             Attachment.objects.get(id=attachment.id).delete()
             self.save()
-            logger.info(add_audit_log(self, attachment, 'delete', None, None))
+            logger.info(add_audit_log(self, attachment._meta.model.__name__, attachment, 'delete'))
             return True
 
     def add_relation(self, ticket_to_relate, user):
@@ -965,7 +1011,8 @@ class Ticket(models.Model):
         new_relation = TicketAssociation(src_ticket=self, dest_ticket=related_ticket)
         new_relation.save()
         self.save()
-        logger.info(add_audit_log(self, related_ticket, 'add', None, None))
+        logger.info(add_audit_log(self, related_ticket._meta.model.__name__, related_ticket, 'add'))
+        logger.info(add_audit_log(related_ticket, self._meta.model.__name__, self, 'add'))
         return related_ticket
 
     def delete_relation(self, related_ticket, user):
@@ -975,10 +1022,10 @@ class Ticket(models.Model):
             relation = TicketAssociation.objects.get(src_ticket=related_ticket, dest_ticket=self)
         if not relation:
             return f'Relation not exist in <strong>{self}</strong>'
-        # elif relation.author.id != user.id and not user.is_superuser:
-        #    return f'Relation not added by you cannot be deleted'
+        elif relation.author.id != user.id and not user.is_admin:
+            return f'Relation not added by you cannot be deleted'
         else:
-            logger.info(add_audit_log(self, related_ticket, 'delete', None, None))
+            logger.info(add_audit_log(self, related_ticket._meta.model.__name__, related_ticket, 'delete'))
             self.save()
             related_ticket.save()
             relation.delete()
@@ -989,24 +1036,24 @@ class Ticket(models.Model):
         new_comment.save()
         self.save()
         self.comments.add(new_comment)
-        logger.info(add_audit_log(self, new_comment, 'add', None, None))
+        logger.info(add_audit_log(self, new_comment._meta.model.__name__, new_comment, 'add'))
         return new_comment
 
     def delete_comment(self, comment, user):
         comment_association = CommentAssociation.objects.filter(comment=comment.id, ticket=self.id)
-        if comment.author.id != user.id and not user.is_superuser:
+        if comment.author.id != user.id and not user.is_admin:
             return f'Comment not added by you cannot be deleted'
         elif not comment_association:
             return f'Comment not exists in <strong>{self}</strong>'
         else:
             comment_association.delete()
             Comment.objects.get(id=comment.id).delete()
-            logger.info(add_audit_log(self, comment, 'delete', None, None))
+            logger.info(add_audit_log(self, comment._meta.model.__name__, comment, 'delete'))
             return True
 
     def edit_comment(self, comment, content, user):
         comment_association = CommentAssociation.objects.filter(comment=comment.id, ticket=self.id)
-        if comment.author.id != user.id and not user.is_superuser:
+        if comment.author.id != user.id and not user.is_admin:
             return f'Comment not added by you cannot be updated'
         elif not comment_association:
             return f'Comment not exists in <strong>{self}</strong>'
@@ -1014,10 +1061,10 @@ class Ticket(models.Model):
             comment_updated = Comment.objects.get(id=comment.id)
             comment_updated.content = content
             comment_updated.save()
-            logger.info(add_audit_log(self, comment, 'update', None, None))
+            logger.info(add_audit_log(self, comment._meta.model.__name__, comment, 'update'))
             return comment_updated
 
-    def clone_ticket(self, type_id):
+    def clone_ticket(self, type_id):  # TO DO
         tenant = self.tenant
         new_ticket = Ticket(
             key=f'{tenant.key}-{tenant.count + 1}',
@@ -1032,25 +1079,25 @@ class Ticket(models.Model):
         return new_ticket
 
     def permission_to_open(self, user):  # to correct
-        if self in TenantSession.get_active(user).get_tickets(user) or user.is_superuser:
+        if self in TenantSession.get_active(user).get_tickets(user) or user.is_admin:
             return True
         else:
             return False
 
     def permission_to_clone(self, user):
-        if user_is_operator(user) or user.is_superuser:
+        if user.is_operator or user.is_admin:
             return True
         else:
             return False
 
     def permission_to_suspend(self, user):
-        if user_is_operator(user) and self.is_service_desk_type or user_is_developer(user) and self.is_software_type or user.is_superuser:
+        if user.is_operator and self.is_service_desk_type or user.is_developer and self.is_software_type or user.is_admin:
             return True
         else:
             return False
 
     def permission_to_assign(self, user):
-        if user_is_operator(user) or user_is_developer(user) and self.is_software_type or user.is_superuser:
+        if user.is_operator or user.is_developer and self.is_software_type or user.is_admin:
             return True
         else:
             return False
@@ -1075,7 +1122,7 @@ class TenantSession(models.Model):
         editable=False)
     role = models.CharField(
         max_length=25,
-        choices=settings.GROUP_TYPES)
+        choices=settings.ROLES)
 
     objects = models.Manager()
 
@@ -1087,7 +1134,10 @@ class TenantSession(models.Model):
 
     @staticmethod
     def get_active(user):
-        return TenantSession.objects.get(active=True, user=user)
+        try:
+            return TenantSession.objects.get(active=True, user=user)
+        except TenantSession.DoesNotExist:
+            return False
 
     @staticmethod
     def get_all(user):
@@ -1097,9 +1147,9 @@ class TenantSession(models.Model):
         tickets = Ticket.objects.filter(tenant=self.tenant)
         if only_open:  # return tickets where resolution is null
             tickets = tickets.filter(tenant=self.tenant, resolution__isnull=True)
-        if user_is_customer(user) and not user.is_superuser:
+        if user.is_customer and not user.is_admin:
             return ticket_manager.filter_tickets(tickets, {'type__env_type': settings.SD_ENV_TYPE})
-        # elif user_is_developer(user) and not user.is_superuser:
+        # elif user_is_developer(user) and not user.is_admin:
         #    return filter_tickets(tickets, {'type__env_type': settings.SOFT_ENV_TYPE})
         return tickets
 
@@ -1119,10 +1169,10 @@ class TenantSession(models.Model):
         return allowed_users
 
     def __str__(self):
-        return f'{self.tenant.key}-{self.user.username}-{self.user_type}'
+        return f'{self.tenant.key}-{self.user.username}-{self.role}'
 
 
-class AuditLog(models.Model):
+class AuditLog(models.Model):  # TO DO - remove message column (convert to function), get representation to content_value, not id even if object
     id = models.BigAutoField(
         primary_key=True)
     user = models.ForeignKey(
@@ -1137,9 +1187,6 @@ class AuditLog(models.Model):
         null=True)
     operation = models.CharField(
         max_length=50,
-        null=True)
-    message = models.TextField(
-        blank=True,
         null=True)
     content = models.CharField(
         max_length=50,
@@ -1160,6 +1207,8 @@ class AuditLog(models.Model):
         auto_now_add=True,
         null=True)
 
+    objects = models.Manager()
+
     class Meta:
         db_table = 'audit_log'
         verbose_name = 'audit log'
@@ -1170,8 +1219,29 @@ class AuditLog(models.Model):
         if not self.id:
             # self.created = timezone.now()
             self.user = get_current_user()
-        self.message = f'{self.user} {self.ip_address} {self.message}'
         super(AuditLog, self).save(*args, **kwargs)
+
+    def get_message(self):
+        return f'{self.user.username} ({self.ip_address}) {self.get_message_operation()} "{self.content_value}"'
+
+    def get_message_operation(self):
+        if self.object == self.content and self.operation != 'create':
+            content = f'related {str(self.content).lower()}'
+        else:
+            content = str(self.content).lower()
+        if self.operation == 'create':
+            return f'created {content}:'
+        elif self.operation == 'delete':
+            return f'deleted {content}:'
+        elif self.operation == 'update':
+            return f'updated {content} to:'
+        elif self.operation == 'add':
+            return f'added {content}:'
+        else:
+            return f'changed {str(self.content).lower()} to:'
+
+    def __str__(self):
+        return self.get_message()
 
 
 class BoardColumnAssociation(models.Model):
@@ -1183,6 +1253,8 @@ class BoardColumnAssociation(models.Model):
         Status,
         on_delete=models.CASCADE,
         related_name='%(class)s_status')
+
+    objects = models.Manager()
 
     class Meta:
         db_table = 'board_column_association'
@@ -1216,6 +1288,8 @@ class TransitionAssociation(models.Model):
         on_delete=models.CASCADE,
         related_name='%(class)s_transition')
 
+    objects = models.Manager()
+
     class Meta:
         db_table = 'transition_association'
         verbose_name = 'transition association'
@@ -1245,11 +1319,23 @@ class TicketAssociation(models.Model):
         Ticket,
         on_delete=models.DO_NOTHING,
         related_name='%(class)s_dest_ticket')
+    author = models.ForeignKey(
+        User,
+        on_delete=models.DO_NOTHING,
+        blank=True,
+        null=True,
+        related_name='%(class)s_author')
+
+    objects = models.Manager()
 
     class Meta:
         db_table = 'ticket_association'
         verbose_name = 'link'
         verbose_name_plural = 'links'
+
+    def save(self, *args, **kwargs):
+        self.author = get_current_user()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f'{self.src_ticket}-{self.dest_ticket}'
@@ -1264,6 +1350,8 @@ class CommentAssociation(models.Model):
         Ticket,
         on_delete=models.CASCADE,
         related_name='%(class)s_ticket')
+
+    objects = models.Manager()
 
     class Meta:
         db_table = 'comment_association'
@@ -1282,6 +1370,8 @@ class AttachmentAssociation(models.Model):
         on_delete=models.CASCADE,
         related_name='%(class)s_ticket')
 
+    objects = models.Manager()
+
     class Meta:
         db_table = 'attachment_association'
 
@@ -1299,6 +1389,8 @@ class LabelAssociation(models.Model):
         on_delete=models.CASCADE,
         related_name='%(class)s_ticket')
 
+    objects = models.Manager()
+
     class Meta:
         db_table = 'label_association'
 
@@ -1311,49 +1403,15 @@ def auto_delete_file_on_delete(sender, instance, **kwargs):  # Deletes file from
     utils.delete_file(instance)
 
 
-def user_is_customer(user):
-    active_tenant_session = TenantSession.get_active(user)
-    if active_tenant_session.role == settings.CUST_TYPE:
-        return True
-    else:
-        return False
-
-
-def user_is_operator(user):
-    active_tenant_session = TenantSession.get_active(user)
-    if active_tenant_session.role == settings.OPER_TYPE:
-        return True
-    else:
-        return False
-
-
-def user_is_developer(user):
-    active_tenant_session = TenantSession.get_active(user)
-    if active_tenant_session.role == settings.DEV_TYPE:
-        return True
-    else:
-        return False
-
-
-def add_audit_log(obj, content_obj, operation, attr, attr_value):
-    request=get_current_request()
-    audit_log = AuditLog(
+def add_audit_log(obj, content, content_value, operation):
+    request = get_current_request()
+    return AuditLog.objects.create(
         user=request.user,
         object=obj._meta.model.__name__,
         object_value=obj.id,
+        content=content,
+        content_value=content_value,
         operation=operation,
         session=request.session.session_key,
         ip_address=utils.get_client_ip_address(request),
-        url=request.path)
-    if content_obj:
-        audit_log.content = content_obj._meta.model.__name__
-        audit_log.content_value = content_obj.id
-        audit_log.message = f'{obj._meta.model.__name__} {obj.id} {operation} {content_obj._meta.model.__name__} {content_obj.id}'
-    elif attr is not None:
-        audit_log.content = attr
-        audit_log.content_value = attr_value
-        audit_log.message = f'{obj._meta.model.__name__} {obj.id} {operation} {attr}'
-    else:
-        audit_log.message = f'{audit_log.message} '
-    audit_log.save()
-    return audit_log.message
+        url=request.path).get_message()

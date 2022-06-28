@@ -1,4 +1,4 @@
-from ..models import Type, user_is_developer, user_is_customer, user_is_operator
+from ..models import Type
 
 
 def get_type_options(user=None):
@@ -6,7 +6,7 @@ def get_type_options(user=None):
 
 
 def get_initial_type(user=None):
-    if user_is_customer(user):
+    if user.is_customer:
         return 2  # Service Request
-    elif user_is_operator(user) or user_is_developer(user):
+    elif user.is_operator or user.is_developer:
         return 1  # Task

@@ -1,8 +1,6 @@
 from django.utils.translation import gettext_lazy as _
 from django import forms
-from django.contrib.auth.models import User
-#from .accounts.models import ServiceDeskUser as User
-from .models import Ticket, Type, Label, Status, Resolution, Priority, Comment, user_is_customer
+from .models import Ticket, Type, Label, User, Status, Resolution, Priority, Comment
 from .utils import type_manager, tenant_manager, status_manager
 
 
@@ -56,16 +54,17 @@ class TicketCreateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request')
         super(TicketCreateForm, self).__init__(*args, **kwargs)
+        user = self.request.user
         self.fields['type'] = forms.ModelChoiceField(
-            queryset=type_manager.get_type_options(self.request.user),
-            initial=type_manager.get_initial_type(self.request.user),
+            queryset=type_manager.get_type_options(user),
+            initial=type_manager.get_initial_type(user),
             required=True,
             widget=IconField)
-        if user_is_customer(self.request.user):
+        if user.is_customer:
             self.fields.pop('assignee')
         else:
             self.fields['assignee'] = forms.ModelChoiceField(
-                queryset=tenant_manager.get_active_tenant_session().get_user_field_options(),
+                queryset=tenant_manager.get_active_tenant_session(user).get_user_field_options(),
                 widget=IconField,
                 required=False)
 

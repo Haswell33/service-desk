@@ -37,7 +37,7 @@
       </div>
       {% if user.is_authenticated %}
         <div id="navbar-block_logged-info">
-          <p>Logged as {{ user.username }}</p>
+          <p>Logged as {{ user }}</p>
         </div>
       {% else %}
         <p>Welcome!</p>
@@ -59,7 +59,7 @@
             {% if user.is_authenticated %}
             <li id="menu-block_username">
               <img src="{{ MEDIA_URL }}{{ request.session.user_icon }}" height="17px" width="17px"/>
-              <p>{{ user.username }}</p>
+              <p>{{ user }}</p>
             </li>
             {% endif %}
             {% if user.is_superuser %}

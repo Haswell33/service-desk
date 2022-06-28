@@ -1,7 +1,7 @@
-from ..models import BoardColumnAssociation, BoardColumn, Board
+from ..models import BoardColumnAssociation, BoardColumn
 
 
-def get_board_columns(user=None):
+def get_board_columns(user):
     return BoardColumn.get_board_columns(user)
 
 
