@@ -37096,3 +37096,45 @@ TypeError: clone_ticket() missing 1 required positional argument: 'user'
 2022-06-29 21:49:03 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
 2022-06-29 22:01:21 WARNING No Tenant GET 403 Forbidden: /tenant/update/?PTrue/
 2022-06-29 22:12:24 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-29 22:29:07 ERROR Jan Kowalski GET 500 Internal Server Error: /ticket/view/hsw-30
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk2\service_desk\app\views.py", line 154, in get
+    elif not ticket.permission_to_open(request.user):
+  File "F:\Programs\Repository\Python\Private\service-desk2\service_desk\app\models.py", line 1095, in permission_to_open
+    if self in TenantSession.get_active(user).get_tickets(user) or user.is_admin:
+AttributeError: 'bool' object has no attribute 'get_tickets'
+2022-06-29 22:55:04 WARNING Jan Kowalski GET 403 Forbidden: /ticket/view/tst-2
+2022-06-29 22:55:12 WARNING Jan Kowalski GET 403 Forbidden: /ticket/view/hsw-17
+2022-06-29 22:55:27 WARNING Jan Kowalski GET 403 Forbidden: /ticket/view/tst-2
+2022-06-29 23:20:12 WARNING Jan Kowalski GET 403 Forbidden: /ticket/view/hsw-30
+2022-06-29 23:23:03 WARNING Karol Siedlaczek GET 404 Not Found: /reset/confirm
+2022-06-29 23:23:03 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-29 23:23:10 WARNING Karol Siedlaczek GET 404 Not Found: /password-reset/confirm
+2022-06-29 23:24:50 ERROR AnonymousUser POST 500 Internal Server Error: /password-reset/
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 188, in _get_response
+    self.check_response(response, callback)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 309, in check_response
+    raise ValueError(
+ValueError: The view app.views.PasswordResetView didn't return an HttpResponse object. It returned None instead.
+2022-06-29 23:24:50 WARNING AnonymousUser GET 404 Not Found: /favicon.ico
+2022-06-29 23:26:04 ERROR AnonymousUser POST 500 Internal Server Error: /password-reset/
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 188, in _get_response
+    self.check_response(response, callback)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 309, in check_response
+    raise ValueError(
+ValueError: The view app.views.PasswordResetView didn't return an HttpResponse object. It returned None instead.
+2022-06-29 23:26:04 WARNING AnonymousUser GET 404 Not Found: /favicon.ico

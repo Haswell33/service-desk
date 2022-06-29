@@ -618,7 +618,7 @@ class PasswordResetView(auth_views.PasswordResetView):
                 except BadHeaderError:
                     messages.error(self.request, 'Invalid header found')
                     return HttpResponseRedirect(reverse('password_reset'))
-            return HttpResponseRedirect(self.get_success_url())
+        return HttpResponseRedirect(self.get_success_url())
 
     def form_invalid(self, form):
         messages.error(self.request, form.errors.as_data())
