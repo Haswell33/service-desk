@@ -116,7 +116,7 @@
     <ul id="message-list">
       {% for message in messages %}
         <li class="message {{ message.tags }}">
-          {{ message|safe }}
+          <p>{{ message|safe }}</p>
         </li>
       {% endfor %}
     </ul>
@@ -147,7 +147,7 @@
   $(document).ready(function(){
     console.log('document ready')
     bootstrapFilestyle()
-    let userIsAdmin = ('{{user.is_superuser}}' === 'True')
+    let userIsAdmin = ('{{user.is_superuser}}' === 'True')  // it only changes colors of page :)
     let userIsAuth = ('{{user.is_authenticated}}' === 'True')
     let role = '{{ active_tenant_session.role }}'
     themeColor(userIsAuth, userIsAdmin, role)

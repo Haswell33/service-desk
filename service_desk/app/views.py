@@ -1,25 +1,31 @@
-from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import render, reverse, redirect
-from django.conf import settings
-from django.core.mail import send_mail, BadHeaderError
 from django.contrib import messages
-from django.contrib.auth import update_session_auth_hash, authenticate, login as auth_login
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth import update_session_auth_hash, login as auth_login, logout as auth_logout, views as auth_views
+from django.contrib.auth.forms import PasswordResetForm, AuthenticationForm
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.signals import user_logged_out, user_logged_in
-from django.contrib.auth import views as auth_views
-from django.contrib.auth.forms import PasswordChangeForm, PasswordResetForm, AuthenticationForm
-from django.contrib.messages.views import SuccessMessageMixin
-from django.views.generic.edit import FormMixin
-from django.db.models.query_utils import Q
-from django.views import generic
-from django.views.decorators.csrf import csrf_exempt
-from django.utils.http import urlsafe_base64_encode
+from django.contrib.auth.decorators import login_required
+from django.views.generic import DetailView, ListView
+from django.views.generic.edit import UpdateView, DeleteView, CreateView, FormView, FormMixin
+from django.views.generic.base import TemplateView
+from django.views.decorators.cache import never_cache
+from django.views.decorators.csrf import csrf_protect, csrf_exempt
+from django.views.decorators.debug import sensitive_post_parameters
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
-from django.template.loader import render_to_string
+from django.utils.translation import gettext_lazy as _
+from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
 from django.urls.exceptions import NoReverseMatch
+from django.core.mail import send_mail, BadHeaderError
+from django.core.exceptions import ValidationError, ObjectDoesNotExist
+from django.http import HttpResponseRedirect, HttpResponse
+from django.shortcuts import render, reverse, redirect, resolve_url
+from django.conf import settings
+from django.db.models.query_utils import Q
+from django.template.loader import render_to_string
 from .models import Ticket, TransitionAssociation, Attachment, Comment, Status, User
-from .forms import TicketCreateForm, TicketFilterViewForm, TicketEditAssigneeForm, TicketEditForm, TicketCommentForm, TicketCloneForm
+from .forms import TicketCreateForm, TicketFilterViewForm, TicketEditAssigneeForm, TicketEditForm, TicketCommentForm, TicketCloneForm, SetPasswordForm, PasswordChangeForm
 from .utils import tenant_manager, board_manager, ticket_manager, utils
 from .context_processors import context_tenant_session
 
@@ -28,7 +34,7 @@ def validate_get_request(self, request, view_name, tenant_check=False, *args, **
     if not request.user.is_authenticated:
         return login_page(request.path)
     elif request.COOKIES.get(tenant_manager.get_tenant_cookie_name(request.user)) is None:
-        return redirect('tenant_update', f'?tenant_check={tenant_check}')
+        return redirect('tenant_update', tenant_check=tenant_check)
     if not tenant_manager.active_session_exists(request.user):  # check if any record in tenant_session is stored with active state
         context_tenant_session(request)  # assign active tenant/s based on membership to groups
     response = super(view_name, self).get(request, *args, **kwargs)
@@ -74,7 +80,7 @@ user_logged_in.connect(after_login)
 # Views
 
 
-class TicketCreateView(SuccessMessageMixin, generic.CreateView):
+class TicketCreateView(SuccessMessageMixin, CreateView):
     model = Ticket
     form_class = TicketCreateForm
     template_name = 'ticket/ticket-create.html'
@@ -95,7 +101,7 @@ class TicketCreateView(SuccessMessageMixin, generic.CreateView):
         return reverse_lazy('view_ticket', args=(self.object.slug,))
 
     def get_success_message(self, cleaned_data):
-        return f'Ticket <strong>{self.object.key}</strong> was created successfully'
+        return f'Ticket <strong>{self.object.key}</strong> has been created successfully'
 
     def form_valid(self, form):
         Ticket.create_ticket(form, self.request.user, self.request.FILES.getlist('attachments'))
@@ -109,7 +115,7 @@ class TicketCreateView(SuccessMessageMixin, generic.CreateView):
         return validate_get_request(self, request, TicketCreateView, tenant_check=True, *args, **kwargs)
 
 
-class TicketDetailView(FormMixin, generic.detail.DetailView):  # Detail view for ticket
+class TicketDetailView(FormMixin, DetailView):  # Detail view for ticket
     model = Ticket
     form_class = TicketEditAssigneeForm
     template_name = 'ticket/ticket-view.html'
@@ -149,7 +155,7 @@ class TicketDetailView(FormMixin, generic.detail.DetailView):  # Detail view for
         return validate_get_request(self, request, TicketDetailView, tenant_check=True, *args, **kwargs)
 
 
-class TicketDetailEdit(generic.UpdateView):
+class TicketEditView(UpdateView):
     model = Ticket
     fields = ['title', 'priority', 'description', 'labels']
 
@@ -167,11 +173,11 @@ class TicketDetailEdit(generic.UpdateView):
         if ticket_updated:
             messages.success(request, f'Ticket <strong>{ticket_updated.key}</strong> has been updated')
         elif ticket_updated is None:
-            messages.info(request, f'No changes detected in <strong>{ticket.key}</strong>')
+            messages.info(request, f'No changes were made in <strong>{ticket.key}</strong>')
         return HttpResponseRedirect(reverse('view_ticket', args=[ticket.slug]))
 
 
-class TicketDetailEditStatus(generic.UpdateView):
+class TicketEditStatusView(UpdateView):
     model = Ticket
     fields = ['status']
 
@@ -199,12 +205,12 @@ class TicketDetailEditStatus(generic.UpdateView):
                 messages.success(request, f'Status of <strong>{ticket.key}</strong> has been changed to <strong>{result}</strong>')
             else:
                 messages.error(request, result)
-        except TransitionAssociation.DoesNotExist:
+        except ObjectDoesNotExist:
             messages.error(request, f'Transition in <strong>{ticket}</strong> not exist')
         return HttpResponseRedirect(reverse('view_ticket', args=[ticket.slug]))
 
 
-class TicketDetailEditAssignee(generic.UpdateView):
+class TicketEditAssigneeView(UpdateView):
     model = Ticket
     fields = ['assignee']
 
@@ -228,12 +234,12 @@ class TicketDetailEditAssignee(generic.UpdateView):
                 messages.success(request, result)
             else:
                 messages.error(request, result)
-        except User.DoesNotExist:
+        except ObjectDoesNotExist:
             messages.error(request, f'Selected user not exist')
         return HttpResponseRedirect(reverse('view_ticket', args=[ticket.slug]))
 
 
-class TicketDetailEditSuspend(generic.UpdateView):
+class TicketEditSuspendView(UpdateView):
     model = Ticket
     fields = ['suspended']
 
@@ -252,7 +258,7 @@ class TicketDetailEditSuspend(generic.UpdateView):
         return HttpResponseRedirect(reverse('view_ticket', args=[ticket.slug]))
 
 
-class TicketDetailAddAttachment(generic.UpdateView):
+class TicketAddAttachmentView(UpdateView):
     model = Ticket
 
     def get(self, request, *args, **kwargs):
@@ -272,7 +278,7 @@ class TicketDetailAddAttachment(generic.UpdateView):
         return HttpResponseRedirect(reverse('view_ticket', args=[ticket.slug]))
 
 
-class TicketDetailDeleteAttachment(generic.DeleteView):
+class TicketDeleteAttachmentView(DeleteView):
     model = Ticket
 
     def get(self, request, *args, **kwargs):
@@ -290,12 +296,12 @@ class TicketDetailDeleteAttachment(generic.DeleteView):
                 messages.success(request, f'Attachment <strong>{attachment.filename}</strong> has been deleted from <strong>{ticket.key}</strong>')
             else:
                 messages.error(request, result)
-        except Attachment.DoesNotExist:
+        except ObjectDoesNotExist:
             messages.error(request, f'Attachment with value <strong>{attachment_id}</strong> not exist')
         return HttpResponseRedirect(reverse('view_ticket', args=[ticket.slug]))
 
 
-class TicketDetailAddRelation(generic.UpdateView):
+class TicketAddRelationView(UpdateView):
     model = Ticket
 
     def get(self, request, *args, **kwargs):
@@ -318,7 +324,7 @@ class TicketDetailAddRelation(generic.UpdateView):
         return HttpResponseRedirect(reverse('view_ticket', args=[ticket.slug]))
 
 
-class TicketDetailDeleteRelation(generic.UpdateView):
+class TicketDeleteRelationView(DeleteView):
     model = Ticket
 
     def get(self, request, *args, **kwargs):
@@ -336,12 +342,12 @@ class TicketDetailDeleteRelation(generic.UpdateView):
                 messages.success(request, f'Relation between <strong>{ticket}</strong> and <strong>{relation}</strong> has been deleted')
             else:
                 messages.error(request, result)
-        except Ticket.DoesNotExist:
+        except ObjectDoesNotExist:
             messages.error(request, f'Relation with value <strong>{relation_id}</strong> not exist')
         return HttpResponseRedirect(reverse('view_ticket', args=[ticket.slug]))
 
 
-class TicketDetailAddComment(generic.UpdateView):
+class TicketAddCommentView(UpdateView):
     model = Ticket
 
     def get(self, request, *args, **kwargs):
@@ -359,11 +365,11 @@ class TicketDetailAddComment(generic.UpdateView):
             else:
                 messages.error(request, result)
         else:
-            messages.info(request, f'Comment not exist in <strong>{ticket.key}</strong>')
+            messages.info(request, f'No content has been entered, a comment has not been added')
         return HttpResponseRedirect(reverse('view_ticket', args=[ticket.slug]))
 
 
-class TicketDetailDeleteComment(generic.UpdateView):
+class TicketDeleteCommentView(DeleteView):
     model = Ticket
 
     def get(self, request, *args, **kwargs):
@@ -381,12 +387,12 @@ class TicketDetailDeleteComment(generic.UpdateView):
                 messages.success(request, f'Comment from <strong>{ticket}</strong> has been deleted')
             else:
                 messages.error(request, result)
-        except Comment.DoesNotExist:
+        except ObjectDoesNotExist:
             messages.error(request, f'Comment in <strong>{ticket}</strong> not exist')
         return HttpResponseRedirect(reverse('view_ticket', args=[ticket.slug]))
 
 
-class TicketDetailEditComment(generic.UpdateView):
+class TicketEditCommentView(UpdateView):
     model = Ticket
 
     def get(self, request, *args, **kwargs):
@@ -405,12 +411,12 @@ class TicketDetailEditComment(generic.UpdateView):
                 messages.success(request, f'Comment in <strong>{ticket.key}</strong> has been updated')
             else:
                 messages.error(request, result)
-        except Comment.DoesNotExist:
+        except ObjectDoesNotExist:
             messages.error(request, f'Comment in <strong>{ticket}</strong> not exist')
         return HttpResponseRedirect(reverse('view_ticket', args=[ticket.slug]))
 
 
-class TicketDetailClone(generic.UpdateView):
+class TicketCloneView(UpdateView):
     model = Ticket
 
     def get(self, request, *args, **kwargs):
@@ -433,7 +439,7 @@ class TicketDetailClone(generic.UpdateView):
         return HttpResponseRedirect(reverse('view_ticket', args=[ticket.slug]))
 
 
-class TicketBoardListView(generic.ListView):
+class TicketBoardView(ListView):
     model = Ticket
     context_object_name = 'tickets'
     template_name = 'home.html'
@@ -443,7 +449,7 @@ class TicketBoardListView(generic.ListView):
         return tickets
 
     def get_context_data(self, **kwargs):
-        context = super(TicketBoardListView, self).get_context_data(**kwargs)
+        context = super(TicketBoardView, self).get_context_data(**kwargs)
         context.update({
             'board_columns_associations': board_manager.get_board_columns_associations(board_manager.get_board_columns(self.request.user)),
             'users': User.objects.all()
@@ -451,10 +457,10 @@ class TicketBoardListView(generic.ListView):
         return context
 
     def get(self, request, *args, **kwargs):
-        return validate_get_request(self, request, TicketBoardListView, tenant_check=True, *args, **kwargs)
+        return validate_get_request(self, request, TicketBoardView, tenant_check=True, *args, **kwargs)
 
 
-class TicketFilterListView(FormMixin, generic.ListView):
+class TicketFilterView(FormMixin, ListView):
     model = Ticket
     context_object_name = 'tickets'
     form_class = TicketFilterViewForm
@@ -462,7 +468,7 @@ class TicketFilterListView(FormMixin, generic.ListView):
     ordering = ['key']
 
     def get_form_kwargs(self):
-        kwargs = super(TicketFilterListView, self).get_form_kwargs()
+        kwargs = super(TicketFilterView, self).get_form_kwargs()
         kwargs.update({
             'request': self.request
         })
@@ -485,7 +491,7 @@ class TicketFilterListView(FormMixin, generic.ListView):
         return tickets
 
     def get_context_data(self, **kwargs):
-        context = super(TicketFilterListView, self).get_context_data(**kwargs)
+        context = super(TicketFilterView, self).get_context_data(**kwargs)
         model = self.model
         context.update({
             'form': self.get_form(),
@@ -499,13 +505,24 @@ class TicketFilterListView(FormMixin, generic.ListView):
         return self.request.GET.get('ordering', 'key')
 
     def get(self, request, *args, **kwargs):
-        return validate_get_request(self, request, TicketFilterListView, tenant_check=True, *args, **kwargs)
+        return validate_get_request(self, request, TicketFilterView, tenant_check=True, *args, **kwargs)
 
 
 class LoginView(auth_views.LoginView):
     template_name = 'login.html'
     authentication_form = AuthenticationForm
     redirect_authenticated_user = True
+
+    @method_decorator(sensitive_post_parameters())
+    @method_decorator(csrf_protect)
+    @method_decorator(never_cache)
+    def dispatch(self, request, *args, **kwargs):
+        if self.redirect_authenticated_user and self.request.user.is_authenticated:
+            redirect_to = self.get_success_url()
+            if redirect_to == self.request.path:
+                raise ValueError('Redirection loop for authenticated user detected. Check LOGIN_REDIRECT_URL in settings')
+            return HttpResponseRedirect(redirect_to)
+        return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
         user = User.objects.get(username=form.get_user().username)
@@ -515,7 +532,22 @@ class LoginView(auth_views.LoginView):
 
     def form_invalid(self, form):
         messages.error(self.request, 'Incorrect username or password.')
-        return HttpResponseRedirect(reverse('login'))
+        return HttpResponseRedirect(self.request.path)
+
+
+INTERNAL_RESET_SESSION_TOKEN = '_password_reset_token'
+
+
+class PasswordContextMixin:
+    extra_context = None
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'title': self.title,
+            **(self.extra_context or {})
+        })
+        return context
 
 
 class PasswordChangeView(auth_views.PasswordChangeView):
@@ -523,69 +555,175 @@ class PasswordChangeView(auth_views.PasswordChangeView):
     success_url = reverse_lazy('password_change_success')
     form_class = PasswordChangeForm
 
+    @method_decorator(sensitive_post_parameters())
+    @method_decorator(csrf_protect)
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
     def form_valid(self, form):
         user = form.save()
         update_session_auth_hash(self.request, user)  # Important!
-        messages.success(self.request, 'Your password was successfully updated!')
-        return HttpResponseRedirect('password_change_success')
+        messages.success(self.request, 'Password has been successfully changed')
+        return HttpResponseRedirect(self.get_success_url())
 
-    # def form_invalid(self, form):
+    def form_invalid(self, form):
+        if form.errors.get('old_password'):
+            messages.error(self.request, form.errors.get('old_password'))
+        elif form.errors.get('new_password2'):
+            messages.error(self.request, form.errors.get('new_password2'))
+        else:
+            messages.error(self.request, f'An error occurred during the operation')
+        return HttpResponseRedirect(self.request.path)
 
 
-def password_change(request, template_name='password/password-change.html'):
+class PasswordChangeSuccessView(auth_views.PasswordChangeDoneView):
+    template_name = 'password/password-change-success.html'
+
+
+class PasswordResetView(auth_views.PasswordResetView):
+    template_name = 'password/password-reset.html'
+    email_template_name = 'password/password-reset-email.html'
+    subject_template_name = 'password/password-reset-subject.txt',
+    success_url = reverse_lazy('password_reset_sent')
+    form_class = PasswordResetForm
+
+    @method_decorator(csrf_protect)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
+    def form_valid(self, form):
+        data = form.cleaned_data['email']
+        users = User.objects.filter(Q(email=data))
+        if users.exists():
+            for user in users:
+                email_data = {
+                    'email': user.email,
+                    'domain': '127.0.0.1:8000',
+                    'site_name': settings.SITE_NAME,
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                    'user': user,
+                    'token': default_token_generator.make_token(user),
+                    'protocol': 'http'}
+                email = render_to_string(self.email_template_name, email_data)
+                try:
+                    send_mail('', email, 'admin@example.com', [user.email])
+                except BadHeaderError:
+                    messages.error(self.request, 'Invalid header found')
+                    return HttpResponseRedirect(reverse('password_reset'))
+            return HttpResponseRedirect(self.get_success_url())
+
+    def form_invalid(self, form):
+        messages.error(self.request, form.errors.as_data())
+        return HttpResponseRedirect(reverse('password_reset'))
+
+
+class PasswordResetSentView(auth_views.PasswordResetDoneView):
+    template_name = 'password/password-reset-sent.html'
+
+
+class PasswordResetConfirmView(FormView, PasswordContextMixin):
+    form_class = SetPasswordForm
+    post_reset_login = False
+    post_reset_login_backend = None
+    reset_url_token = 'set-password'
+    success_url = reverse_lazy('password_reset_success')
+    template_name = 'password/password-reset-confirm.html'
+    token_generator = default_token_generator
+
+    @method_decorator(sensitive_post_parameters())
+    @method_decorator(never_cache)
+    def dispatch(self, *args, **kwargs):
+        assert 'uidb64' in kwargs and 'token' in kwargs
+        self.validlink = False
+        self.user = self.get_user(kwargs['uidb64'])
+        if self.user is not None:
+            token = kwargs['token']
+            if token == self.reset_url_token:
+                session_token = self.request.session.get(INTERNAL_RESET_SESSION_TOKEN)
+                if self.token_generator.check_token(self.user, session_token):
+                    self.validlink = True  # If the token is valid, display the password reset form.
+                    return super().dispatch(*args, **kwargs)
+            else:
+                if self.token_generator.check_token(self.user, token): # Store the token in the session and redirect to the password reset form at a URL without the token. That avoids the possibility of leaking the token in the HTTP Referer header.
+                    self.request.session[INTERNAL_RESET_SESSION_TOKEN] = token
+                    redirect_url = self.request.path.replace(token, self.reset_url_token)
+                    return HttpResponseRedirect(redirect_url)
+        messages.warning(self.request, 'Token has expired, send email again')
+        return self.render_to_response(self.get_context_data())  # Display the "Password reset unsuccessful" page.
+
+    @staticmethod
+    def get_user(uidb64):
+        try:  # urlsafe_base64_decode() decodes to bytestring
+            uid = urlsafe_base64_decode(uidb64).decode()
+            user = User._default_manager.get(pk=uid)
+        except (TypeError, ValueError, OverflowError, ObjectDoesNotExist, ValidationError):
+            user = None
+        return user
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.user
+        return kwargs
+
+    def form_valid(self, form):
+        user = form.save()
+        del self.request.session[INTERNAL_RESET_SESSION_TOKEN]
+        if self.post_reset_login:
+            auth_login(self.request, user, self.post_reset_login_backend)
+        messages.success(self.request, 'Password has been successfully changed')
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        if form.errors.get('new_password2'):
+            messages.error(self.request, form.errors.get('new_password2'))
+        return HttpResponseRedirect(self.request.path)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.validlink:
+            context['validlink'] = True
+        else:
+            context.update({
+                'form': None,
+                'title': _('Password reset unsuccessful'),
+                'validlink': False,
+            })
+        return context
+
+
+class PasswordResetSuccessView(PasswordContextMixin, TemplateView):
+    template_name = 'password/password-reset-success.html'
+    title = _('Password reset success')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['login_url'] = resolve_url(settings.LOGIN_URL)
+        return context
+
+
+def tenant_update(request, tenant_check=False):
     if not request.user.is_authenticated:
         return login_page(request.path)
     elif request.method == 'POST':
-        form = PasswordChangeForm(request.user, request.POST)
-        if form.is_valid():
-            user = form.save()
-            update_session_auth_hash(request, user)  # Important!
-            messages.success(request, 'Your password was successfully updated!')
-            return HttpResponseRedirect('password_change_success')
-        else:
-            print(form.errors.as_data())
-            # messages.error(request, form.errors.as_data())
-            # return render(request, template_name, status=200)
-            variables = {
-                'form': form
-            }
-            return render(template_name, {}, status=400)
+        tenant_session = tenant_manager.get_active_tenant_session(request.user)
+        tenant_id = request.POST.get('tenant_id')
+        tenant_session.change_active(tenant_id, request.user)
     else:
-        form = PasswordChangeForm(request.user)
-        return render(request, template_name, {'form': form}, status=200)
-
-
-def password_change_success(request, template_name='password/password-change-success.html'):
-    if not request.user.is_authenticated:
-        return login_page(request.path)
-    return render(request, template_name, status=200)
-
-
-def password_reset(request, template_name='password/password-reset.html', email_template_name='password/password-reset-email.html'):
-    if request.method == "POST":
-        form = PasswordResetForm(request.POST)
-        if form.is_valid():
-            data = form.cleaned_data['email']
-            users = User.objects.filter(Q(email=data))
-            if users.exists():
-                for user in users:
-                    email_data = {
-                        'email': user.email,
-                        'domain': '127.0.0.1:8000',
-                        'site_name': 'Website',
-                        "uid": urlsafe_base64_encode(force_bytes(user.pk)),
-                        'user': user,
-                        'token': default_token_generator.make_token(user),
-                        'protocol': 'http'}
-                    email = render_to_string(email_template_name, email_data)
-                    try:
-                        send_mail('', email, 'admin@example.com', [user.email])
-                    except BadHeaderError:
-                        return HttpResponse('Invalid header found.')
-                return HttpResponseRedirect("password_reset_sent")
-    else:
-        form = PasswordResetForm()
-        return render(request, template_name, {'form': form})
+        if not tenant_manager.active_session_exists(request.user):
+            context_tenant_session(request)
+        tenant_session = tenant_manager.get_active_tenant_session(request.user)
+        if not tenant_session and tenant_check:
+            return error_no_tenant(request)
+        tenant_id = tenant_session.tenant.id
+    try:
+        response = redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
+        response.set_cookie(key=tenant_manager.get_tenant_cookie_name(request.user), value=tenant_id)
+        return response
+    except NoReverseMatch:
+        response = redirect('home')
+        response.set_cookie(key=tenant_manager.get_tenant_cookie_name(request.user), value=tenant_id)
+        return response
 
 
 def logged_out(request, template_name='logged-out.html'):
@@ -618,49 +756,42 @@ def internal_server_error(request, template_name='error/500.html'):
     return render(request, template_name, {}, status=500)
 
 
-@csrf_exempt
-def tenant_update(request, tenant_check=False):
-    if not request.user.is_authenticated:
-        return login_page(request.path)
-    elif request.method == 'POST':
-        tenant_session = tenant_manager.get_active_tenant_session(request.user)
-        tenant_id = request.POST.get('tenant_id')
-        tenant_session.change_active(tenant_id, request.user)
-    else:
+'''
+class TenantUpdateView(UpdateView):
+    tenant_id = None
+
+    def get_queryset(self):
+        print('dupa')
+        tenant_check = {'tenant_check': self.request.GET.get('tenant_check', False)}
+        return tenant_check
+
+    def get_success_url(self):
+        try:
+            response = redirect(self.request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
+            response.set_cookie(key=tenant_manager.get_tenant_cookie_name(self.request.user), value=self.tenant_id)
+            return response
+        except NoReverseMatch:
+            response = redirect('home')
+            response.set_cookie(key=tenant_manager.get_tenant_cookie_name(self.request.user), value=self.tenant_id)
+            return response
+
+    def get(self, request, *args, **kwargs):
+        print(args)
+        print(self.request.GET)
+        print(self.request.GET.get('tenant_check'))
         if not tenant_manager.active_session_exists(request.user):
             context_tenant_session(request)
         tenant_session = tenant_manager.get_active_tenant_session(request.user)
         if not tenant_session and tenant_check:
             return error_no_tenant(request)
-        tenant_id = tenant_session.tenant.id
-    try:
-        response = redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
-        response.set_cookie(key=tenant_manager.get_tenant_cookie_name(request.user), value=tenant_id)
-        return response
-    except NoReverseMatch:
-        response = redirect('home')
-        response.set_cookie(key=tenant_manager.get_tenant_cookie_name(request.user), value=tenant_id)
-        return response
+        self.tenant_id = tenant_session.tenant.id
+        return self.get_success_url()
 
-
-
-'''
-def login(request):
-    if request.method == 'POST':
-        form = AuthenticationForm(request.POST)
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username,password=password)
-        if user:
-            if user.is_active:
-                login(request,user)
-                return redirect(reverse('your_success_url'))
-        else:
-            messages.error(request,'username or password not correct')
-            return redirect(reverse('your_login_url'))
-        
-                
-    else:
-        form = AuthenticationForm()
-    return render(request,'your_template_name.html',{'form':form})
+    @method_decorator(csrf_exempt)
+    def post(self, request, *args, **kwargs):
+        print(request.POST)
+        tenant_session = tenant_manager.get_active_tenant_session(request.user)
+        tenant_id = request.POST.get('tenant_id')
+        tenant_session.change_active(tenant_id, request.user)
+        return self.get_success_url()
 '''

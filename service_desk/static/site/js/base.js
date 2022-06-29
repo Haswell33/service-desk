@@ -23,9 +23,11 @@ $(document).on('click', function(event) {
 })
 
 setTimeout(function(){
-    $('.errornote').fadeOut()
-    $('.messagelist').fadeOut()
-    $('.message').fadeOut()
+    $('#message-list').animate({
+        right: '-20%',
+        opacity: 0
+    }, 800)
+
 }, 5000);
 
 function bootstrapFilestyle(){
@@ -102,6 +104,25 @@ function themeColor(userIsAuth, userIsAdmin, role){
       })
     }
 }
+/*
+$(document).on('select2:select', function (event) {
+    if (event.target.id === 'sidebar-block_tenant-set') {
+        $.ajax({
+            type: 'POST',
+            url: '/tenant/update',
+            data: {'tenant_id': event.params.data.id},
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
+            },
+            success: function(result){
+                location.reload()
+                console.log('active tenant changed')
+            }
+        })
+    }
+});
+*/
+
 
 
 /*function sortFilterView(data){

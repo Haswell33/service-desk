@@ -109,20 +109,3 @@ function renderIconOption(elem, mediaUrl) {
     else
         return elem.text
 }
-
-$(document).on('select2:select', function (event) {
-    if (event.target.id === 'sidebar-block_tenant-set') {
-        $.ajax({
-            type: 'POST',
-            url: '/tenant/update',
-            data: {'tenant_id': event.params.data.id},
-            beforeSend: function(xhr) {
-                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
-            },
-            success: function(result){
-                location.reload()
-                console.log('active tenant changed')
-            }
-        })
-    }
-});

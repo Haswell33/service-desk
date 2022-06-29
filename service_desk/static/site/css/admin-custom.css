@@ -166,16 +166,35 @@ tr:nth-child(odd) {
 }
 
 #content-main tr:hover{
-    background-color: var(--elem-light-hover)!important;
+    background-color: var(--elem-light-hover);
+}
+
+#change-history tbody tr td {
+    padding: 10px 5px 10px 5px!important;
+}
+
+#change-history th {
+    font-size: 13px!important;
+    padding: 10px 5px 10px 10px!important;
+}
+
+tbody tr {
+    border-bottom: 1px solid var(--elem-light-border);
+}
+
+
+thead th {
+    color: var(--elem-dark-primary);
 }
 
 td, th {
     border-bottom: none;
+    vertical-align: middle!important;
 }
 
 th a:hover,
 td a:hover,
-li a:hover {
+table li a:hover {
     text-decoration: underline
 }
 
@@ -201,6 +220,19 @@ li a:hover {
         background: none;
         padding: 0;
     }
+}
+
+.inline-group .tabular td.original p {
+    display: none!important
+}
+
+.inline-group fieldset table tbody tr:hover {
+    background-color: var(--background)!important
+}
+
+select,
+input[type=text] {
+    height: 35px!important;
 }
 
 #nav-sidebar {
@@ -312,23 +344,29 @@ p.datetime {
 }
 
 .object-tools a:link, .object-tools a:visited {
-    padding: 10px 10px 10px 25px;
+    padding: 10px 25px 10px 10px;
     font-weight: 700;
+}
+
+.object-tools a:link.historylink,
+.object-tools a:visited.historylink,
+.object-tools a:link.viewsitelink,
+.object-tools a:visited.viewsitelink{
+    margin-top: -44px;
 }
 
 .object-tools a:link.historylink,
 .object-tools a:visited.historylink {
     padding: 10px 10px 10px 10px;
-    margin-top: -44px;
 }
+
+
 
 .object-tools a:hover {
     background-color: var(--theme);
 }
 
-.object-tools a.addlink {
-    background-position: left 7px center;
-}
+
 
 label.required {
     color: var(--elem-dark-third)
@@ -336,6 +374,12 @@ label.required {
 
 .aligned label {
     float: none!important
+}
+
+.buttonText {
+    padding: 10.5px!important;
+    font-size: 100%!important;
+    bottom: 33px!important;
 }
 
 #changelist .actions{
@@ -346,6 +390,9 @@ label.required {
     vertical-align: middle!important;
 }
 
+.vCheckboxLabel {
+    vertical-align: 0!important;
+}
 
 #changelist .actions .button{
     color: var(--elem-light-primary)!important;
@@ -653,47 +700,14 @@ thead th.required {
     color: var(--elem-dark-third);
 }
 
-ul.messagelist li {
-    padding: 14px 10px 10px 65px;
+ul.messagelist {
+    display: none!important
 }
 
 form .aligned div.help,
 .errorlist {
     margin-left: 0!important;
     padding: 5px 0 0 0 !important;
-}
-
-.success {
-    z-index: 99;
-    position: absolute;
-    right: 10px;
-    top: 150px;
-    width: 300px;
-    border-radius: 5px;
-    color: var(--success-color)!important;
-    background-color: var(--success-background)!important;
-    border: 1px solid var(--success-border)!important;
-}
-
-.success a {
-    color: var(--success-color)!important;
-    transition: 100ms;
-}
-
-.success a:hover {
-    color: var(--elem-dark-third)!important;
-}
-
-.errornote,
-.errornote a,
-.errornote a:hover {
-    position: fixed;
-    right: 10px;
-    top: 155px;
-    z-index: 9999;
-    color: var(--error-fg) !important;
-    background-color: var(--error-background) !important;
-    border-color: var(--error-fg);
 }
 
 .inline-group {

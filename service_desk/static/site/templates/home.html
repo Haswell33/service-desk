@@ -13,15 +13,18 @@
     <div id="sidebar-block_toggle" class="sticky arrow-left"></div>
     <div id="sidebar-block_content" class="sticky">
       <div id="sidebar-block_tenant" class="sidebar-block">
-        <select id="sidebar-block_tenant-set">
-        {% for tenant_session in tenant_sessions %}
-          {% if tenant_session.active %}
-            <option icon="{{ tenant_session.tenant.icon }}" value="{{ tenant_session.tenant.id }}" selected>{{ tenant_session.tenant.name }}</option>
-          {% else %}
-            <option icon="{{ tenant_session.tenant.icon }}" value="{{ tenant_session.tenant.id }}">{{ tenant_session.tenant.name }}</option>
-          {% endif %}
-        {% endfor %}
-        </select>
+        <form action="{% url 'tenant_update' %}" method="POST">
+          {% csrf_token %}
+          <select id="sidebar-block_tenant-set" name="tenant_id" onchange="this.form.submit()">
+            {% for tenant_session in tenant_sessions %}
+              {% if tenant_session.active %}
+                <option icon="{{ tenant_session.tenant.icon }}" value="{{ tenant_session.tenant.id }}" selected>{{ tenant_session.tenant.name }}</option>
+              {% else %}
+                <option icon="{{ tenant_session.tenant.icon }}" value="{{ tenant_session.tenant.id }}">{{ tenant_session.tenant.name }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+        </form>
       </div>
       <div class="sidebar-block">
         <div id="sidebar-block_menu">
@@ -51,9 +54,6 @@
               </a>
             </li>
           </ul>
-        </div>
-        <div id="sidebar-block_recent-actions">
-
         </div>
       </div>
     </div>

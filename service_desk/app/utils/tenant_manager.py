@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
 from ..models import Tenant, TenantSession
 
 
@@ -26,7 +27,7 @@ def get_tenant_by_role(role, group_id):
             return Tenant.objects.get(operators_group=group_id)
         elif role == settings.DEV_TYPE:
             return Tenant.objects.get(developers_group=group_id)
-    except Tenant.DoesNotExists:
+    except ObjectDoesNotExist:
         return None
 
 
@@ -41,7 +42,7 @@ def tenant_session(user):  # checks if any tenant session exists for specific us
     try:
         TenantSession.objects.filter(user=user)
         return True
-    except TenantSession.DoesNotExist:
+    except ObjectDoesNotExist:
         return False
 
 

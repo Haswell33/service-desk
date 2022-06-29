@@ -1263,3 +1263,58 @@
 2022-06-28 22:50:35 INFO | [127.0.0.1] admin updated assignee to: "John Doe" in Ticket with id 5
 2022-06-28 22:50:36 INFO | [127.0.0.1] admin updated status to: "On 1LS" in Ticket with id 5
 2022-06-28 22:50:38 INFO | [127.0.0.1] admin updated priority to: "Critical" in Ticket with id 5
+2022-06-29 00:38:48 INFO | [127.0.0.1] admin updated status to: "Cancelled" in Ticket with id 5
+2022-06-29 00:38:57 INFO | [127.0.0.1] admin updated assignee to: "James Smith" in Ticket with id 5
+2022-06-29 00:39:34 INFO | [127.0.0.1] admin updated status to: "New" in Ticket with id 5
+2022-06-29 00:40:32 INFO | [127.0.0.1] admin updated status to: "Rejected" in Ticket with id 5
+2022-06-29 00:40:48 INFO | [127.0.0.1] admin updated status to: "New" in Ticket with id 5
+2022-06-29 00:41:56 INFO | [127.0.0.1] admin updated status to: "Rejected" in Ticket with id 5
+2022-06-29 00:42:06 INFO | [127.0.0.1] admin updated status to: "New" in Ticket with id 5
+2022-06-29 00:42:54 INFO | [127.0.0.1] admin updated status to: "Rejected" in Ticket with id 5
+2022-06-29 00:43:05 INFO | [127.0.0.1] admin updated status to: "New" in Ticket with id 5
+2022-06-29 00:43:21 INFO | [127.0.0.1] admin updated priority to: "Normal" in Ticket with id 5
+2022-06-29 00:43:47 INFO | [127.0.0.1] admin added attachment: "netbox_racks.csv" in Ticket with id 5
+2022-06-29 00:43:47 INFO | [127.0.0.1] admin added attachment: "1.csv" in Ticket with id 5
+2022-06-29 00:45:28 INFO | [127.0.0.1] admin updated status to: "On 1LS" in Ticket with id 5
+2022-06-29 00:46:37 INFO | [127.0.0.1] admin updated status to: "Cancelled" in Ticket with id 5
+2022-06-29 00:48:36 INFO | [127.0.0.1] admin updated status to: "New" in Ticket with id 5
+2022-06-29 00:49:07 INFO | [127.0.0.1] admin updated status to: "On 1LS" in Ticket with id 5
+2022-06-29 00:50:35 INFO | [127.0.0.1] admin updated status to: "Cancelled" in Ticket with id 5
+2022-06-29 00:51:23 INFO | [127.0.0.1] admin updated status to: "New" in Ticket with id 5
+2022-06-29 00:51:35 INFO | [127.0.0.1] admin updated status to: "On 1LS" in Ticket with id 5
+2022-06-29 00:52:22 INFO | [127.0.0.1] admin updated status to: "On reporter" in Ticket with id 5
+2022-06-29 00:52:34 INFO | [127.0.0.1] admin updated status to: "On 1LS" in Ticket with id 5
+2022-06-29 00:52:47 INFO | [127.0.0.1] admin updated status to: "Resolved" in Ticket with id 5
+2022-06-29 00:52:56 INFO | [127.0.0.1] admin updated status to: "Closed" in Ticket with id 5
+2022-06-29 00:53:06 INFO | [127.0.0.1] admin updated assignee to: "Jan Kowalski" in Ticket with id 5
+2022-06-29 00:53:31 INFO | [127.0.0.1] admin updated status to: "New" in Ticket with id 5
+2022-06-29 00:53:57 INFO | [127.0.0.1] admin updated status to: "On 1LS" in Ticket with id 5
+2022-06-29 00:54:19 INFO | [127.0.0.1] admin updated status to: "Cancelled" in Ticket with id 5
+2022-06-29 00:54:30 INFO | [127.0.0.1] admin updated status to: "New" in Ticket with id 5
+2022-06-29 00:55:21 INFO | [127.0.0.1] admin updated status to: "Rejected" in Ticket with id 5
+2022-06-29 00:57:08 INFO | [127.0.0.1] admin updated status to: "New" in Ticket with id 5
+2022-06-29 00:58:19 INFO | [127.0.0.1] admin updated status to: "On 1LS" in Ticket with id 5
+2022-06-29 00:58:36 INFO | [127.0.0.1] admin updated status to: "Cancelled" in Ticket with id 5
+2022-06-29 00:59:02 INFO | [127.0.0.1] jan.kowalski created ticket: "TST-22" in Ticket with id 11
+2022-06-29 00:59:33 INFO | [127.0.0.1] jan.kowalski added comment: "<p>hejeczka</p>" in Ticket with id 4
+2022-06-29 00:59:42 INFO | [127.0.0.1] jan.kowalski added comment: "<p>cze</p>" in Ticket with id 4
+2022-06-29 02:46:01 INFO | [127.0.0.1] admin updated assignee to: "James Smith" in Ticket with id 4
+2022-06-29 02:46:08 INFO | [127.0.0.1] admin updated suspended to: "True" in Ticket with id 4
+2022-06-29 02:46:18 INFO | [127.0.0.1] admin updated labels to: "Network, System 1" in Ticket with id 4
+2022-06-29 02:46:26 INFO | [127.0.0.1] admin added related ticket: "HSW-84" in Ticket with id 4
+2022-06-29 02:46:26 INFO | [127.0.0.1] admin added related ticket: "HSW-81" in Ticket with id 8
+2022-06-29 02:46:57 INFO | [127.0.0.1] admin added related ticket: "HSW-86" in Ticket with id 4
+2022-06-29 02:46:57 INFO | [127.0.0.1] admin added related ticket: "HSW-81" in Ticket with id 10
+2022-06-29 02:46:58 INFO | [127.0.0.1] admin added related ticket: "HSW-80" in Ticket with id 4
+2022-06-29 02:46:58 INFO | [127.0.0.1] admin added related ticket: "HSW-81" in Ticket with id 2
+2022-06-29 02:47:08 INFO | [127.0.0.1] admin deleted related ticket: "HSW-80" in Ticket with id 4
+2022-06-29 02:47:14 INFO | [127.0.0.1] admin deleted related ticket: "HSW-85" in Ticket with id 4
+2022-06-29 02:48:03 INFO | [127.0.0.1] admin deleted related ticket: "HSW-79" in Ticket with id 4
+2022-06-29 02:48:03 INFO | [127.0.0.1] admin deleted related ticket: "HSW-81" in Ticket with id 1
+2022-06-29 06:30:18 INFO | [127.0.0.1] admin updated status to: "New" in Ticket with id 5
+2022-06-29 06:30:19 INFO | [127.0.0.1] admin updated status to: "On 1LS" in Ticket with id 5
+2022-06-29 06:30:24 INFO | [127.0.0.1] admin added attachment: "check-circle-fill.svg" in Ticket with id 5
+2022-06-29 06:30:31 INFO | [127.0.0.1] admin added related ticket: "HSW-85" in Ticket with id 5
+2022-06-29 06:30:31 INFO | [127.0.0.1] admin added related ticket: "HSW-82" in Ticket with id 9
+2022-06-29 06:30:42 INFO | [127.0.0.1] admin added comment: "<pre><strong>View</strong></pre>" in Ticket with id 5
+2022-06-29 06:30:55 INFO | [127.0.0.1] admin created ticket: "HSW-87" in Ticket with id 12

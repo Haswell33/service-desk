@@ -1,4 +1,5 @@
 from django.core.validators import MaxValueValidator, MinValueValidator, FileExtensionValidator, ValidationError
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.base import ContentFile
 from django.conf import settings
 from django.contrib.auth.models import Group, AbstractBaseUser, PermissionsMixin
@@ -1012,7 +1013,7 @@ class Ticket(models.Model):
             return f'Ticket <strong>{self}</strong> cannot be related with selected ticket'
         try:
             related_ticket = Ticket.objects.get(id=ticket_to_relate)
-        except Ticket.DoesNotExist:
+        except ObjectDoesNotExist:
             return f'Ticket with id <strong>{ticket_to_relate}<strong> does not exist'
         new_relation = TicketAssociation(src_ticket=self, dest_ticket=related_ticket)
         new_relation.save()
@@ -1024,7 +1025,7 @@ class Ticket(models.Model):
     def delete_relation(self, related_ticket, user):
         try:
             relation = TicketAssociation.objects.get(src_ticket=self, dest_ticket=related_ticket)
-        except TicketAssociation.DoesNotExist:
+        except ObjectDoesNotExist:
             relation = TicketAssociation.objects.get(src_ticket=related_ticket, dest_ticket=self)
         if not relation:
             return f'Relation not exist in <strong>{self}</strong>'
@@ -1032,6 +1033,7 @@ class Ticket(models.Model):
             return f'Relation not added by you cannot be deleted'
         else:
             logger.info(add_audit_log(self, related_ticket._meta.model.__name__, related_ticket, 'delete'))
+            logger.info(add_audit_log(related_ticket, self._meta.model.__name__, self, 'delete'))
             self.save()
             related_ticket.save()
             relation.delete()
@@ -1142,7 +1144,7 @@ class TenantSession(models.Model):
     def get_active(user):
         try:
             return TenantSession.objects.get(active=True, user=user)
-        except TenantSession.DoesNotExist:
+        except ObjectDoesNotExist:
             return False
 
     @staticmethod
@@ -1396,7 +1398,7 @@ class LabelAssociation(models.Model):
         db_table = 'label_association'
 
     def __str__(self):
-        return f'{self.ticket}-{self.label}'
+        return f'{self.label}'
 
 
 @receiver(models.signals.post_delete, sender=Attachment)

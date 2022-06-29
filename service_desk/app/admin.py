@@ -5,6 +5,7 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.admin import GroupAdmin
 from .models import Ticket, Tenant, User, Priority, Status, Resolution, Transition, Attachment, TransitionAssociation, Type, Label, LabelAssociation, SLAScheme, Board, BoardColumn, BoardColumnAssociation
 from django.utils.html import mark_safe
+from django.shortcuts import reverse
 from django import template
 
 register = template.Library()
@@ -115,6 +116,7 @@ class StatusAdminModel(admin.ModelAdmin):
 
 class TransitionAssociationInline(admin.TabularInline):
     model = TransitionAssociation
+    extra = 0
 
 
 @admin.register(Transition)
@@ -149,8 +151,9 @@ class LabelAdminModel(admin.ModelAdmin):
     list_display = ('name', 'description')
 
 
-class LabelAssociationInline(admin.TabularInline):
+class LabelAssociationInline(admin.StackedInline):
     model = LabelAssociation
+    extra = 0
 
 
 @admin.register(Ticket)
@@ -166,13 +169,16 @@ class TicketAdminModel(admin.ModelAdmin):
             'fields': ('reporter', 'assignee')
         }),
         ('State', {
-            'fields': ('status', 'resolution', 'suspended')
+            'fields': ('suspended',)
         }),
         ('Data', {
-            'fields': ['description', 'slug']
+            'fields': ['description']
         }),
     )
-    inlines = [LabelAssociationInline]
+    inlines = (LabelAssociationInline, )
+
+    def view_on_site(self, obj):
+        return reverse('view_ticket', args=[obj.slug])
 
     def get_labels(self, instance):
         return [labels.name for labels in instance.labels.all()]
@@ -190,6 +196,10 @@ class TicketAdminModel(admin.ModelAdmin):
         return obj.status.get_colored()
     get_status.short_description = 'Status'
 
+    def get_assignee(self, obj):
+        return obj.get_assignee(True)
+    get_assignee.short_description = 'Assignee'
+
     def get_reporter(self, obj):
         return obj.reporter.get_icon()
     get_reporter.short_description = 'Reporter'
@@ -197,4 +207,5 @@ class TicketAdminModel(admin.ModelAdmin):
 
 admin.site.unregister(Group)
 admin.site.register(Group, GroupAdminModel)
+admin.site.site_url = None
 AdminSite.index_title = 'Administration'
