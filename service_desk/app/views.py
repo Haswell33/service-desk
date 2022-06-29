@@ -151,7 +151,7 @@ class TicketDetailView(FormMixin, DetailView):  # Detail view for ticket
         ticket = self.get_object()
         if not request.user.is_authenticated:
             return login_page(request.path)
-        elif not ticket.permission_to_open(request.user):
+        elif not ticket.permission_to_open(request.user): # TO DO when link on next in login page
             return error_403(request)
         elif ticket.tenant != tenant_manager.get_active_tenant(request.user):  # TO DO when from link
             messages.info(request, 'Active tenant has been changed, returned to board view')
