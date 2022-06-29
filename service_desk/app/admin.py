@@ -10,7 +10,6 @@ from django import template
 
 register = template.Library()
 
-
 class GroupAdminModel(GroupAdmin):
     list_display = ('name', 'role')
     search_fields = ['name', 'role']
@@ -207,5 +206,4 @@ class TicketAdminModel(admin.ModelAdmin):
 
 admin.site.unregister(Group)
 admin.site.register(Group, GroupAdminModel)
-admin.site.site_url = None
 AdminSite.index_title = 'Administration'

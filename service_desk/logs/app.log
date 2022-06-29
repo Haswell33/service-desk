@@ -1405,3 +1405,7 @@
 2022-06-29 22:06:34 INFO | [127.0.0.1] admin deleted related ticket: "HSW-15" in Ticket with id 4
 2022-06-29 22:06:34 INFO | [127.0.0.1] admin deleted related ticket: "HSW-3" in Ticket with id 30
 2022-06-29 22:09:25 INFO | [127.0.0.1] admin updated assignee to: "James Smith" in Ticket with id 46
+2022-06-29 23:32:20 INFO | [127.0.0.1] admin updated assignee to: "James Smith" in Ticket with id 20
+2022-06-30 00:35:57 INFO | [127.0.0.1] admin added comment: "<p>dsfsgfdfgh</p>" in Ticket with id 43
+2022-06-30 00:36:13 INFO | [127.0.0.1] admin added attachment: "sheet_template.xlsx" in Ticket with id 43
+2022-06-30 00:36:28 INFO | [127.0.0.1] admin updated suspended to: "True" in Ticket with id 43

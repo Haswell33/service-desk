@@ -37138,3 +37138,574 @@ Traceback (most recent call last):
     raise ValueError(
 ValueError: The view app.views.PasswordResetView didn't return an HttpResponse object. It returned None instead.
 2022-06-29 23:26:04 WARNING AnonymousUser GET 404 Not Found: /favicon.ico
+2022-06-29 23:52:33 ERROR Karol Siedlaczek GET 500 Internal Server Error: /admin/
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 470, in parse
+    compile_func = self.tags[command]
+KeyError: 'endblok'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 204, in _get_response
+    response = response.render()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 105, in render
+    self.content = self.rendered_content
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 81, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 65, in resolve_template
+    return get_template(template, using=self.using)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\backends\django.py", line 34, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\engine.py", line 143, in get_template
+    template, origin = self.find_template(template_name)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\engine.py", line 125, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\loaders\base.py", line 29, in get_template
+    return Template(
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 155, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 193, in compile_nodelist
+    return parser.parse()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 478, in parse
+    raise self.error(token, e)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 476, in parse
+    compiled_result = compile_func(self, token)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\loader_tags.py", line 278, in do_extends
+    nodelist = parser.parse()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 478, in parse
+    raise self.error(token, e)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 476, in parse
+    compiled_result = compile_func(self, token)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\loader_tags.py", line 216, in do_block
+    nodelist = parser.parse(('endblock',))
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 472, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 522, in invalid_block_tag
+    raise self.error(
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 12: 'endblok', expected 'endblock'. Did you forget to register or load this tag?
+2022-06-29 23:52:33 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-30 00:00:01 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-30 00:00:01 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-30 00:00:02 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-30 00:00:02 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-30 00:00:02 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-30 00:00:02 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-30 00:00:02 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-30 00:00:02 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-30 00:00:03 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-30 00:00:03 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-30 00:00:03 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-30 00:00:03 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-30 00:00:04 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-30 00:00:04 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-30 00:00:04 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-30 00:00:12 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-30 00:01:08 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-30 00:04:07 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-30 00:04:07 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-30 00:04:34 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-30 00:04:35 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-30 00:04:35 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-30 00:11:52 ERROR Karol Siedlaczek GET 500 Internal Server Error: /admin/
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 204, in _get_response
+    response = response.render()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 105, in render
+    self.content = self.rendered_content
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 81, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 65, in resolve_template
+    return get_template(template, using=self.using)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\backends\django.py", line 34, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\engine.py", line 143, in get_template
+    template, origin = self.find_template(template_name)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\engine.py", line 125, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\loaders\base.py", line 29, in get_template
+    return Template(
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 155, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 193, in compile_nodelist
+    return parser.parse()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 478, in parse
+    raise self.error(token, e)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 476, in parse
+    compiled_result = compile_func(self, token)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\loader_tags.py", line 278, in do_extends
+    nodelist = parser.parse()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 478, in parse
+    raise self.error(token, e)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 476, in parse
+    compiled_result = compile_func(self, token)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\loader_tags.py", line 212, in do_block
+    raise TemplateSyntaxError("'%s' tag with name '%s' appears more than once" % (bits[0], block_name))
+django.template.exceptions.TemplateSyntaxError: 'block' tag with name 'content_page' appears more than once
+2022-06-30 00:11:52 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-30 00:14:53 ERROR Karol Siedlaczek GET 500 Internal Server Error: /admin/
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\loader_tags.py", line 127, in render
+    compiled_parent = self.get_parent(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\loader_tags.py", line 124, in get_parent
+    return self.find_template(parent, context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\loader_tags.py", line 103, in find_template
+    template, origin = context.template.engine.find_template(
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\engine.py", line 129, in find_template
+    raise TemplateDoesNotExist(name, tried=tried)
+django.template.exceptions.TemplateDoesNotExist: index.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 204, in _get_response
+    response = response.render()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 105, in render
+    self.content = self.rendered_content
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 83, in rendered_content
+    return template.render(context, self._request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\backends\django.py", line 63, in render
+    reraise(exc, self.backend)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\backends\django.py", line 84, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: index.html
+2022-06-30 00:14:53 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-30 00:17:15 ERROR Karol Siedlaczek GET 500 Internal Server Error: /admin/app/slascheme/
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\loader_tags.py", line 127, in render
+    compiled_parent = self.get_parent(context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\loader_tags.py", line 124, in get_parent
+    return self.find_template(parent, context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\loader_tags.py", line 103, in find_template
+    template, origin = context.template.engine.find_template(
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\engine.py", line 129, in find_template
+    raise TemplateDoesNotExist(name, tried=tried)
+django.template.exceptions.TemplateDoesNotExist: site/admin/index.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 204, in _get_response
+    response = response.render()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 105, in render
+    self.content = self.rendered_content
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\response.py", line 83, in rendered_content
+    return template.render(context, self._request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\backends\django.py", line 63, in render
+    reraise(exc, self.backend)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\template\backends\django.py", line 84, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: site/admin/index.html
+2022-06-30 00:17:15 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-30 00:30:48 ERROR Karol Siedlaczek POST 500 Internal Server Error: /admin/auth/group/add/
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "auth_group_pkey"
+DETAIL:  Key (id)=(2) already exists.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 616, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\decorators\cache.py", line 44, in _wrapped_view_func
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\sites.py", line 232, in inner
+    return view(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1657, in add_view
+    return self.changeform_view(request, None, form_url, extra_context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 43, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1540, in changeform_view
+    return self._changeform_view(request, object_id, form_url, extra_context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1586, in _changeform_view
+    self.save_model(request, new_object, form, not add)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1099, in save_model
+    obj.save()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 739, in save
+    self.save_base(using=using, force_insert=force_insert,
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 776, in save_base
+    updated = self._save_table(
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 881, in _save_table
+    results = self._do_insert(cls._base_manager, using, fields, returning_fields, raw)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 919, in _do_insert
+    return manager._insert(
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 1270, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\sql\compiler.py", line 1416, in execute_sql
+    cursor.execute(sql, params)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 98, in execute
+    return super().execute(sql, params)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.IntegrityError: duplicate key value violates unique constraint "auth_group_pkey"
+DETAIL:  Key (id)=(2) already exists.
+
+2022-06-30 00:30:48 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-30 00:34:14 ERROR Karol Siedlaczek POST 500 Internal Server Error: /admin/auth/group/add/
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "auth_group_pkey"
+DETAIL:  Key (id)=(4) already exists.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 616, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\decorators\cache.py", line 44, in _wrapped_view_func
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\sites.py", line 232, in inner
+    return view(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1657, in add_view
+    return self.changeform_view(request, None, form_url, extra_context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 43, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1540, in changeform_view
+    return self._changeform_view(request, object_id, form_url, extra_context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1586, in _changeform_view
+    self.save_model(request, new_object, form, not add)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1099, in save_model
+    obj.save()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 739, in save
+    self.save_base(using=using, force_insert=force_insert,
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 776, in save_base
+    updated = self._save_table(
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 881, in _save_table
+    results = self._do_insert(cls._base_manager, using, fields, returning_fields, raw)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 919, in _do_insert
+    return manager._insert(
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 1270, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\sql\compiler.py", line 1416, in execute_sql
+    cursor.execute(sql, params)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 98, in execute
+    return super().execute(sql, params)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.IntegrityError: duplicate key value violates unique constraint "auth_group_pkey"
+DETAIL:  Key (id)=(4) already exists.
+
+2022-06-30 00:34:14 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-30 00:34:16 ERROR Karol Siedlaczek POST 500 Internal Server Error: /admin/auth/group/add/
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "auth_group_pkey"
+DETAIL:  Key (id)=(5) already exists.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 616, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\decorators\cache.py", line 44, in _wrapped_view_func
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\sites.py", line 232, in inner
+    return view(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1657, in add_view
+    return self.changeform_view(request, None, form_url, extra_context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 43, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1540, in changeform_view
+    return self._changeform_view(request, object_id, form_url, extra_context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1586, in _changeform_view
+    self.save_model(request, new_object, form, not add)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1099, in save_model
+    obj.save()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 739, in save
+    self.save_base(using=using, force_insert=force_insert,
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 776, in save_base
+    updated = self._save_table(
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 881, in _save_table
+    results = self._do_insert(cls._base_manager, using, fields, returning_fields, raw)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 919, in _do_insert
+    return manager._insert(
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 1270, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\sql\compiler.py", line 1416, in execute_sql
+    cursor.execute(sql, params)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 98, in execute
+    return super().execute(sql, params)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.IntegrityError: duplicate key value violates unique constraint "auth_group_pkey"
+DETAIL:  Key (id)=(5) already exists.
+
+2022-06-30 00:34:47 ERROR Karol Siedlaczek GET 500 Internal Server Error: /admin/auth/group/6/change/
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 710, in get_form
+    return modelform_factory(self.model, **defaults)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\models.py", line 563, in modelform_factory
+    return type(form)(class_name, (form,), form_class_attrs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\models.py", line 276, in __new__
+    raise FieldError(message)
+django.core.exceptions.FieldError: Unknown field(s) (group_permissions) specified for Group
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 616, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\decorators\cache.py", line 44, in _wrapped_view_func
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\sites.py", line 232, in inner
+    return view(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1660, in change_view
+    return self.changeform_view(request, object_id, form_url, extra_context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 43, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1540, in changeform_view
+    return self._changeform_view(request, object_id, form_url, extra_context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1574, in _changeform_view
+    ModelForm = self.get_form(
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 712, in get_form
+    raise FieldError(
+django.core.exceptions.FieldError: Unknown field(s) (group_permissions) specified for Group. Check fields/fieldsets/exclude attributes of class GroupAdminModel.
+2022-06-30 00:40:20 ERROR Karol Siedlaczek GET 500 Internal Server Error: /admin/app/board/
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 616, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\decorators\cache.py", line 44, in _wrapped_view_func
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\sites.py", line 232, in inner
+    return view(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 43, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1693, in changelist_view
+    if not self.has_view_or_change_permission(request):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 535, in has_view_or_change_permission
+    return self.has_view_permission(request, obj) or self.has_change_permission(request, obj)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 530, in has_view_permission
+    request.user.has_perm('%s.%s' % (opts.app_label, codename_view)) or
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\functional.py", line 247, in inner
+    return func(self._wrapped, *args)
+AttributeError: 'User' object has no attribute 'has_perm'
+2022-06-30 00:40:20 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-30 00:40:40 ERROR Karol Siedlaczek GET 500 Internal Server Error: /admin/app/board/
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 616, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\decorators\cache.py", line 44, in _wrapped_view_func
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\sites.py", line 232, in inner
+    return view(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 43, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1693, in changelist_view
+    if not self.has_view_or_change_permission(request):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 535, in has_view_or_change_permission
+    return self.has_view_permission(request, obj) or self.has_change_permission(request, obj)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 530, in has_view_permission
+    request.user.has_perm('%s.%s' % (opts.app_label, codename_view)) or
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\functional.py", line 247, in inner
+    return func(self._wrapped, *args)
+TypeError: has_perm() missing 1 required positional argument: 'perm'
+2022-06-30 00:40:40 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-30 00:40:41 ERROR Karol Siedlaczek GET 500 Internal Server Error: /admin/app/board/
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 616, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\decorators\cache.py", line 44, in _wrapped_view_func
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\sites.py", line 232, in inner
+    return view(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 43, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1693, in changelist_view
+    if not self.has_view_or_change_permission(request):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 535, in has_view_or_change_permission
+    return self.has_view_permission(request, obj) or self.has_change_permission(request, obj)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 530, in has_view_permission
+    request.user.has_perm('%s.%s' % (opts.app_label, codename_view)) or
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\functional.py", line 247, in inner
+    return func(self._wrapped, *args)
+TypeError: has_perm() missing 1 required positional argument: 'perm'
+2022-06-30 00:40:41 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-30 00:40:54 ERROR Karol Siedlaczek GET 500 Internal Server Error: /admin/app/board/
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 616, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\decorators\cache.py", line 44, in _wrapped_view_func
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\sites.py", line 232, in inner
+    return view(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 43, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1813, in changelist_view
+    **self.admin_site.each_context(request),
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\sites.py", line 316, in each_context
+    'available_apps': self.get_app_list(request),
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\sites.py", line 505, in get_app_list
+    app_dict = self._build_app_dict(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\sites.py", line 450, in _build_app_dict
+    has_module_perms = model_admin.has_module_permission(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 548, in has_module_permission
+    return request.user.has_module_perms(self.opts.app_label)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\functional.py", line 247, in inner
+    return func(self._wrapped, *args)
+TypeError: has_module_perms() missing 1 required positional argument: 'app_label'
+2022-06-30 00:40:54 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-30 00:40:59 ERROR Karol Siedlaczek GET 500 Internal Server Error: /admin/app/board/
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 616, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\decorators\cache.py", line 44, in _wrapped_view_func
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\sites.py", line 232, in inner
+    return view(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 43, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 1813, in changelist_view
+    **self.admin_site.each_context(request),
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\sites.py", line 316, in each_context
+    'available_apps': self.get_app_list(request),
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\sites.py", line 505, in get_app_list
+    app_dict = self._build_app_dict(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\sites.py", line 450, in _build_app_dict
+    has_module_perms = model_admin.has_module_permission(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\admin\options.py", line 548, in has_module_permission
+    return request.user.has_module_perms(self.opts.app_label)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\utils\functional.py", line 247, in inner
+    return func(self._wrapped, *args)
+TypeError: has_module_perms() missing 1 required positional argument: 'app_label'
+2022-06-30 00:41:00 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico

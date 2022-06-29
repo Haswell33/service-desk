@@ -10,10 +10,10 @@
     <link type="text/css" rel="stylesheet" href="{% static 'site/css/admin-custom.css' %}">
   {% endblock %}
 </head>
-
 <body>
   <main>
-    {% block content %}{{ block.super }}
+    {% block content %}
+      {{ block.super }}
     {% endblock %}
   </main>
 </body>
