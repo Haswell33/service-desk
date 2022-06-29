@@ -4,6 +4,7 @@ from django.core.files.base import ContentFile
 from django.conf import settings
 from django.contrib.auth.models import Group, AbstractBaseUser, PermissionsMixin
 from django.db.models import Q, Manager
+from django.db.utils import IntegrityError
 from django.db import models
 from django.dispatch import receiver
 from django.utils import timezone
@@ -812,10 +813,16 @@ class Ticket(models.Model):
     def save(self, *args, **kwargs):
         if not self.id:
             self.reporter = get_current_user()
+            self.key = f'{self.tenant.key}-{self.tenant.count + 1}'
+            self.tenant.count += 1
+            self.tenant.save()
             self.slug = self.key.lower()
         self.updated = timezone.now()
         # send_notifications()
-        super(Ticket, self).save(*args, **kwargs)
+        try:
+            super(Ticket, self).save(*args, **kwargs)
+        except IntegrityError:
+            raise IntegrityError('Ticket with this key already exist')
 
     @property
     def is_service_desk_type(self):
@@ -916,7 +923,9 @@ class Ticket(models.Model):
                 return self.assignee
 
     def set_suspended(self):
-        if self.suspended:
+        if self.resolution:
+            return f'Ticket <strong>{self}</strong> is resolved, cannot be suspended'
+        elif self.suspended:
             self.suspended = False
         else:
             self.suspended = True
@@ -940,7 +949,6 @@ class Ticket(models.Model):
     def create_ticket(form, user, files=None):
         tenant = Tenant.get_active(user)
         new_ticket = form.save(commit=False)  # create instance, but do not save
-        new_ticket.key = f'{tenant.key}-{tenant.count + 1}'
         new_ticket.tenant = tenant
         new_ticket.status = new_ticket.get_initial_status()
         new_ticket.save()  # create ticket
@@ -948,8 +956,6 @@ class Ticket(models.Model):
         if files:
             for file in files:
                 new_ticket.add_attachment(file)
-        tenant.count += 1
-        tenant.save()
         form.save_m2m()
         return new_ticket
 
@@ -1003,18 +1009,18 @@ class Ticket(models.Model):
             logger.info(add_audit_log(self, attachment._meta.model.__name__, attachment, 'delete'))
             return True
 
-    def add_relation(self, ticket_to_relate, user):
+    def add_relation(self, ticket_to_relate_id, user):
         tickets_allowed_to_relate = []
+        try:
+            related_ticket = Ticket.objects.get(id=ticket_to_relate_id)
+        except ObjectDoesNotExist:
+            return f'Ticket with id <strong>{ticket_to_relate_id}<strong> does not exist'
         for allow_ticket_to_relate in self.get_relation_options(user).values_list('id'):
             tickets_allowed_to_relate.append(str(allow_ticket_to_relate[0]))
-        if str(self.id) == ticket_to_relate:
+        if str(self.id) == ticket_to_relate_id:
             return f'Ticket cannot have relation with itself'
-        elif ticket_to_relate not in tickets_allowed_to_relate:
+        elif str(ticket_to_relate_id) not in tickets_allowed_to_relate:
             return f'Ticket <strong>{self}</strong> cannot be related with selected ticket'
-        try:
-            related_ticket = Ticket.objects.get(id=ticket_to_relate)
-        except ObjectDoesNotExist:
-            return f'Ticket with id <strong>{ticket_to_relate}<strong> does not exist'
         new_relation = TicketAssociation(src_ticket=self, dest_ticket=related_ticket)
         new_relation.save()
         self.save()
@@ -1072,19 +1078,18 @@ class Ticket(models.Model):
             logger.info(add_audit_log(self, comment._meta.model.__name__, comment, 'update'))
             return comment_updated
 
-    def clone_ticket(self, type_id):  # TO DO
-        tenant = self.tenant
-        new_ticket = Ticket(
-            key=f'{tenant.key}-{tenant.count + 1}',
-            tenant=tenant,
-            type=type_id,
-            description=self.description,
-        )
-        tenant.count += 1
-        tenant.save()
+    def clone_ticket(self, type_id, user):  # TO DO
+        new_ticket = Ticket.objects.get(id=self.id)
+        new_ticket.type = Type.objects.get(id=type_id)
         new_ticket.status = new_ticket.get_initial_status()
-        new_ticket.save()  # create ticket
-        return new_ticket
+        new_ticket.pk = None
+        new_ticket.save()
+        print(self.id)
+        print(new_ticket.id)
+        logger.info(add_audit_log(new_ticket, new_ticket._meta.model.__name__, new_ticket, 'create'))
+        logger.info(add_audit_log(self, self._meta.model.__name__, new_ticket, 'clone'))
+        result = self.add_relation(new_ticket.id, user)
+        return result
 
     def permission_to_open(self, user):  # to correct
         if self in TenantSession.get_active(user).get_tickets(user) or user.is_admin:
@@ -1233,18 +1238,16 @@ class AuditLog(models.Model):  # TO DO - remove message column (convert to funct
         return f'[{self.ip_address}] {self.user.username} {self.get_message_operation()} "{self.content_value}" in {self.object} with id {self.object_value}'
 
     def get_message_operation(self):
-        if self.object == self.content and self.operation != 'create':
+        if self.object == self.content and self.operation != 'create' and self.operation != 'clone':
             content = f'related {str(self.content).lower()}'
         else:
             content = str(self.content).lower()
-        if self.operation == 'create':
-            return f'created {content}:'
-        elif self.operation == 'delete':
-            return f'deleted {content}:'
-        elif self.operation == 'update':
-            return f'updated {content} to:'
+        if self.operation == 'create' or self.operation == 'delete':
+            return f'{self.operation}d {content}:'
         elif self.operation == 'add':
-            return f'added {content}:'
+            return f'{self.operation}ed {content}:'
+        elif self.operation == 'update' or self.operation == 'clone':
+            return f'{self.operation}d {content} to:'
         else:
             return f'changed {str(self.content).lower()} to:'
 

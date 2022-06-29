@@ -119,25 +119,41 @@
             {% endfor %}
         </tr>
         {% for ticket in tickets %}
-          {% if ticket.resolution %}
-            <tr class="resolved">
-          {% elif ticket.suspended %}
+          {% if ticket.suspended and not ticket.resolution %}
             <tr class="suspended">
           {% else %}
             <tr>
           {% endif %}
-            <td>{{ ticket.type.get_icon }}</td>
+            <td>
+              {{ ticket.type.get_icon }}
+            </td>
             <td>
               <a class="default-hover" href="{% url 'view_ticket' ticket.slug %}" style="padding: 4px;">
                 {{ ticket.key }}
               </a>
             </td>
-            <td>{{ ticket.title }}</td>
-            <td>{{ ticket.priority.get_icon }}</td>
-            <td>{{ ticket.status.get_colored }}</td>
-            <td>{{ ticket.get_resolution }}</td>
-            <td>{{ ticket.reporter.get_icon_text }}</td>
-            <td>{{ ticket.get_assignee }}</td>
+            <td>
+              {{ ticket.title }}
+            </td>
+            <td>
+              {{ ticket.priority.get_icon }}
+            </td>
+            <td>
+              {{ ticket.status.get_colored }}
+            </td>
+            {% if ticket.resolution %}
+              <td class="resolved" style="color: {{ ticket.status.color }}">
+            {% else %}
+              <td>
+            {% endif %}
+                {{ ticket.get_resolution }}
+              </td>
+            <td>
+              {{ ticket.reporter.get_icon_text }}
+            </td>
+            <td>
+              {{ ticket.get_assignee }}
+            </td>
             <td>
               {% if ticket.labels.count > 0 %}
                 {% for label in ticket.labels.all %}
@@ -151,8 +167,12 @@
                 </div>
               {% endif %}
             </td>
-            <td>{% get_datetime_local ticket.created %}</td>
-            <td>{% get_datetime_local ticket.updated %}</td>
+            <td>
+              {% get_datetime_local ticket.created %}
+            </td>
+            <td>
+              {% get_datetime_local ticket.updated %}
+            </td>
           </tr>
         {% endfor %}
       </table>

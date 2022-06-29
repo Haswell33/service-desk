@@ -36519,3 +36519,580 @@ NameError: name 'tenant_check' is not defined
 2022-06-29 07:40:16 WARNING Karol Siedlaczek GET 403 Forbidden: /tenant/update/?PTrue/
 2022-06-29 07:40:16 WARNING Karol Siedlaczek GET 403 Forbidden: /tenant/update/?PTrue/
 2022-06-29 07:44:23 WARNING No Tenant GET 403 Forbidden: /tenant/update/?PTrue/
+2022-06-29 20:37:23 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-29 20:37:27 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-29 20:57:28 ERROR Karol Siedlaczek POST 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "ticket_key_key"
+DETAIL:  Key (key)=(HSW-12) already exists.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 142, in post
+    return self.form_valid(form)
+  File "F:\Programs\Repository\Python\Private\service-desk2\service_desk\app\views.py", line 107, in form_valid
+    Ticket.create_ticket(form, self.request.user, self.request.FILES.getlist('attachments'))
+  File "F:\Programs\Repository\Python\Private\service-desk2\service_desk\app\models.py", line 948, in create_ticket
+    new_ticket.save()  # create ticket
+  File "F:\Programs\Repository\Python\Private\service-desk2\service_desk\app\models.py", line 821, in save
+    super(Ticket, self).save(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 739, in save
+    self.save_base(using=using, force_insert=force_insert,
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 776, in save_base
+    updated = self._save_table(
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 881, in _save_table
+    results = self._do_insert(cls._base_manager, using, fields, returning_fields, raw)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 919, in _do_insert
+    return manager._insert(
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 1270, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\sql\compiler.py", line 1416, in execute_sql
+    cursor.execute(sql, params)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 98, in execute
+    return super().execute(sql, params)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.IntegrityError: duplicate key value violates unique constraint "ticket_key_key"
+DETAIL:  Key (key)=(HSW-12) already exists.
+
+2022-06-29 21:00:12 ERROR Karol Siedlaczek POST 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "ticket_key_key"
+DETAIL:  Key (key)=(HSW-12) already exists.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "F:\Programs\Repository\Python\Private\service-desk2\service_desk\app\models.py", line 823, in save
+    super(Ticket, self).save(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 739, in save
+    self.save_base(using=using, force_insert=force_insert,
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 776, in save_base
+    updated = self._save_table(
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 881, in _save_table
+    results = self._do_insert(cls._base_manager, using, fields, returning_fields, raw)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 919, in _do_insert
+    return manager._insert(
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 1270, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\sql\compiler.py", line 1416, in execute_sql
+    cursor.execute(sql, params)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 98, in execute
+    return super().execute(sql, params)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.IntegrityError: duplicate key value violates unique constraint "ticket_key_key"
+DETAIL:  Key (key)=(HSW-12) already exists.
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 142, in post
+    return self.form_valid(form)
+  File "F:\Programs\Repository\Python\Private\service-desk2\service_desk\app\views.py", line 107, in form_valid
+    Ticket.create_ticket(form, self.request.user, self.request.FILES.getlist('attachments'))
+  File "F:\Programs\Repository\Python\Private\service-desk2\service_desk\app\models.py", line 952, in create_ticket
+    new_ticket.save()  # create ticket
+  File "F:\Programs\Repository\Python\Private\service-desk2\service_desk\app\models.py", line 825, in save
+    raise IntegrityError('Ticket with this key already exist')
+django.db.utils.IntegrityError: Ticket with this key already exist
+2022-06-29 21:02:18 ERROR Karol Siedlaczek POST 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "ticket_key_key"
+DETAIL:  Key (key)=(HSW-12) already exists.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "F:\Programs\Repository\Python\Private\service-desk2\service_desk\app\models.py", line 950, in create_ticket
+    new_ticket.save()  # create ticket
+  File "F:\Programs\Repository\Python\Private\service-desk2\service_desk\app\models.py", line 822, in save
+    super(Ticket, self).save(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 739, in save
+    self.save_base(using=using, force_insert=force_insert,
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 776, in save_base
+    updated = self._save_table(
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 881, in _save_table
+    results = self._do_insert(cls._base_manager, using, fields, returning_fields, raw)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 919, in _do_insert
+    return manager._insert(
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 1270, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\sql\compiler.py", line 1416, in execute_sql
+    cursor.execute(sql, params)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 98, in execute
+    return super().execute(sql, params)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.IntegrityError: duplicate key value violates unique constraint "ticket_key_key"
+DETAIL:  Key (key)=(HSW-12) already exists.
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 142, in post
+    return self.form_valid(form)
+  File "F:\Programs\Repository\Python\Private\service-desk2\service_desk\app\views.py", line 107, in form_valid
+    result = Ticket.create_ticket(form, self.request.user, self.request.FILES.getlist('attachments'))
+  File "F:\Programs\Repository\Python\Private\service-desk2\service_desk\app\models.py", line 952, in create_ticket
+    raise IntegrityError('Ticket with this key already exists')
+django.db.utils.IntegrityError: Ticket with this key already exists
+2022-06-29 21:03:12 ERROR Karol Siedlaczek GET 500 Internal Server Error: /ticket/view/hsw-13
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk2\service_desk\app\views.py", line 151, in get
+    ticket = self.get_object()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\detail.py", line 52, in get_object
+    obj = queryset.get()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 439, in get
+    raise self.model.MultipleObjectsReturned(
+app.models.Ticket.MultipleObjectsReturned: get() returned more than one Ticket -- it returned 2!
+2022-06-29 21:03:33 ERROR Karol Siedlaczek POST 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "ticket_key_key"
+DETAIL:  Key (key)=(HSW-13) already exists.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 142, in post
+    return self.form_valid(form)
+  File "F:\Programs\Repository\Python\Private\service-desk2\service_desk\app\views.py", line 109, in form_valid
+    return super().form_valid(form)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\messages\views.py", line 11, in form_valid
+    response = super().form_valid(form)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 125, in form_valid
+    self.object = form.save()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\models.py", line 468, in save
+    self.instance.save()
+  File "F:\Programs\Repository\Python\Private\service-desk2\service_desk\app\models.py", line 822, in save
+    super(Ticket, self).save(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 739, in save
+    self.save_base(using=using, force_insert=force_insert,
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 776, in save_base
+    updated = self._save_table(
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 881, in _save_table
+    results = self._do_insert(cls._base_manager, using, fields, returning_fields, raw)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 919, in _do_insert
+    return manager._insert(
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 1270, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\sql\compiler.py", line 1416, in execute_sql
+    cursor.execute(sql, params)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 98, in execute
+    return super().execute(sql, params)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.IntegrityError: duplicate key value violates unique constraint "ticket_key_key"
+DETAIL:  Key (key)=(HSW-13) already exists.
+
+2022-06-29 21:03:33 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-29 21:04:35 ERROR Karol Siedlaczek POST 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 142, in post
+    return self.form_valid(form)
+  File "F:\Programs\Repository\Python\Private\service-desk2\service_desk\app\views.py", line 107, in form_valid
+    result = Ticket.create_ticket(form, self.request.user, self.request.FILES.getlist('attachments'))
+  File "F:\Programs\Repository\Python\Private\service-desk2\service_desk\app\models.py", line 960, in create_ticket
+    form.save_m2m()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\models.py", line 451, in _save_m2m
+    f.save_form_data(self.instance, cleaned_data[f.name])
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\fields\related.py", line 1668, in save_form_data
+    getattr(instance, self.attname).set(data)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\fields\related_descriptors.py", line 536, in __get__
+    return self.related_manager_cls(instance)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\fields\related_descriptors.py", line 851, in __init__
+    raise ValueError('"%r" needs to have a value for field "%s" before '
+ValueError: "<Ticket: HSW-12>" needs to have a value for field "id" before this many-to-many relationship can be used.
+2022-06-29 21:04:35 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-29 21:05:09 ERROR Karol Siedlaczek POST 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 142, in post
+    return self.form_valid(form)
+  File "F:\Programs\Repository\Python\Private\service-desk2\service_desk\app\views.py", line 107, in form_valid
+    result = Ticket.create_ticket(form, self.request.user, self.request.FILES.getlist('attachments'))
+  File "F:\Programs\Repository\Python\Private\service-desk2\service_desk\app\models.py", line 961, in create_ticket
+    form.save_m2m()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\models.py", line 451, in _save_m2m
+    f.save_form_data(self.instance, cleaned_data[f.name])
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\fields\related.py", line 1668, in save_form_data
+    getattr(instance, self.attname).set(data)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\fields\related_descriptors.py", line 536, in __get__
+    return self.related_manager_cls(instance)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\fields\related_descriptors.py", line 851, in __init__
+    raise ValueError('"%r" needs to have a value for field "%s" before '
+ValueError: "<Ticket: HSW-2>" needs to have a value for field "id" before this many-to-many relationship can be used.
+2022-06-29 21:05:10 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-29 21:05:49 ERROR Karol Siedlaczek POST 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 142, in post
+    return self.form_valid(form)
+  File "F:\Programs\Repository\Python\Private\service-desk2\service_desk\app\views.py", line 107, in form_valid
+    result = Ticket.create_ticket(form, self.request.user, self.request.FILES.getlist('attachments'))
+  File "F:\Programs\Repository\Python\Private\service-desk2\service_desk\app\models.py", line 962, in create_ticket
+    form.save_m2m()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\models.py", line 451, in _save_m2m
+    f.save_form_data(self.instance, cleaned_data[f.name])
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\fields\related.py", line 1668, in save_form_data
+    getattr(instance, self.attname).set(data)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\fields\related_descriptors.py", line 536, in __get__
+    return self.related_manager_cls(instance)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\fields\related_descriptors.py", line 851, in __init__
+    raise ValueError('"%r" needs to have a value for field "%s" before '
+ValueError: "<Ticket: HSW-3>" needs to have a value for field "id" before this many-to-many relationship can be used.
+2022-06-29 21:07:24 ERROR Karol Siedlaczek POST 500 Internal Server Error: /ticket/create
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "ticket_key_key"
+DETAIL:  Key (key)=(HSW-5) already exists.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "F:\Programs\Repository\Python\Private\service-desk2\service_desk\app\models.py", line 823, in save
+    super(Ticket, self).save(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 739, in save
+    self.save_base(using=using, force_insert=force_insert,
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 776, in save_base
+    updated = self._save_table(
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 881, in _save_table
+    results = self._do_insert(cls._base_manager, using, fields, returning_fields, raw)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 919, in _do_insert
+    return manager._insert(
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 1270, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\sql\compiler.py", line 1416, in execute_sql
+    cursor.execute(sql, params)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 98, in execute
+    return super().execute(sql, params)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.IntegrityError: duplicate key value violates unique constraint "ticket_key_key"
+DETAIL:  Key (key)=(HSW-5) already exists.
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 142, in post
+    return self.form_valid(form)
+  File "F:\Programs\Repository\Python\Private\service-desk2\service_desk\app\views.py", line 109, in form_valid
+    return super().form_valid(form)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\contrib\messages\views.py", line 11, in form_valid
+    response = super().form_valid(form)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\edit.py", line 125, in form_valid
+    self.object = form.save()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\forms\models.py", line 468, in save
+    self.instance.save()
+  File "F:\Programs\Repository\Python\Private\service-desk2\service_desk\app\models.py", line 825, in save
+    raise IntegrityError('Ticket with this key already exist')
+django.db.utils.IntegrityError: Ticket with this key already exist
+2022-06-29 21:38:48 ERROR Karol Siedlaczek POST 500 Internal Server Error: /ticket/clone/hsw-3
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk2\service_desk\app\views.py", line 428, in post
+    if not ticket.permission_to_open_ticket(request.user) or not ticket.permission_to_clone(request.user):
+AttributeError: 'Ticket' object has no attribute 'permission_to_open_ticket'
+2022-06-29 21:39:19 ERROR Karol Siedlaczek POST 500 Internal Server Error: /ticket/clone/hsw-3
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk2\service_desk\app\views.py", line 432, in post
+    result = ticket.clone_ticket(ticket, type_id)
+TypeError: clone_ticket() takes 2 positional arguments but 3 were given
+2022-06-29 21:39:39 ERROR Karol Siedlaczek POST 500 Internal Server Error: /ticket/clone/hsw-3
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "ticket_key_key"
+DETAIL:  Key (key)=(HSW-6) already exists.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "F:\Programs\Repository\Python\Private\service-desk2\service_desk\app\models.py", line 823, in save
+    super(Ticket, self).save(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 739, in save
+    self.save_base(using=using, force_insert=force_insert,
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 776, in save_base
+    updated = self._save_table(
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 881, in _save_table
+    results = self._do_insert(cls._base_manager, using, fields, returning_fields, raw)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\base.py", line 919, in _do_insert
+    return manager._insert(
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 1270, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\sql\compiler.py", line 1416, in execute_sql
+    cursor.execute(sql, params)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 98, in execute
+    return super().execute(sql, params)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.IntegrityError: duplicate key value violates unique constraint "ticket_key_key"
+DETAIL:  Key (key)=(HSW-6) already exists.
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk2\service_desk\app\views.py", line 432, in post
+    result = ticket.clone_ticket(type_id)
+  File "F:\Programs\Repository\Python\Private\service-desk2\service_desk\app\models.py", line 1084, in clone_ticket
+    new_ticket.save()
+  File "F:\Programs\Repository\Python\Private\service-desk2\service_desk\app\models.py", line 825, in save
+    raise IntegrityError('Ticket with this key already exist')
+django.db.utils.IntegrityError: Ticket with this key already exist
+2022-06-29 21:43:52 ERROR Karol Siedlaczek GET 500 Internal Server Error: /ticket/view/hsw-13
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk2\service_desk\app\views.py", line 151, in get
+    ticket = self.get_object()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\detail.py", line 52, in get_object
+    obj = queryset.get()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 439, in get
+    raise self.model.MultipleObjectsReturned(
+app.models.Ticket.MultipleObjectsReturned: get() returned more than one Ticket -- it returned 2!
+2022-06-29 21:43:52 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-29 21:43:55 ERROR Karol Siedlaczek GET 500 Internal Server Error: /ticket/view/hsw-13
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk2\service_desk\app\views.py", line 151, in get
+    ticket = self.get_object()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\detail.py", line 52, in get_object
+    obj = queryset.get()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 439, in get
+    raise self.model.MultipleObjectsReturned(
+app.models.Ticket.MultipleObjectsReturned: get() returned more than one Ticket -- it returned 2!
+2022-06-29 21:44:09 ERROR Karol Siedlaczek GET 500 Internal Server Error: /ticket/view/hsw-13
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk2\service_desk\app\views.py", line 151, in get
+    ticket = self.get_object()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\detail.py", line 52, in get_object
+    obj = queryset.get()
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\db\models\query.py", line 439, in get
+    raise self.model.MultipleObjectsReturned(
+app.models.Ticket.MultipleObjectsReturned: get() returned more than one Ticket -- it returned 2!
+2022-06-29 21:49:03 ERROR Karol Siedlaczek POST 500 Internal Server Error: /ticket/clone/hsw-17
+Traceback (most recent call last):
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Apps\Python\Python-3.9.5\lib\site-packages\django\views\generic\base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\Programs\Repository\Python\Private\service-desk2\service_desk\app\views.py", line 432, in post
+    result = ticket.clone_ticket(type_id)
+TypeError: clone_ticket() missing 1 required positional argument: 'user'
+2022-06-29 21:49:03 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico
+2022-06-29 22:01:21 WARNING No Tenant GET 403 Forbidden: /tenant/update/?PTrue/
+2022-06-29 22:12:24 WARNING Karol Siedlaczek GET 404 Not Found: /favicon.ico

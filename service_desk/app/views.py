@@ -9,7 +9,7 @@ from django.views.generic import DetailView, ListView
 from django.views.generic.edit import UpdateView, DeleteView, CreateView, FormView, FormMixin
 from django.views.generic.base import TemplateView
 from django.views.decorators.cache import never_cache
-from django.views.decorators.csrf import csrf_protect, csrf_exempt
+from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
@@ -104,7 +104,8 @@ class TicketCreateView(SuccessMessageMixin, CreateView):
         return f'Ticket <strong>{self.object.key}</strong> has been created successfully'
 
     def form_valid(self, form):
-        Ticket.create_ticket(form, self.request.user, self.request.FILES.getlist('attachments'))
+        result = Ticket.create_ticket(form, self.request.user, self.request.FILES.getlist('attachments'))
+        print(result)
         return super().form_valid(form)
 
     def form_invalid(self, form):
@@ -152,6 +153,9 @@ class TicketDetailView(FormMixin, DetailView):  # Detail view for ticket
             return login_page(request.path)
         elif not ticket.permission_to_open(request.user):
             return error_403(request)
+        elif ticket.tenant != tenant_manager.get_active_tenant(request.user):  # TO DO when from link
+            messages.info(request, 'Active tenant has been changed, returned to board view')
+            return redirect('home')
         return validate_get_request(self, request, TicketDetailView, tenant_check=True, *args, **kwargs)
 
 
@@ -251,10 +255,13 @@ class TicketEditSuspendView(UpdateView):
         if not ticket.permission_to_open(request.user) or not ticket.permission_to_suspend(request.user):
             return error_403(request)
         result = ticket.set_suspended()
-        if result.suspended is True:
-            messages.success(request, f'Ticket <strong>{result}</strong> has been suspended')
+        if isinstance(result, Ticket):
+            if result.suspended:
+                messages.success(request, f'Ticket <strong>{result}</strong> has been suspended')
+            else:
+                messages.success(request, f'Ticket <strong>{result}</strong> has been unsuspended')
         else:
-            messages.success(request, f'Ticket <strong>{result}</strong> has been unsuspended')
+            messages.error(request, result)
         return HttpResponseRedirect(reverse('view_ticket', args=[ticket.slug]))
 
 
@@ -424,11 +431,11 @@ class TicketCloneView(UpdateView):
 
     def post(self, request, *args, **kwargs):
         ticket = self.get_object()
-        if not ticket.permission_to_open_ticket(request.user) or not ticket.permission_to_clone(request.user):
+        if not ticket.permission_to_open(request.user) or not ticket.permission_to_clone(request.user):
             return error_403(request)
         type_id = request.POST.get('type')
         if type_id:
-            result = ticket.clone_ticket(ticket, type_id)
+            result = ticket.clone_ticket(type_id, request.user)
             if isinstance(result, Ticket):
                 messages.success(request, f'Ticket <strong>{ticket}</strong> has been cloned to <strong>{result}</strong>')
                 return HttpResponseRedirect(reverse('view_ticket', args=[result.slug]))
@@ -649,8 +656,8 @@ class PasswordResetConfirmView(FormView, PasswordContextMixin):
                     self.request.session[INTERNAL_RESET_SESSION_TOKEN] = token
                     redirect_url = self.request.path.replace(token, self.reset_url_token)
                     return HttpResponseRedirect(redirect_url)
-        messages.warning(self.request, 'Token has expired, send email again')
-        return self.render_to_response(self.get_context_data())  # Display the "Password reset unsuccessful" page.
+        messages.warning(self.request, 'Security token has expired, send email again')
+        return self.render_to_response(self.get_context_data())  # display unsuccessful title
 
     @staticmethod
     def get_user(uidb64):
@@ -755,6 +762,9 @@ def method_not_allowed(request, template_name='errors/405.html'):
 def internal_server_error(request, template_name='error/500.html'):
     return render(request, template_name, {}, status=500)
 
+
+def csrf_error(request, template_name='errors/csrf-token.html'):
+    return render(request, template_name, {}, status=403)
 
 '''
 class TenantUpdateView(UpdateView):

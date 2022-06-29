@@ -1423,7 +1423,7 @@ footer a:visited {
 }
 
 .resolved {
-    background-color: #d4eeda;
+    font-family: Lato-bold, sans-serif;
 }
 
 .ticket-link {

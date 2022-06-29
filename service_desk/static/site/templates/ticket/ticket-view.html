@@ -45,7 +45,7 @@
           </button>
         </div>
       {% endif %}
-      {% if allow_to_suspend %}
+      {% if allow_to_suspend and not ticket.resolution %}
         <div class="ticket-view_navbar-block">
           <form action="{% url 'edit_ticket_suspend' object.slug %}" method="post">
             {% csrf_token %}

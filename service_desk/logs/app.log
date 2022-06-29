@@ -1318,3 +1318,90 @@
 2022-06-29 06:30:31 INFO | [127.0.0.1] admin added related ticket: "HSW-82" in Ticket with id 9
 2022-06-29 06:30:42 INFO | [127.0.0.1] admin added comment: "<pre><strong>View</strong></pre>" in Ticket with id 5
 2022-06-29 06:30:55 INFO | [127.0.0.1] admin created ticket: "HSW-87" in Ticket with id 12
+2022-06-29 18:30:26 INFO | [127.0.0.1] admin updated labels to: "Payment" in Ticket with id 9
+2022-06-29 20:10:15 INFO | [127.0.0.1] admin updated suspended to: "False" in Ticket with id 1
+2022-06-29 20:11:13 INFO | [127.0.0.1] admin updated status to: "New" in Ticket with id 1
+2022-06-29 20:11:15 INFO | [127.0.0.1] admin updated status to: "On 1LS" in Ticket with id 1
+2022-06-29 20:11:17 INFO | [127.0.0.1] admin updated status to: "Cancelled" in Ticket with id 1
+2022-06-29 20:11:28 INFO | [127.0.0.1] admin updated assignee to: "James Smith" in Ticket with id 1
+2022-06-29 20:12:02 INFO | [127.0.0.1] admin updated status to: "New" in Ticket with id 1
+2022-06-29 20:12:05 INFO | [127.0.0.1] admin updated status to: "Rejected" in Ticket with id 1
+2022-06-29 20:12:12 INFO | [127.0.0.1] admin updated status to: "In progress" in Ticket with id 12
+2022-06-29 20:12:14 INFO | [127.0.0.1] admin updated status to: "Code review" in Ticket with id 12
+2022-06-29 20:12:15 INFO | [127.0.0.1] admin updated status to: "Resolved" in Ticket with id 12
+2022-06-29 20:12:16 INFO | [127.0.0.1] admin updated status to: "Closed" in Ticket with id 12
+2022-06-29 20:29:05 INFO | [127.0.0.1] admin added comment: "<p>cze</p>" in Ticket with id 6
+2022-06-29 20:29:32 INFO | [127.0.0.1] admin deleted comment: "<p>cze</p>" in Ticket with id 6
+2022-06-29 20:55:43 INFO | [127.0.0.1] admin created ticket: "HSW-11" in Ticket with id 13
+2022-06-29 20:55:58 INFO | [127.0.0.1] admin created ticket: "HSW-12" in Ticket with id 14
+2022-06-29 20:56:02 INFO | [127.0.0.1] admin created ticket: "HSW-13" in Ticket with id 15
+2022-06-29 21:04:35 INFO | [127.0.0.1] admin created ticket: "HSW-12" in Ticket with id None
+2022-06-29 21:05:09 INFO | [127.0.0.1] admin created ticket: "HSW-2" in Ticket with id None
+2022-06-29 21:05:49 INFO | [127.0.0.1] admin created ticket: "HSW-3" in Ticket with id None
+2022-06-29 21:42:29 INFO | [127.0.0.1] admin created ticket: "HSW-15" in Ticket with id 30
+2022-06-29 21:42:59 INFO | [127.0.0.1] admin created ticket: "HSW-16" in Ticket with id 31
+2022-06-29 21:45:04 INFO | [127.0.0.1] admin created ticket: "HSW-17" in Ticket with id 32
+2022-06-29 21:49:22 INFO | [127.0.0.1] admin created ticket: "HSW-18" in Ticket with id 33
+2022-06-29 21:49:22 INFO | [127.0.0.1] admin cloned related ticket to: "HSW-18" in Ticket with id 32
+2022-06-29 21:51:01 INFO | [127.0.0.1] admin added related ticket: "HSW-16" in Ticket with id 32
+2022-06-29 21:51:01 INFO | [127.0.0.1] admin added related ticket: "HSW-17" in Ticket with id 31
+2022-06-29 21:51:52 INFO | [127.0.0.1] admin created ticket: "HSW-19" in Ticket with id 34
+2022-06-29 21:51:52 INFO | [127.0.0.1] admin cloned ticket to: "HSW-19" in Ticket with id 32
+2022-06-29 21:52:48 INFO | [127.0.0.1] admin created ticket: "HSW-20" in Ticket with id 35
+2022-06-29 21:52:48 INFO | [127.0.0.1] admin cloned ticket to: "HSW-20" in Ticket with id 32
+2022-06-29 21:54:47 INFO | [127.0.0.1] admin created ticket: "HSW-21" in Ticket with id 36
+2022-06-29 21:54:47 INFO | [127.0.0.1] admin cloned ticket to: "HSW-21" in Ticket with id 32
+2022-06-29 21:54:50 INFO | [127.0.0.1] admin created ticket: "HSW-22" in Ticket with id 37
+2022-06-29 21:54:50 INFO | [127.0.0.1] admin cloned ticket to: "HSW-22" in Ticket with id 32
+2022-06-29 21:54:54 INFO | [127.0.0.1] admin created ticket: "HSW-23" in Ticket with id 38
+2022-06-29 21:54:54 INFO | [127.0.0.1] admin cloned ticket to: "HSW-23" in Ticket with id 32
+2022-06-29 21:55:16 INFO | [127.0.0.1] admin created ticket: "HSW-24" in Ticket with id 39
+2022-06-29 21:55:16 INFO | [127.0.0.1] admin cloned ticket to: "HSW-24" in Ticket with id 32
+2022-06-29 21:56:40 INFO | [127.0.0.1] admin created ticket: "HSW-25" in Ticket with id 40
+2022-06-29 21:56:40 INFO | [127.0.0.1] admin cloned ticket to: "HSW-25" in Ticket with id 32
+2022-06-29 21:56:40 INFO | [127.0.0.1] admin added related ticket: "HSW-25" in Ticket with id 32
+2022-06-29 21:56:40 INFO | [127.0.0.1] admin added related ticket: "HSW-17" in Ticket with id 40
+2022-06-29 21:56:53 INFO | [127.0.0.1] admin created ticket: "HSW-26" in Ticket with id 41
+2022-06-29 21:56:53 INFO | [127.0.0.1] admin cloned ticket to: "HSW-26" in Ticket with id 40
+2022-06-29 21:56:53 INFO | [127.0.0.1] admin added related ticket: "HSW-26" in Ticket with id 40
+2022-06-29 21:56:53 INFO | [127.0.0.1] admin added related ticket: "HSW-25" in Ticket with id 41
+2022-06-29 21:57:23 INFO | [127.0.0.1] admin created ticket: "HSW-27" in Ticket with id 42
+2022-06-29 21:57:23 INFO | [127.0.0.1] admin cloned ticket to: "HSW-27" in Ticket with id 40
+2022-06-29 21:58:05 INFO | [127.0.0.1] admin created ticket: "HSW-28" in Ticket with id 43
+2022-06-29 21:58:05 INFO | [127.0.0.1] admin cloned ticket to: "HSW-28" in Ticket with id 40
+2022-06-29 21:58:28 INFO | [127.0.0.1] admin created ticket: "HSW-29" in Ticket with id 44
+2022-06-29 21:58:28 INFO | [127.0.0.1] admin cloned ticket to: "HSW-29" in Ticket with id 40
+2022-06-29 21:58:28 INFO | [127.0.0.1] admin added related ticket: "HSW-29" in Ticket with id 40
+2022-06-29 21:58:28 INFO | [127.0.0.1] admin added related ticket: "HSW-25" in Ticket with id 44
+2022-06-29 21:58:35 INFO | [127.0.0.1] admin created ticket: "HSW-30" in Ticket with id 45
+2022-06-29 21:58:35 INFO | [127.0.0.1] admin cloned ticket to: "HSW-30" in Ticket with id 44
+2022-06-29 21:58:35 INFO | [127.0.0.1] admin added related ticket: "HSW-30" in Ticket with id 44
+2022-06-29 21:58:35 INFO | [127.0.0.1] admin added related ticket: "HSW-29" in Ticket with id 45
+2022-06-29 21:59:42 INFO | [127.0.0.1] admin updated suspended to: "True" in Ticket with id 45
+2022-06-29 21:59:46 INFO | [127.0.0.1] admin updated suspended to: "False" in Ticket with id 45
+2022-06-29 21:59:47 INFO | [127.0.0.1] admin updated suspended to: "True" in Ticket with id 45
+2022-06-29 21:59:49 INFO | [127.0.0.1] admin updated suspended to: "False" in Ticket with id 45
+2022-06-29 22:01:54 INFO | [127.0.0.1] james.smith created ticket: "HSW-31" in Ticket with id 46
+2022-06-29 22:01:54 INFO | [127.0.0.1] james.smith cloned ticket to: "HSW-31" in Ticket with id 43
+2022-06-29 22:01:54 INFO | [127.0.0.1] james.smith added related ticket: "HSW-31" in Ticket with id 43
+2022-06-29 22:01:54 INFO | [127.0.0.1] james.smith added related ticket: "HSW-28" in Ticket with id 46
+2022-06-29 22:02:05 INFO | [127.0.0.1] james.smith updated status to: "Waiting for approval" in Ticket with id 46
+2022-06-29 22:02:12 INFO | [127.0.0.1] james.smith updated status to: "Rejected" in Ticket with id 46
+2022-06-29 22:02:20 INFO | [127.0.0.1] james.smith updated assignee to: "James Smith" in Ticket with id 46
+2022-06-29 22:02:27 INFO | [127.0.0.1] james.smith updated status to: "New" in Ticket with id 46
+2022-06-29 22:02:29 INFO | [127.0.0.1] james.smith updated status to: "Waiting for approval" in Ticket with id 46
+2022-06-29 22:02:31 INFO | [127.0.0.1] james.smith updated status to: "Rejected" in Ticket with id 46
+2022-06-29 22:05:47 INFO | [127.0.0.1] admin updated suspended to: "False" in Ticket with id 4
+2022-06-29 22:05:49 INFO | [127.0.0.1] admin updated suspended to: "True" in Ticket with id 4
+2022-06-29 22:05:50 INFO | [127.0.0.1] admin updated suspended to: "False" in Ticket with id 4
+2022-06-29 22:05:51 INFO | [127.0.0.1] admin updated suspended to: "True" in Ticket with id 4
+2022-06-29 22:05:52 INFO | [127.0.0.1] admin updated suspended to: "False" in Ticket with id 4
+2022-06-29 22:05:53 INFO | [127.0.0.1] admin updated suspended to: "True" in Ticket with id 4
+2022-06-29 22:05:53 INFO | [127.0.0.1] admin updated suspended to: "False" in Ticket with id 4
+2022-06-29 22:05:54 INFO | [127.0.0.1] admin updated suspended to: "True" in Ticket with id 4
+2022-06-29 22:05:54 INFO | [127.0.0.1] admin updated suspended to: "False" in Ticket with id 4
+2022-06-29 22:06:04 INFO | [127.0.0.1] admin added related ticket: "HSW-15" in Ticket with id 4
+2022-06-29 22:06:04 INFO | [127.0.0.1] admin added related ticket: "HSW-3" in Ticket with id 30
+2022-06-29 22:06:34 INFO | [127.0.0.1] admin deleted related ticket: "HSW-15" in Ticket with id 4
+2022-06-29 22:06:34 INFO | [127.0.0.1] admin deleted related ticket: "HSW-3" in Ticket with id 30
+2022-06-29 22:09:25 INFO | [127.0.0.1] admin updated assignee to: "James Smith" in Ticket with id 46
