@@ -10,6 +10,7 @@ from django import template
 
 register = template.Library()
 
+
 class GroupAdminModel(GroupAdmin):
     list_display = ('name', 'role')
     search_fields = ['name', 'role']
