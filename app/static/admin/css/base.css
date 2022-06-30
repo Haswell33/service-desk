@@ -620,7 +620,7 @@ input[type=button][disabled].default {
 
 .module h2, .module caption, .inline-group h2 {
     margin: 0;
-    padding: 9px;
+    padding: 8px 0 9px 0;
     font-size: 13px;
     text-align: left;
     border-bottom: 1px solid var(--elem-light-border);
@@ -1020,7 +1020,7 @@ table#change-history tbody th {
 }
 
 #content-related .actionlist li {
-    line-height: 1.2;
+    line-height: 1.22;
 }
 
 #content-related .module h2 {
