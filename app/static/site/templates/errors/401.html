@@ -1,0 +1,9 @@
+{% extends 'errors/base.html' %}
+
+<head>
+    <title>{% block title %} {{ block.super }} | Unauthorized{% endblock %}</title>
+</head>
+
+{% block content_page %}
+  <h1>Unauthorized - 401</h1>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends 'errors/base.html' %}
+
+<head>
+    <title>{% block title %} {{ block.super }} | Bad request{% endblock %}</title>
+</head>
+
+{% block content_page %}
+  <h1>Bad request - 400</h1>
+{% endblock %}

@@ -1,9 +1,0 @@
-{% extends 'errors/base.html' %}
-
-<head>
-    <title>{% block title %} {{ block.super }} | CSRF Token missing{% endblock %}</title>
-</head>
-
-{% block content_page %}
-  <h1>CSRF token missing or incorrect</h1>
-{% endblock %}

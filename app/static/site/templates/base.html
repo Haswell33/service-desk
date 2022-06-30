@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  {% load static %}
+  <title>{% block title %}Service Desk{% endblock %}</title>
+  <script type="text/javascript" rel="script" src="{% static 'site/js/jquery.min.js' %}"></script>
+  <script type="text/javascript" rel="script" src="{% static 'site/js/base.js' %}"></script>
+  <script type="text/javascript" rel="script" src="{% static 'site/js/sidebar.js' %}"></script>
+  <script type="text/javascript" rel="script" src="{% static 'site/js/fields.js' %}"></script>
+  <script type="text/javascript" rel="script" src="{% static 'site/js/bootstrap-filestyle.min.js' %}"></script>
+  <script type="text/javascript" rel="script" src="{% static 'site/js/select2.min.js' %}"></script>
+  <link type="text/css" rel="stylesheet" href="{% static 'site/css/base.css' %}"/>
+  <link type="text/css" rel="stylesheet" href="{% static 'site/css/select2.min.css' %}">
+  <link type="text/css" rel="stylesheet" href="{% static 'site/css/select2-custom.css' %}"/>
+  <link type="text/css" rel="stylesheet" href="{% static 'site/css/tinymce-custom.css' %}">
+  <link rel="icon" type="image/x-icon" href="{% static 'site/img/favicon.ico' %}">
+  <link rel="canonical" href="{{ request.build_absolute_uri }}">
+  <meta charset="utf-8">
+  <meta name="author" content="Karol Siedlaczek">
+  <meta name="description" content="Service Desk App">
+  <meta name="keywords" content="service desk ticket issue project tenant">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+  <nav id="navbar" class="sticky">
+    {% block header %}
+    <div class="navbar-block">
+      <div id="navbar-block_logo">
+        <a href="{% url 'home' %}">
+          <svg width="48" height="48" viewBox="0 0 128 128" class="icon" xmlns="http://www.w3.org/2000/svg">
+            <rect x="8" y="8" width="112" height="112" rx="20" />
+            <path d="M98.4164 43.9158C98.1101 42.6812 96.5652 42.2628 95.6656 43.1625L85.4992 53.3288L76.2188 51.7825L74.6725 42.5021L84.8389 32.3357C85.7439 31.4307 85.3078 29.8885 84.065 29.5795C77.5873 27.9744 70.4547 29.7039 65.392 34.7652C59.9725 40.1847 58.4809 48.0406 60.7368 54.8902L31.5624 84.0645C28.1459 87.4811 28.1459 93.0209 31.5624 96.4375C34.979 99.8541 40.5189 99.8541 43.9355 96.4375L73.0852 67.2878C79.9375 69.5723 87.7783 68.0643 93.2334 62.6093C98.3015 57.5411 100.028 50.3976 98.4164 43.9158V43.9158ZM37.7503 93.5309C35.9388 93.5309 34.4691 92.0612 34.4691 90.2496C34.4691 88.4367 35.9388 86.9684 37.7503 86.9684C39.5618 86.9684 41.0316 88.4367 41.0316 90.2496C41.0316 92.0612 39.5618 93.5309 37.7503 93.5309Z" fill="#353535"/>
+          </svg>
+        </a>
+      </div>
+      {% if user.is_authenticated %}
+        <div id="navbar-block_logged-info">
+          <p>Logged as {{ user }}</p>
+        </div>
+      {% else %}
+        <p>Welcome!</p>
+      {% endif %}
+    </div>
+    <div class="navbar-block">
+      {% if user.is_authenticated %}
+        <div id="navbar-block_search">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 487.95 487.95" fill="#e1e1e1" width="17" height="17">
+	        <path d="M481.8,453l-140-140.1c27.6-33.1,44.2-75.4,44.2-121.6C386,85.9,299.5,0.2,193.1,0.2S0,86,0,191.4s86.5,191.1,192.9,191.1c45.2,0,86.8-15.5,119.8-41.4l140.5,140.5c8.2,8.2,20.4,8.2,28.6,0C490,473.4,490,461.2,481.8,453z M41,191.4c0-82.8,68.2-150.1,151.9-150.1s151.9,67.3,151.9,150.1s-68.2,150.1-151.9,150.1S41,274.1,41,191.4z"/>
+          </svg>
+          <input type="search" placeholder="Search ticket...">
+        </div>
+        <div id="navbar-block_menu">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 16 16">
+            <path d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+          </svg>
+          <ul style="display: none">
+            {% if user.is_authenticated %}
+            <li id="menu-block_username">
+              <img src="{{ MEDIA_URL }}{{ request.session.user_icon }}" height="17px" width="17px"/>
+              <p>{{ user }}</p>
+            </li>
+            {% endif %}
+            {% if user.is_superuser %}
+            <li id="menu-block_administration">
+              <a href="{% url 'admin:index' %}">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#e1e1e1" viewBox="0 0 16 16">
+                  <path d="M5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.775 11.775 0 0 1-2.517 2.453 7.159 7.159 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7.158 7.158 0 0 1-1.048-.625 11.777 11.777 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 62.456 62.456 0 0 1 5.072.56z"/>
+                </svg>
+                <p>Administration</p>
+              </a>
+            </li>
+            {% endif %}
+            <li id="menu-block_settings">
+              <a href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#e1e1e1">
+                  <path d="M495.9 166.6C499.2 175.2 496.4 184.9 489.6 191.2L446.3 230.6C447.4 238.9 448 247.4 448 256C448 264.6 447.4 273.1 446.3 281.4L489.6 320.8C496.4 327.1 499.2 336.8 495.9 345.4C491.5 357.3 486.2 368.8 480.2 379.7L475.5 387.8C468.9 398.8 461.5 409.2 453.4 419.1C447.4 426.2 437.7 428.7 428.9 425.9L373.2 408.1C359.8 418.4 344.1 427 329.2 433.6L316.7 490.7C314.7 499.7 307.7 506.1 298.5 508.5C284.7 510.8 270.5 512 255.1 512C241.5 512 227.3 510.8 213.5 508.5C204.3 506.1 197.3 499.7 195.3 490.7L182.8 433.6C167 427 152.2 418.4 138.8 408.1L83.14 425.9C74.3 428.7 64.55 426.2 58.63 419.1C50.52 409.2 43.12 398.8 36.52 387.8L31.84 379.7C25.77 368.8 20.49 357.3 16.06 345.4C12.82 336.8 15.55 327.1 22.41 320.8L65.67 281.4C64.57 273.1 64 264.6 64 256C64 247.4 64.57 238.9 65.67 230.6L22.41 191.2C15.55 184.9 12.82 175.3 16.06 166.6C20.49 154.7 25.78 143.2 31.84 132.3L36.51 124.2C43.12 113.2 50.52 102.8 58.63 92.95C64.55 85.8 74.3 83.32 83.14 86.14L138.8 103.9C152.2 93.56 167 84.96 182.8 78.43L195.3 21.33C197.3 12.25 204.3 5.04 213.5 3.51C227.3 1.201 241.5 0 256 0C270.5 0 284.7 1.201 298.5 3.51C307.7 5.04 314.7 12.25 316.7 21.33L329.2 78.43C344.1 84.96 359.8 93.56 373.2 103.9L428.9 86.14C437.7 83.32 447.4 85.8 453.4 92.95C461.5 102.8 468.9 113.2 475.5 124.2L480.2 132.3C486.2 143.2 491.5 154.7 495.9 166.6V166.6zM256 336C300.2 336 336 300.2 336 255.1C336 211.8 300.2 175.1 256 175.1C211.8 175.1 176 211.8 176 255.1C176 300.2 211.8 336 256 336z"/>
+                </svg>
+                <p>Settings</p>
+              </a>
+            </li>
+            <li id="menu-block_password-change">
+              <a href="{% url 'password_change' %}">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 330" fill="#e1e1e1">
+                  <path id="XMLID_510_" d="M65,330h200c8.284,0,15-6.716,15-15V145c0-8.284-6.716-15-15-15h-15V85c0-46.869-38.131-85-85-85S80,38.131,80,85v45H65c-8.284,0-15,6.716-15,15v170C50,323.284,56.716,330,65,330z M180,234.986V255c0,8.284-6.716,15-15,15s-15-6.716-15-15v-20.014c-6.068-4.565-10-11.824-10-19.986c0-13.785,11.215-25,25-25s25,11.215,25,25C190,223.162,186.068,230.421,180,234.986z M110,85c0-30.327,24.673-55,55-55s55,24.673,55,55v45H110V85z"/>
+                </svg>
+                <p>Change password</p>
+              </a>
+            </li>
+            <li id="menu-block_logout">
+              <a href="{% url 'logout' %}">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#e1e1e1">
+                  <path d="M288 256C288 273.7 273.7 288 256 288C238.3 288 224 273.7 224 256V32C224 14.33 238.3 0 256 0C273.7 0 288 14.33 288 32V256zM80 256C80 353.2 158.8 432 256 432C353.2 432 432 353.2 432 256C432 201.6 407.3 152.9 368.5 120.6C354.9 109.3 353 89.13 364.3 75.54C375.6 61.95 395.8 60.1 409.4 71.4C462.2 115.4 496 181.8 496 255.1C496 388.5 388.5 496 256 496C123.5 496 16 388.5 16 255.1C16 181.8 49.75 115.4 102.6 71.4C116.2 60.1 136.4 61.95 147.7 75.54C158.1 89.13 157.1 109.3 143.5 120.6C104.7 152.9 80 201.6 80 256z"/>
+                </svg>
+                <p>Log Out</p>
+              </a>
+            </li>
+          </ul>
+        </div>
+      {% else %}
+        <div id="navbar-block_login">
+          <a href="{% url 'login' %}">Log In</a>
+        </div>
+      {% endif %}
+    </div>
+    {% endblock %}
+  </nav>
+  {% block content %}
+  <div id="content-page">
+    {% block content_page %}
+    {% endblock %}
+  </div>
+  {% endblock %}
+  {% if messages %}
+    <ul id="message-list">
+      {% for message in messages %}
+        <li class="message {{ message.tags }}">
+          <p>{{ message|safe }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  <footer id="foobar">
+    {% block footer %}
+    <div class="foobar-block">
+      <p>Karol Siedlaczek &copy; 2022</p>
+    </div>
+    <div class="foobar-block">
+      <a href="https://github.com/Haswell33" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="icon" width="23" height="23">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+        </svg>
+      </a>
+    </div>
+    <div class="foobar-block">
+      <p>Wojskowa Akademia Techniczna</p>
+    </div>
+    {% endblock %}
+  </footer>
+  <span class="dialog-bg" style="display: none"></span>
+  <span class="dialog-bg-full" style="display: none"></span>
+</body>
+</html>
+
+<script>
+  $(document).ready(function(){
+    console.log('document ready')
+    bootstrapFilestyle()
+    let userIsAdmin = ('{{user.is_superuser}}' === 'True')  // it only changes colors of page :)
+    let userIsAuth = ('{{user.is_authenticated}}' === 'True')
+    let role = '{{ active_tenant_session.role }}'
+    themeColor(userIsAuth, userIsAdmin, role)
+  })
+</script>

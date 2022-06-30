@@ -1,0 +1,9 @@
+{% extends "admin/index.html" %}
+
+<head>
+    {% load static %}
+    {% block extrahead %}{{ block.super }}
+        <script type="text/javascript" rel="script" src="{% static 'site/js/base.js' %}"></script>
+        <script type="text/javascript" rel="script" src="{% static 'site/js/render-fields.js' %}"></script>
+    {% endblock %}
+</head>

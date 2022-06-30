@@ -1,0 +1,21 @@
+{% extends 'admin/base.html' %}
+
+<body>
+    <div id="header">
+        <div id="branding">
+            {% block branding %}{% endblock %}
+        </div>
+        <div id="user-tools">
+            {% block usertools %}{% endblock %}
+        </div>
+    {% block nav-global %}
+        {% include 'base.html' %}
+        <script>
+            $(document).ready(function(){renderFields('admin', '{{ MEDIA_URL }}')})
+        </script>
+    {% endblock %}
+    </div>
+</body>
+
+
+

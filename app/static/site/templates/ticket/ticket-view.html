@@ -1,0 +1,523 @@
+{% extends 'home.html' %}
+{% load filters %}
+<head>
+  <title>{% block title %} {{ block.super }} | Ticket {{ object.key }}{% endblock %}</title>
+</head>
+
+<body>
+  {% block content_page %}
+  <div id="content-page_header" class="separated">
+    <div class="content-page_header-block">
+      <div class="content-page_header-block_type">{{ object.type.get_icon }}</div>
+      <h2>{{ object.key }}</h2>
+    </div>
+  </div>
+  <div class="separator-horizontal"></div>
+  <div class="content-page-block">
+    <div id="ticket-view_navbar">
+      <div class="ticket-view_navbar-block">
+        <button id="edit-ticket_button" data-type="action">
+          Edit
+        </button>
+      </div>
+      {% if transitions.all.count > 0 %}
+        <div class="ticket-view_navbar-block">
+          <form action="{% url 'edit_ticket_status' object.slug %}" method="post">
+            {% csrf_token %}
+            {% for transition in transitions %}
+              {% if not ticket.suspended %}
+                <button type="submit" name="transition" value="{{ transition.id }}" data-type="action" title='Change status to "{{ transition.transition.dest_status }}"'>
+                    {{ transition.transition.name }}
+                </button>
+              {% else %}
+                <button type="submit" name="transition" data-type="action" title="Unsuspend ticket to change status" class="status-view_suspended" disabled>
+                  {{ transition.transition.name }}
+                </button>
+              {% endif %}
+            {% endfor %}
+          </form>
+        </div>
+      {% endif %}
+      {% if allow_to_assign %}
+        <div class="ticket-view_navbar-block">
+          <button id="edit-assignee_button" data-type="action">
+            Assign
+          </button>
+        </div>
+      {% endif %}
+      {% if allow_to_suspend and not ticket.resolution %}
+        <div class="ticket-view_navbar-block">
+          <form action="{% url 'edit_ticket_suspend' object.slug %}" method="post">
+            {% csrf_token %}
+            {% if object.suspended %}
+              <button data-type="action">Unsuspend</button>
+            {% else %}
+              <button data-type="action">Suspend</button>
+            {% endif %}
+          </form>
+        </div>
+      {% endif %}
+      {% if allow_to_clone %}
+        <div class="ticket-view_navbar-block">
+          <button id="clone-ticket_button" data-type="action">
+            Clone
+          </button>
+        </div>
+      {% endif %}
+    </div>
+    <div class="separator-horizontal-thin"></div>
+    <div id="ticket-view_content">
+      <div class="ticket-view_field-group">
+        <div class="ticket-view_field title-view">
+          <div class="ticket-view_field_label">
+            {% get_verbose_name object 'title' %}
+          </div>
+          <div class="ticket-view_field_content">
+            {{ object.title }}
+          </div>
+        </div>
+      </div>
+      <div class="separator-horizontal-thin"></div>
+      <div class="ticket-view_field-group main">
+        <div class="ticket-view_field">
+          <div class="ticket-view_field_label">
+            {% get_verbose_name object 'type' %}
+          </div>
+          <div class="ticket-view_field_content">
+            {{ object.type.get_icon_text }}
+          </div>
+        </div>
+        <div class="ticket-view_field">
+          <div class="ticket-view_field_label">
+            {% get_verbose_name object 'status' %}
+          </div>
+          <div class="ticket-view_field_content">
+            {{ object.status.get_colored }}
+          </div>
+        </div>
+        <div class="ticket-view_field">
+          <div class="ticket-view_field_label">
+            {% get_verbose_name object 'labels' %}
+          </div>
+          <div class="ticket-view_field_content">
+            {% if object.labels.count > 0 %}
+              {% for label in object.labels.all %}
+                <div class="label-view">
+                  {{ label }}
+                </div>
+              {% endfor %}
+            {% else %}
+              <div class="ticket-block_info-left">
+                No labels
+              </div>
+            {% endif %}
+          </div>
+        </div>
+        <div class="ticket-view_field">
+          <div class="ticket-view_field_label">
+            {% get_verbose_name object 'reporter' %}
+          </div>
+          <div class="ticket-view_field_content user-view">
+            {{ object.reporter.get_icon_text }}
+          </div>
+        </div>
+        <div class="ticket-view_field">
+          <div class="ticket-view_field_label">
+            {% get_verbose_name object 'priority' %}
+          </div>
+          <div class="ticket-view_field_content">
+            {{ object.priority.get_icon_text }}
+          </div>
+        </div>
+        <div class="ticket-view_field">
+          <div class="ticket-view_field_label">
+            {% get_verbose_name object 'assignee' %}
+          </div>
+          <div class="ticket-view_field_content user-view">
+            {{ object.get_assignee }}
+          </div>
+        </div>
+        <div class="ticket-view_field">
+          <div class="ticket-view_field_label">
+            {% get_verbose_name object 'resolution' %}
+          </div>
+          <div class="ticket-view_field_content">
+            {{ object.get_resolution }}
+          </div>
+        </div>
+        <div class="ticket-view_field">
+          <div class="ticket-view_field_label">
+            {% get_verbose_name object 'suspended' %}
+          </div>
+          <div class="ticket-view_field_content">
+            {% if object.suspended %}
+              Yes
+            {% else %}
+              <div class="ticket-block_info-left">
+                No
+              </div>
+            {% endif %}
+          </div>
+        </div>
+        <div class="ticket-view_field">
+          <div class="ticket-view_field_label">
+            {% get_verbose_name object 'created' %}
+          </div>
+          <div class="ticket-view_field_content ticket-user">
+            {% get_datetime_local object.created %}
+          </div>
+        </div>
+        <div class="ticket-view_field">
+          <div class="ticket-view_field_label">
+            {% get_verbose_name object 'updated' %}
+          </div>
+          <div class="ticket-view_field_content ticket-user">
+            {% get_datetime_local object.updated %}
+          </div>
+        </div>
+      </div>
+      <div class="ticket-view_field-group aside">
+        <div class="ticket-view_field">
+          <div class="ticket-view_field_label">
+            {% get_verbose_name object 'attachments' %}
+          </div>
+          <div class="ticket-view_field_content">
+            {% if object.attachments.count > 0 %}
+              {% for attachment in object.attachments.all %}
+                <div class="ticket-field-content_aside">
+                  <a class="file {% get_file_extension_class attachment.filename %} default-hover" href="{{ MEDIA_URL }}{{ attachment.file }}" download="{{ attachment.filename }}" title="Click to download {{ attachment.filename }}">{% get_max_length_string attachment.filename 40 %}</a>
+                  {% if user == attachment.user or user.is_admin %}
+                    <div class="attachment-view_delete" title="Delete {{ attachment.filename }}">
+                      <form action="{% url 'edit_ticket_attachment_delete' object.slug  %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="attachment" value="{{ attachment.id }}">
+                        <button type="submit" class="no-button">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="icon dark default-hover" viewBox="0 0 16 16">
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                          </svg>
+                        </button>
+                      </form>
+                    </div>
+                  {% endif %}
+                  <div class="description break-flex">({{ attachment.display_size }}) {{ attachment.uploaded_datetime }}</div>
+                  <div class="description break-flex" style="font-style: italic">Attached by {{ attachment.user }}</div>
+                </div>
+              {% endfor %}
+            {% else %}
+              <div class="ticket-block_info-left">
+                No attachments
+              </div>
+            {% endif %}
+            <button id="add-attachment_button" data-type="action" class="button-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 16 16">
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+              </svg>
+              Upload file
+            </button>
+          </div>
+        </div>
+      </div>
+      <span class="separator-horizontal-thin"></span>
+      <div class="ticket-view_field-group break-flex main maximize-height">
+        <div class="ticket-view_field">
+          <div class="ticket-view_field_label">
+            {% get_verbose_name object 'description' %}
+          </div>
+          <div class="ticket-view_field_content description-view">
+            {% if object.description %}
+              {{ object.description|safe }}
+            {% else %}
+              <div class="ticket-block_info-left">
+                No description
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="ticket-view_field-group aside maximize-height">
+        <div class="ticket-view_field">
+          <div class="ticket-view_field_label">
+            Relations
+          </div>
+          <div class="ticket-view_field_content">
+            {% if object.relations_out.count > 0 %}
+              {% for relation in object.relations_out.all %}
+                <div class="ticket-field-content_aside ticket-block relation-out">
+                  <div class="ticket-block_row " row="1" style="border-bottom: none; padding: 0">
+                    <a href="{% url 'view_ticket' relation.slug %}" title="{{ relation.title }}">
+                      <div class="ticket-link">
+                        {{ relation.type.get_icon }}
+                        <p class="ticket-key">{{ relation.key }}</p>
+                      </div>
+                    </a>
+                      <div class="ticket-block_row-block">
+                        {{ relation.status.get_colored }}
+                      </div>
+                  </div>
+                  <div title="Delete {{ relation }}">
+                    {% if user == relation.author or user.is_admin %}
+                      <form action="{% url 'edit_ticket_relation_delete' object.slug  %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="relation" value="{{ relation.id }}">
+                        <button type="submit" class="no-button">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="icon dark default-hover" viewBox="0 0 16 16">
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                          </svg>
+                        </button>
+                      </form>
+                    {% endif %}
+                  </div>
+                  <div class="description break-flex" title="{{ relation.title }}">
+                    {% get_max_length_string relation.title 55 %}
+                  </div>
+                  <div class="description break-flex">
+                    Relation type: Outgoing
+                  </div>
+                </div>
+              {% endfor %}
+            {% endif %}
+            {% if object.relations_in.count > 0 %}
+              {% for relation in object.relations_in.all %}
+                <div class="ticket-field-content_aside ticket-block relation-in">
+                  <div class="ticket-block_row" row="1" style="border-bottom: none; padding: 0">
+                    <a href="{% url 'view_ticket' relation.slug %}" title="{{ relation.title }}">
+                      <div class="ticket-link">
+                        {{ relation.type.get_icon }}
+                        <p class="ticket-key">{{ relation.key }}</p>
+                      </div>
+                    </a>
+                      <div class="ticket-block_row-block">
+                        {{ relation.status.get_colored }}
+                      </div>
+                  </div>
+                  <div title="Remove relation {{ relation }}">
+                    {% if user == relation.author or user.is_admin %}
+                      <form action="{% url 'edit_ticket_relation_delete' object.slug  %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="relation" value="{{ relation.id }}">
+                        <button type="submit" class="no-button">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="icon dark default-hover" viewBox="0 0 16 16">
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                          </svg>
+                        </button>
+                      </form>
+                    {% endif %}
+                  </div>
+                  <div class="description break-flex" title="{{ relation.title }}">
+                    {% get_max_length_string relation.title 55 %}
+                  </div>
+                  <div class="description break-flex">
+                    Relation type: Ingoing
+                  </div>
+                </div>
+              {% endfor %}
+            {% endif %}
+            {% if object.relations_out.count == 0 and object.relations_in.count == 0 %}
+              <div class="ticket-block_info-left">
+                No relations
+              </div>
+            {% endif %}
+            <button id="add-relation_button" data-type="action" class="button-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 16 16">
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+              </svg>
+              Add relation
+            </button>
+          </div>
+        </div>
+      </div>
+      <span class="separator-horizontal-thin"></span>
+      <div class="ticket-view_field-group main break-flex full-height">
+        <div class="ticket-view_field comment-view">
+          <div class="ticket-view_field_label">
+            {% get_verbose_name object 'comments' %}
+          </div>
+          <div class="ticket-view_field_content">
+            {% if object.comments.count > 0 %}
+              {% for comment in object.comments.all %}
+                <div class="ticket-field-content_aside">
+                  <div class="comment-view_nav">
+                    {{ comment.author_img_text }}
+                    <span title="{{ comment.created }}" class="description"> commented {% get_time_ago comment.created %}</span>
+                  </div>
+                  {% if user == comment.author or user.is_admin %}
+                    <div title="Delete comment">
+                      <form action="{% url 'edit_ticket_comment_delete' object.slug  %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="comment" value="{{ comment.id }}">
+                        <button type="submit" class="no-button">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="icon dark default-hover" viewBox="0 0 16 16">
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                          </svg>
+                        </button>
+                      </form>
+                    </div>
+                  {% endif %}
+                  <div class="comment-view_content break-flex">
+                    {{ comment.content|safe }}
+                  </div>
+                  {% if user == comment.author or user.is_admin %}
+                    <div class="break-flex">
+                      <button id="edit-comment_button" type="submit" class="no-button description default-hover" data-id="{{ comment.id }}" data-value="{{ comment.content }}">
+                        Edit
+                      </button>
+                    </div>
+                  {% endif %}
+                  {% if comment.updated %}
+                    <div class="break-flex description">
+                      <div title="{{ comment.updated }}" style="font-style: italic; padding-top: 5px">Updated {% get_time_ago comment.updated %}</div>
+                    </div>
+                  {% endif %}
+                </div>
+              {% endfor %}
+            {% else %}
+              <div class="ticket-block_info-left">
+                No comments
+              </div>
+            {% endif %}
+          </div>
+          <button id="add-comment_button" data-type="action" class="button-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 16 16">
+              <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+            </svg>
+            Add comment
+          </button>
+        </div>
+      </div>
+      <div class="ticket-view_field-group aside break-flex maximize-height">
+        <div class="ticket-view_field history-view">
+          <div class="ticket-view_field_label">
+            History
+          </div>
+          <div class="ticket-view_field_content">
+            {% if audit_logs|length > 0 %}
+              {% for audit_log in audit_logs %}
+                <div class="ticket-field-content_aside">
+                  <div class="history-view_nav ">
+                    <div class="img-text_field">
+                      <img src="{{ MEDIA_URL}}/{{ audit_log.user.icon }}" height="18" width="18" title="{{ audit_log.user }}" alt="{{ audit_log.user }}"/>
+                      {{ audit_log.user }}
+                    </div>
+                    <span title="{{ audit_log.created }}" class="description">{% get_time_ago audit_log.created %}</span>
+                  </div>
+                  <div class="break-flex" style="padding-top: 10px">
+                    {{ audit_log.get_message_operation }}
+                  </div>
+                  <div class="break-flex history-view_content">
+                    "{% get_max_length_string audit_log.content_value|safe 100 %}"
+                  </div>
+                </div>
+              {% endfor %}
+            {% else %}
+              <div class="ticket-block_info-left">
+                No changes have been made yet
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="dialogs">
+    <div id="edit-ticket_dialog" class="dialog center">
+      <form action="{% url 'edit_ticket' object.slug %}" method="post">
+        {% csrf_token %}
+        <h2>Edit {{object.key}}</h2>
+        <div class="form-field long-field required">
+          <label for="{{ form_update.title.id_for_label }}">{{ form_update.title.label }}</label>
+          {{ form_update.title }}
+          <div class="description">{{ form_update.title.help_text }}</div>
+        </div>
+        <div class="form-field medium-field required">
+          <label for="{{ form_update.priority.id_for_label }}">{{ form_update.priority.label }}</label>
+          {{ form_update.priority }}
+        </div>
+        <div class="form-field medium-field">
+          <label for="{{ form_update.labels.id_for_label }}">{{ form_update.labels.label }}</label>
+          {{ form_update.labels }}
+        </div>
+        <div class="form-field long-field">
+          <label for="{{ form_update.description.id_for_label }}">{{ form_update.description.label }}</label>
+          {{ form_update.media }} {{ form_update.description }}
+        </div>
+        <div class="form-field long-field">
+          <input type="submit" class="button" value="Save">
+        </div>
+      </form>
+    </div>
+    <div id="edit-assignee_dialog" class="dialog center">
+      <form action="{% url 'edit_ticket_assignee' object.slug %}" method="post">
+        {% csrf_token %}
+        <div class="form-field short-field">
+          <label for="{{ form_update_assignee.assignee.id_for_label }}">{{ form_update_assignee.assignee.label }}</label>
+          {{ form_update_assignee.assignee }}
+        </div>
+        <input type="submit" value="Save">
+      </form>
+    </div>
+    <div id="clone-ticket_dialog" class="dialog center">
+      <form action="{% url 'clone_ticket' object.slug %}" method="post">
+        {% csrf_token %}
+        <h2>Clone ticket</h2>
+        <div class="form-field short-field">
+          <label for="{{ form_clone_ticket.type.id_for_label }}">{{ form_clone_ticket.type.label }}</label>
+          {{ form_clone_ticket.type }}
+        </div>
+        <input type="submit" value="Clone">
+      </form>
+    </div>
+    <div id="add-relation_dialog" class="dialog center">
+      <form action="{% url 'edit_ticket_relation_add' object.slug %}" method="POST">
+        {% csrf_token %}
+        <h2>Add relation</h2>
+        <div class="form-field medium-field required">
+          <label for="id_relations">Search for open tickets</label>
+          <select id="id_relations" name="relations" multiple>
+            {% for ticket in available_tickets_to_relate %}
+              <option icon="{{ ticket.type.icon }}" value="{{ ticket.id }}">{{ ticket.key }} - {{ ticket.title }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <input type="submit" value="Save">
+      </form>
+    </div>
+    <div id="add-attachment_dialog" class="dialog center">
+      <form enctype="multipart/form-data" action="{% url 'edit_ticket_attachment_add' object.slug %}" method="post">
+        {% csrf_token %}
+        <h2>Upload attachment/s</h2>
+        <div class="form-field medium-field">
+          <label for="id_attachments">Attach a file</label>
+          <input type="file" id="id_attachments" name="attachments" multiple/>
+        </div>
+        <input type="submit" value="Upload">
+      </form>
+    </div>
+    <div id="add-comment_dialog" class="dialog center">
+      <form action="{% url 'edit_ticket_comment_add' object.slug %}" method="POST">
+        {% csrf_token %}
+        <h2>Add comment</h2>
+        <div class="form-field long-field">
+          {{ form_comment.media }} {{ form_comment.content }}
+        </div>
+        <input type="submit" value="Save">
+      </form>
+    </div>
+    <div id="edit-comment_dialog" class="dialog center">
+      <form action="{% url 'edit_ticket_comment_edit' object.slug %}" method="POST">
+        <h2>Edit comment</h2>
+        {% csrf_token %}
+        <input type="hidden" initial="script" name="comment" value="">
+        <div class="form-field long-field">
+          {{ form_comment.media }} {{ form_comment.content }}
+        </div>
+        <input type="submit" value="Save">
+      </form>
+    </div>
+  </div>
+  <script>
+    $(document).ready(function(){renderFields('ticket-view', '{{ MEDIA_URL }}')})
+  </script>
+  {% endblock %}
+</body>
+
+

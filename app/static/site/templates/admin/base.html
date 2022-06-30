@@ -1,0 +1,19 @@
+{% extends 'admin/base.html' %}
+
+<head>
+  {% load static %}
+  <title>{% block title %}Service Desk | Administration{% endblock %}</title>
+  {% block extrahead %}
+    <link rel="icon" type="image/x-icon" href="{% static 'site/img/favicon.ico' %}">
+  {% endblock %}
+  {% block extrastyle %}{{ block.super }}
+    <link type="text/css" rel="stylesheet" href="{% static 'site/css/admin-custom.css' %}">
+  {% endblock %}
+</head>
+<body>
+  <main>
+    {% block content %}
+      {{ block.super }}
+    {% endblock %}
+  </main>
+</body>

@@ -1,0 +1,9 @@
+{% extends 'errors/base.html' %}
+
+<head>
+    <title>{% block title %} {{ block.super }} | Method not allowed{% endblock %}</title>
+</head>
+
+{% block content_page %}
+  <h1>Method not allowed - 405</h1>
+{% endblock %}

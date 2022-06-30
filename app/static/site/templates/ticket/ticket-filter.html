@@ -1,0 +1,193 @@
+{% extends 'home.html' %}
+
+<head>
+  <title>{% block title %} {{ block.super }} | Filter view{% endblock %}</title>
+</head>
+
+<body>
+  {% block content_page %}
+    {% load filters %}
+    <div id="content-page_header">
+      <div class="content-page_header-block">
+        <h2>Filter view</h2>
+      </div>
+      <div class="content-page_header-block">
+        <div class="content-page_header-block filter">
+          <form method="GET" class="filter-view_form" action="{% url 'filter_ticket' %}">
+            <select id="{{ form.assignee.id_for_label }}" class='filter-field' name="{{ form.assignee.name }}">
+              {% for value, text in form.fields.assignee.choices %}
+                {% if value|in_list:curr_selected.assignee %}
+                  <option value="{{ value }}" selected>{{ text }}</option>
+                {% else %}
+                  <option value="{{ value }}" >{{ text }}</option>
+                {% endif %}
+              {% endfor %}
+              {% if value|in_list:curr_selected.assignee %}
+                <option value="None" selected>Unassigned</option>
+              {% else %}
+                <option value="None">Unassigned</option>
+              {% endif %}
+            </select>
+            <select id="{{ form.reporter.id_for_label }}" class='filter-field' name="{{ form.reporter.name }}">
+              {% for value, text in form.fields.reporter.choices %}
+                {% if value|in_list:curr_selected.reporter %}
+                  <option value="{{ value }}" selected>{{ text }}</option>
+                {% else %}
+                  <option value="{{ value }}" >{{ text }}</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+            <select id="{{ form.status.id_for_label }}" class='filter-field' name="{{ form.status.name }}" multiple>
+              {% for value, text in form.fields.status.choices %}
+                {% if value|in_list:curr_selected.status %}
+                  <option value="{{ value }}" selected>{{ text }}</option>
+                {% else %}
+                  <option value="{{ value }}" >{{ text }}</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+            <select id="{{ form.resolution.id_for_label }}" class='filter-field' name="{{ form.resolution.name }}" multiple>
+              {% for value, text in form.fields.resolution.choices %}
+                {% if value|in_list:curr_selected.resolution %}
+                  <option value="{{ value }}" selected>{{ text }}</option>
+                {% else %}
+                  <option value="{{ value }}" >{{ text }}</option>
+                {% endif %}
+              {% endfor %}
+              {% if value|in_list:curr_selected.resolution %}
+                <option value="None" selected>Unresolved</option>
+              {% else %}
+                <option value="None">Unresolved</option>
+              {% endif %}
+            </select>
+            <select id="{{ form.label.id_for_label }}" class='filter-field' name="{{ form.label.name }}" multiple>
+              {% for value, text in form.fields.label.choices %}
+                {% if value|in_list:curr_selected.label %}
+                  <option value="{{ value }}" selected>{{ text }}</option>
+                {% else %}
+                  <option value="{{ value }}" >{{ text }}</option>
+                {% endif %}
+              {% endfor %}
+              {% if value|in_list:curr_selected.label %}
+                <option value="None" selected>None</option>
+              {% else %}
+                <option value="None">None</option>
+              {% endif %}
+            </select>
+            <select id="{{ form.type.id_for_label }}" class='filter-field' name="{{ form.type.name }}" multiple>
+              {% for value, text in form.fields.type.choices %}
+                {% if value|in_list:curr_selected.type %}
+                  <option value="{{ value }}" selected>{{ text }}</option>
+                {% else %}
+                  <option value="{{ value }}" >{{ text }}</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+            <select id="{{ form.priority.id_for_label }}" class='filter-field' name="{{ form.priority.name }}" multiple>
+              {% for value, text in form.fields.priority.choices %}
+                {% if value|in_list:curr_selected.priority %}
+                  <option value="{{ value }}" selected>{{ text }}</option>
+                {% else %}
+                  <option value="{{ value }}" >{{ text }}</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+            <input type="submit" value="Filter"/>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="content-page-block">
+      <table id="ticket-table" cellspacing="0">
+        <tr class="table-header">
+            {% for field in fields %}
+              {% if curr_ordering == field.0 %}
+                <th class="table-header_title filtering" onclick="sortTable('{{ field.0 }}', '{{ curr_ordering }}')">
+                  <h2>{{ field.1 }}</h2>
+                  <i class="arrow up"></i>
+                </th>
+              {% elif curr_ordering == "-"|add:field.0  %}
+                <th class="table-header_title" onclick="sortTable('{{ field.0 }}', '{{ curr_ordering }}')">
+                  <h2>{{ field.1 }}</h2>
+                  <i class="arrow down"></i>
+                </th>
+              {% else %}
+                <th class="table-header_title" onclick="sortTable('{{ field.0 }}', '{{ curr_ordering }}')">
+                  <h2>{{ field.1 }}</h2>
+                </th>
+              {% endif %}
+            {% endfor %}
+        </tr>
+        {% for ticket in tickets %}
+          {% if ticket.suspended and not ticket.resolution %}
+            <tr class="suspended">
+          {% else %}
+            <tr>
+          {% endif %}
+            <td>
+              {{ ticket.type.get_icon }}
+            </td>
+            <td>
+              <a class="default-hover" href="{% url 'view_ticket' ticket.slug %}" style="padding: 4px;">
+                {{ ticket.key }}
+              </a>
+            </td>
+            <td>
+              {{ ticket.title }}
+            </td>
+            <td>
+              {{ ticket.priority.get_icon }}
+            </td>
+            <td>
+              {{ ticket.status.get_colored }}
+            </td>
+            {% if ticket.resolution %}
+              <td class="resolved" style="color: {{ ticket.status.color }}">
+            {% else %}
+              <td>
+            {% endif %}
+                {{ ticket.get_resolution }}
+              </td>
+            <td>
+              {{ ticket.reporter.get_icon_text }}
+            </td>
+            <td>
+              {{ ticket.get_assignee }}
+            </td>
+            <td>
+              {% if ticket.labels.count > 0 %}
+                {% for label in ticket.labels.all %}
+                  <div class="label-view">
+                    {{ label }}
+                  </div>
+                {% endfor %}
+              {% else %}
+                <div class="ticket-block_info-left">
+                  No labels
+                </div>
+              {% endif %}
+            </td>
+            <td>
+              {% get_datetime_local ticket.created %}
+            </td>
+            <td>
+              {% get_datetime_local ticket.updated %}
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
+      <div class="description" style="padding-top: 5px;">
+        {% if tickets.count == 0 %}
+          No tickets
+        {% elif tickets.count == 1 %}
+          Found 1 ticket
+        {% else %}
+          Found {{ tickets.count }} tickets
+        {% endif %}
+      </div>
+    </div>
+    <script>
+      $(document).ready(function(){renderFields('filter-view', '{{ MEDIA_URL }}')})
+    </script>
+  {% endblock %}
+</body>
