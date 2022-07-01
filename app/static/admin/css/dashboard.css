@@ -19,6 +19,10 @@
     margin-left: 0;
 }
 
+ul.actionlist {
+    padding: 0
+}
+
 ul.actionlist li {
     list-style-type: none;
     overflow: hidden;

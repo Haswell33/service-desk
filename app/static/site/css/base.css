@@ -22,7 +22,7 @@
     --dialog-bg: rgba(60, 60, 60, 0.48);
 
     --nav-height: 61px;
-    --sidebar-width: 299px;
+    --sidebar-width: 302px;
     --footer-height: 45px;
     --background: #ddd;
     background: #dddddd;
@@ -503,7 +503,7 @@ footer a:visited {
     visibility: visible;
     height: 100%;
     position: fixed!important;
-    border-right: 1px solid var(--elem-light-secondary);
+    border-right: 3px solid var(--elem-light-border);
 }
 
 #sidebar-block_tenant {
