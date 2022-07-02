@@ -509,11 +509,7 @@ footer a:visited {
 
 #sidebar-block_tenant {
     background: var(--elem-dark-primary);
-    color: var(--elem-light-primary);
-    display: flex;
-    align-items: center;
     padding: 15px 10px 15px 10px;
-    border-bottom: 1px solid var(--elem-light-secondary);
 }
 
 #sidebar-block_tenant form {
@@ -529,45 +525,45 @@ footer a:visited {
     letter-spacing: 1px;
 }
 
-#sidebar-block_menu ul {
+ul#sidebar-block_menu {
     list-style: none;
     font-family: Lato-bold, sans-serif;
     margin: 0;
     padding-left: 0;
 }
 
-#sidebar-block_menu ul li {
+ul#sidebar-block_menu li {
     padding: 10px 2px 10px 2px;
     transition: 300ms background-color;
 }
 
-#sidebar-block_menu ul li:hover {
+ul#sidebar-block_menu li:hover {
     background-color: var(--theme);
     border-radius: 5px;
 }
 
-#sidebar-block_menu ul li:hover a,
-#sidebar-block_menu ul li:hover svg{
+ul#sidebar-block_menu li:hover a,
+#sidebar-block_menu li:hover svg{
     color: var(--elem-light-primary);
     fill: var(--elem-light-primary);
 }
 
-#sidebar-block_menu ul li:not(:last-child) {
+ul#sidebar-block_menu li:not(:last-child) {
     border-bottom: 1px solid var(--elem-light-border)
 }
 
-#sidebar-block_menu ul svg {
+ul#sidebar-block_menu svg {
     padding: 0 10px 0 5px;
     height: 28px;
     width: 28px;
     fill: var(--elem-dark-primary)
 }
 
-#sidebar-block_menu ul p {
+ul#sidebar-block_menu p {
     margin: 0;
 }
 
-#sidebar-block_menu ul li a {
+ul#sidebar-block_menu li a {
     display: flex;
     align-items: center;
 }

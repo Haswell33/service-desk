@@ -27,34 +27,32 @@
         </form>
       </div>
       <div class="sidebar-block">
-        <div id="sidebar-block_menu">
-          <ul>
-            <li>
-              <a href="{% url 'home' %}">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-                  <path d="M0 1.5A1.5 1.5 0 0 1 1.5 0h13A1.5 1.5 0 0 1 16 1.5v13a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 14.5v-13zM1.5 1a.5.5 0 0 0-.5.5v13a.5.5 0 0 0 .5.5H5V1H1.5zM10 15V1H6v14h4zm1 0h3.5a.5.5 0 0 0 .5-.5v-13a.5.5 0 0 0-.5-.5H11v14z"/>
-                </svg>
-                <p>Board</p>
-              </a>
-            </li>
-            <li>
-              <a href="{% url 'filter_ticket' %}">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 16 16">
-                  <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
-                </svg>
-                <p>Filter view</p>
-              </a>
-            </li>
-            <li>
-              <a href="{% url 'create_ticket' %}">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 16 16">
-                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                </svg>
-                <p>Create ticket</p>
-              </a>
-            </li>
-          </ul>
-        </div>
+        <ul id="sidebar-block_menu">
+          <li>
+            <a href="{% url 'home' %}">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                <path d="M0 1.5A1.5 1.5 0 0 1 1.5 0h13A1.5 1.5 0 0 1 16 1.5v13a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 14.5v-13zM1.5 1a.5.5 0 0 0-.5.5v13a.5.5 0 0 0 .5.5H5V1H1.5zM10 15V1H6v14h4zm1 0h3.5a.5.5 0 0 0 .5-.5v-13a.5.5 0 0 0-.5-.5H11v14z"/>
+              </svg>
+              <p>Board</p>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'filter_ticket' %}">
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 16 16">
+                <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+              </svg>
+              <p>Filter view</p>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'create_ticket' %}">
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 16 16">
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+              </svg>
+              <p>Create ticket</p>
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -81,58 +79,44 @@
         </div>
       </div>
     </div>
-    <div id="content-page_content" class="content-page-block">
-      <div id="board">
-        {% for board_column_association in board_columns_associations %}
-          <div class="board-column" number="{{ board_column_association.0.column.column_number }}">
-            <h2>{{ board_column_association.0.column }}</h2>
-            {% for association in board_column_association %}
-              {% for ticket in tickets %}
-                {% if ticket.status == association.status %}
-                  {% if ticket.suspended %}
-                    <div class="ticket-block suspended" key="{{ ticket.key }}">
+    <div id="board" class="content-page-block" >
+      {% for board_column_association in board_columns_associations %}
+        <div class="board-column">
+          <h2>{{ board_column_association.0.column }}</h2>
+          {% for association in board_column_association %}
+            {% for ticket in tickets %}
+              {% if ticket.status == association.status %}
+                {% if ticket.suspended %}
+                  <div class="ticket-block suspended" key="{{ ticket.key }}">
+                {% else %}
+                  {% if ticket.assignee == request.user %}
+                    <div class="ticket-block assigned" key="{{ ticket.key }}">
                   {% else %}
-                    {% if ticket.assignee == request.user %}
-                      <div class="ticket-block assigned" key="{{ ticket.key }}">
-                    {% else %}
-                      <div class="ticket-block" key="{{ ticket.key }}">
-                    {% endif %}
+                    <div class="ticket-block" key="{{ ticket.key }}">
                   {% endif %}
-                  <div class="ticket-block_row" row="1">
-                    <a href="{% url 'view_ticket' ticket.slug %}">
-                      <div class="ticket-link">
-                        {{ ticket.type.get_icon }}
-                        <p class="ticket-key">{{ ticket.key }}</p>
-                      </div>
-                    </a>
-                    <div class="ticket-block_row-block">
-                      {{ ticket.status.get_colored }}
-                    </div>
-                  </div>
-                  <div class="ticket-block_row" row="2">
-                    <div class="ticket-block_row-block">
-                      {{ ticket.priority.get_icon }}
-                    </div>
-                    <div class="ticket-block_row-block">
-                      <p class="ticket-title">{{ ticket.title }}</p>
-                    </div>
-                  </div>
-                  <div class="ticket-block_row" row="3">
-                    <div class="ticket-block_row-block">
-                      {{ ticket.reporter.get_icon }}
-                    </div>
-                    <div class="ticket-block_row-block">
-                        {% call_method ticket 'get_assignee' True %}
-                    </div>
-                  </div>
+                {% endif %}
+                <div class="ticket-block_row" row="1">
+                  <a class="ticket-link" href="{% url 'view_ticket' ticket.slug %}">
+                    {{ ticket.type.get_icon }}
+                    <p class="ticket-key">{{ ticket.key }}</p>
+                  </a>
+                  {{ ticket.status.get_colored }}
                 </div>
-              {% endif %}
-            {% endfor %}
+                <div class="ticket-block_row" row="2">
+                  {{ ticket.priority.get_icon }}
+                  <p class="ticket-title">{{ ticket.title }}</p>
+                </div>
+                <div class="ticket-block_row" row="3">
+                  {{ ticket.reporter.get_icon }}
+                  {% call_method ticket 'get_assignee' True %}
+                </div>
+              </div>
+            {% endif %}
           {% endfor %}
-          </div>
-          <div class="separator-vertical"></div>
         {% endfor %}
-      </div>
+        </div>
+        <div class="separator-vertical"></div>
+      {% endfor %}
     </div>
     {% endblock %}
   </div>

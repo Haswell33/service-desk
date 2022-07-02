@@ -68,7 +68,7 @@
     position: absolute;
     display: inline-flex;
     right: 15px;
-    top: 59px
+    top: 58px
 }
 
 .object-tools li {
@@ -139,7 +139,11 @@ th[scope=row] a {
 }
 
 tr {
-    transition: box-shadow 100ms;
+    transition: box-shadow 100ms, background-color 300ms;
+}
+
+tr.selected {
+    background-color: #c5c5c5;
 }
 
 .current-model{
@@ -383,8 +387,31 @@ label[for=searchbar] + input[type=text] {
     flex-wrap: wrap;
     margin-bottom: 15px;
     padding-bottom: 15px;
+    gap: 0 10px;
+}
+
+.actions label {
+    padding-bottom: 0;
+}
+
+.actions select[name=action] {
+    width: 327px
 }
 
 .breadcrumbs {
     display: none
+}
+
+.button {
+    border-radius: 4px;
+    font-size: 15px;
+    color: var(--elem-dark-secondary);
+    border-color: var(--elem-dark-primary);
+    transition: 300ms background-color;
+}
+
+.button:hover {
+    background-color: var(--theme);
+    border-color: var(--theme);
+    color: var(--elem-light-primary)
 }
