@@ -5,11 +5,11 @@ else
 
 
 $(document).on('click', function(event) {
-    if($(event.target).is('#navbar-block_menu svg') || $(event.target).is('#navbar-block_menu path')){
+    if (($(event.target).is('#navbar-block_menu svg') || $(event.target).is('#navbar-block_menu path')) && !$('#navbar-block_menu > ul').is(':visible')){
         $('#navbar-block_menu > ul').toggle()
         $('.dialog-bg').css('display', 'block')
     }
-    else if(!$(event.target).is('#navbar-block_menu > ul') && $('#navbar-block_menu > ul').is(':visible')){
+    else if (!$(event.target).is('#navbar-block_menu ul li *') && !$(event.target).is('#navbar-block_menu ul li') && $('#navbar-block_menu > ul').is(':visible')){
         $('#navbar-block_menu > ul').hide()
         $('.dialog-bg').css('display', 'none')
     }
