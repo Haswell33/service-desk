@@ -26,7 +26,7 @@ class GroupAdminModel(GroupAdmin):
 
 @admin.register(User)
 class UserAdminModel(admin.ModelAdmin):
-    list_display = ('username', 'email', 'first_name', 'last_name', 'manager', 'admin', 'active', 'get_groups', 'get_icon')
+    list_display = ('username', 'email', 'get_display_name', 'manager', 'admin', 'active', 'get_groups', 'get_icon')
     search_fields = ['username', 'first_name']
     list_filter = ('admin', 'manager', 'active')
     fieldsets = (

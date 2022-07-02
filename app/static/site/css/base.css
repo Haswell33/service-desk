@@ -146,7 +146,7 @@ input[type=submit],
     background: var(--elem-light-primary);
     border: 1px solid var(--elem-dark-primary);
     cursor: pointer;
-    padding: 8px 20px;
+    padding: 8.5px 20px;
     font-family: Lato-bold, sans-serif;
     transition: 400ms background, border-color, font-weight, color;
 }
@@ -830,7 +830,6 @@ footer a:visited {
 }
 
 #ticket-table tr:not(.table-header):hover {
-    /*background-color: #d7d7d7;*/
     -webkit-box-shadow: 0 0 17px -6px rgba(133, 134, 138, 1);
     -moz-box-shadow: 0 0 17px -6px rgba(133, 134, 138, 1);
     box-shadow: 0 0 17px -6px rgba(133, 134, 138, 1);

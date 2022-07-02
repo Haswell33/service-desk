@@ -91,6 +91,7 @@ class User(AbstractBaseUser):
 
     def get_display_name(self):
         return f'{str(self.first_name).capitalize()} {str(self.last_name).capitalize()}'
+    get_display_name.short_description = 'Display name'
 
     def get_icon(self):
         return utils.get_img_field(self.icon, self.get_display_name(), 20, 20)

@@ -29,8 +29,15 @@
     font-size: 24px;
     font-family: Lato-bold, sans-serif;
     padding-bottom: 10px;
-    margin: 0;
     border-bottom: 2px solid var(--elem-light-border);
+}
+
+.dashboard #content > h1 {
+    margin: 0
+}
+
+#content > h1 {
+    margin-top: 5px;
 }
 
 .dashboard #content-main {
@@ -48,19 +55,20 @@
     padding-left: 15px;
 }
 
-.change-list #content-main {
+.change-list .content-main {
     display: flex;
     flex-wrap: wrap;
 }
 
-.change-list #content-main .object-tools {
+.change-list .content-main .object-tools {
     flex: 1 1 100%;
 }
 
 .object-tools {
-    display: flex;
-    gap: 0 10px;
-    justify-content: flex-end;
+    position: absolute;
+    display: inline-flex;
+    right: 15px;
+    top: 59px
 }
 
 .object-tools li {
@@ -68,7 +76,23 @@
     list-style: none;
     border: 1px solid var(--elem-light-border);
     width: max-content;
-    padding: 5px;
+    margin-left: 10px;
+    background: var(--elem-dark-primary);
+    font-size: 13px;
+    padding: 11px 7px 10px 7px;
+    transition: 300ms background-color;
+    text-transform: uppercase;
+}
+
+.object-tools li:hover {
+    background-color: var(--theme);
+}
+
+.object-tools li a {
+
+    cursor: pointer;
+    padding: 12px 10px 11px 10px;
+    color: var(--elem-light-primary);
 }
 
 /* Tables */
@@ -106,8 +130,12 @@ td.action-checkbox {
     border-right: 1px solid var(--elem-light-border)
 }
 
+th[scope=row] {
+    width: 100%;
+}
+
 th[scope=row] a {
-    padding: 15px 55px 15px 5px
+    padding: 15px 55px 15px 5px;
 }
 
 tr {
@@ -128,7 +156,8 @@ tr:hover {
     box-shadow: 0 0 17px -6px rgba(133, 134, 138, 1);
 }
 
-.current-app tbody th[scope=row] {
+.current-app tbody th[scope=row],
+.app-auth tbody th[scope=row] {
     line-height: 24px;
 }
 
@@ -232,8 +261,8 @@ li, dt, dd {
     position: fixed;
     height: 100%;
     bottom: 0;
-    margin: 0;
-    transition: 300ms left;
+    margin-top: 0;
+    transition: 300ms margin;
 }
 
 #nav-sidebar {
@@ -249,24 +278,27 @@ li, dt, dd {
 }
 
 #nav-sidebar {
-    left: calc(-1 * var(--sidebar-width))
+    margin-left: calc(-1 * var(--sidebar-width))
 }
 
 .shifted #nav-sidebar {
-    left: 0
+    margin-left: 0
 }
 
-.change-list #content {
-    left: 20px;
-    position: relative;
+.change-list .content {
+    margin-left: 20px;
     padding: 15px;
-    transition: 300ms left;
+    transition: 300ms margin;
     display: flex;
     flex-wrap: wrap;
 }
 
-.change-list .shifted #content {
-    left: calc(300px + 20px)!important
+.change-list .shifted .content {
+    margin-left: calc(300px + 20px)!important
+}
+
+.change-list #content {
+    width: 100%;
 }
 
 .toggle-nav-sidebar {
@@ -312,8 +344,44 @@ input[type=search]#nav-filter {
     line-height: 2;
 }
 
+#changelist-search {
+
+    border-bottom: 1px solid var(--elem-light-border);
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+#changelist-search div {
+    display: flex
+}
+
+#changelist-search div input[type=submit] {
+    margin-left: 10px;
+}
+
 label[for=searchbar] {
+    position: relative;
+}
+
+label[for=searchbar] img {
     position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 6px;
+    left: 6px;
+}
+
+label[for=searchbar] + input[type=text] {
+    padding-left: 30px;
+}
+
+.actions {
+    border-bottom: 1px solid var(--elem-light-border);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
 }
 
 .breadcrumbs {
