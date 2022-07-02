@@ -254,6 +254,7 @@ li, dt, dd {
 
 .sticky#nav-sidebar {
     display: flex;
+    overflow-y: scroll;
     flex-direction: column;
     z-index:30;
     min-height: 100%;

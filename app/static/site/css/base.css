@@ -500,6 +500,7 @@ footer a:visited {
     flex: 0 0 calc(-1 * var(--sidebar-width));
     margin-left: calc(-1 * var(--sidebar-width));
     padding-left: 20px;
+    overflow-y: scroll;
     visibility: visible;
     height: 100%;
     position: fixed!important;
