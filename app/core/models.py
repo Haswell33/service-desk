@@ -110,7 +110,7 @@ class User(AbstractBaseUser):
 
     @property
     def is_superuser(self):
-        return True
+        return self.admin
 
     @property
     def is_admin(self):
