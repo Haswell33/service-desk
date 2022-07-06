@@ -1369,7 +1369,7 @@ ul#sidebar-block_menu li a {
 }
 
 .field-full_transition {
-    display: inline-flex
+    display: flex;
 }
 
 .status {

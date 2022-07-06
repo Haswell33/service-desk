@@ -29,15 +29,12 @@
     font-size: 24px;
     font-family: Lato-bold, sans-serif;
     padding-bottom: 10px;
+    margin-top: 5px;
     border-bottom: 2px solid var(--elem-light-border);
 }
 
 .dashboard #content > h1 {
     margin: 0
-}
-
-#content > h1 {
-    margin-top: 5px;
 }
 
 .dashboard #content-main {
@@ -55,12 +52,15 @@
     padding-left: 15px;
 }
 
-.change-list .content-main {
+.change-list .content-main,
+#content.colM #content-main {
     display: flex;
     flex-wrap: wrap;
 }
 
-.change-list .content-main .object-tools {
+.change-list .content-main .object-tools,
+.change-form #content-main .object-tools,
+#content.colM #content-main .object-tools {
     flex: 1 1 100%;
 }
 
@@ -74,6 +74,7 @@
 .object-tools li {
     border-radius: 5px;
     list-style: none;
+    font-family: Lato-bold, sans-serif;
     border: 1px solid var(--elem-light-border);
     width: max-content;
     margin-left: 10px;
@@ -290,7 +291,8 @@ li, dt, dd {
     margin-left: 0
 }
 
-.change-list .content {
+.change-list .content,
+#content.colM {
     margin-left: 20px;
     padding: 15px;
     transition: 300ms margin;
@@ -298,11 +300,13 @@ li, dt, dd {
     flex-wrap: wrap;
 }
 
-.change-list .shifted .content {
+.change-list .shifted .content,
+.shifted #content.colM{
     margin-left: calc(300px + 20px)!important
 }
 
-.change-list #content {
+.change-list #content,
+#content.colM {
     width: 100%;
 }
 
@@ -350,7 +354,6 @@ input[type=search]#nav-filter {
 }
 
 #changelist-search {
-
     border-bottom: 1px solid var(--elem-light-border);
     padding-bottom: 15px;
     margin-bottom: 15px;
@@ -414,4 +417,105 @@ label[for=searchbar] + input[type=text] {
     background-color: var(--theme);
     border-color: var(--theme);
     color: var(--elem-light-primary)
+}
+
+.change-form #content {
+    display: flex;
+}
+
+.change-form #content > h2 {
+    flex: 1 1 100%;
+    font-size: 18px;
+    margin: 0 0 15px 0;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--elem-light-border);
+}
+
+.change-form #content #content-main form fieldset {
+    border: none;
+    padding: 0;
+}
+
+.change-form #content #content-main form select {
+    width: 100%;
+}
+
+.change-form #content #content-main form fieldset input {
+    display:block;
+    width: 100%;
+}
+
+.change-form #content #content-main form fieldset.module .form-row {
+    padding: 0;
+    margin-bottom: 15px;
+}
+
+.change-form #content #content-main form fieldset.module .form-row > div {
+    display: flex;
+    flex-direction: column
+}
+
+.change-form #content #content-main form fieldset.module .form-row > div label {
+    font-family: Lato-bold, sans-serif;
+    font-size: 16px;
+}
+
+.aligned p.file-upload {
+    margin: 0!important;
+}
+
+.buttonText {
+    bottom: 34px!important;
+}
+
+.submit-row p.deletelink-box {
+    background: #BA2121FF;
+    border-radius: 4px;
+    color: var(--elem-light-primary)
+}
+
+.submit-row p.deletelink-box:hover {
+
+}
+
+.clearable-file-input {
+    display: flex;
+    gap: 0 5px;
+    margin-bottom: 5px;
+}
+.file-upload {
+    font-size: 100%;
+}
+
+.file-upload br {
+    display: none
+}
+
+.submit-row {
+    padding: 10px 0 10px 0!important;
+    border-top: 1px solid var(--elem-light-border)!important;
+    border-radius: 0!important;
+    width: 100%!important;
+}
+
+.change-form #content #content-main form fieldset.module .form-row > div,
+.help{
+    margin-left: 0!important;
+    padding-left: 0!important;
+    padding-top: 3px;
+}
+.related-widget-wrapper {
+    display:flex!important;
+    flex-direction: row!important;
+    align-items: center!important;
+    gap: 0 5px;
+}
+
+.related-widget-wrapper-link {
+    width: 20px;
+}
+
+.module.aligned {
+    margin: 0;
+    font-size: 20px;
 }

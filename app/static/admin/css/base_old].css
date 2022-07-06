@@ -1032,7 +1032,7 @@ table#change-history tbody th {
 }
 
 .delete-confirmation form input[type="submit"] {
-    background: var(--delete-button-bg);
+    background: #BA2121FF;
     border-radius: 4px;
     padding: 10px 15px;
     color: var(--button-fg);

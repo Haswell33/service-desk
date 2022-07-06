@@ -2,7 +2,6 @@ SIDEBAR_TOGGLE = '#sidebar-block_toggle'
 SIDEBAR_TRANSITION = 'sidebar-transition' // class
 SIDEBAR_CONTENT = '#sidebar-block_content'
 CONTENT_PAGE = '#content-page'
-CREATE_TICKET_FORM = '#create-ticket-form'
 
 $(document).ready(function(event) {
     if (localStorage.siteSidebarOpen === null || localStorage.siteSidebarOpen === undefined)
@@ -38,7 +37,6 @@ function sidebar(event, operation) {
             $(CONTENT_PAGE).addClass('passed-width')
             $(SIDEBAR_TOGGLE).addClass('arrow-left')
             $(SIDEBAR_TOGGLE).removeClass('arrow-right')
-            $(CREATE_TICKET_FORM).removeClass('create-ticket-form-60vw')
             break
         case 'hide':
             localStorage.siteSidebarOpen = 'false'
@@ -46,7 +44,6 @@ function sidebar(event, operation) {
             $(CONTENT_PAGE).removeClass('passed-width')
             $(SIDEBAR_TOGGLE).removeClass('arrow-left')
             $(SIDEBAR_TOGGLE).addClass('arrow-right')
-            $(CREATE_TICKET_FORM).addClass('create-ticket-form-60vw')
             break
     }
 }
