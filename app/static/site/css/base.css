@@ -18,6 +18,7 @@
     --warning-color: #ff9800;
     --success-color: #20a36b;
     --info-color: #005dc1;
+    --popup: #f9f9f9;
 
     --dialog-bg: rgba(60, 60, 60, 0.48);
 
@@ -1080,7 +1081,7 @@ ul#sidebar-block_menu li a {
 
 .message {
     padding: 25px 20px 20px 20px;
-    background: #f9f9f9;
+    background: var(--popup);
     max-width: 350px;
     border: 2px solid;
     margin-bottom: 10px;
@@ -1186,8 +1187,25 @@ ul#sidebar-block_menu li a {
     border-radius: 5px;
 }
 
-.dialog_error {
-    transform: translate(-50%, -250%)
+.http-dialog_error {
+    margin-top: 80px;
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+}
+
+.http-dialog_error h1 {
+    font-size: 60px;
+    margin: 0;
+}
+.http-dialog_error p {
+    padding-top: 10px;
+    margin: 0;
+    font-size: 40px
+}
+
+.http-dialog_error p.description {
+    font-size: 95%
 }
 
 .overflow-hidden {

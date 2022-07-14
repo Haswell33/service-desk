@@ -18,44 +18,61 @@ from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
 from django.urls.exceptions import NoReverseMatch
 from django.core.mail import send_mail, BadHeaderError
-from django.core.exceptions import ValidationError, ObjectDoesNotExist
-from django.http import HttpResponseRedirect, HttpResponse
+from django.core.exceptions import ValidationError, ObjectDoesNotExist, PermissionDenied
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotAllowed
 from django.shortcuts import render, reverse, redirect, resolve_url
 from django.conf import settings
 from django.db.models.query_utils import Q
 from django.template.loader import render_to_string
-from .models import Ticket, TransitionAssociation, Attachment, Comment, Status, User
+from .models import Ticket, TransitionAssociation, Attachment, Comment, Status, User, Tenant, TenantSession
 from .forms import TicketCreateForm, TicketFilterViewForm, TicketEditAssigneeForm, TicketEditForm, TicketCommentForm, TicketCloneForm, SetPasswordForm, PasswordChangeForm
 from .utils import tenant_manager, board_manager, ticket_manager, utils
 from .context_processors import context_tenant_session
 
 
 def validate_get_request(self, request, view_name, tenant_check=False, *args, **kwargs):
+    cookie = request.COOKIES.get(Tenant.get_cookie_name(request.user))
     if not request.user.is_authenticated:
         return login_page(request.path)
-    elif request.COOKIES.get(tenant_manager.get_tenant_cookie_name(request.user)) is None:
-        return redirect('tenant_update', tenant_check=tenant_check)
     if not tenant_manager.active_session_exists(request.user):  # check if any record in tenant_session is stored with active state
         context_tenant_session(request)  # assign active tenant/s based on membership to groups
+    if cookie is None or not TenantSession.cookie_valid(cookie, request.user):
+        return redirect('tenant_update', tenant_check=tenant_check)
     response = super(view_name, self).get(request, *args, **kwargs)
     response.status_code = 200
     return response
 
 
-def error_no_tenant(request):
-    return render(request, 'errors/no-tenant.html', {}, status=403)
+def error_no_tenant(request, template_name='errors/no-tenant.html'):
+    return render(request, template_name, {}, status=403)
 
 
-def error_403(request):
-    return render(request, 'errors/403.html', {}, status=403)
+def csrf_error(request, template_name='errors/csrf-token.html'):
+    return render(request, template_name, {}, status=403)
 
 
-def error_404(request):
-    return render(request, 'errors/404.html', {}, status=404)
+def error_400(request, exception=None, template_name='errors/400.html'):
+    return render(request, template_name, {}, status=400)
 
 
-def error_405(request):
-    return render(request, 'errors/405.html', {}, status=405)
+def error_401(request, exception=None, template_name='errors/401.html'):
+    return render(request, template_name, {}, status=401)
+
+
+def error_403(request, exception=None, template_name='errors/403.html'):
+    return render(request, template_name, {}, status=403)
+
+
+def error_404(request, exception=None, template_name='errors/404.html'):
+    return render(request, template_name, {}, status=404)
+
+
+def error_405(request, exception=None, template_name='errors/405.html'):
+    return render(request, template_name, {}, status=405)
+
+
+def error_500(request,exception=None, template_name='errors/500.html'):
+    return render(request, template_name, {}, status=500)
 
 
 def login_page(path):
@@ -105,7 +122,6 @@ class TicketCreateView(SuccessMessageMixin, CreateView):
 
     def form_valid(self, form):
         result = Ticket.create_ticket(form, self.request.user, self.request.FILES.getlist('attachments'))
-        print(result)
         return super().form_valid(form)
 
     def form_invalid(self, form):
@@ -151,9 +167,9 @@ class TicketDetailView(FormMixin, DetailView):  # Detail view for ticket
         ticket = self.get_object()
         if not request.user.is_authenticated:
             return login_page(request.path)
-        elif not ticket.permission_to_open(request.user): # TO DO when link on next in login page
-            return error_403(request)
-        elif ticket.tenant != tenant_manager.get_active_tenant(request.user):  # TO DO when from link
+        elif not ticket.permission_to_open(request.user):  # TO DO when link on next in login page
+            raise PermissionDenied()
+        elif ticket.tenant != Tenant.get_active(request.user):  # TO DO when from link
             messages.info(request, 'Active tenant has been changed, returned to board view')
             return redirect('home')
         return validate_get_request(self, request, TicketDetailView, tenant_check=True, *args, **kwargs)
@@ -199,7 +215,7 @@ class TicketEditStatusView(UpdateView):
     def post(self, request, *args, **kwargs):
         ticket = self.get_object()
         if not ticket.permission_to_open(request.user):
-            return error_403(request)
+            raise PermissionDenied()
         super().post(request, *args, **kwargs)
         context_transition_associations = self.get_context_data().get('transitions')
         try:
@@ -224,7 +240,7 @@ class TicketEditAssigneeView(UpdateView):
     def post(self, request, *args, **kwargs):
         ticket = self.get_object()
         if not ticket.permission_to_open(request.user) or not ticket.permission_to_assign(request.user):
-            return error_403(request)
+            raise PermissionDenied()
         user_id = request.POST.get('assignee')
         try:
             if user_id is None or user_id == '':
@@ -253,7 +269,7 @@ class TicketEditSuspendView(UpdateView):
     def post(self, request, *args, **kwargs):
         ticket = self.get_object()
         if not ticket.permission_to_open(request.user) or not ticket.permission_to_suspend(request.user):
-            return error_403(request)
+            raise PermissionDenied()
         result = ticket.set_suspended()
         if isinstance(result, Ticket):
             if result.suspended:
@@ -274,7 +290,7 @@ class TicketAddAttachmentView(UpdateView):
     def post(self, request, *args, **kwargs):
         ticket = self.get_object()
         if not ticket.permission_to_open(request.user):
-            return error_403(request)
+            raise PermissionDenied()
         files = request.FILES.getlist('attachments')
         if files:
             for file in files:
@@ -294,7 +310,7 @@ class TicketDeleteAttachmentView(DeleteView):
     def post(self, request, *args, **kwargs):
         ticket = self.get_object()
         if not ticket.permission_to_open(request.user):
-            return error_403(request)
+            raise PermissionDenied()
         attachment_id = request.POST.get('attachment')
         try:
             attachment = Attachment.objects.get(id=attachment_id)
@@ -317,7 +333,7 @@ class TicketAddRelationView(UpdateView):
     def post(self, request, *args, **kwargs):
         ticket = self.get_object()
         if not ticket.permission_to_open(request.user):
-            return error_403(request)
+            raise PermissionDenied()
         tickets_to_relate = request.POST.getlist('relations')
         if tickets_to_relate:
             for ticket_to_relate in tickets_to_relate:
@@ -340,7 +356,7 @@ class TicketDeleteRelationView(DeleteView):
     def post(self, request, *args, **kwargs):
         ticket = self.get_object()
         if not ticket.permission_to_open(request.user):
-            return error_403(request)
+            raise PermissionDenied()
         relation_id = request.POST.get('relation')
         try:
             relation = Ticket.objects.get(id=relation_id)
@@ -363,7 +379,7 @@ class TicketAddCommentView(UpdateView):
     def post(self, request, *args, **kwargs):
         ticket = self.get_object()
         if not ticket.permission_to_open(request.user):
-            return error_403(request)
+            raise PermissionDenied()
         comment_content = request.POST.get('content')
         if comment_content:
             result = ticket.add_comment(comment_content)
@@ -385,7 +401,7 @@ class TicketDeleteCommentView(DeleteView):
     def post(self, request, *args, **kwargs):
         ticket = self.get_object()
         if not ticket.permission_to_open(request.user):
-            return error_403(request)
+            raise PermissionDenied()
         comment_id = request.POST.get('comment')
         try:
             comment = Comment.objects.get(id=comment_id)
@@ -408,7 +424,7 @@ class TicketEditCommentView(UpdateView):
     def post(self, request, *args, **kwargs):
         ticket = self.get_object()
         if not ticket.permission_to_open(request.user):
-            return error_403(request)
+            raise PermissionDenied()
         comment_id = request.POST.get('comment')
         content = request.POST.get('content')
         try:
@@ -432,7 +448,7 @@ class TicketCloneView(UpdateView):
     def post(self, request, *args, **kwargs):
         ticket = self.get_object()
         if not ticket.permission_to_open(request.user) or not ticket.permission_to_clone(request.user):
-            return error_403(request)
+            raise PermissionDenied()
         type_id = request.POST.get('type')
         if type_id:
             result = ticket.clone_ticket(type_id, request.user)
@@ -713,23 +729,23 @@ def tenant_update(request, tenant_check=False):
     if not request.user.is_authenticated:
         return login_page(request.path)
     elif request.method == 'POST':
-        tenant_session = tenant_manager.get_active_tenant_session(request.user)
+        tenant_session = TenantSession.get_active(request.user)
         tenant_id = request.POST.get('tenant_id')
         tenant_session.change_active(tenant_id, request.user)
     else:
         if not tenant_manager.active_session_exists(request.user):
             context_tenant_session(request)
-        tenant_session = tenant_manager.get_active_tenant_session(request.user)
+        tenant_session = TenantSession.get_active(request.user)
         if not tenant_session and tenant_check:
             return error_no_tenant(request)
         tenant_id = tenant_session.tenant.id
     try:
         response = redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
-        response.set_cookie(key=tenant_manager.get_tenant_cookie_name(request.user), value=tenant_id)
+        response.set_cookie(key=Tenant.get_cookie_name(request.user), value=tenant_id)
         return response
     except NoReverseMatch:
         response = redirect('home')
-        response.set_cookie(key=tenant_manager.get_tenant_cookie_name(request.user), value=tenant_id)
+        response.set_cookie(key=Tenant.get_cookie_name(request.user), value=tenant_id)
         return response
 
 
@@ -738,33 +754,6 @@ def logged_out(request, template_name='logged-out.html'):
         return HttpResponseRedirect(reverse('home'))
     return render(request, template_name, {}, status=200)
 
-
-def bad_request(request, template_name='errors/400.html'):
-    return render(request, template_name, {}, status=400)
-
-
-def unauthorized(request, template_name='errors/401.html'):
-    return render(request, template_name, {}, status=401)
-
-
-def permission_denied(request, template_name='error/403.html'):
-    return render(request, template_name, {}, status=403)
-
-
-def page_not_found(request, template_name='errors/404.html'):
-    return render(request, template_name, {}, status=404)
-
-
-def method_not_allowed(request, template_name='errors/405.html'):
-    return render(request, template_name, {}, status=405)
-
-
-def internal_server_error(request, template_name='error/500.html'):
-    return render(request, template_name, {}, status=500)
-
-
-def csrf_error(request, template_name='errors/csrf-token.html'):
-    return render(request, template_name, {}, status=403)
 
 '''
 class TenantUpdateView(UpdateView):

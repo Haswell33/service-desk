@@ -1,17 +1,21 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.static import serve
 from django.contrib.auth import views as auth_views
 from core import views
 
-handler400 = 'core.views.bad_request'
-handler401 = 'core.views.unauthorized'
-handler403 = 'core.views.permission_denied'
-handler404 = 'core.views.page_not_found'
-handler405 = 'core.views.method_not_allowed'
-handler500 = 'core.views.internal_server_error'
+handler400 = 'core.views.error_400'
+handler401 = 'core.views.error_401'
+handler403 = 'core.views.error_403'
+handler404 = 'core.views.error_404'
+handler405 = 'core.views.error_405'
+handler500 = 'core.views.error_500'
+
 urlpatterns = [
+    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
     path('', views.TicketBoardView.as_view(), name='home'),
     path('ticket/create', views.TicketCreateView.as_view(), name='create_ticket'),
     path('ticket/filter/', views.TicketFilterView.as_view(), name='filter_ticket'),
@@ -40,5 +44,5 @@ urlpatterns = [
     path('password-reset/sent', views.PasswordResetSentView.as_view(), name='password_reset_sent'),
     path('password-reset/confirm/<uidb64>/<token>/', views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('password-reset/success', views.PasswordResetSuccessView.as_view(), name='password_reset_success')] \
-        + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
-        + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    #    + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
+    #    + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

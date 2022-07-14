@@ -12,6 +12,10 @@
 
 /* main page */
 
+#content {
+    margin-bottom: 45px;
+}
+
 .change-list #content {
 
 }
@@ -122,7 +126,6 @@ th {
 }
 
 #result_list th.column-name {
-    font-size: 18px
 }
 
 th.action-checkbox-column,
@@ -147,6 +150,48 @@ tr.selected {
     background-color: #c5c5c5;
 }
 
+tr th[scope=col] {
+    transition: 200ms background-color;
+}
+
+tr th[scope=col]:hover {
+    background-color: var(--elem-light-hover);
+}
+
+th.field-name a{
+    padding: 15px 35px 15px 0;
+}
+
+th.field-name a:hover {
+    text-decoration: underline;
+}
+
+thead > tr > th {
+    font-size: 16px;
+}
+
+.sorted:after {
+    content: '';
+    float:right;
+    margin-top: -15px;
+    margin-right: 15px;
+    border-style: solid;
+}
+
+.ascending:after {
+    border-width: 10px 7.5px 0 7.5px;
+    border-color: var(--elem-dark-primary) transparent transparent transparent;
+}
+
+.descending:after {
+    border-width: 0 7.5px 10px 7.5px;
+    border-color: transparent transparent var(--elem-dark-primary) transparent;
+}
+
+.sortpriority {
+    float: right;
+}
+
 .current-model{
     background-color: var(--theme);
 }
@@ -155,7 +200,7 @@ tr.selected {
     color: var(--elem-light-primary)!important;
 }
 
-tr:hover {
+tr:hover:not(thead > tr) {
     -webkit-box-shadow: 0 0 17px -6px rgba(133, 134, 138, 1);
     -moz-box-shadow: 0 0 17px -6px rgba(133, 134, 138, 1);
     box-shadow: 0 0 17px -6px rgba(133, 134, 138, 1);
@@ -300,13 +345,16 @@ li, dt, dd {
     flex-wrap: wrap;
 }
 
+.delete-confirmation #content.colM {
+    display: block
+}
+
 .change-list .shifted .content,
 .shifted #content.colM{
     margin-left: calc(300px + 20px)!important
 }
 
-.change-list #content,
-#content.colM {
+.change-list #content {
     width: 100%;
 }
 
@@ -360,11 +408,101 @@ input[type=search]#nav-filter {
 }
 
 #changelist-search div {
-    display: flex
+    display: flex;
+    align-items: center;
+    gap: 0 10px;
+}
+
+#changelist-search div > *:first-child {
+    margin-left: -10px;
 }
 
 #changelist-search div input[type=submit] {
-    margin-left: 10px;
+
+}
+
+.module.filtered {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.module.aligned {
+    margin: 0;
+    font-size: 20px;
+}
+
+.module.aligned > h2,
+.module > h2{
+    margin: 15px 0 10px 0;
+    padding-top: 10px;
+    border-top: 1px solid var(--elem-light-border);
+    font-size: 22px;
+}
+
+/* Changelist - filter */
+
+.changelist-form-container {
+    flex: 1 1 80%;
+}
+
+#changelist-filter {
+    flex: 1 1 10%;
+    padding-left: 15px;
+    margin-left: 15px;
+    border-left: 2px solid var(--elem-light-border);
+}
+
+#changelist-filter > h2 {
+    margin: 10px 0 15px 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--elem-light-border);
+}
+
+#changelist-filter-clear {
+    border-radius: 5px;
+    border: 1px solid var(--elem-light-border);
+    font-size: 15px;
+    text-align: center;
+    padding: 5px 15px 5px 15px;
+    margin: 0;
+    font-family: Lato-bold, sans-serif;
+    width: max-content;
+    transition: 200ms;
+}
+
+#changelist-filter-clear:hover a {
+    color: var(--elem-light-primary);
+}
+
+#changelist-filter-clear:hover {
+    background: var(--theme);
+}
+
+#changelist-filter > h3:not(#changelist-filter-clear) {
+    margin: 10px 0 0 0;
+    padding-top: 10px;
+}
+
+#changelist-filter ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#changelist-filter ul li {
+    border-radius: 5px;
+    width: max-content;
+    font-size: 13px;
+    transition: 200ms background-color;
+    padding: 5px 5px 3px 5px;
+    margin-top: 3px;
+}
+
+#changelist-filter ul li.selected {
+    background: var(--elem-light-hover);
+}
+
+#changelist-filter ul li:hover {
+    background: var(--elem-light-hover);
 }
 
 label[for=searchbar] {
@@ -375,8 +513,8 @@ label[for=searchbar] img {
     position: absolute;
     width: 20px;
     height: 20px;
-    top: 6px;
-    left: 6px;
+    top: -9px;
+    left: 15px;
 }
 
 label[for=searchbar] + input[type=text] {
@@ -440,7 +578,7 @@ label[for=searchbar] + input[type=text] {
     width: 100%;
 }
 
-.change-form #content #content-main form fieldset input {
+.change-form #content #content-main form fieldset input:not(input[type=checkbox], input.vTimeField, input.vDateField) {
     display:block;
     width: 100%;
 }
@@ -478,18 +616,26 @@ label[for=searchbar] + input[type=text] {
 
 }
 
+.checkbox-row {
+    width: max-content;
+    display: flex!important;
+    flex-direction: row!important;
+    align-items: center;
+}
+
+.checkbox-row .vCheckboxLabel {
+    padding: 0 0 0 10px!important;
+}
+
 .clearable-file-input {
     display: flex;
     gap: 0 5px;
     margin-bottom: 5px;
 }
 .file-upload {
-    font-size: 100%;
+    font-size: 13px!important;
 }
 
-.file-upload br {
-    display: none
-}
 
 .submit-row {
     padding: 10px 0 10px 0!important;
@@ -499,7 +645,7 @@ label[for=searchbar] + input[type=text] {
 }
 
 .change-form #content #content-main form fieldset.module .form-row > div,
-.help{
+.help {
     margin-left: 0!important;
     padding-left: 0!important;
     padding-top: 3px;
@@ -515,7 +661,89 @@ label[for=searchbar] + input[type=text] {
     width: 20px;
 }
 
-.module.aligned {
+/* Form edit - Inline related fields */
+
+.inline-related h3 span.delete {
+    width: max-content!important;
+    display: flex!important;
+    flex-direction: row!important;
+    align-items: center!important;
+    float: none!important;
+    padding-top: 5px;
+
+}
+.inline-related h3 span.delete .vCheckboxLabel {
+    padding: 4px 0 0 5px;
+    font-size: 13px;
+}
+
+.inline-group .tabular td.original p {
+    display: none!important;
+}
+
+
+/* popup */
+
+body.popup {
+    background: var(--background);
+    font-family:Lato, sans-serif
+}
+
+body.popup form * {
+    border-radius: 5px;
+}
+
+.popup .colM {
+    width: auto;
+}
+
+.module.clockbox {
+    background: var(--popup)
+}
+
+.module.clockbox > h2 {
+    font-size: 15px;
+    border-top: 0;
+    border-bottom: 1px solid var(--elem-light-border);
+    padding: 5px 15px 5px 15px;
     margin: 0;
-    font-size: 20px;
+}
+.module.clockbox ul li,
+.module.calendarbox td{
+    transition: 250ms background-color, 250ms color;
+}
+
+.module.clockbox ul li:hover,
+.module.calendarbox td:hover a{
+    background-color: var(--elem-light-hover)
+}
+
+.module.clockbox ul li:hover a,
+.module.calendarbox td:hover a{
+    color: var(--elem-dark-secondary);
+}
+
+.module.calendarbox {
+    background: var(--popup);
+}
+
+.module.calendarbox caption {
+    background: var(--popup);
+    padding: 10px 0 10px 0;
+    font-size: 14px;
+    border-bottom:1px solid var(--elem-light-border)
+}
+
+.module.calendarbox tr:hover {
+    box-shadow: none
+}
+
+.module.calendarbox td.today {
+    background-color: var(--elem-light-hover)
+}
+
+.selector-available,
+.selector-chosen,
+.selector-chooser {
+    display: none!important;
 }

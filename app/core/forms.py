@@ -2,8 +2,8 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import password_validation
 from django.core.exceptions import ValidationError
 from django import forms
-from .models import Ticket, Type, Label, User, Status, Resolution, Priority, Comment
-from .utils import type_manager, tenant_manager, status_manager
+from .models import Ticket, Type, Label, User, Status, Resolution, Priority, Comment, TenantSession
+from .utils import type_manager, status_manager
 
 
 class IconField(forms.Select):
@@ -60,7 +60,7 @@ class TicketCreateForm(forms.ModelForm):
             self.fields.pop('assignee')
         else:
             self.fields['assignee'] = forms.ModelChoiceField(
-                queryset=tenant_manager.get_active_tenant_session(user).get_user_field_options(),
+                queryset=TenantSession.get_active(user).get_user_field_options(),
                 widget=IconField,
                 required=False)
 
@@ -151,7 +151,7 @@ class TicketFilterViewForm(forms.Form):
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request')
         super(TicketFilterViewForm, self).__init__(*args, **kwargs)
-        user_field_options = tenant_manager.get_active_tenant_session(self.request.user).get_user_field_options()
+        user_field_options = TenantSession.get_active(self.request.user).get_user_field_options()
         self.fields['reporter'] = forms.ModelChoiceField(
             queryset=user_field_options,
             required=False,

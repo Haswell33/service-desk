@@ -40,7 +40,7 @@ FILE_EXTENSIONS = {
 
 BASE_DIR = Path(__file__).resolve().parent.parent  # Build paths inside the project like this: BASE_DIR / 'subdir'.
 SECRET_KEY = 'django-insecure-z(g7^uxx3*)@ctru=wvchu5tezwzd3s@0m01rozf=-szc8%_!@'
-ALLOWED_HOSTS = ['192.168.0.100', '192.168.0.101', '127.0.0.1']
+ALLOWED_HOSTS = ['192.168.0.100', '192.168.0.101', '127.0.0.1', '*']
 ROOT_URLCONF = 'config.urls'
 WSGI_APPLICATION = 'config.wsgi.application'
 # STATIC_URL = '/static/'  # Static files (CSS, JavaScript, Images) https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -57,7 +57,7 @@ SITE_NAME = 'ServiceDeskApp'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-DEBUG = True
+DEBUG = False
 TIME_ZONE = 'Europe/Zagreb'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'  # Default primary key field type https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
@@ -93,7 +93,6 @@ MIDDLEWARE_CLASSES = [
 STATICFILES_DIRS = [
     f'{BASE_DIR}/static'
 ]
-#STATICFILES_DIRS = [BASE_DIR / 'static']
 
 TEMPLATES = [
     {

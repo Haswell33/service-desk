@@ -36,13 +36,13 @@ depends on core.js for utility functions like removeChildren or quickElement
             pgettext('abbrev. month December', 'Dec')
         ],
         daysOfWeek: [
-            pgettext('one letter Sunday', 'S'),
-            pgettext('one letter Monday', 'M'),
-            pgettext('one letter Tuesday', 'T'),
-            pgettext('one letter Wednesday', 'W'),
-            pgettext('one letter Thursday', 'T'),
-            pgettext('one letter Friday', 'F'),
-            pgettext('one letter Saturday', 'S')
+            pgettext('one letter Monday', 'Mon'),
+            pgettext('one letter Tuesday', 'Tue'),
+            pgettext('one letter Wednesday', 'Wed'),
+            pgettext('one letter Thursday', 'Thu'),
+            pgettext('one letter Friday', 'Fri'),
+            pgettext('one letter Saturday', 'Sat'),
+            pgettext('one letter Sunday', 'Sun'),
         ],
         firstDayOfWeek: parseInt(get_format('FIRST_DAY_OF_WEEK')),
         isLeapYear: function(year) {

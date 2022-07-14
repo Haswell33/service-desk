@@ -5,5 +5,7 @@
 </head>
 
 {% block content_page %}
-  <h1>Page not found - 404</h1>
+  <h1>404</h1>
+  <p>Page not found</p>
+  <p class="description">The requested URL <strong>{{request.path}}</strong> was not found on this server</p>
 {% endblock %}

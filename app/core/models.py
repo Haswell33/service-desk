@@ -295,15 +295,15 @@ class Tenant(models.Model):
         TenantSession.objects.create(tenant=self, role=role, user=user)
 
     def set_active_session(self, request):  # change tenant state to active based on data in cookies or choose default if no data in cookies
-        def _set_active_tenant(instance, user):
-            tenant_session = TenantSession.objects.get(tenant=instance, user=user)
+        tenant_cookie = request.COOKIES.get(self.get_cookie_name(request.user))
+        if ((tenant_cookie is None or not TenantSession.cookie_valid(tenant_cookie, request.user) or tenant_cookie == str(self.id)) and not TenantSession.get_active(request.user)) or tenant_cookie == str(self.id):
+            curr_active_tenant_session = TenantSession.get_active(request.user)
+            if curr_active_tenant_session:  # prevention to has two active tenant sessions (it will cause app errors)
+                curr_active_tenant_session.active = False
+                curr_active_tenant_session.save()
+            tenant_session = TenantSession.objects.get(tenant=self, user=request.user)
             tenant_session.active = True
             tenant_session.save()
-        tenant_cookie = self.get_cookie_name(request.user)
-        if request.COOKIES.get(tenant_cookie) is None and not TenantSession.objects.filter(active=True, user=request.user):
-            _set_active_tenant(self, request.user)
-        elif request.COOKIES.get(tenant_cookie) == str(self.id):
-            _set_active_tenant(self, request.user)
 
     @staticmethod
     def get_cookie_name(user):
@@ -1083,10 +1083,9 @@ class Ticket(models.Model):
         new_ticket = Ticket.objects.get(id=self.id)
         new_ticket.type = Type.objects.get(id=type_id)
         new_ticket.status = new_ticket.get_initial_status()
+        new_ticket.resolution = None
         new_ticket.pk = None
         new_ticket.save()
-        print(self.id)
-        print(new_ticket.id)
         logger.info(add_audit_log(new_ticket, new_ticket._meta.model.__name__, new_ticket, 'create'))
         logger.info(add_audit_log(self, self._meta.model.__name__, new_ticket, 'clone'))
         result = self.add_relation(new_ticket.id, user)
@@ -1156,6 +1155,14 @@ class TenantSession(models.Model):
     @staticmethod
     def get_all(user):
         return TenantSession.objects.filter(user=user)
+
+    @staticmethod
+    def cookie_valid(cookie, user):
+        available_tenants = TenantSession.objects.filter(user=user).values_list('tenant', flat=True)
+        if cookie in list(available_tenants) or int(cookie) in list(available_tenants):
+            return True
+        else:
+            return False
 
     def get_tickets(self, user, only_open=False):
         tickets = Ticket.objects.filter(tenant=self.tenant)

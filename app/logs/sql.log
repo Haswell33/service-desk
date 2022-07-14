@@ -1633,3 +1633,5 @@
 2022-06-28 18:19:28 DEBUG | ALTER TABLE "ticket_association" ADD COLUMN "author_id" bigint NULL CONSTRAINT "ticket_association_author_id_68aa2dfd_fk_user_id" REFERENCES "user"("id") DEFERRABLE INITIALLY DEFERRED; SET CONSTRAINTS "ticket_association_author_id_68aa2dfd_fk_user_id" IMMEDIATE; (params [])
 2022-06-28 18:19:28 DEBUG | CREATE INDEX "ticket_association_author_id_68aa2dfd" ON "ticket_association" ("author_id"); (params ())
 2022-06-28 19:54:29 DEBUG | ALTER TABLE "audit_log" DROP COLUMN "message" CASCADE; (params ())
+2022-07-09 15:18:17 DEBUG | ALTER TABLE "auth_group" ADD COLUMN "role" varchar(25) DEFAULT %s NOT NULL; (params [''])
+2022-07-09 15:21:07 DEBUG | ALTER TABLE "auth_group" ADD COLUMN "role" varchar(25) DEFAULT %s NOT NULL; (params [''])

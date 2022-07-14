@@ -1,4 +1,5 @@
 from .utils import tenant_manager
+from .models import TenantSession
 from django.conf import settings
 
 
@@ -28,7 +29,7 @@ def get_media(request):
 def get_tenants(request):
     if request.user.is_authenticated:
         return {
-            'tenant_sessions': tenant_manager.get_all_tenant_sessions(request.user),
-            'active_tenant_session': tenant_manager.get_active_tenant_session(request.user)}
+            'tenant_sessions': TenantSession.get_all(request.user),
+            'active_tenant_session': TenantSession.get_active(request.user)}
     return request
 

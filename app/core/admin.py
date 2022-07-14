@@ -44,9 +44,6 @@ class UserAdminModel(admin.ModelAdmin):
         }),
         ('User permissions', {
             'fields': ('permissions',)
-        }),
-        ('Dates', {
-            'fields': ('last_login', 'created')
         })
     )
     ordering = ['id']
@@ -63,8 +60,9 @@ class BoardAdminModel(admin.ModelAdmin):
     search_fields = ['name', 'env_type']
 
 
-class BoardColumnAssociationInline(admin.TabularInline):
+class BoardColumnAssociationInline(admin.StackedInline):
     model = BoardColumnAssociation
+    extra = 0
 
 
 @admin.register(BoardColumn)
@@ -114,7 +112,7 @@ class StatusAdminModel(admin.ModelAdmin):
     search_fields = ['name']
 
 
-class TransitionAssociationInline(admin.TabularInline):
+class TransitionAssociationInline(admin.StackedInline):
     model = TransitionAssociation
     extra = 0
 
