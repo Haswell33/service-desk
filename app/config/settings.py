@@ -39,8 +39,8 @@ FILE_EXTENSIONS = {
 }
 
 BASE_DIR = Path(__file__).resolve().parent.parent  # Build paths inside the project like this: BASE_DIR / 'subdir'.
-SECRET_KEY = 'django-insecure-z(g7^uxx3*)@ctru=wvchu5tezwzd3s@0m01rozf=-szc8%_!@'
-ALLOWED_HOSTS = ['192.168.0.100', '192.168.0.101', '127.0.0.1', '*']
+SECRET_KEY = '<SECRET_KEY>'
+ALLOWED_HOSTS = ['127.0.0.1', '*']
 ROOT_URLCONF = 'config.urls'
 WSGI_APPLICATION = 'config.wsgi.application'
 # STATIC_URL = '/static/'  # Static files (CSS, JavaScript, Images) https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -117,11 +117,11 @@ TEMPLATES = [
 DATABASES = {  # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'service-desk',
-        'USER': 'sd_admin',
-        'PASSWORD': 'NdhsrlBcGYY8mK2sKoy6XSLQR3hFb75giZz',
-        'HOST': '192.168.0.100',
-        'PORT': '5432',
+        'NAME': '<DB_NAME>',
+        'USER': '<DB_USER>',
+        'PASSWORD': '<DB_PASS>',
+        'HOST': '<DB_ADDRESS>',
+        'PORT': '<DB_PORT>',
     }
 }
 
