@@ -7,7 +7,7 @@ was designed to work on a product that requires long-term operational improvemen
 Implementation allows you to centralize communication with the client in the tasks 
 and in a convenient way to filter the tickets that have entered the system. 
 From the administration panel level it is possible to manage groups, users, 
-start panels, types of tasks, processes in a given type of request, 
+start panels, types of tasks, processes in a given type of ticket, 
 priorities and many other values that can be used to describe a task.</br>
 In addition, it is possible to divide tickets by categorizing them into tenants, 
 thanks to which it is possible to handle several projects from the level of the same 
