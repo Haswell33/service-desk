@@ -27,7 +27,7 @@ def get_filesize(size):
 
 
 def get_media_path():
-    return f'{settings.BASE_DIR}/{settings.MEDIA_URL.strip("/")}'
+    return f'./{settings.MEDIA_URL.strip("/")}'
 
 
 def get_no_value_info(message):
