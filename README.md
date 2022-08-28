@@ -27,7 +27,7 @@ application instance. The solution was prepared in Python using the Django frame
 
 #### Collect static files
 ```
-  py manager.py collecstatic
+  py manager.py collectstatic
 ```
 
 #### Run server
