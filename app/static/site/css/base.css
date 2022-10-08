@@ -32,21 +32,25 @@
 
 @font-face {
     font-family: Lato-light;
+    font-display: swap;
     src: url('fonts/Lato/Lato-Light.ttf')
 }
 
 @font-face {
     font-family: Lato;
+    font-display: swap;
     src: url('fonts/Lato/Lato-Regular.ttf')
 }
 
 @font-face {
     font-family: Lato-medium;
+    font-display: swap;
     src: url('fonts/Lato/Lato-Medium.ttf')
 }
 
 @font-face {
     font-family: Lato-bold;
+    font-display: swap;
     src: url('fonts/Lato/Lato-Bold.ttf')
 }
 
