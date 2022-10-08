@@ -73,6 +73,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'tinymce',
     'django_extensions',
+    'django_prometheus'
 ]
 
 MIDDLEWARE = [
@@ -83,7 +84,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'crum.CurrentRequestUserMiddleware'
+    'crum.CurrentRequestUserMiddleware',
+    'django_prometheus.middleware.PrometheusBeforeMiddleware',
+    'django_prometheus.middleware.PrometheusAfterMiddleware'
 ]
 
 MIDDLEWARE_CLASSES = [
