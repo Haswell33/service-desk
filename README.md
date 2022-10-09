@@ -26,6 +26,11 @@ application instance. The solution was prepared in Python using the Django frame
   source venv/bin/activate
 ```
 
+#### Connect to new virtual environment
+```
+  venv/Scripts/activate
+```
+
 #### Instal necessary packages
 ```
   pip install -r requirements.txt
