@@ -20,6 +20,11 @@ application instance. The solution was prepared in Python using the Django frame
   py -m virtualenv -p python3 venv
 ```
 
+#### Connect to new virtual environment
+```
+  venv/Scripts/activate
+```
+
 #### Instal necessary packages
 ```
   pip install -r requirements.txt
