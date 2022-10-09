@@ -1,5 +1,5 @@
 if (typeof jQuery === "undefined")
-    console.error('jQuery not loaded')
+    console.warn('jQuery not loaded')
 else
     console.log('jQuery loaded')
 
@@ -104,6 +104,15 @@ function themeColor(userIsAuth, userIsAdmin, role){
       })
     }
 }
+
+/*
+const resizeOps = () => {
+    document.documentElement.style.setProperty("--vh", window.innerHeight * 0.01 + "px");
+};
+resizeOps();
+window.addEventListener("resize", resizeOps);
+*/
+
 /*
 $(document).on('select2:select', function (event) {
     if (event.target.id === 'sidebar-block_tenant-set') {

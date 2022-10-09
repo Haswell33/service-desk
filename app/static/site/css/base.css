@@ -588,7 +588,7 @@ ul#sidebar-block_menu li a {
     padding: 15px;
 }
 
-#content-page > h2 {
+#content-page > h1 {
     margin: 0 0 5px 0;
     font-size: 24px;
     padding-bottom: 7px;
@@ -607,7 +607,7 @@ ul#sidebar-block_menu li a {
     border-bottom: none!important;
 }
 
-#content-page > #content-page_header h2 {
+#content-page > #content-page_header h1 {
     margin: 0;
     font-size: 24px;
 }

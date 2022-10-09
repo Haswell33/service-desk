@@ -8,7 +8,7 @@
   {% block content_page %}
   <div id="content-page_header">
       <div class="content-page_header-block">
-        <h2>Create ticket</h2>
+        <h1>Create ticket</h1>
       </div>
     </div>
   <div id="content-page_create-ticket" class="content-page-block">
@@ -51,7 +51,10 @@
     </form>
   </div>
   <script>
-    $(document).ready(function(){renderFields('create-ticket', '{{ MEDIA_URL }}')})
+    $(document).ready(function(){
+      bootstrapFilestyle()
+      renderFields('create-ticket', '{{ MEDIA_URL }}')
+    })
   </script>
   {% endblock %}
 </body>

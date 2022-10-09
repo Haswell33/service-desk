@@ -17,7 +17,13 @@ application instance. The solution was prepared in Python using the Django frame
 
 #### Create virtual environment
 ```
-  py -m virtualenv -p python3 venv
+  python -m virtualenv -p python3 venv
+```
+
+#### Connect to new virtual environment
+```
+  chmod +x venv/bin/activate
+  source venv/bin/activate
 ```
 
 #### Instal necessary packages
@@ -27,12 +33,12 @@ application instance. The solution was prepared in Python using the Django frame
 
 #### Collect static files
 ```
-  py manager.py collectstatic
+  python manage.py collectstatic
 ```
 
 #### Run server
 ```
-  py manager.py runserver
+  python manage.py runserver
 ```
 
 ## License
@@ -44,4 +50,3 @@ Note that this application is distributed with 3rd party products which have the
 ## Author
 
 - [@Karol Siedlaczek](https://github.com/Haswell33)
-

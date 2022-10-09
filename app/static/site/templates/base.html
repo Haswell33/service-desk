@@ -3,24 +3,25 @@
 <head>
   {% load static %}
   <title>{% block title %}Service Desk{% endblock %}</title>
-  <script type="text/javascript" rel="script" src="{% static 'site/js/jquery.min.js' %}"></script>
-  <script type="text/javascript" rel="script" src="{% static 'site/js/base.js' %}"></script>
-  <script type="text/javascript" rel="script" src="{% static 'site/js/sidebar.js' %}"></script>
-  <script type="text/javascript" rel="script" src="{% static 'site/js/fields.js' %}"></script>
-  <script type="text/javascript" rel="script" src="{% static 'site/js/bootstrap-filestyle.min.js' %}"></script>
-  <script type="text/javascript" rel="script" src="{% static 'site/js/select2.min.js' %}"></script>
-  <link type="text/css" rel="stylesheet" href="{% static 'site/css/base.css' %}"/>
-  <link type="text/css" rel="stylesheet" href="{% static 'site/css/select2.min.css' %}">
-  <link type="text/css" rel="stylesheet" href="{% static 'site/css/select2-custom.css' %}"/>
-  <link type="text/css" rel="stylesheet" href="{% static 'site/css/tinymce-custom.css' %}">
-  <link rel="icon" type="image/x-icon" href="{% static 'site/img/favicon.ico' %}">
+  <script type="text/javascript" id="jquery-js" src="{% static 'site/js/jquery.min.js' %}?v=1"></script>
+  <script type="text/javascript" id="base-js" src="{% static 'site/js/base.js' %}?v=1" async></script>
+  <script type="text/javascript" id="fields-js" src="{% static 'site/js/fields.js' %}?v=1" defer></script>
+  <script type="text/javascript" id="select2-js" src="{% static 'site/js/select2.min.js' %}?v=1" defer></script>
+  <script type="text/javascript" id="sidebar-js" src="{% static 'site/js/sidebar.js' %}?v=1" async></script>
+  <script type="text/javascript" id="bootstrap-filestyle-js" src="{% static 'site/js/bootstrap-filestyle.min.js' %}?v=1" defer></script>
+  <link type="text/css" id="base-css" rel="preload" as="style" href="{% static 'site/css/base.css' %}?v=1" onload="this.rel='stylesheet'"/>
+  <link type="text/css" id="responsive-css" rel="stylesheet" href="{% static 'site/css/responsive.css' %}?v=1"/>
+  <link type="text/css" id="select2-css" rel="stylesheet" href="{% static 'site/css/select2.min.css' %}?v=1"/>
+  <link type="text/css" id="select2-custom-css" rel="stylesheet" href="{% static 'site/css/select2-custom.css' %}?v=1"/>
+  <link type="text/css" id="tinymce-custom-css" rel="stylesheet" href="{% static 'site/css/tinymce-custom.css' %}?v=1"/>
+  <link rel="icon" href="{% static 'site/img/favicon.ico' %}?v=1" type="image/x-icon">
   <link rel="canonical" href="{{ request.build_absolute_uri }}">
   <meta charset="utf-8">
   <meta name="author" content="Karol Siedlaczek">
   <meta name="description" content="Service Desk App">
   <meta name="keywords" content="service desk ticket issue project tenant">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
 </head>
 
 <body>
@@ -146,7 +147,6 @@
 <script>
   $(document).ready(function(){
     console.log('document ready')
-    bootstrapFilestyle()
     let userIsAdmin = ('{{user.is_superuser}}' === 'True')  // it only changes colors of page :)
     let userIsAuth = ('{{user.is_authenticated}}' === 'True')
     let role = '{{ active_tenant_session.role }}'

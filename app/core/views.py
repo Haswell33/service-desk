@@ -755,6 +755,19 @@ def logged_out(request, template_name='logged-out.html'):
     return render(request, template_name, {}, status=200)
 
 
+class RobotsView(TemplateView):
+    template_name = 'robots.txt'
+    content_type = 'text/plain'
+
+    def get(self, request, *args, **kwargs):
+        lines = [
+            'User-Agent: *',
+            'Disallow: /admin/',
+            f'Sitemap: {request.build_absolute_uri("sitemap.xml")}'
+        ]
+        return HttpResponse('\n'.join(lines), content_type=self.content_type)
+
+
 '''
 class TenantUpdateView(UpdateView):
     tenant_id = None

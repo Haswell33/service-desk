@@ -1,5 +1,6 @@
 {% extends 'home.html' %}
 {% load filters %}
+
 <head>
   <title>{% block title %} {{ block.super }} | Ticket {{ object.key }}{% endblock %}</title>
 </head>
@@ -9,7 +10,7 @@
   <div id="content-page_header" class="separated">
     <div class="content-page_header-block">
       <div class="content-page_header-block_type">{{ object.type.get_icon }}</div>
-      <h2>{{ object.key }}</h2>
+      <h1>{{ object.key }}</h1>
     </div>
   </div>
   <div class="separator-horizontal"></div>

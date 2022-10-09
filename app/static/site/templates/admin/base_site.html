@@ -11,7 +11,10 @@
     {% block nav-global %}
         {% include 'base.html' %}
         <script>
-            $(document).ready(function(){renderFields('admin', '{{ MEDIA_URL }}')})
+            $(document).ready(function(){
+                bootstrapFilestyle()
+                renderFields('admin', '{{ MEDIA_URL }}')
+            })
         </script>
     {% endblock %}
     </div>

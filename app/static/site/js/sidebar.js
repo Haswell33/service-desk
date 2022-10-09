@@ -4,8 +4,12 @@ SIDEBAR_CONTENT = '#sidebar-block_content'
 CONTENT_PAGE = '#content-page'
 
 $(document).ready(function(event) {
-    if (localStorage.siteSidebarOpen === null || localStorage.siteSidebarOpen === undefined)
+    if (localStorage.siteSidebarOpen === null || localStorage.siteSidebarOpen === undefined) {
+        $(SIDEBAR_CONTENT).removeClass(SIDEBAR_TRANSITION)
+        $(CONTENT_PAGE).removeClass(SIDEBAR_TRANSITION)
+        sidebar(event, 'show')
         localStorage.siteSidebarOpen = 'true'
+    }
     else if (localStorage.siteSidebarOpen === 'false'){
         $(SIDEBAR_CONTENT).removeClass(SIDEBAR_TRANSITION)
         $(CONTENT_PAGE).removeClass(SIDEBAR_TRANSITION)

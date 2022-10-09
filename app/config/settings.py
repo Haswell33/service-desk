@@ -39,8 +39,8 @@ FILE_EXTENSIONS = {
 }
 
 BASE_DIR = Path(__file__).resolve().parent.parent  # Build paths inside the project like this: BASE_DIR / 'subdir'.
-SECRET_KEY = '<SECRET_KEY>'
-ALLOWED_HOSTS = ['127.0.0.1', '*']
+SECRET_KEY = 'django-insecure-z(g7^uxx3*)@ctru=wvchu5tezwzd3s@0m01rozf=-szc8%_!@'
+ALLOWED_HOSTS = ['192.168.0.100', '192.168.0.101', '127.0.0.1', '*']
 ROOT_URLCONF = 'config.urls'
 WSGI_APPLICATION = 'config.wsgi.application'
 # STATIC_URL = '/static/'  # Static files (CSS, JavaScript, Images) https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -57,12 +57,14 @@ SITE_NAME = 'ServiceDeskApp'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-DEBUG = False
+DEBUG = True
 TIME_ZONE = 'Europe/Zagreb'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'  # Default primary key field type https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 AUTH_USER_MODEL = 'core.User'
+USE_X_FORWARED_HOST = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 INSTALLED_APPS = [
     'core',
     'django.contrib.admin',
@@ -71,6 +73,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sitemaps',
     'tinymce',
     'django_extensions',
     'django_prometheus'
@@ -100,7 +103,7 @@ STATICFILES_DIRS = [
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [f'{BASE_DIR}/static/site/templates/'],
+        'DIRS': [f'{BASE_DIR}/staticfiles/site/templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -122,9 +125,9 @@ DATABASES = {  # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': '<DB_NAME>',
         'USER': '<DB_USER>',
-        'PASSWORD': '<DB_PASS>',
-        'HOST': '<DB_ADDRESS>',
-        'PORT': '<DB_PORT>',
+        'PASSWORD': '<PASSWORD>>',
+        'HOST': '<IP_ADDRESS>',
+        'PORT': '<PORT>>',
     }
 }
 
@@ -158,15 +161,20 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'default': {
-            'format': '{asctime} {levelname} | {message}',
+            'format': '{asctime} {levelname} {message}',
             'style': '{',
             'datefmt': '%Y-%m-%d %H:%M:%S'
         },
         'format-request': {
-            'format': "{asctime} {levelname} {request.user} {request.method} {status_code} {message}",
+            'format': "{asctime} {levelname} {request.user.username} {request.method} {status_code} {message}",
             'style': '{',
             'datefmt': '%Y-%m-%d %H:%M:%S'
         },
+        'format-sql': {
+            'format': "{asctime} {levelname} {alias} {sql} {params} [{duration}]",
+            'style': '{',
+            'datefmt': '%Y-%m-%d %H:%M:%S'
+        }
     },
     'filters': {
         'require_debug_true': {
@@ -183,7 +191,7 @@ LOGGING = {
             'formatter': 'format-request',
             'filename': f'{BASE_DIR}/logs/request.log',
             'maxBytes': 1024*1024*15,  # 15MB
-            'backupCount': 10,
+            'backupCount': 5,
         },
         'template': {
             'level': 'INFO',
@@ -191,15 +199,15 @@ LOGGING = {
             'formatter': 'default',
             'filename': f'{BASE_DIR}/logs/template.log',
             'maxBytes': 1024*1024*15,
-            'backupCount': 10,
+            'backupCount': 5,
         },
         'server': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'class': 'logging.handlers.RotatingFileHandler',
             'formatter': 'default',
             'filename': f'{BASE_DIR}/logs/server.log',
             'maxBytes': 1024*1024*15,
-            'backupCount': 10,
+            'backupCount': 5,
         },
         'security': {
             'level': 'DEBUG',
@@ -207,13 +215,13 @@ LOGGING = {
             'formatter': 'default',
             'filename': f'{BASE_DIR}/logs/security.log',
             'maxBytes': 1024*1024*15,
-            'backupCount': 10,
+            'backupCount': 5,
         },
         'sql': {
             'level': 'DEBUG',
             'filters': ['require_debug_true'],
             'class': 'logging.handlers.RotatingFileHandler',
-            'formatter': 'default',
+            'formatter': 'format-sql',
             'filename': f'{BASE_DIR}/logs/sql.log',
             'maxBytes': 1024*1024*50,
             'backupCount': 5,
@@ -226,9 +234,22 @@ LOGGING = {
             'maxBytes': 1024*1024*50,
             'backupCount': 5,
         },
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'formatter': 'default',
+            'filename': f'{BASE_DIR}/logs/console.log',
+            'maxBytes': 1024*1024*50,
+            'backupCount': 5,
+        }
     },
     'loggers': {
         'django.request': {
+            'handlers': ['request'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'django.server': {
             'handlers': ['request'],
             'level': 'DEBUG',
             'propagate': True,
@@ -238,17 +259,12 @@ LOGGING = {
             'level': 'INFO',
             'propagate': True,
         },
-        'django.server': {
-            'handlers': ['server'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-        'django.security.*': {
+        'django.security': {
             'handlers': ['security'],
             'level': 'DEBUG',
             'propagate': True,
         },
-        'django.db.backends.schema': {
+        'django.db.backends': {
             'handlers': ['sql'],
             'level': 'DEBUG',
             'propagate': True,
@@ -258,5 +274,20 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': True,
         },
-    },
+        'django': {
+            'handlers': ['server'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'py.warnings': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'py.errors': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': True,
+        }
+    }
 }

@@ -4,7 +4,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.static import serve
 from django.contrib.auth import views as auth_views
+from django.contrib.sitemaps.views import sitemap
+from django.views.decorators.cache import cache_page
 from core import views
+from .sitemaps import StaticViewSitemap
 
 handler400 = 'core.views.error_400'
 handler401 = 'core.views.error_401'
@@ -13,11 +16,14 @@ handler404 = 'core.views.error_404'
 handler405 = 'core.views.error_405'
 handler500 = 'core.views.error_500'
 
+sitemaps = {
+    'static': StaticViewSitemap,
+}
+
 urlpatterns = [
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
     path('', views.TicketBoardView.as_view(), name='home'),
-    path('prometheus/', include('django_prometheus.urls')),
     path('ticket/create', views.TicketCreateView.as_view(), name='create_ticket'),
     path('ticket/filter/', views.TicketFilterView.as_view(), name='filter_ticket'),
     path('ticket/view/<slug:slug>', views.TicketDetailView.as_view(),  name='view_ticket'),
@@ -44,6 +50,9 @@ urlpatterns = [
     path('password-reset/', views.PasswordResetView.as_view(), name='password_reset'),
     path('password-reset/sent', views.PasswordResetSentView.as_view(), name='password_reset_sent'),
     path('password-reset/confirm/<uidb64>/<token>/', views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
-    path('password-reset/success', views.PasswordResetSuccessView.as_view(), name='password_reset_success')] \
+    path('password-reset/success', views.PasswordResetSuccessView.as_view(), name='password_reset_success'),
+    path('prometheus/', include('django_prometheus.urls')),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    path('robots.txt', views.RobotsView.as_view(), name='robots.txt')] \
     #    + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
     #    + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
