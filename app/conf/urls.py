@@ -51,8 +51,6 @@ urlpatterns = [
     path('password-reset/sent', views.PasswordResetSentView.as_view(), name='password_reset_sent'),
     path('password-reset/confirm/<uidb64>/<token>/', views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('password-reset/success', views.PasswordResetSuccessView.as_view(), name='password_reset_success'),
-    path('prometheus/', include('django_prometheus.urls')),
+    path('', include('django_prometheus.urls')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
-    path('robots.txt', views.RobotsView.as_view(), name='robots.txt')] \
-    #    + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
-    #    + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('robots.txt', views.RobotsView.as_view(), name='robots.txt')]

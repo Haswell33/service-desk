@@ -8,7 +8,8 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import UpdateView, DeleteView, CreateView, FormView, FormMixin
 from django.views.generic.base import TemplateView
-from django.views.decorators.cache import never_cache
+from django.views.decorators.vary import vary_on_cookie
+from django.views.decorators.cache import never_cache, cache_page
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -22,9 +23,12 @@ from django.core.exceptions import ValidationError, ObjectDoesNotExist, Permissi
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotAllowed
 from django.shortcuts import render, reverse, redirect, resolve_url
 from django.conf import settings
+from django.core.cache import cache
+from django.dispatch import receiver
 from django.db.models.query_utils import Q
+from django.db.models.signals import post_delete, post_save, post_init
 from django.template.loader import render_to_string
-from .models import Ticket, TransitionAssociation, Attachment, Comment, Status, User, Tenant, TenantSession
+from .models import Ticket, TransitionAssociation, Attachment, Comment, Status, User, Tenant, TenantSession, Type, Priority
 from .forms import TicketCreateForm, TicketFilterViewForm, TicketEditAssigneeForm, TicketEditForm, TicketCommentForm, TicketCloneForm, SetPasswordForm, PasswordChangeForm
 from .utils import tenant_manager, board_manager, ticket_manager, utils
 from .context_processors import context_tenant_session
@@ -71,7 +75,7 @@ def error_405(request, exception=None, template_name='errors/405.html'):
     return render(request, template_name, {}, status=405)
 
 
-def error_500(request,exception=None, template_name='errors/500.html'):
+def error_500(request, exception=None, template_name='errors/500.html'):
     return render(request, template_name, {}, status=500)
 
 
@@ -97,6 +101,7 @@ user_logged_in.connect(after_login)
 # Views
 
 
+@method_decorator([cache_page(600), vary_on_cookie], name='dispatch')
 class TicketCreateView(SuccessMessageMixin, CreateView):
     model = Ticket
     form_class = TicketCreateForm
@@ -132,6 +137,7 @@ class TicketCreateView(SuccessMessageMixin, CreateView):
         return validate_get_request(self, request, TicketCreateView, tenant_check=True, *args, **kwargs)
 
 
+@method_decorator([cache_page(600), vary_on_cookie], name='dispatch')
 class TicketDetailView(FormMixin, DetailView):  # Detail view for ticket
     model = Ticket
     form_class = TicketEditAssigneeForm
@@ -175,6 +181,7 @@ class TicketDetailView(FormMixin, DetailView):  # Detail view for ticket
         return validate_get_request(self, request, TicketDetailView, tenant_check=True, *args, **kwargs)
 
 
+@method_decorator([cache_page(600), vary_on_cookie], name='dispatch')
 class TicketEditView(UpdateView):
     model = Ticket
     fields = ['title', 'priority', 'description', 'labels']
@@ -462,6 +469,7 @@ class TicketCloneView(UpdateView):
         return HttpResponseRedirect(reverse('view_ticket', args=[ticket.slug]))
 
 
+@method_decorator([cache_page(600), vary_on_cookie], name='dispatch')
 class TicketBoardView(ListView):
     model = Ticket
     context_object_name = 'tickets'
@@ -483,6 +491,7 @@ class TicketBoardView(ListView):
         return validate_get_request(self, request, TicketBoardView, tenant_check=True, *args, **kwargs)
 
 
+@method_decorator([cache_page(600), vary_on_cookie], name='dispatch')
 class TicketFilterView(FormMixin, ListView):
     model = Ticket
     context_object_name = 'tickets'
@@ -725,6 +734,19 @@ class PasswordResetSuccessView(PasswordContextMixin, TemplateView):
         return context
 
 
+class RobotsView(TemplateView):
+    template_name = 'robots.txt'
+    content_type = 'text/plain'
+
+    def get(self, request, *args, **kwargs):
+        lines = [
+            'User-Agent: *',
+            'Disallow: /admin/',
+            f'Sitemap: {request.build_absolute_uri("sitemap.xml")}'
+        ]
+        return HttpResponse('\n'.join(lines), content_type=self.content_type)
+
+
 def tenant_update(request, tenant_check=False):
     if not request.user.is_authenticated:
         return login_page(request.path)
@@ -754,19 +776,59 @@ def logged_out(request, template_name='logged-out.html'):
         return HttpResponseRedirect(reverse('home'))
     return render(request, template_name, {}, status=200)
 
+# Receivers DELETE
 
-class RobotsView(TemplateView):
-    template_name = 'robots.txt'
-    content_type = 'text/plain'
+'''
+@receiver(post_delete, sender=Type, dispatch_uid='post_deleted')
+def object_post_delete_handler(sender, **kwargs):
+    cache.delete('type_objects')
 
-    def get(self, request, *args, **kwargs):
-        lines = [
-            'User-Agent: *',
-            'Disallow: /admin/',
-            f'Sitemap: {request.build_absolute_uri("sitemap.xml")}'
-        ]
-        return HttpResponse('\n'.join(lines), content_type=self.content_type)
 
+@receiver(post_delete, sender=Priority, dispatch_uid='post_deleted')
+def object_post_delete_handler(sender, **kwargs):
+    cache.delete('priority_objects')
+
+
+@receiver(post_delete, sender=User, dispatch_uid='post_deleted')
+def object_post_delete_handler(sender, **kwargs):
+    cache.delete('user_objects')
+
+# Receivers UPDATE
+
+
+@receiver(post_save, sender=Type, dispatch_uid='posts_updated')
+def object_post_save_handler(sender, **kwargs):
+    cache.delete('type_objects')
+
+
+@receiver(post_save, sender=Priority, dispatch_uid='posts_updated')
+def object_post_save_handler(sender, **kwargs):
+    cache.delete('priority_objects')
+
+
+@receiver(post_save, sender=User, dispatch_uid='posts_updated')
+def object_post_save_handler(sender, **kwargs):
+    cache.delete('users_objects')
+
+
+
+@receiver(post_init, sender=Ticket, dispatch_uid='ticket_created')
+def object_post_init_handler(sender, instance, **kwargs):
+    print(f"init sender: {sender}, instance: {instance}")
+    cache.delete('ticket_objects')
+
+
+@receiver(post_delete, sender=Ticket, dispatch_uid='ticket_deleted')
+def object_post_delete_handler(sender, instance, **kwargs):
+    print(f"delete sender: {sender}, instance: {instance}")
+    cache.delete('ticket_objects')
+
+
+@receiver(post_save, sender=Ticket, dispatch_uid='tickets_updated')
+def object_post_save_handler(sender, instance, **kwargs):
+    print(f"save: sender: {sender}, instance: {instance}")
+    cache.delete('tickets_objects')
+'''
 
 '''
 class TenantUpdateView(UpdateView):
@@ -807,3 +869,4 @@ class TenantUpdateView(UpdateView):
         tenant_session.change_active(tenant_id, request.user)
         return self.get_success_url()
 '''
+com = f'su jira -c "jcmd {pid} GC.run"'

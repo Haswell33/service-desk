@@ -41,8 +41,8 @@ FILE_EXTENSIONS = {
 BASE_DIR = Path(__file__).resolve().parent.parent  # Build paths inside the project like this: BASE_DIR / 'subdir'.
 SECRET_KEY = 'django-insecure-z(g7^uxx3*)@ctru=wvchu5tezwzd3s@0m01rozf=-szc8%_!@'
 ALLOWED_HOSTS = ['192.168.0.100', '192.168.0.101', '127.0.0.1', '*']
-ROOT_URLCONF = 'config.urls'
-WSGI_APPLICATION = 'config.wsgi.application'
+ROOT_URLCONF = 'conf.urls'
+WSGI_APPLICATION = 'conf.wsgi.application'
 # STATIC_URL = '/static/'  # Static files (CSS, JavaScript, Images) https://docs.djangoproject.com/en/3.2/howto/static-files/
 # STATIC_ROOT = f'{BASE_DIR}'
 STATIC_URL = '/static/'
@@ -57,7 +57,7 @@ SITE_NAME = 'ServiceDeskApp'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-DEBUG = True
+DEBUG = False
 TIME_ZONE = 'Europe/Zagreb'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'  # Default primary key field type https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
@@ -89,11 +89,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'crum.CurrentRequestUserMiddleware',
     'django_prometheus.middleware.PrometheusBeforeMiddleware',
-    'django_prometheus.middleware.PrometheusAfterMiddleware'
-]
-
-MIDDLEWARE_CLASSES = [
-    'core.middleware.test'
+    'django_prometheus.middleware.PrometheusAfterMiddleware',
+    'django.middleware.cache.UpdateCacheMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware'
 ]
 
 STATICFILES_DIRS = [
@@ -123,13 +121,25 @@ TEMPLATES = [
 DATABASES = {  # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': '<DB_NAME>',
-        'USER': '<DB_USER>',
-        'PASSWORD': '<PASSWORD>>',
-        'HOST': '<IP_ADDRESS>',
-        'PORT': '<PORT>>',
+        'NAME': '<DB_NAME>>',
+        'USER': '<DB_USER>>',
+        'PASSWORD': '<DB_PASS>>',
+        'HOST': '<DB_HOST>',
+        'PORT': '<DB_PORT>>',
     }
 }
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.11211'
+    }
+}
+
+CACHE_MIDDLEWARE_ALIAS = 'default'  # which cache alias to use
+CACHE_MIDDLEWARE_SECONDS = '600'    # number of seconds to cache a page for (TTL)
+CACHE_MIDDLEWARE_KEY_PREFIX = ''    # should be used if the cache is shared across multiple sites that use the same Django instance
+
 
 AUTH_PASSWORD_VALIDATORS = [  # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
     {
@@ -137,6 +147,9 @@ AUTH_PASSWORD_VALIDATORS = [  # https://docs.djangoproject.com/en/3.2/ref/settin
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 10,
+        }
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
@@ -201,16 +214,16 @@ LOGGING = {
             'maxBytes': 1024*1024*15,
             'backupCount': 5,
         },
-        'server': {
+        'django': {
             'level': 'INFO',
             'class': 'logging.handlers.RotatingFileHandler',
-            'formatter': 'default',
-            'filename': f'{BASE_DIR}/logs/server.log',
+            'formatter': 'format-request',
+            'filename': f'{BASE_DIR}/logs/django.log',
             'maxBytes': 1024*1024*15,
             'backupCount': 5,
         },
         'security': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'class': 'logging.handlers.RotatingFileHandler',
             'formatter': 'default',
             'filename': f'{BASE_DIR}/logs/security.log',
@@ -219,7 +232,7 @@ LOGGING = {
         },
         'sql': {
             'level': 'DEBUG',
-            'filters': ['require_debug_true'],
+            #'filters': ['require_debug_true'],
             'class': 'logging.handlers.RotatingFileHandler',
             'formatter': 'format-sql',
             'filename': f'{BASE_DIR}/logs/sql.log',
@@ -231,14 +244,6 @@ LOGGING = {
             'class': 'logging.handlers.RotatingFileHandler',
             'formatter': 'default',
             'filename': f'{BASE_DIR}/logs/app.log',
-            'maxBytes': 1024*1024*50,
-            'backupCount': 5,
-        },
-        'console': {
-            'level': 'INFO',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'formatter': 'default',
-            'filename': f'{BASE_DIR}/logs/console.log',
             'maxBytes': 1024*1024*50,
             'backupCount': 5,
         }
@@ -259,12 +264,12 @@ LOGGING = {
             'level': 'INFO',
             'propagate': True,
         },
-        'django.security': {
+        'django.security.*': {
             'handlers': ['security'],
-            'level': 'DEBUG',
+            'level': 'INFO',
             'propagate': True,
         },
-        'django.db.backends': {
+        'django.db.backends.schema': {
             'handlers': ['sql'],
             'level': 'DEBUG',
             'propagate': True,
@@ -275,19 +280,9 @@ LOGGING = {
             'propagate': True,
         },
         'django': {
-            'handlers': ['server'],
+            'handlers': ['django'],
             'level': 'INFO',
-            'propagate': True,
-        },
-        'py.warnings': {
-            'handlers': ['console'],
-            'level': 'INFO',
-            'propagate': True,
-        },
-        'py.errors': {
-            'handlers': ['console'],
-            'level': 'INFO',
-            'propagate': True,
+            'propagate': True
         }
     }
 }
