@@ -91,11 +91,16 @@ MIDDLEWARE = [
     'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'django_prometheus.middleware.PrometheusAfterMiddleware',
     'django.middleware.cache.UpdateCacheMiddleware',
-    'django.middleware.cache.FetchFromCacheMiddleware'
+    'django.middleware.cache.FetchFromCacheMiddleware',
+    'django.middleware.locale.LocaleMiddleware'
 ]
 
 STATICFILES_DIRS = [
     f'{BASE_DIR}/static'
+]
+
+LOCALE_PATH = [
+    f'{BASE_DIR}/locale'
 ]
 
 TEMPLATES = [
