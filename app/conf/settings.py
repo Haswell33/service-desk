@@ -286,7 +286,7 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': True,
         },
-        'core.security': {
+        'core.receivers': {
             'handlers': ['security'],
             'level': 'DEBUG',
             'propagate': True,
