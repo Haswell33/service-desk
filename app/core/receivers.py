@@ -6,7 +6,7 @@ from .utils import util_manager, tenant_manager
 from .models import Attachment
 from logging import getLogger
 
-log = getLogger('core.security')
+log = getLogger('core.receivers')
 
 
 @receiver(models.signals.post_delete, sender=Attachment)
