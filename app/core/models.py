@@ -6,24 +6,21 @@ from django.contrib.auth.models import Group, AbstractBaseUser, PermissionsMixin
 from django.db.models import Q, Manager
 from django.db.utils import IntegrityError
 from django.db import models
-from django.dispatch import receiver
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from crum import get_current_user, get_current_request
 from tinymce.models import HTMLField
 from datetime import datetime
-from .utils import ticket_manager, utils
+from .utils import ticket_manager, util_manager
 from .managers import UserManager
 from logging import getLogger
 import os
 
-logger = getLogger(__name__)
+log = getLogger('core.models')
 
 
 def get_upload_path(instance, filename):  # to provide upload path in Attachment
-    upload_path = os.path.join(utils.get_media_path(), 'attachments', instance.directory)
-    if not os.path.isdir(upload_path):
-        os.makedirs(upload_path)
+    upload_path = os.path.join('attachments', instance.directory)
     return os.path.join(upload_path, filename)
 
 
@@ -53,7 +50,7 @@ class User(AbstractBaseUser):
     email = models.EmailField(
         _('email address'))
     icon = models.ImageField(
-        upload_to=f'{utils.get_media_path()}/img/user',
+        upload_to=f'img/user',
         default=f'img/user/dog.png',
         max_length=500)
     password = models.CharField(
@@ -94,12 +91,12 @@ class User(AbstractBaseUser):
     get_display_name.short_description = 'Display name'
 
     def get_icon(self):
-        return utils.get_img_field(self.icon, self.get_display_name(), 20, 20)
+        return util_manager.get_img_field(self.icon, self.get_display_name(), 20, 20)
     get_icon.short_description = 'Icon'
 
     def get_icon_text(self):
         try:
-            return utils.get_img_text_field(self.icon, self, 18, 18)
+            return util_manager.get_img_text_field(self.icon, self, 18, 18)
         except AttributeError:
             return self
     get_icon_text.short_description = 'User'
@@ -253,7 +250,7 @@ class Tenant(models.Model):
         null=True,
         on_delete=models.DO_NOTHING)
     icon = models.ImageField(
-        upload_to=f'{utils.get_media_path()}/img/tenant',
+        upload_to=f'img/tenant',
         validators=[FileExtensionValidator],
         blank=True,
         max_length=500)
@@ -277,7 +274,7 @@ class Tenant(models.Model):
         super().save(*args, **kwargs)
 
     def get_icon(self):
-        return utils.get_img_field(self.icon, self.name, 20, 20)
+        return util_manager.get_img_field(self.icon, self.name, 20, 20)
     get_icon.short_description = 'Icon'
 
     def session_exists(self, user):  # check if specific tenant session assigned to provided user exists in database
@@ -326,7 +323,7 @@ class Priority(models.Model):
     step = models.IntegerField(
         default=1)
     icon = models.ImageField(
-        upload_to=f'{utils.get_media_path()}/img/priority',
+        upload_to=f'img/priority',
         validators=[FileExtensionValidator],
         blank=True,
         max_length=500)
@@ -340,12 +337,12 @@ class Priority(models.Model):
         ordering = ['-step']
 
     def get_icon(self):
-        return utils.get_img_field(self.icon, self.name, 20, 20)
+        return util_manager.get_img_field(self.icon, self.name, 20, 20)
     get_icon.short_description = 'Icon'
 
     def get_icon_text(self):
         try:
-            return utils.get_img_text_field(self.icon, self.name, 18, 18)
+            return util_manager.get_img_text_field(self.icon, self.name, 18, 18)
         except AttributeError:
             return self.name
     get_icon_text.short_description = 'Priority'
@@ -371,7 +368,7 @@ class Type(models.Model):
         blank=True,
         null=True)
     icon = models.ImageField(
-        upload_to=f'{utils.get_media_path()}/img/type',
+        upload_to=f'img/type',
         validators=[FileExtensionValidator],
         blank=True,
         max_length=500)
@@ -385,12 +382,12 @@ class Type(models.Model):
         ordering = ['id']
 
     def get_icon(self):
-        return utils.get_img_field(self.icon, self.name, 20, 20)
+        return util_manager.get_img_field(self.icon, self.name, 20, 20)
     get_icon.short_description = 'Icon'
 
     def get_icon_text(self):
         try:
-            return utils.get_img_text_field(self.icon, self.name, 18, 18)
+            return util_manager.get_img_text_field(self.icon, self.name, 18, 18)
         except AttributeError:
             return self.name
     get_icon_text.short_description = 'Type'
@@ -465,11 +462,11 @@ class Status(models.Model):
 
     @property
     def color_hex(self):
-        return utils.get_color_box(self.color, '18', '18')
+        return util_manager.get_color_box(self.color, '18', '18')
     color_hex.fget.short_description = 'Color'
 
     def get_colored(self):
-        return utils.get_status_color(self.color, self.name)
+        return util_manager.get_status_color(self.color, self.name)
     get_colored.short_description = 'Status'
 
     @staticmethod
@@ -549,7 +546,7 @@ class Transition(models.Model):
 
     @property
     def full_transition(self):
-        return utils.get_transition_block(self.src_status.color, self.src_status.name, self.dest_status.color, self.dest_status.name)
+        return util_manager.get_transition_block(self.src_status.color, self.src_status.name, self.dest_status.color, self.dest_status.name)
     full_transition.fget.short_description = 'Transition'
 
     def __str__(self):
@@ -618,7 +615,7 @@ class Comment(models.Model):
     @property
     def author_img_text(self):
         try:
-            return utils.get_img_text_field(self.author.icon, self.author, 18, 18)
+            return util_manager.get_img_text_field(self.author.icon, self.author, 18, 18)
         except AttributeError:
             return self.author
     author_img_text.fget.short_description = 'Author'
@@ -673,12 +670,12 @@ class Attachment(models.Model):
 
     @property
     def uploaded_datetime(self):
-        return utils.get_utc_to_local(self.uploaded)
+        return util_manager.get_utc_to_local(self.uploaded)
     uploaded_datetime.fget.short_description = 'Uploaded'
 
     @property
     def display_size(self):
-        return utils.get_filesize(self.size)
+        return util_manager.get_filesize(self.size)
     display_size.fget.short_description = 'Size'
 
     def get_filename(self):
@@ -842,12 +839,12 @@ class Ticket(models.Model):
     def get_assignee(self, only_icon=False):
         try:
             if self.assignee is None:
-                return utils.get_no_value_info('Unassigned')
+                return util_manager.get_no_value_info('Unassigned')
             else:
                 if only_icon:
-                    return utils.get_img_field(self.assignee.icon, self.assignee, 20, 20)
+                    return util_manager.get_img_field(self.assignee.icon, self.assignee, 20, 20)
                 else:
-                    return utils.get_img_text_field(self.assignee.icon, self.assignee, 18, 18)
+                    return util_manager.get_img_text_field(self.assignee.icon, self.assignee, 18, 18)
         except AttributeError:
             return self.assignee
     get_assignee.short_description = 'Assignee'
@@ -857,7 +854,7 @@ class Ticket(models.Model):
 
     def get_resolution(self):
         if self.resolution is None:
-            return utils.get_no_value_info('Unresolved')
+            return util_manager.get_no_value_info('Unresolved')
         else:
             return self.resolution
     get_resolution.short_description = 'Resolution'
@@ -917,7 +914,7 @@ class Ticket(models.Model):
         else:
             self.assignee = user
             self.save()
-            logger.info(add_audit_log(self, 'assignee', self.assignee, 'update'))
+            log.info(add_audit_log(self, 'assignee', self.assignee, 'update'))
             if self.assignee is None:
                 return f'Ticket <strong>{self}</strong> has been unassigned'
             else:
@@ -930,7 +927,7 @@ class Ticket(models.Model):
             self.suspended = False
         else:
             self.suspended = True
-        logger.info(add_audit_log(self, 'suspended', self.suspended, 'update'))
+        log.info(add_audit_log(self, 'suspended', self.suspended, 'update'))
         self.save()
         return self
 
@@ -942,7 +939,7 @@ class Ticket(models.Model):
                 self.status = transition_association.transition.dest_status
                 self.resolution = transition_association.transition.dest_status.resolution
                 self.save()
-                logger.info(add_audit_log(self, self.status._meta.model.__name__, self.status, 'update'))
+                log.info(add_audit_log(self, self.status._meta.model.__name__, self.status, 'update'))
                 return self.status
         return f'Transition is not available in <strong>{self}</strong>'
 
@@ -953,7 +950,7 @@ class Ticket(models.Model):
         new_ticket.tenant = tenant
         new_ticket.status = new_ticket.get_initial_status()
         new_ticket.save()  # create ticket
-        logger.info(add_audit_log(new_ticket, new_ticket._meta.model.__name__, new_ticket, 'create'))
+        log.info(add_audit_log(new_ticket, new_ticket._meta.model.__name__, new_ticket, 'create'))
         if files:
             for file in files:
                 new_ticket.add_attachment(file)
@@ -985,7 +982,7 @@ class Ticket(models.Model):
             self.getattr(field).set(field_value)
             field_value = ', '.join([x.name for x in self.getattr(field).all()])
         finally:
-            logger.info(add_audit_log(ticket_updated, field, field_value, 'update'))
+            log.info(add_audit_log(ticket_updated, field, field_value, 'update'))
             ticket_updated.save()
             return ticket_updated
 
@@ -994,7 +991,7 @@ class Ticket(models.Model):
         new_attachment.file.save(attachment.name, ContentFile(attachment.read()))
         self.attachments.add(new_attachment.id)
         self.save()
-        logger.info(add_audit_log(self, new_attachment._meta.model.__name__, new_attachment, 'add'))
+        log.info(add_audit_log(self, new_attachment._meta.model.__name__, new_attachment, 'add'))
         return new_attachment
 
     def delete_attachment(self, attachment, user):
@@ -1007,7 +1004,7 @@ class Ticket(models.Model):
             attachment_association.delete()
             Attachment.objects.get(id=attachment.id).delete()
             self.save()
-            logger.info(add_audit_log(self, attachment._meta.model.__name__, attachment, 'delete'))
+            log.info(add_audit_log(self, attachment._meta.model.__name__, attachment, 'delete'))
             return True
 
     def add_relation(self, ticket_to_relate_id, user):
@@ -1025,8 +1022,8 @@ class Ticket(models.Model):
         new_relation = TicketAssociation(src_ticket=self, dest_ticket=related_ticket)
         new_relation.save()
         self.save()
-        logger.info(add_audit_log(self, related_ticket._meta.model.__name__, related_ticket, 'add'))
-        logger.info(add_audit_log(related_ticket, self._meta.model.__name__, self, 'add'))
+        log.info(add_audit_log(self, related_ticket._meta.model.__name__, related_ticket, 'add'))
+        log.info(add_audit_log(related_ticket, self._meta.model.__name__, self, 'add'))
         return related_ticket
 
     def delete_relation(self, related_ticket, user):
@@ -1039,8 +1036,8 @@ class Ticket(models.Model):
         elif relation.author.id != user.id and not user.is_admin:
             return f'Relation not added by you cannot be deleted'
         else:
-            logger.info(add_audit_log(self, related_ticket._meta.model.__name__, related_ticket, 'delete'))
-            logger.info(add_audit_log(related_ticket, self._meta.model.__name__, self, 'delete'))
+            log.info(add_audit_log(self, related_ticket._meta.model.__name__, related_ticket, 'delete'))
+            log.info(add_audit_log(related_ticket, self._meta.model.__name__, self, 'delete'))
             self.save()
             related_ticket.save()
             relation.delete()
@@ -1051,7 +1048,7 @@ class Ticket(models.Model):
         new_comment.save()
         self.save()
         self.comments.add(new_comment)
-        logger.info(add_audit_log(self, new_comment._meta.model.__name__, new_comment, 'add'))
+        log.info(add_audit_log(self, new_comment._meta.model.__name__, new_comment, 'add'))
         return new_comment
 
     def delete_comment(self, comment, user):
@@ -1063,7 +1060,7 @@ class Ticket(models.Model):
         else:
             comment_association.delete()
             Comment.objects.get(id=comment.id).delete()
-            logger.info(add_audit_log(self, comment._meta.model.__name__, comment, 'delete'))
+            log.info(add_audit_log(self, comment._meta.model.__name__, comment, 'delete'))
             return True
 
     def edit_comment(self, comment, content, user):
@@ -1076,7 +1073,7 @@ class Ticket(models.Model):
             comment_updated = Comment.objects.get(id=comment.id)
             comment_updated.content = content
             comment_updated.save()
-            logger.info(add_audit_log(self, comment._meta.model.__name__, comment, 'update'))
+            log.info(add_audit_log(self, comment._meta.model.__name__, comment, 'update'))
             return comment_updated
 
     def clone_ticket(self, type_id, user):  # TO DO
@@ -1086,8 +1083,8 @@ class Ticket(models.Model):
         new_ticket.resolution = None
         new_ticket.pk = None
         new_ticket.save()
-        logger.info(add_audit_log(new_ticket, new_ticket._meta.model.__name__, new_ticket, 'create'))
-        logger.info(add_audit_log(self, self._meta.model.__name__, new_ticket, 'clone'))
+        log.info(add_audit_log(new_ticket, new_ticket._meta.model.__name__, new_ticket, 'create'))
+        log.info(add_audit_log(self, self._meta.model.__name__, new_ticket, 'clone'))
         result = self.add_relation(new_ticket.id, user)
         return result
 
@@ -1320,7 +1317,7 @@ class TransitionAssociation(models.Model):
         dest_status_name = str(self.transition).split(' -> ')[1]
         src_status = Status.objects.get(name=src_status_name)
         dest_status = Status.objects.get(name=dest_status_name)
-        return utils.get_transition_block(src_status.color, src_status_name, dest_status.color, dest_status_name)
+        return util_manager.get_transition_block(src_status.color, src_status_name, dest_status.color, dest_status_name)
     full_transition.fget.short_description = 'Transition'
 
 
@@ -1412,11 +1409,6 @@ class LabelAssociation(models.Model):
         return f'{self.label}'
 
 
-@receiver(models.signals.post_delete, sender=Attachment)
-def auto_delete_file_on_delete(sender, instance, **kwargs):  # Deletes file from filesystem when corresponding `Attachment` object is deleted.
-    utils.delete_file(instance)
-
-
 def add_audit_log(obj, content, content_value, operation):
     request = get_current_request()
     return AuditLog.objects.create(
@@ -1427,5 +1419,5 @@ def add_audit_log(obj, content, content_value, operation):
         content_value=content_value,
         operation=operation,
         session=request.session.session_key,
-        ip_address=utils.get_client_ip_address(request),
+        ip_address=util_manager.get_client_ip_address(request),
         url=request.path).get_message()

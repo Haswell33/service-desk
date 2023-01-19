@@ -1,3 +1,4 @@
+import os.path
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth import update_session_auth_hash, login as auth_login, logout as auth_logout, views as auth_views
@@ -30,8 +31,9 @@ from django.db.models.signals import post_delete, post_save, post_init
 from django.template.loader import render_to_string
 from .models import Ticket, TransitionAssociation, Attachment, Comment, Status, User, Tenant, TenantSession, Type, Priority
 from .forms import TicketCreateForm, TicketFilterViewForm, TicketEditAssigneeForm, TicketEditForm, TicketCommentForm, TicketCloneForm, SetPasswordForm, PasswordChangeForm
-from .utils import tenant_manager, board_manager, ticket_manager, utils
+from .utils import tenant_manager, board_manager, ticket_manager, util_manager
 from .context_processors import context_tenant_session
+from .receivers import after_login, after_logout
 
 
 def validate_get_request(self, request, view_name, tenant_check=False, *args, **kwargs):
@@ -84,15 +86,6 @@ def login_page(path):
         return HttpResponseRedirect(f'{settings.LOGIN_URL}?next={path}')
     else:
         return HttpResponseRedirect(settings.LOGIN_URL)
-
-
-def after_logout(sender, user, request, **kwargs):
-    tenant_manager.clear_tenant_session(user)
-
-
-def after_login(sender, user, request, **kwargs):
-    if not tenant_manager.tenant_session(user):
-        context_tenant_session(request)
 
 
 user_logged_out.connect(after_logout)
@@ -170,6 +163,7 @@ class TicketDetailView(FormMixin, DetailView):  # Detail view for ticket
         return context
 
     def get(self, request, *args, **kwargs):
+        print(settings.LOG_DIR)
         ticket = self.get_object()
         if not request.user.is_authenticated:
             return login_page(request.path)
@@ -529,7 +523,7 @@ class TicketFilterView(FormMixin, ListView):
             'form': self.get_form(),
             'fields': model.get_ordering_fields(),
             'curr_ordering': self.request.GET.get('ordering'),
-            'curr_selected': utils.convert_query_dict_to_dict(self.request.GET)
+            'curr_selected': util_manager.convert_query_dict_to_dict(self.request.GET)
         })
         return context
 
@@ -835,7 +829,6 @@ class TenantUpdateView(UpdateView):
     tenant_id = None
 
     def get_queryset(self):
-        print('dupa')
         tenant_check = {'tenant_check': self.request.GET.get('tenant_check', False)}
         return tenant_check
 
@@ -869,4 +862,3 @@ class TenantUpdateView(UpdateView):
         tenant_session.change_active(tenant_id, request.user)
         return self.get_success_url()
 '''
-com = f'su jira -c "jcmd {pid} GC.run"'

@@ -6,9 +6,8 @@ import os
 import math
 import json
 import logging
-import socket
 
-logger = logging.getLogger('core.utils.util_manager')
+log = logging.getLogger('core.utils.util_manager')
 
 
 def delete_file(obj):
@@ -28,8 +27,7 @@ def get_filesize(size):
 
 
 def get_media_path():
-    print([logging.getLogger(name) for name in logging.root.manager.loggerDict])
-    return f'./{settings.MEDIA_URL.strip("/")}'
+    return os.path.join('.', settings.MEDIA_URL.strip("/"))
 
 
 def get_no_value_info(message):

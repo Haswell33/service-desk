@@ -39,6 +39,7 @@ FILE_EXTENSIONS = {
 }
 
 BASE_DIR = Path(__file__).resolve().parent.parent  # Build paths inside the project like this: BASE_DIR / 'subdir'.
+LOG_DIR = BASE_DIR / 'logs'
 SECRET_KEY = 'django-insecure-z(g7^uxx3*)@ctru=wvchu5tezwzd3s@0m01rozf=-szc8%_!@'
 ALLOWED_HOSTS = ['192.168.0.100', '192.168.0.101', '127.0.0.1', '*']
 ROOT_URLCONF = 'conf.urls'
@@ -126,11 +127,11 @@ TEMPLATES = [
 DATABASES = {  # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': '<DB_NAME>>',
-        'USER': '<DB_USER>>',
-        'PASSWORD': '<DB_PASS>>',
+        'NAME': '<DB_NAME>',
+        'USER': '<DB_USER>',
+        'PASSWORD': '<DB_PASS>',
         'HOST': '<DB_HOST>',
-        'PORT': '<DB_PORT>>',
+        'PORT': '<DB_PORT>',
     }
 }
 
@@ -142,7 +143,7 @@ CACHES = {
 }
 
 CACHE_MIDDLEWARE_ALIAS = 'default'  # which cache alias to use
-CACHE_MIDDLEWARE_SECONDS = '600'    # number of seconds to cache a page for (TTL)
+CACHE_MIDDLEWARE_SECONDS = 600    # number of seconds to cache a page for (TTL)
 CACHE_MIDDLEWARE_KEY_PREFIX = ''    # should be used if the cache is shared across multiple sites that use the same Django instance
 
 
@@ -179,99 +180,125 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'default': {
-            'format': '{asctime} {levelname} {message}',
+            'format': '{asctime} [{name}] {levelname} {message}',
             'style': '{',
             'datefmt': '%Y-%m-%d %H:%M:%S'
         },
-        'format-request': {
-            'format': "{asctime} {levelname} {request.user.username} {request.method} {status_code} {message}",
+        'request': {
+            'format': "{asctime} [{name}] {levelname} {request.user.username} {request.method} {status_code} {message}",
             'style': '{',
             'datefmt': '%Y-%m-%d %H:%M:%S'
         },
-        'format-sql': {
-            'format': "{asctime} {levelname} {alias} {sql} {params} [{duration}]",
+        'sql': {
+            'format': "{asctime} [{name}] {levelname} {alias} {sql} {params} [{duration}]",
             'style': '{',
             'datefmt': '%Y-%m-%d %H:%M:%S'
         }
     },
     'filters': {
-        'require_debug_true': {
+        'debug_mode': {
             '()': 'django.utils.log.RequireDebugTrue',
-        },
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse',
         },
     },
     'handlers': {
-        'request': {
-            'level': 'DEBUG',
+        'app': {
             'class': 'logging.handlers.RotatingFileHandler',
-            'formatter': 'format-request',
-            'filename': f'{BASE_DIR}/logs/request.log',
+            'formatter': 'default',
+            'filename': LOG_DIR / 'app.log',
             'maxBytes': 1024*1024*15,  # 15MB
             'backupCount': 5,
         },
-        'template': {
-            'level': 'INFO',
+        'request': {
             'class': 'logging.handlers.RotatingFileHandler',
-            'formatter': 'default',
-            'filename': f'{BASE_DIR}/logs/template.log',
-            'maxBytes': 1024*1024*15,
+            'formatter': 'request',
+            'filename': LOG_DIR / 'request.log',
+            'maxBytes': 1024*1024*15,  # 15MB
             'backupCount': 5,
         },
-        'django': {
-            'level': 'INFO',
+        'request.server': {
             'class': 'logging.handlers.RotatingFileHandler',
-            'formatter': 'format-request',
-            'filename': f'{BASE_DIR}/logs/django.log',
-            'maxBytes': 1024*1024*15,
+            'formatter': 'default',
+            'filename': LOG_DIR / 'request.log',
+            'maxBytes': 1024 * 1024 * 15,
             'backupCount': 5,
         },
         'security': {
-            'level': 'INFO',
             'class': 'logging.handlers.RotatingFileHandler',
             'formatter': 'default',
-            'filename': f'{BASE_DIR}/logs/security.log',
-            'maxBytes': 1024*1024*15,
+            'filename': LOG_DIR / 'security.log',
+            'maxBytes': 1024 * 1024 * 15,
+            'backupCount': 5,
+        },
+        'server': {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'formatter': 'default',
+            'filename': LOG_DIR / 'server.log',
+            'maxBytes': 1024 * 1024 * 15,
+            'backupCount': 5,
+        },
+        'template': {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'formatter': 'default',
+            'filename': LOG_DIR / 'template.log',
+            'maxBytes': 1024 * 1024 * 15,
             'backupCount': 5,
         },
         'sql': {
-            'level': 'DEBUG',
-            #'filters': ['require_debug_true'],
             'class': 'logging.handlers.RotatingFileHandler',
-            'formatter': 'format-sql',
-            'filename': f'{BASE_DIR}/logs/sql.log',
-            'maxBytes': 1024*1024*50,
+            'formatter': 'sql',
+            'filename': LOG_DIR / 'sql.log',
+            'maxBytes': 1024 * 1024 * 15,
             'backupCount': 5,
+            'filters': ['debug_mode']
         },
-        'app': {
-            'level': 'DEBUG',
+        'prometheus': {
             'class': 'logging.handlers.RotatingFileHandler',
             'formatter': 'default',
-            'filename': f'{BASE_DIR}/logs/app.log',
-            'maxBytes': 1024*1024*50,
+            'filename': LOG_DIR / 'prometheus.log',
+            'maxBytes': 1024 * 1024 * 15,
             'backupCount': 5,
+            'filters': ['debug_mode']
         }
     },
     'loggers': {
-        'django.request': {
-            'handlers': ['request'],
+        'core': {
+            'handlers': ['app'],  # custom
             'level': 'DEBUG',
             'propagate': True,
         },
-        'django.server': {
-            'handlers': ['request'],
+        'core.utils.util_manager': {
+            'handlers': ['app'],
             'level': 'DEBUG',
             'propagate': True,
         },
-        'django.template': {
-            'handlers': ['template'],
-            'level': 'INFO',
+        'core.models': {
+            'handlers': ['app'],
+            'level': 'DEBUG',
             'propagate': True,
         },
-        'django.security.*': {
+        'django.security': {  # security
             'handlers': ['security'],
-            'level': 'INFO',
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'django.security.csrf': {
+            'handlers': ['security'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'core.security': {
+            'handlers': ['security'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'django.db': {  # database
+            'handlers': ['sql'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'django.db.backends': {
+            'handlers': ['sql'],
+            'level': 'DEBUG',
             'propagate': True,
         },
         'django.db.backends.schema': {
@@ -279,15 +306,60 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': True,
         },
-        'app': {
-            'handlers': ['app'],
+        'django.db.models': {
+            'handlers': ['sql'],
             'level': 'DEBUG',
             'propagate': True,
         },
-        'django': {
-            'handlers': ['django'],
+        'django.request': {  # request
+            'handlers': ['request'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'django.server': {  # basically this is get/post requests
+            'handlers': ['request.server'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'django.template': {  # template
+            'handlers': ['template'],
             'level': 'INFO',
-            'propagate': True
+            'propagate': True,
+        },
+        'django_prometheus': {   # prometheus
+            'handlers': ['prometheus'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'django_prometheus.exports': {
+            'handlers': ['prometheus'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'django.utils.autoreload': {  # server
+            'handlers': ['server'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'django.utils': {
+            'handlers': ['server'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'django.dispatch': {
+            'handlers': ['server'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'asyncio': {
+            'handlers': ['server'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'concurrent.futures': {
+            'handlers': ['server'],
+            'level': 'INFO',
+            'propagate': True,
         }
     }
 }
