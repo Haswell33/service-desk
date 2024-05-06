@@ -13,7 +13,8 @@ In addition, it is possible to divide tickets by categorizing them into tenants,
 thanks to which it is possible to handle several projects from the level of the same 
 application instance. The solution was prepared in Python using the Django framework.
 
-## Demo users
+## Demo 
+[Test instance](service-desk.siedlaczek.org.pl)
 ```
 Login: demo.customer, Password: demo
 Login: demo.operator, Password: demo
