@@ -14,7 +14,8 @@ thanks to which it is possible to handle several projects from the level of the 
 application instance. The solution was prepared in Python using the Django framework.
 
 ## Demo 
-[Test instance](service-desk.siedlaczek.org.pl)
+
+[Test instance](https://service-desk.siedlaczek.org.pl)
 ```
 Login: demo.customer, Password: demo
 Login: demo.operator, Password: demo
